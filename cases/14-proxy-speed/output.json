@@ -1,0 +1,33 @@
+{
+  "page": "https://en.wikipedia.org/wiki/Web_browser",
+  "statistic": "median of 3 cold loads",
+  "results": [
+    {
+      "proxy": "residential (any country)",
+      "loads": 3,
+      "connect_ms": 1614,
+      "ttfb_ms": 742,
+      "dom_ready_ms": 3382,
+      "lcp_ms": 3384,
+      "load_ms": 7309
+    },
+    {
+      "proxy": "residential (Germany)",
+      "loads": 3,
+      "connect_ms": 340,
+      "ttfb_ms": 201,
+      "dom_ready_ms": 970,
+      "lcp_ms": 948,
+      "load_ms": 1946
+    },
+    {
+      "proxy": "datacenter SOCKS5",
+      "loads": 3,
+      "connect_ms": 543,
+      "ttfb_ms": 119,
+      "dom_ready_ms": 1165,
+      "lcp_ms": 1152,
+      "load_ms": 2441
+    }
+  ]
+}

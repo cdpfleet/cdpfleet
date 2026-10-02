@@ -1,0 +1,40 @@
+{
+  "plan_threads": 100,
+  "workers": 6,
+  "results": [
+    {
+      "strategy": "new session per page",
+      "pages": 24,
+      "wall_seconds": 49.6,
+      "launches": 24,
+      "avg_launch_ms": 310,
+      "avg_connect_ms": 84,
+      "launch_retries": {},
+      "connect_failures": 0,
+      "page_retries": 0,
+      "billed_thread_seconds": 177,
+      "sample_titles": [
+        "Jennie Litvack - Wikipedia",
+        "Athletics at the 1983 Pan American Games – Men's 1500 metres - Wikipedia",
+        "Cornelius Cruys - Wikipedia"
+      ]
+    },
+    {
+      "strategy": "reuse one session per worker",
+      "pages": 24,
+      "wall_seconds": 23,
+      "launches": 6,
+      "avg_launch_ms": 780,
+      "avg_connect_ms": 71,
+      "launch_retries": {},
+      "connect_failures": 0,
+      "page_retries": 0,
+      "billed_thread_seconds": 106,
+      "sample_titles": [
+        "Pallichattambi - Wikipedia",
+        "Poliez-le-Grand - Wikipedia",
+        "Emiliano Mayola - Wikipedia"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "session_1": {
+    "id": "4e47ea1d-9e10-424a-ab70-f248c3361978",
+    "browser": "chromium",
+    "saved_cookies": [
+      "session@httpbin.org",
+      "user@httpbin.org"
+    ],
+    "saved_origins": [
+      "https://httpbin.org"
+    ]
+  },
+  "state_file_bytes": 620,
+  "session_2": {
+    "id": "5fd28c8c-4463-4fb2-aae6-7988fc2692ab",
+    "browser": "firefox",
+    "cookies_sent": {
+      "session": "abc123",
+      "user": "alice"
+    },
+    "local_storage_draft": "half-written review"
+  },
+  "session_2_without_state": {
+    "cookies_sent": {}
+  }
+}

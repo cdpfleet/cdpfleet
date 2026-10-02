@@ -1,0 +1,62 @@
+[
+  {
+    "country": "United States",
+    "locale": "en-US",
+    "exit": "Birmingham, United States",
+    "exit_timezone": "America/Chicago",
+    "languages": [
+      "en-US",
+      "en"
+    ],
+    "timezone": "America/New_York",
+    "date": "10/1/2026, 11:30:00 AM",
+    "number": "1,234,567.891",
+    "price": "€49.90",
+    "position": {
+      "lat": 35.1947,
+      "lon": -80.744
+    },
+    "position_km_from_exit": 573,
+    "isolated_world_timezone": "UTC"
+  },
+  {
+    "country": "Germany",
+    "locale": "de-DE",
+    "exit": "Berlin, Germany",
+    "exit_timezone": "Europe/Berlin",
+    "languages": [
+      "de-DE",
+      "de"
+    ],
+    "timezone": "Europe/Berlin",
+    "date": "1.10.2026, 17:30:00",
+    "number": "1.234.567,891",
+    "price": "49,90 €",
+    "position": {
+      "lat": 51.5791,
+      "lon": 7.0599
+    },
+    "position_km_from_exit": 446,
+    "isolated_world_timezone": "UTC"
+  },
+  {
+    "country": "Japan",
+    "locale": "ja-JP",
+    "exit": "Nagoya, Japan",
+    "exit_timezone": "Asia/Tokyo",
+    "languages": [
+      "ja-JP",
+      "ja"
+    ],
+    "timezone": "Asia/Tokyo",
+    "date": "2026/10/2 0:30:00",
+    "number": "1,234,567.891",
+    "price": "€49.90",
+    "position": {
+      "lat": 34.6967,
+      "lon": 135.5154
+    },
+    "position_km_from_exit": 138,
+    "isolated_world_timezone": "UTC"
+  }
+]

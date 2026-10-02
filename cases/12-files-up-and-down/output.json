@@ -1,0 +1,19 @@
+{
+  "upload": {
+    "local_file": "cdpfleet-upload.csv",
+    "bytes": 58902,
+    "sha256": "f86a1140019393e500309dc68217d77ea6410128cc3dc8630629f423dacbaadd",
+    "server_received_bytes": 58902,
+    "server_sha256": "f86a1140019393e500309dc68217d77ea6410128cc3dc8630629f423dacbaadd",
+    "identical": true,
+    "ms": 3134
+  },
+  "download": {
+    "suggested_filename": "data.bin",
+    "bytes": 102400,
+    "sha256": "3281a765f460e525539f06ff6f9811b0c5d3a081d30d50a50d90a10d6cfa78d1",
+    "direct_sha256": "3281a765f460e525539f06ff6f9811b0c5d3a081d30d50a50d90a10d6cfa78d1",
+    "identical": true,
+    "ms": 1286
+  }
+}

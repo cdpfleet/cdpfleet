@@ -1,0 +1,67 @@
+[
+  {
+    "browser": "chrome",
+    "version": "153.0.8010.36",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/203.0.113.1 Safari/537.36",
+    "http_version": "h2",
+    "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
+    "ja3_hash": "1dadc3d8371c7cd23b73baca6ce4a14e",
+    "peetprint_hash": "fc97c1cdfb1409c9a9326c1b726d1dee",
+    "akamai_h2": "1:65536;2:0;4:6291456;6:262144|15663105|0|m,a,s,p",
+    "akamai_h2_hash": "52d84b11737d980aef856699f885ca86",
+    "cipher_suites": 16,
+    "extensions": 19
+  },
+  {
+    "browser": "edge",
+    "version": "152.0.4191.66",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/203.0.113.2 Safari/537.36 Edg/203.0.113.2",
+    "http_version": "h2",
+    "ja4": "t13d1516h2_8daaf6152771_806a8c22fdea",
+    "ja3_hash": "8aed6551da98b7685768242b17d63530",
+    "peetprint_hash": "8f568b2a409b82d0ec24cb84bf3bc3fc",
+    "akamai_h2": "1:65536;2:0;4:6291456;6:262144|15663105|0|m,a,s,p",
+    "akamai_h2_hash": "52d84b11737d980aef856699f885ca86",
+    "cipher_suites": 16,
+    "extensions": 18
+  },
+  {
+    "browser": "firefox",
+    "version": "150.0.2",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:150.0) Gecko/20100101 Firefox/150.0",
+    "http_version": "h2",
+    "ja4": "t13d1617h2_86a278354501_3cbfd9057e0d",
+    "ja3_hash": "6447ab086255d194909d4013b1a89e87",
+    "peetprint_hash": "fd4547eeb41f073156b7bc8125a79a3c",
+    "akamai_h2": "1:65536;2:0;4:131072;5:16384|12517377|0|m,p,a,s",
+    "akamai_h2_hash": "6ea73faa8fc5aac76bded7bd238f6433",
+    "cipher_suites": 16,
+    "extensions": 17
+  },
+  {
+    "browser": "camoufox",
+    "version": "152.0.4-beta.30",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+    "http_version": "h2",
+    "ja4": "t13d1617h2_86a278354501_3cbfd9057e0d",
+    "ja3_hash": "6447ab086255d194909d4013b1a89e87",
+    "peetprint_hash": "fd4547eeb41f073156b7bc8125a79a3c",
+    "akamai_h2": "1:65536;2:0;4:131072;5:16384|12517377|0|m,p,a,s",
+    "akamai_h2_hash": "6ea73faa8fc5aac76bded7bd238f6433",
+    "cipher_suites": 16,
+    "extensions": 17
+  },
+  {
+    "browser": "webkit",
+    "version": "26.4",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15",
+    "http_version": "HTTP/1.1",
+    "ja4": "t13d2913h1_723694b0fccc_5671b5df5029",
+    "ja3_hash": "2cbcec37dfff29e4c6a34dd35ebe1d70",
+    "peetprint_hash": "e2a4f6ec1c75767498bc87d934bfccec",
+    "akamai_h2": null,
+    "akamai_h2_hash": null,
+    "cipher_suites": 29,
+    "extensions": 13
+  }
+]

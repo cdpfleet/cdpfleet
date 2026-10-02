@@ -1,0 +1,30 @@
+{
+  "echo_server": "wss://ws.postman-echo.com/raw",
+  "round_trips": 20,
+  "results": [
+    {
+      "proxy": "residential (any country)",
+      "exit": "Ho Chi Minh City, Vietnam",
+      "connect_ms": 676,
+      "rtt_p50_ms": 185,
+      "rtt_p95_ms": 196,
+      "rtt_min_ms": 182
+    },
+    {
+      "proxy": "residential (Germany)",
+      "exit": "Hagen, Germany",
+      "connect_ms": 575,
+      "rtt_p50_ms": 142,
+      "rtt_p95_ms": 147,
+      "rtt_min_ms": 139
+    },
+    {
+      "proxy": "datacenter SOCKS5",
+      "exit": "Los Angeles, United States",
+      "connect_ms": 662,
+      "rtt_p50_ms": 110,
+      "rtt_p95_ms": 120,
+      "rtt_min_ms": 109
+    }
+  ]
+}

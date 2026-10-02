@@ -1,0 +1,28 @@
+# Examples
+
+Complete programs in Node.js, Python, Java, C# and Go. Each one launches a browser over the cdpfleet API, connects with Playwright and closes the session.
+
+- [quickstart/](quickstart) — the shortest path to a working session
+- browsers/ — one minimal program per browser:
+  - [Google Chrome](browsers/chrome)
+  - [Microsoft Edge](browsers/edge)
+  - [Brave](browsers/brave)
+  - [Opera](browsers/opera)
+  - [Naver Whale](browsers/whale)
+  - [Yandex Browser](browsers/yandex)
+  - [Chromium](browsers/chromium)
+  - [Patchright](browsers/patchright)
+  - [Rebrowser](browsers/rebrowser)
+  - [CloakBrowser](browsers/cloakbrowser)
+  - [Camoufox](browsers/camoufox)
+  - [Firefox](browsers/firefox)
+  - [WebKit](browsers/webkit)
+- recipes/ — common setups:
+  - [Google Chrome, beta channel](recipes/chrome-beta)
+  - [Camoufox with a Windows fingerprint](recipes/camoufox-fingerprint)
+  - [Proxy pool with per-host rules](recipes/proxy-pool-and-rules)
+  - [Long-running session](recipes/long-session)
+
+Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).
+
+Generated from the same code generator as the [code builder](https://cdpfleet.com/docs/builder).

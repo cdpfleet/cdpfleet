@@ -1,0 +1,21 @@
+{
+  "before": {
+    "exit_ip": "203.0.113.1",
+    "cookies": {
+      "cart": "3-items",
+      "login": "alice"
+    }
+  },
+  "swap_ms": 92,
+  "same_tab_reused_connection": "203.0.113.1",
+  "same_tab_new_connection": "203.0.113.2",
+  "new_context_with_storage_state": {
+    "exit_ip": "203.0.113.2",
+    "cookies": {
+      "cart": "3-items",
+      "login": "alice"
+    },
+    "local_storage": "half-written review"
+  },
+  "same_browser_session": true
+}

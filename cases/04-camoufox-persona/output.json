@@ -1,0 +1,38 @@
+{
+  "random exit": {
+    "exit_country": "United States",
+    "exit_timezone": "America/New_York",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+    "accept_language": "de-DE,de;q=0.9",
+    "platform": "Win32",
+    "languages": [
+      "de-DE",
+      "de"
+    ],
+    "timezone": "Asia/Kuala_Lumpur",
+    "screen": "1920x1080",
+    "window": "1600x900",
+    "hardware_concurrency": 24,
+    "webgl_renderer": "ANGLE (Intel, Intel(R) HD Graphics 400 Direct3D11 vs_5_0 ps_5_0), or similar",
+    "webrtc": false,
+    "ja4": "t13d1617h2_86a278354501_3cbfd9057e0d"
+  },
+  "German exit": {
+    "exit_country": "Germany",
+    "exit_timezone": "Europe/Berlin",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+    "accept_language": "de-DE,de;q=0.9",
+    "platform": "Win32",
+    "languages": [
+      "de-DE",
+      "de"
+    ],
+    "timezone": "Europe/Berlin",
+    "screen": "1920x1080",
+    "window": "1600x900",
+    "hardware_concurrency": 32,
+    "webgl_renderer": "ANGLE (Intel, Intel(R) HD Graphics Direct3D11 vs_5_0 ps_5_0), or similar",
+    "webrtc": false,
+    "ja4": "t13d1617h2_86a278354501_3cbfd9057e0d"
+  }
+}

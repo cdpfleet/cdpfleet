@@ -1,0 +1,32 @@
+[
+  {
+    "variant": "everything",
+    "title": "BBC News - Breaking news, video and the latest top stories from the U.S. and around the world",
+    "requests": 80,
+    "blocked": 0,
+    "kilobytes": 1662,
+    "dom_ready_ms": 4314,
+    "saved": "0%",
+    "proxy_cost_per_100k_pages": "$476"
+  },
+  {
+    "variant": "no images, media or fonts",
+    "title": "BBC News - Breaking news, video and the latest top stories from the U.S. and around the world",
+    "requests": 84,
+    "blocked": 28,
+    "kilobytes": 1533,
+    "dom_ready_ms": 5030,
+    "saved": "8%",
+    "proxy_cost_per_100k_pages": "$439"
+  },
+  {
+    "variant": "…and first-party only",
+    "title": "BBC News - Breaking news, video and the latest top stories from the U.S. and around the world",
+    "requests": 53,
+    "blocked": 31,
+    "kilobytes": 791,
+    "dom_ready_ms": 2688,
+    "saved": "52%",
+    "proxy_cost_per_100k_pages": "$226"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "name": "cdpfleet-starter",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.60.0"
+  }
+}

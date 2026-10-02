@@ -1,0 +1,47 @@
+{
+  "desktop": {
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/203.0.113.1 Safari/537.36",
+    "viewport": "1280x720",
+    "screen": "1280x720",
+    "device_pixel_ratio": 1,
+    "max_touch_points": 0,
+    "coarse_pointer": false,
+    "platform": "Linux x86_64",
+    "ua_data_mobile": false,
+    "ua_data_platform": "Linux",
+    "sec_ch_ua_mobile": "?0",
+    "sec_ch_ua_platform": "\"Linux\"",
+    "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
+    "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
+  },
+  "iPhone 15 Pro": {
+    "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Mobile/15E148 Safari/604.1",
+    "viewport": "980x1644",
+    "screen": "393x852",
+    "device_pixel_ratio": 3,
+    "max_touch_points": 1,
+    "coarse_pointer": true,
+    "platform": "Linux x86_64",
+    "ua_data_mobile": true,
+    "ua_data_platform": "iOS",
+    "sec_ch_ua_mobile": "?1",
+    "sec_ch_ua_platform": "\"iOS\"",
+    "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
+    "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
+  },
+  "Pixel 7": {
+    "user_agent": "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.7778.96 Mobile Safari/537.36",
+    "viewport": "981x1996",
+    "screen": "412x915",
+    "device_pixel_ratio": 2.625,
+    "max_touch_points": 1,
+    "coarse_pointer": true,
+    "platform": "Linux x86_64",
+    "ua_data_mobile": true,
+    "ua_data_platform": "Android",
+    "sec_ch_ua_mobile": "?1",
+    "sec_ch_ua_platform": "\"Android\"",
+    "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
+    "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
+  }
+}
