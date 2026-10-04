@@ -1,0 +1,38 @@
+[
+  {
+    "artifact": "trace.zip",
+    "bytes": 343204,
+    "detail": "8 actions: newPage, goto, goto, fill, check, click, waitForEventInfo, screenshot",
+    "screenshots": 8,
+    "snapshots": 16,
+    "network_entries": 4,
+    "open_with": "npx playwright show-trace trace.zip"
+  },
+  {
+    "artifact": "session.webm",
+    "bytes": 217664,
+    "detail": "valid WebM (EBML header)",
+    "screenshots": null,
+    "snapshots": null,
+    "network_entries": null,
+    "open_with": "any video player"
+  },
+  {
+    "artifact": "final.png",
+    "bytes": 77996,
+    "detail": "screenshot after the last step",
+    "screenshots": null,
+    "snapshots": null,
+    "network_entries": null,
+    "open_with": "image viewer"
+  },
+  {
+    "artifact": "whole run",
+    "bytes": null,
+    "detail": "10.3 s including recording and downloads",
+    "screenshots": null,
+    "snapshots": null,
+    "network_entries": null,
+    "open_with": null
+  }
+]

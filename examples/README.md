@@ -21,6 +21,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Google Chrome, beta channel](recipes/chrome-beta)
   - [Camoufox with a Windows fingerprint](recipes/camoufox-fingerprint)
   - [Proxy pool with per-host rules](recipes/proxy-pool-and-rules)
+  - [SOCKS5 proxy with authentication](recipes/socks5-proxy)
+  - [Patchright, headful, for stricter sites](recipes/headful-stealth)
+  - [Camoufox: pinned version, macOS persona, no images](recipes/camoufox-lean-persona)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).

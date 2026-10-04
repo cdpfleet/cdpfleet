@@ -54,8 +54,10 @@ The same in [Python, Java, C# and Go](examples/quickstart). Get an API key in th
 - [A worker pool with retries and backoff](cases/10-worker-pool)
 - [Stay logged in across sessions with storageState](cases/11-persist-login)
 - [Three countries, one script: Camoufox geo personas](cases/15-three-countries)
+- [What headless gives away, what headful fixes, and what neither does](cases/16-headless-tells)
+- [Session replay without a vendor: Playwright tracing and video](cases/18-trace-and-video)
 
-All 15 in [cases/](cases).
+All 18 in [cases/](cases).
 
 ## Support
 

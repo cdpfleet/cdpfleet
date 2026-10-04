@@ -1,0 +1,21 @@
+[
+  {
+    "method": "scroll the page",
+    "quotes": 100,
+    "authors": 50,
+    "scrolls": 12,
+    "requests": 16,
+    "load_seconds": 5.761,
+    "collect_seconds": 8.785
+  },
+  {
+    "method": "call its JSON API",
+    "quotes": 100,
+    "authors": 50,
+    "api_pages": 13,
+    "endpoint": "/api/quotes?page=N",
+    "requests": 19,
+    "load_seconds": 4.635,
+    "collect_seconds": 1.405
+  }
+]

@@ -25,7 +25,7 @@ You need the mobile version of a site, so you open a context with Playwright's `
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-09-30):
+The same program in five languages, each verified on the production fleet (last run 2026-10-04):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -39,7 +39,7 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Context | User agent | Viewport | DPR | Touch | navigator.platform | userAgentData | JA4 |
 |---|---|---|---|---|---|---|---|
-| desktop | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/203.0.113.1 Safari/537.36 | 1280x720 | 1 | 0 | Linux x86_64 | Linux | t13d1517h2_8daaf6152771_cb7bf5808d99 |
+| desktop | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 | 1280x720 | 1 | 0 | Linux x86_64 | Linux | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 | iPhone 15 Pro | Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Mobile/15E148 Safari/604.1 | 980x1644 | 3 | 1 | Linux x86_64 | iOS | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 | Pixel 7 | Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.7778.96 Mobile Safari/537.36 | 981x1996 | 2.625 | 1 | Linux x86_64 | Android | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 

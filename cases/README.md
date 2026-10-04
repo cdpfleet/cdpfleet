@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #18 | [Session replay without a vendor: Playwright tracing and video on a remote browser](18-trace-and-video) | Easy | Chromium |
+| #17 | [Infinite scroll, two ways: scroll like a user, or call the JSON the page calls](17-infinite-scroll) | Easy | Chromium |
+| #16 | [What headless gives away, what headful fixes, and what neither does](16-headless-tells) | Medium | Chromium, Patchright, Camoufox |
 | #15 | [Three countries, one script — and reading values the way the site does](15-three-countries) | Hard | Camoufox |
 | #14 | [What your proxy costs you in page speed](14-proxy-speed) | Medium | Chromium |
 | #13 | [Real-time sites through a proxy: WebSocket latency by proxy](13-websockets-through-proxies) | Medium | Chromium |

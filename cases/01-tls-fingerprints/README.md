@@ -26,7 +26,7 @@ Anti-bot systems don't wait for JavaScript. The first thing a server sees is the
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-09-30):
+The same program in five languages, each verified on the production fleet (last run 2026-10-04):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -40,8 +40,8 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Browser | Version | HTTP | JA4 | Akamai h2 hash | Ciphers | Extensions |
 |---|---|---|---|---|---|---|
-| chrome | 153.0.8010.36 | h2 | t13d1517h2_8daaf6152771_cb7bf5808d99 | 52d84b11737d980aef856699f885ca86 | 16 | 19 |
-| edge | 152.0.4191.66 | h2 | t13d1516h2_8daaf6152771_806a8c22fdea | 52d84b11737d980aef856699f885ca86 | 16 | 18 |
+| chrome | 154.0.8037.97 | h2 | t13d1517h2_8daaf6152771_cb7bf5808d99 | 52d84b11737d980aef856699f885ca86 | 16 | 19 |
+| edge | 154.0.4258.53 | h2 | t13d1516h2_8daaf6152771_806a8c22fdea | 52d84b11737d980aef856699f885ca86 | 16 | 18 |
 | firefox | 150.0.2 | h2 | t13d1617h2_86a278354501_3cbfd9057e0d | 6ea73faa8fc5aac76bded7bd238f6433 | 16 | 17 |
 | camoufox | 152.0.4-beta.30 | h2 | t13d1617h2_86a278354501_3cbfd9057e0d | 6ea73faa8fc5aac76bded7bd238f6433 | 16 | 17 |
 | webkit | 26.4 | HTTP/1.1 | t13d2913h1_723694b0fccc_5671b5df5029 | — | 29 | 13 |
