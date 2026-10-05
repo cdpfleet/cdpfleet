@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://books.toscrape.com/",
+    "http_status": 200,
+    "html_kb": 50,
+    "items_in_html": 20,
+    "fetch_seconds": 3.55,
+    "needs_browser": false,
+    "items_in_browser": null,
+    "browser_seconds": null
+  },
+  {
+    "url": "https://quotes.toscrape.com/js/",
+    "http_status": 200,
+    "html_kb": 6,
+    "items_in_html": 0,
+    "fetch_seconds": 1.223,
+    "items_in_browser": 10,
+    "browser_seconds": 11.043,
+    "needs_browser": true
+  },
+  {
+    "url": "https://quotes.toscrape.com/scroll",
+    "http_status": 200,
+    "html_kb": 3,
+    "items_in_html": 0,
+    "fetch_seconds": 2.605,
+    "items_in_browser": 10,
+    "browser_seconds": 6.12,
+    "needs_browser": true
+  }
+]

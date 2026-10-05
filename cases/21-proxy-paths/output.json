@@ -1,0 +1,50 @@
+[
+  {
+    "path": "page.goto",
+    "runs_on": "the browser",
+    "exit_ip": "203.0.113.1",
+    "exit_type": "residential",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+    "http_version": "h2",
+    "ja4": "t13d1516h2_8daaf6152771_d8a2da3f94cd",
+    "tls_extensions": 18,
+    "resumed_tls": false,
+    "same_tls_stack_as_browser": true
+  },
+  {
+    "path": "fetch() in page.evaluate",
+    "runs_on": "the browser",
+    "exit_ip": "203.0.113.2",
+    "exit_type": "residential",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+    "http_version": "h2",
+    "ja4": "t13d1517h2_8daaf6152771_b6f405a00624",
+    "tls_extensions": 19,
+    "resumed_tls": true,
+    "same_tls_stack_as_browser": true
+  },
+  {
+    "path": "page.request.get",
+    "runs_on": "Playwright server",
+    "exit_ip": "203.0.113.3",
+    "exit_type": "residential",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+    "http_version": "HTTP/1.1",
+    "ja4": "t13d5211_b262b3658495_8e6e362c5eac",
+    "tls_extensions": 11,
+    "resumed_tls": false,
+    "same_tls_stack_as_browser": false
+  },
+  {
+    "path": "fetch() in your script",
+    "runs_on": "your machine",
+    "exit_ip": "203.0.113.4",
+    "exit_type": "datacenter",
+    "user_agent": "node",
+    "http_version": "HTTP/1.1",
+    "ja4": "t13d5911h1_a33745022dd6_1f22a2ca17c4",
+    "tls_extensions": 11,
+    "resumed_tls": false,
+    "same_tls_stack_as_browser": false
+  }
+]

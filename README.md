@@ -56,8 +56,9 @@ The same in [Python, Java, C# and Go](examples/quickstart). Get an API key in th
 - [Three countries, one script: Camoufox geo personas](cases/15-three-countries)
 - [What headless gives away, what headful fixes, and what neither does](cases/16-headless-tells)
 - [Session replay without a vendor: Playwright tracing and video](cases/18-trace-and-video)
+- [Four ways to make a request, four different visitors: goto, in-page fetch, page.request](cases/21-proxy-paths)
 
-All 18 in [cases/](cases).
+All 21 in [cases/](cases).
 
 ## Support
 

@@ -1,0 +1,32 @@
+[
+  {
+    "persona": "alice",
+    "threads": 1,
+    "cookie": "session=alice-token",
+    "storage_owner": "alice",
+    "language": "en-US",
+    "timezone": "America/New_York",
+    "clock": "8:00:00 AM",
+    "exit_ip": "203.0.113.1"
+  },
+  {
+    "persona": "bruno",
+    "threads": 1,
+    "cookie": "session=bruno-token",
+    "storage_owner": "bruno",
+    "language": "pt-BR",
+    "timezone": "America/Sao_Paulo",
+    "clock": "09:00:00",
+    "exit_ip": "203.0.113.2"
+  },
+  {
+    "persona": "chie",
+    "threads": 1,
+    "cookie": "session=chie-token",
+    "storage_owner": "chie",
+    "language": "ja-JP",
+    "timezone": "Asia/Tokyo",
+    "clock": "21:00:00",
+    "exit_ip": "203.0.113.3"
+  }
+]

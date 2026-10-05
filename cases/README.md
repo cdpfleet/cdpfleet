@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #21 | [Four ways to make a request, four different visitors: goto, in-page fetch, page.request and your own client](21-proxy-paths) | Medium | Chromium |
+| #20 | [Three visitors, one thread: browser contexts instead of sessions](20-contexts-not-sessions) | Easy | Chromium |
+| #19 | [Fetch first, browser second: paying for JavaScript only when the page needs it](19-fetch-first) | Easy | Chromium |
 | #18 | [Session replay without a vendor: Playwright tracing and video on a remote browser](18-trace-and-video) | Easy | Chromium |
 | #17 | [Infinite scroll, two ways: scroll like a user, or call the JSON the page calls](17-infinite-scroll) | Easy | Chromium |
 | #16 | [What headless gives away, what headful fixes, and what neither does](16-headless-tells) | Medium | Chromium, Patchright, Camoufox |
