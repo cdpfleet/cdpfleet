@@ -13,6 +13,7 @@ Read your plan, usage, sessions and traffic, and end sessions, over HTTPS. Authe
 | GET | `/v1/me/bandwidth` | Proxy traffic: totals, per day, per proxy and the top 50 hosts. `?days` 1–31 |
 | GET | `/v1/me/bandwidth.csv` | The same as CSV, one row per day, session, host and proxy |
 | GET | `/v1/me/sessions/{id}/bandwidth` | One session's traffic per host |
+| GET | `/v1/me/proxy-balance` | cdpfleet residential proxy: balance and today's usage (bytes), whether launches are allowed, price per GB, last 50 ledger entries |
 | GET | `/v1/me/proxies` | Your saved proxies with their last check (passwords masked) |
 | GET | `/v1/me/proxy-rules` | Your proxy-rule sets |
 

@@ -1,6 +1,29 @@
 # Proxies
 
-Every session browses through your proxy. You choose where traffic exits; cdpfleet never browses from its own IPs.
+Every session browses through a proxy — yours, or the cdpfleet residential proxy. cdpfleet never browses from its own server IPs.
+
+## cdpfleet residential proxy
+
+No proxy of your own? Send a `cdpfleet-resi` token as `proxy`. Every account gets **1 GB free**, then **$5 per GB** (up + down, 1 GB = 10⁹ bytes), prepaid from a balance topped up in the [dashboard](https://cdpfleet.com/app#proxies), separately from threads.
+
+```jsonc
+"proxy": "cdpfleet-resi"                                        // new residential IP per connection, any country
+"proxy": "cdpfleet-resi-country-us"                             // exits in the United States
+"proxy": "cdpfleet-resi-country-us-os-windows"                  // … from Windows devices
+"proxy": "cdpfleet-resi-country-de-session-cart1-lifetime-30"   // the same German IP for up to 30 minutes
+```
+
+| Part | Values | Meaning |
+|---|---|---|
+| `-country-XX` | ISO two-letter code | Exit country; any if omitted |
+| `-os-…` | `windows`, `android`, `ios`, `mac` | Device type behind the residential IP |
+| `-session-ID` | 1–10 of `A-Z a-z 0-9 _` | Sticky: same IP for every connection; reuse the name later to keep it |
+| `-lifetime-MIN` | 1–1440, only with a session | How long the sticky IP is kept (default 30) |
+
+- Parts go in this order; otherwise `400 invalid_proxy` names the wrong part.
+- Use it as the whole `proxy` or as one rule's proxy in `proxy_rules` — not inside a list of proxies.
+- Empty balance → `402 proxy_balance_exhausted`. Metering runs about once a minute; a running session may go 100 MB past zero before it's ended.
+- Balance: `GET /v1/me/proxy-balance` ([Account API](account-api.md)).
 
 ## Formats
 

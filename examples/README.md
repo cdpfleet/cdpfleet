@@ -30,6 +30,7 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Microsoft Edge, beta channel](recipes/edge-beta)
   - [Brave with Shields on](recipes/brave)
   - [Camoufox as a Windows laptop with Intel graphics](recipes/camoufox-intel-laptop)
+  - [Chrome over CDP (connectOverCDP or Puppeteer)](recipes/chrome-cdp)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).

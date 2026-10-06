@@ -34,6 +34,7 @@ The real Google Chrome, with stable, beta and dev channels and recent previous m
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
 | `version` | `string` | none (latest stable) | Pin an older major version. Previous majors rotate out automatically: Chrome keeps its two most recent previous majors and drops the oldest within about a day of a new stable release; Camoufox keeps recent majors plus long-term ones. Read the live list rather than hard-coding a number. Send either `version` or a pre-release `channel`, not both: together they return `400` (`channel: "stable"` with a `version` is fine). |
+| `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
 
 
 ## Microsoft Edge
@@ -50,6 +51,7 @@ Microsoft Edge on Linux, with stable, beta and dev channels.
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
+| `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
 
 
 ## Brave
@@ -66,6 +68,7 @@ The Brave browser, with stable and beta channels.
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
+| `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
 
 
 ## Opera
@@ -82,6 +85,7 @@ Opera, with stable, beta and developer channels.
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
+| `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
 
 
 ## Naver Whale
@@ -114,6 +118,7 @@ Yandex Browser. Stable channel.
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
+| `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
 
 
 ## Chromium
@@ -129,6 +134,7 @@ The open-source Chromium build that ships with Playwright. Fast, predictable and
 | `inactivity_timeout` | `number \| string` | 60s | End the session after this long with no traffic on its WebSocket. A slow page load through a proxy can produce no traffic for a while, so keep it at 60 s or more. Shared threads can lower it but not raise it above 60 s; dedicated threads can set up to 24 h. Never longer than the session's overall timeout. |
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
+| `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
 
 
 ## Patchright
@@ -174,6 +180,7 @@ CloakBrowser, a Chromium build hardened against fingerprinting.
 | `inactivity_timeout` | `number \| string` | 60s | End the session after this long with no traffic on its WebSocket. A slow page load through a proxy can produce no traffic for a while, so keep it at 60 s or more. Shared threads can lower it but not raise it above 60 s; dedicated threads can set up to 24 h. Never longer than the session's overall timeout. |
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
+| `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
 
 
 ## Camoufox

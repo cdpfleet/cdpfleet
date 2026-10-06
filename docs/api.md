@@ -35,7 +35,16 @@ content-type: application/json
 const browser = await chromium.connect(wsUrl, { headers: { 'x-api-key': KEY } });
 ```
 
-Use Playwright's `connect()` (not `connectOverCDP()`) with the client for the browser's family — `chromium` for the Chromium-based browsers, `firefox` for Firefox and Camoufox, `webkit` for WebKit — and the same key that launched the session.
+Use Playwright's `connect()` with the client for the browser's family — `chromium` for the Chromium-based browsers, `firefox` for Firefox and Camoufox, `webkit` for WebKit — and the same key that launched the session.
+
+## Connect over CDP (Puppeteer, connectOverCDP)
+
+Launch with `"cdp": true` (Chrome, Edge, Brave, Opera, Yandex, Chromium, CloakBrowser) and the response also has `cdpUrl` (`<wsUrl>/cdp`). See [cdp.md](cdp.md).
+
+```js
+const browser = await puppeteer.connect({ browserWSEndpoint: cdpUrl, headers: { 'x-api-key': KEY } });
+// or: await chromium.connectOverCDP(cdpUrl, { headers: { 'x-api-key': KEY } });
+```
 
 ## End a session
 
