@@ -27,6 +27,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Short-lived sessions for burst jobs](recipes/burst-timeouts)
   - [Camoufox with a fixed screen and window](recipes/camoufox-fixed-screen)
   - [Rebrowser with the Playwright 1.52 client](recipes/rebrowser)
+  - [Microsoft Edge, beta channel](recipes/edge-beta)
+  - [Brave with Shields on](recipes/brave)
+  - [Camoufox as a Windows laptop with Intel graphics](recipes/camoufox-intel-laptop)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).

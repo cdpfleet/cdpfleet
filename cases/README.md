@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #24 | [New tabs, window.open and the three blocking dialogs: everything that interrupts a script](24-popups-and-dialogs) | Easy | Chromium |
+| #23 | [Download every image on a page without downloading it twice](23-image-download) | Easy | Chromium |
+| #22 | [Check every link on a page: 73 links in seconds, from inside the browser](22-link-checker) | Easy | Chromium |
 | #21 | [Four ways to make a request, four different visitors: goto, in-page fetch, page.request and your own client](21-proxy-paths) | Medium | Chromium |
 | #20 | [Three visitors, one thread: browser contexts instead of sessions](20-contexts-not-sessions) | Easy | Chromium |
 | #19 | [Fetch first, browser second: paying for JavaScript only when the page needs it](19-fetch-first) | Easy | Chromium |

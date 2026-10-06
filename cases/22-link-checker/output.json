@@ -1,0 +1,24 @@
+[
+  {
+    "method": "fetch() in the page, 8 at a time",
+    "links": 73,
+    "ok": 73,
+    "redirected": 0,
+    "broken": 0,
+    "broken_urls": [],
+    "seconds": 7.629,
+    "seconds_per_link": 0.1,
+    "requests_made": 73
+  },
+  {
+    "method": "page.goto each link (10-link sample)",
+    "links": 10,
+    "ok": 10,
+    "redirected": 0,
+    "broken": 0,
+    "broken_urls": [],
+    "seconds": 22.248,
+    "seconds_per_link": 2.22,
+    "requests_made": 288
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "event": "link with target=_blank",
+    "what_happened": "new page: https://example.com/ — \"Example Domain\"",
+    "handled_with": "context.waitForEvent(\"page\") + popup.waitForLoadState()",
+    "pages_open": 2,
+    "opener_is_main_page": true
+  },
+  {
+    "event": "window.open()",
+    "what_happened": "new page: https://example.com/?popup — \"Example Domain\"",
+    "handled_with": "context.waitForEvent(\"page\") + popup.waitForLoadState()",
+    "pages_open": 2,
+    "opener_is_main_page": true
+  },
+  {
+    "event": "confirm() with no dialog handler",
+    "what_happened": "page saw confirm() return false",
+    "handled_with": "nothing — auto-dismissed",
+    "pages_open": 1,
+    "opener_is_main_page": null
+  },
+  {
+    "event": "alert()",
+    "what_happened": "alert: \"Saved!\"",
+    "handled_with": "dialog.accept()",
+    "pages_open": 1,
+    "opener_is_main_page": null
+  },
+  {
+    "event": "confirm() with a handler",
+    "what_happened": "confirm: \"Delete 3 items?\" → page saw true",
+    "handled_with": "dialog.accept()",
+    "pages_open": 1,
+    "opener_is_main_page": null
+  },
+  {
+    "event": "prompt()",
+    "what_happened": "prompt: \"Your name?\" → page saw \"Ada Lovelace\"",
+    "handled_with": "dialog.accept(\"Ada Lovelace\")",
+    "pages_open": 1,
+    "opener_is_main_page": null
+  }
+]
