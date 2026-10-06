@@ -27,7 +27,7 @@ Detection scripts don't need your TLS fingerprint to know a browser is automated
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-04):
+The same program in five languages, each verified on the production fleet (last run 2026-10-06):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -41,10 +41,10 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Browser | Threads | Tells fired | Headless in UA | webdriver | Plugins | Notification contradiction | Screen | WebGL renderer | Cores | Memory (GB) | window.chrome |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Chromium, headless | 1 | ua_says_headless, notification_mismatch | true | false | 0 | true | 1280x720 | ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) | 64 | 32 | false |
+| Chromium, headless | 1 | ua_says_headless, notification_mismatch | true | false | 0 | true | 1280x720 | ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) | 36 | 32 | false |
 | Chromium, headful | 2 | none | false | false | 5 | false | 1280x720 | ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) | 64 | 32 | true |
-| Patchright, headful | 2 | none | false | false | 5 | false | 1280x720 | — | 64 | 32 | true |
-| Camoufox, headful | 2 | none | false | false | 5 | false | 2560x1440 | ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar | 16 | — | false |
+| Patchright, headful | 2 | none | false | false | 5 | false | 1280x720 | ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) | 12 | 32 | true |
+| Camoufox, headful | 2 | none | false | false | 5 | false | 2752x1152 | ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar | 32 | — | false |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
@@ -53,5 +53,5 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 - **Headless Chromium fires two tells on arrival:** `HeadlessChrome` in the user agent and the notification contradiction (`Notification.permission` is *denied* while `permissions.query` says *prompt*). It also has zero plugins and no `window.chrome`.
 - **Headful fixes all of that with the same build:** no `Headless` in the UA, five plugins, consistent permissions, `window.chrome` present — one extra thread buys it. `navigator.webdriver` is `false` in every build on the fleet, headless included.
 - **What headful doesn't fix is the hardware:** both Chromium modes report the same `SwiftShader` software renderer and the server's 64 cores and 32 GB — a desktop that doesn't exist. Sites that score the GPU string see it either way.
-- **Patchright, headful, reports no WebGL renderer at all** on the fleet today (no WebGL context is created), which bot.sannysoft.com marks red; its headless mode has WebGL. We are looking into it. Everything else matches headful Chromium.
+- **Patchright, headful, now matches headful Chromium signal for signal**, SwiftShader renderer included. (Our first run on 4 October found no WebGL context at all in Patchright headful: Patchright's launcher adds Chromium's `--enable-unsafe-swiftshader` only on macOS, where Playwright adds it everywhere. The fleet now adds it for Patchright launches — the row above is the re-run.)
 - **Camoufox replaces the hardware story:** a consumer GPU string, a desktop-sized screen, 8–32 cores, no `deviceMemory` (Firefox never had it) and no `window.chrome` — consistent with the Firefox-on-Windows identity it claims.
