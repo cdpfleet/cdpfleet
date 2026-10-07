@@ -7,8 +7,10 @@
 | [Browsers and launch options](browsers-and-options.md) | Every browser's endpoint, Playwright client and options (generated) |
 | [CDP & Puppeteer](cdp.md) | `"cdp": true` → `cdpUrl` for Puppeteer, connectOverCDP and raw CDP |
 | [Live view](live-view.md) | Stream the page to your code with `page.screencast` |
+| [Session recordings](recordings.md) | Save a session as MP4; free tier, plans and `"record": false` |
 | [Proxies](proxies.md) | Formats, pools, per-host rules, live swapping |
 | [Sessions and limits](sessions-and-limits.md) | Threads, metering, timeouts, plans |
+| [Keep-alive](keep-alive.md) | Reconnect to the same browser with `"keep_alive": true` (dedicated threads) |
 | [Errors](errors.md) | Status codes and what to do about each |
 | [Account API](account-api.md) | Usage, sessions, live threads and traffic over HTTPS |
 
