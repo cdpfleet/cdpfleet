@@ -11,6 +11,8 @@ POST https://starter.cdpfleet.com/chrome/session
 { "proxy": "http://user:pass@proxy.example.com:8080", "record": false }
 ```
 
+Headful tip: Playwright sizes each context's window to its viewport (1280×720 by default), so the recording shows that window on a larger desktop. Create contexts with `viewport: null` (Python `no_viewport=True`) and the page fills the whole display (`screen_size`, 1920×1080 by default). Headless recordings capture the page itself and always fill the frame.
+
 Videos are **480p, 1 fps MP4**, about **1.2 MB per minute** — sized for reviewing what happened, not for pixel-perfect playback.
 
 ## Free tier and plans

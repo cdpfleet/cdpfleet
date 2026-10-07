@@ -32,6 +32,6 @@ POST https://router01.cdpfleet.com/admin/session/live      (x-api-key)
 - `vnc` (headful sessions, the default): open with noVNC — `new RFB(el, live_url)`, `rfb.viewOnly = mode === 'view'`.
 - `screencast` (headless Chromium-based sessions launched with `"live_view": true`): JPEG frames as binary messages; in control mode send `mouse` / `key` / `text` JSON messages in page CSS pixels.
 - Links are single-use (5 minutes); at most 4 viewers; watching never ends or bills the session; your code must have connected once first. WebKit ignores clicks from the viewer.
-- `"screen_size": "1366x768"` at launch sets a headful session's display; open Playwright contexts with `viewport: null` to see it as `screen`.
+- `"screen_size": "1366x768"` at launch sets a headful session's display; open Playwright contexts with `viewport: null` to see it as `screen` and to make the page fill the whole view (otherwise Playwright sizes the window to the 1280×720 default viewport).
 
 Full page: [cdpfleet.com/docs/live-view](https://cdpfleet.com/docs/live-view).
