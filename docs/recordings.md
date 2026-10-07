@@ -3,7 +3,7 @@
 Every session can be saved as a video you download later — separate from [live view](live-view.md), which streams frames to your running code. Recordings are made on the server and kept for you to review afterwards.
 
 - **Headful** sessions (the default — a virtual display) are recorded from that display automatically.
-- **Headless** sessions are recorded only with `"cdp": true`, which gives the recorder a way to capture the page.
+- **Headless** sessions are recorded only with `"cdp": true` or `"live_view": true`, which give the recorder a way to capture the page. Other headless sessions are never recorded.
 - Opt out of recording for a session with `"record": false`.
 
 ```
