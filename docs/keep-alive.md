@@ -11,7 +11,8 @@ POST https://starter.cdpfleet.com/chrome/session
 ```
 
 - **Dedicated threads only.** On shared capacity a `keep_alive` launch returns `403 keep_alive_requires_dedicated`. See [sessions and limits](sessions-and-limits.md) for shared vs. dedicated threads.
-- **Reconnect to the same `wsUrl`** (or `cdpUrl`). Your earlier pages are in the existing context — reach them with `browser.contexts()[0]`, not a fresh `newContext()`.
+- **First connect:** create a context and page as usual (`browser.newContext()` / `newPage()`) — there's no default context yet.
+- **Reconnect to the same `wsUrl`** (or `cdpUrl`). `browser.contexts()` lists the contexts you created earlier, with their pages, cookies and page state intact — reach them there instead of calling `newContext()` again.
 - **`browser.close()` only disconnects.** With `keep_alive` it no longer ends the session; the browser stays up until you end it or it goes idle.
 - **End it** with `DELETE https://cdpfleet.com/v1/me/threads/{sessionId}` (`x-api-key`), or let the session's `inactivity_timeout` expire. See the [Account API](account-api.md).
 
