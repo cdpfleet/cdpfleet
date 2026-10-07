@@ -17,8 +17,8 @@ public class Example {
           "headless": true,
           "os": "windows",
           "webgl_config": [
-            "Intel",
-            "Intel(R) HD Graphics, or similar"
+            "Google Inc. (Intel)",
+            "ANGLE (Intel, Intel(R) HD Graphics Direct3D11 vs_5_0 ps_5_0), or similar"
           ],
           "screen": {
             "minWidth": 1366,
