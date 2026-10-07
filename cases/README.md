@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #27 | [Watch it live: streaming a remote browser to your code, frame by frame](27-live-view) | Easy | Chromium, Firefox |
+| #26 | [Same Chrome, two doors: Playwright's protocol (wsUrl) or CDP (cdpUrl)](26-playwright-vs-cdp) | Medium | Google Chrome |
+| #25 | [No proxy of your own: rotating, country and sticky residential IPs with one token](25-residential-without-a-proxy) | Easy | Chromium |
 | #24 | [New tabs, window.open and the three blocking dialogs: everything that interrupts a script](24-popups-and-dialogs) | Easy | Chromium |
 | #23 | [Download every image on a page without downloading it twice](23-image-download) | Easy | Chromium |
 | #22 | [Check every link on a page: 73 links in seconds, from inside the browser](22-link-checker) | Easy | Chromium |

@@ -1,0 +1,35 @@
+{
+  "runs": [
+    {
+      "label": "rotating, any country",
+      "proxy": "cdpfleet-resi",
+      "countries": "IT,FR,IN",
+      "distinct_ips": 3,
+      "same_ip_as_browser_1": null
+    },
+    {
+      "label": "rotating, Germany",
+      "proxy": "cdpfleet-resi-country-de",
+      "countries": "DE",
+      "distinct_ips": 3,
+      "same_ip_as_browser_1": null
+    },
+    {
+      "label": "sticky US, browser 1",
+      "proxy": "cdpfleet-resi-country-us-session-<name>-lifetime-10",
+      "countries": "US",
+      "distinct_ips": 1,
+      "same_ip_as_browser_1": true
+    },
+    {
+      "label": "sticky US, browser 2",
+      "proxy": "cdpfleet-resi-country-us-session-<name>-lifetime-10",
+      "countries": "US",
+      "distinct_ips": 1,
+      "same_ip_as_browser_1": true
+    }
+  ],
+  "sticky_ip_kept_across_browsers": true,
+  "balance_allowed": true,
+  "price_per_gb_usd": 5
+}

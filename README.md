@@ -58,7 +58,9 @@ The same in [Python, Java, C# and Go](examples/quickstart). Get an API key in th
 - [Session replay without a vendor: Playwright tracing and video](cases/18-trace-and-video)
 - [Four ways to make a request, four different visitors: goto, in-page fetch, page.request](cases/21-proxy-paths)
 
-All 24 in [cases/](cases).
+- [Watch it live: streaming a remote browser to your code](cases/27-live-view)
+
+All 27 in [cases/](cases).
 
 ## Support
 

@@ -35,6 +35,7 @@ The real Google Chrome, with stable, beta and dev channels and recent previous m
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
 | `version` | `string` | none (latest stable) | Pin an older major version. Previous majors rotate out automatically: Chrome keeps its two most recent previous majors and drops the oldest within about a day of a new stable release; Camoufox keeps recent majors plus long-term ones. Read the live list rather than hard-coding a number. Send either `version` or a pre-release `channel`, not both: together they return `400` (`channel: "stable"` with a `version` is fine). |
 | `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Microsoft Edge
@@ -52,6 +53,7 @@ Microsoft Edge on Linux, with stable, beta and dev channels.
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
 | `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Brave
@@ -69,6 +71,7 @@ The Brave browser, with stable and beta channels.
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
 | `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Opera
@@ -86,6 +89,7 @@ Opera, with stable, beta and developer channels.
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
 | `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Naver Whale
@@ -102,6 +106,7 @@ Naver Whale, the browser that ships with Naver services in Korea. Stable channel
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Yandex Browser
@@ -119,6 +124,7 @@ Yandex Browser. Stable channel.
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `channel` | `"stable" \| "beta" \| "dev" \| "developer"` | stable | Release channel of the browser build. Opera calls its dev channel `developer`. `browser.version()` reports the underlying Chromium version; for Brave, Opera, Whale and Yandex that differs from the product version listed here. |
 | `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Chromium
@@ -135,6 +141,7 @@ The open-source Chromium build that ships with Playwright. Fast, predictable and
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Patchright
@@ -150,6 +157,7 @@ Chromium launched with Patchright's anti-detection patches (leaner automation fl
 | `inactivity_timeout` | `number \| string` | 60s | End the session after this long with no traffic on its WebSocket. A slow page load through a proxy can produce no traffic for a while, so keep it at 60 s or more. Shared threads can lower it but not raise it above 60 s; dedicated threads can set up to 24 h. Never longer than the session's overall timeout. |
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Rebrowser
@@ -181,6 +189,7 @@ CloakBrowser, a Chromium build hardened against fingerprinting.
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean \| "new" \| "shell"` | false (headful, on a virtual display) | Run without a display. |
 | `cdp` | `boolean` | false | Also expose a Chrome DevTools Protocol endpoint (cdpUrl). Same session, proxy and limits. You can connect to `wsUrl` and `cdpUrl` at once, but closing either ends the session. Not on Patchright and Rebrowser (their stealth lives in the Playwright layer CDP bypasses), Whale, Camoufox, Firefox or WebKit. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Camoufox
@@ -214,6 +223,7 @@ Camoufox is a Firefox build that spoofs a complete, consistent fingerprint at th
 | `webgl_config` | `[vendor, renderer]` | generated | Force a specific WebGL vendor/renderer pair. Requires `os`, and the pair must be valid for that OS or the launch fails. Ignored with `block_webgl`. |
 | `ff_version` | `number` | the real Firefox major | Firefox major version to claim in the fingerprint. A reported version that differs from the real engine is detectable. |
 | `main_world_eval` | `boolean` | false | Allow scripts in the page's main world. Main-world scripts are visible to the page. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## Firefox
@@ -229,6 +239,7 @@ The Firefox build that ships with Playwright.
 | `inactivity_timeout` | `number \| string` | 60s | End the session after this long with no traffic on its WebSocket. A slow page load through a proxy can produce no traffic for a while, so keep it at 60 s or more. Shared threads can lower it but not raise it above 60 s; dedicated threads can set up to 24 h. Never longer than the session's overall timeout. |
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean` | false (headful, on a virtual display) | Run without a display. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 
 
 ## WebKit
@@ -244,4 +255,5 @@ WebKit, the engine behind Safari, as built by Playwright. Combine it with Playwr
 | `inactivity_timeout` | `number \| string` | 60s | End the session after this long with no traffic on its WebSocket. A slow page load through a proxy can produce no traffic for a while, so keep it at 60 s or more. Shared threads can lower it but not raise it above 60 s; dedicated threads can set up to 24 h. Never longer than the session's overall timeout. |
 | `overall_timeout` | `number \| string` | your plan's maximum session length (24 h) | Hard cap on the session's total lifetime, regardless of activity. |
 | `headless` | `boolean` | false (headful, on a virtual display) | Run without a display. |
+| `live_view` | `boolean` | false | Stream the page live to your code (Playwright page.screencast). View-only and only for the client that drives the page. With `"cdp": true`, use CDP `Page.startScreencast` instead. See [Live view](https://cdpfleet.com/docs/live-view). |
 

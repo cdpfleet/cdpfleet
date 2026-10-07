@@ -1,0 +1,24 @@
+[
+  {
+    "mode": "playwright protocol",
+    "endpoint": "wsUrl",
+    "client_version_must_match": true,
+    "connect_ms": 32,
+    "browser_version": "155.0.8059.39",
+    "console_events": true,
+    "pdf": true,
+    "stack_read_by_debugger": false,
+    "webdriver": false
+  },
+  {
+    "mode": "connectOverCDP",
+    "endpoint": "cdpUrl",
+    "client_version_must_match": false,
+    "connect_ms": 52,
+    "browser_version": "155.0.8059.39",
+    "console_events": true,
+    "pdf": true,
+    "stack_read_by_debugger": false,
+    "webdriver": false
+  }
+]

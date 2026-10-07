@@ -1,0 +1,22 @@
+[
+  {
+    "browser": "chromium",
+    "frames_while_loading": 52,
+    "frames_while_scrolling": 32,
+    "fps_while_scrolling": 7.6,
+    "frames_in_3s_idle": 1,
+    "avg_kb": 40,
+    "all_jpeg": true,
+    "viewport": "1280x720"
+  },
+  {
+    "browser": "firefox",
+    "frames_while_loading": 320,
+    "frames_while_scrolling": 95,
+    "fps_while_scrolling": 21.6,
+    "frames_in_3s_idle": 68,
+    "avg_kb": 42,
+    "all_jpeg": true,
+    "viewport": "1280x720"
+  }
+]
