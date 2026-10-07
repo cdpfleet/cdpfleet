@@ -12,10 +12,12 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 400 | — | A launch option was rejected (the message says which) | Fix the option; don't retry as is |
 | 400 | `cdp is not supported on this engine` | `"cdp": true` on a browser without CDP | Use a supported browser or `wsUrl` ([cdp.md](cdp.md)) |
 | 400 | `invalid_cdp` | `cdp` isn't a boolean | Send `true` or `false` |
+| 400 | `invalid_keep_alive` / `invalid_record` | `keep_alive` or `record` isn't a boolean | Send `true` or `false` |
 | 401 | `missing_api_key` / `invalid_api_key` | No key, or an unknown or revoked key | Check `x-api-key` |
 | 402 | `subscription_inactive` | No active plan | Check your plan in the dashboard |
 | 402 | `proxy_balance_exhausted` | The launch uses the cdpfleet residential proxy and the balance is used up | Top up in the dashboard → Proxies |
 | 403 | `engine_not_allowed` | Your plan doesn't include this browser | Use another browser |
+| 403 | `keep_alive_requires_dedicated` | `"keep_alive": true` on a shared plan | Use dedicated threads ([keep-alive.md](keep-alive.md)) |
 | 404 | `not_found` | Unknown endpoint, e.g. a misspelled browser | Check the path |
 | 429 | `rate_limited` | Too many launches per second/minute | Wait `Retry-After` seconds |
 | 429 | `threads_exceeded` | The launch would exceed your threads | Close a session or wait; `Retry-After: 1` |
@@ -25,6 +27,7 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 503 | `shared_capacity_full` | Shared plans: the shared fleet is full right now | Retry after `Retry-After` (5 s) |
 | 503 | `fleet_unavailable` / `starting_up` / `route_unavailable` | The fleet is momentarily busy | Retry with backoff (`Retry-After: 5`) |
 | 503 | `resi_unavailable` | The residential proxy is momentarily unavailable on that server | Retry |
+| 503 | `keep_alive_unavailable` | `keep_alive` isn't switched on for the fleet yet | Launch without it for now |
 | 503 | `version_unavailable` | The requested `version` isn't available; `available` lists the majors | Pick one from `available` |
 
 Retry `503` with backoff and respect `Retry-After` on `429`; don't retry other `4xx` — the request needs fixing. See the [worker-pool case](../cases/10-worker-pool) for a complete retry loop.

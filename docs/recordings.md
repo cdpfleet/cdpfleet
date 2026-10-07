@@ -16,7 +16,8 @@ Videos are **480p, 1 fps MP4**, about **1.2 MB per minute** — sized for review
 ## Free tier and plans
 
 - Free on every account: the **first 15 minutes of each session**, and the **most recent 180 minutes across your account**, kept for **7 days**.
-- For longer retention and no per-session cap, recording plans start at **$10/month**, configured in the [dashboard](https://cdpfleet.com/app) under **History**.
+- A recording plan raises all three limits — up to **4 hours per session**, up to **100,000 minutes per account**, kept up to **30 days** — from **$10/month**. Set the limits and see the price in the [dashboard](https://cdpfleet.com/app) under **History**.
+- Over the limits, the oldest recordings are deleted first.
 
 Find, play and download your recordings in the dashboard under **History**.
 
