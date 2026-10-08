@@ -13,7 +13,7 @@ POST https://starter.cdpfleet.com/chrome/session
 
 Headful tip: Playwright sizes each context's window to its viewport (1280×720 by default), so the recording shows that window on a larger desktop. Create contexts with `viewport: null` (Python `no_viewport=True`) and the page fills the whole display (`screen_size`, 1920×1080 by default). Headless recordings capture the page itself and always fill the frame.
 
-Videos are **480p, 1 fps MP4**, about **1.2 MB per minute** — sized for reviewing what happened. Recording plans can choose **720p** (1.5× the price) or **1080p** (2.5×).
+Videos are **480p, 1 fps MP4**, about **1–1.3 MB per minute** — sized for reviewing what happened. Recording plans can choose **720p** (1.5× the price, ~2.5 MB/min) or **1080p** (2.5×, ~4 MB/min). Headless sessions are recorded at the page's own size: for sharp 1080p give the context a 1920×1080 viewport.
 
 ## Free tier and plans
 
