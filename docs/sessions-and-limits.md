@@ -8,8 +8,8 @@ Your plan gives you a number of **threads** — concurrent capacity. A session t
 |---|---|
 | Linux headless | 1 |
 | Linux headful (a virtual display — the default) | 2 |
-| Mobile WebView | 3 |
-| Mobile Chrome | 4 |
+| Mobile WebView — Android WebView on hardware phones, iPhone WKWebView on an iOS emulator (hardware iPhone coming soon); early access | 3 |
+| Mobile Chrome — Chrome and other full browsers on hardware Android phones; early access | 4 |
 
 A launch that would exceed your threads gets `429 threads_exceeded` until a session closes.
 

@@ -53,4 +53,4 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 - **Tell 3 — `navigator.platform` stays `Linux x86_64`** in both mobile contexts. A real iPhone says `iPhone`, a real Pixel `Linux armv81`.
 - **Tell 4 — version skew on Android:** the Pixel descriptor's user agent says Chrome 148 while the browser (and its client hints) is Chrome 153.
 - **Tell 5 — headless:** the desktop context's user agent says `HeadlessChrome`. Use `headless: false` (2 threads) when that matters, or set a user agent.
-- Emulation is fine for layout and responsive testing. To look like a real phone to a bot check, use a real device — cdpfleet's Android and iPhone sessions are in early access.
+- Emulation is fine for layout and responsive testing. To look like a real phone to a bot check, use a real device — cdpfleet's hardware Android phones are in early access (iPhone runs on an iOS emulator today, hardware iPhone coming soon).
