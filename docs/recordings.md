@@ -13,14 +13,14 @@ POST https://starter.cdpfleet.com/chrome/session
 
 Headful tip: Playwright sizes each context's window to its viewport (1280×720 by default), so the recording shows that window on a larger desktop. Create contexts with `viewport: null` (Python `no_viewport=True`) and the page fills the whole display (`screen_size`, 1920×1080 by default). Headless recordings capture the page itself and always fill the frame.
 
-Videos are **480p, 1 fps MP4**, about **1.2 MB per minute** — sized for reviewing what happened, not for pixel-perfect playback.
+Videos are **480p, 1 fps MP4**, about **1.2 MB per minute** — sized for reviewing what happened. Recording plans can choose **720p** (1.5× the price) or **1080p** (2.5×).
 
 ## Free tier and plans
 
 - Free on every account: the **first 15 minutes of each session**, and the **most recent 180 minutes across your account**, kept for **7 days**.
-- A recording plan raises all three limits — up to **4 hours per session**, up to **100,000 minutes per account**, kept up to **30 days** — from **$10/month**. Set the limits and see the price in the [dashboard](https://cdpfleet.com/app) under **History**.
+- A recording plan raises all three limits — up to **4 hours per session**, up to **100,000 minutes per account**, kept up to **30 days** — from **$10/month**. Set the limits and the video quality, and see the price, in the [dashboard](https://cdpfleet.com/app) under **Sessions → Session Recording Settings**.
 - Over the limits, the oldest recordings are deleted first.
 
-Find, play and download your recordings in the dashboard under **History**.
+Find, play and download your recordings in the dashboard under **Sessions**.
 
 Full page: [cdpfleet.com/docs/recordings](https://cdpfleet.com/docs/recordings).
