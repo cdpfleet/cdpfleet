@@ -1,0 +1,17 @@
+{
+  "sequential_seconds": 8.14,
+  "parallel_seconds": 2.97,
+  "speedup": "2.7x",
+  "results": [
+    { "url": "https://books.toscrape.com/", "title": "All products | Books to Scrape - Sandbox", "method": "sequential" },
+    { "url": "https://quotes.toscrape.com/", "title": "Quotes to Scrape", "method": "sequential" },
+    { "url": "https://example.com", "title": "Example Domain", "method": "sequential" },
+    { "url": "https://httpbin.org/html", "title": "Herman Melville - Moby Dick", "method": "sequential" },
+    { "url": "https://www.scrapethissite.com/", "title": "Scrape This Site | A public sandbox for learning web scraping", "method": "sequential" },
+    { "url": "https://books.toscrape.com/", "title": "All products | Books to Scrape - Sandbox", "method": "parallel" },
+    { "url": "https://quotes.toscrape.com/", "title": "Quotes to Scrape", "method": "parallel" },
+    { "url": "https://example.com", "title": "Example Domain", "method": "parallel" },
+    { "url": "https://httpbin.org/html", "title": "Herman Melville - Moby Dick", "method": "parallel" },
+    { "url": "https://www.scrapethissite.com/", "title": "Scrape This Site | A public sandbox for learning web scraping", "method": "parallel" }
+  ]
+}
