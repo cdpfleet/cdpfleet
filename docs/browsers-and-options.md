@@ -90,7 +90,7 @@ The Brave browser, with stable and beta channels.
 
 Endpoint `POST /opera/session` · connect with Playwright `chromium` 1.60 · [docs page](https://cdpfleet.com/docs/browsers/opera)
 
-Opera, with stable, beta and developer channels. Headless over CDP (`cdpUrl`), open pages in a new context (`browser.newContext()`): Opera doesn't render pages in its default context there.
+Opera, with stable, beta and developer channels. Headless over CDP (`cdpUrl`), open pages in a new context (`browser.newContext()`): Opera doesn't render pages in its default context there — so `keep_alive` over CDP, which only keeps the default context, needs headful Opera or `wsUrl`.
 
 | Option | Type | Default | What it does |
 |---|---|---|---|
