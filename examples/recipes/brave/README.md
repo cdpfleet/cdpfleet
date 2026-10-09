@@ -1,6 +1,6 @@
 # Brave with Shields on
 
-Brave blocks ads and trackers by default, so pages make fewer requests and use less proxy bandwidth — and send `Brave` in the client-hint brands. Headless here (1 thread).
+Brave sends `Brave` in the client-hint brands (its user agent says Chrome), adds a `Sec-GPC` header and randomises cores, screen and canvas between sessions. See [Chrome vs Brave](https://cdpfleet.com/docs/compare/chrome-vs-brave). Headless here (1 thread).
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)
