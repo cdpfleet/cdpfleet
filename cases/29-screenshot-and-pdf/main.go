@@ -68,7 +68,7 @@ func main() {
 	}
 	defer os.RemoveAll(dir)
 
-	page, err := browser.NewPage(playwright.BrowserNewPageOptions{ViewportSize: &playwright.Size{Width: 1280, Height: 720}})
+	page, err := browser.NewPage(playwright.BrowserNewPageOptions{Viewport: &playwright.Size{Width: 1280, Height: 720}})
 	if err != nil {
 		log.Fatal(err)
 	}

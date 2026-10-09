@@ -2,6 +2,7 @@
 // Run with PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1. env: CDPFLEET_API_KEY, PROXY_URL
 import com.google.gson.*;
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.WaitUntilState;
 import java.net.URI;
 import java.net.http.*;
 import java.util.*;
@@ -14,8 +15,8 @@ public class Main {
       "https://books.toscrape.com/",
       "https://quotes.toscrape.com/",
       "https://example.com",
-      "https://httpbin.org/html",
-      "https://www.scrapethissite.com/",
+      "https://en.wikipedia.org/wiki/Web_scraping",
+      "https://news.ycombinator.com/",
   };
 
   record Result(String url, String title, String method) {}
@@ -23,7 +24,7 @@ public class Main {
   static Result extract(Browser browser, String url) {
     Page page = browser.newPage();
     try {
-      page.navigate(url, new Page.NavigateOptions().setTimeout(60000));
+      page.navigate(url, new Page.NavigateOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED).setTimeout(60000));
       return new Result(url, page.title(), null);
     } finally {
       page.close();
@@ -49,15 +50,20 @@ public class Main {
         }
         double seqSeconds = Math.round((System.currentTimeMillis() - t1) / 10.0) / 100.0;
 
+        // Playwright for Java isn't thread-safe: start all five navigations, then wait for each.
         long t2 = System.currentTimeMillis();
-        List<CompletableFuture<Result>> futures = new ArrayList<>();
+        List<Page> pages = new ArrayList<>();
         for (String url : URLS) {
-          futures.add(CompletableFuture.supplyAsync(() -> extract(browser, url)));
+          Page page = browser.newPage();
+          page.evaluate("u => { location.href = u; }", url);
+          pages.add(page);
         }
         List<Result> parallel = new ArrayList<>();
-        for (var f : futures) {
-          Result r = f.get();
-          parallel.add(new Result(r.url, r.title, "parallel"));
+        for (int i = 0; i < URLS.length; i++) {
+          Page page = pages.get(i);
+          page.waitForURL(u -> !u.startsWith("about:"), new Page.WaitForURLOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED).setTimeout(60000));
+          parallel.add(new Result(URLS[i], page.title(), "parallel"));
+          page.close();
         }
         double parSeconds = Math.round((System.currentTimeMillis() - t2) / 10.0) / 100.0;
 

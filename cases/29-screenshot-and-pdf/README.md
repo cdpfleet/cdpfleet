@@ -2,39 +2,36 @@
 
 **Easy** · 2026-10-09 · Chromium · [read it on cdpfleet.com](https://cdpfleet.com/docs/cases/screenshot-and-pdf)
 
-> Four captures from one page load: a viewport screenshot, a full-page screenshot, a single-element crop and a PDF — all generated in the remote browser and streamed back as files.
+> Four captures from one page load — viewport, full page, a single element and a PDF — rendered in the remote browser and saved on your machine, with their sizes and timings.
 
 ## The problem
 
-You need visual proof of what a page looks like — for monitoring, archiving, testing or reporting. A viewport screenshot captures what fits in the window, but pages scroll. A full-page screenshot stitches the entire document. An element screenshot isolates one component. A PDF gives you a printable, searchable document. Each serves a different purpose, and all four can come from the same session without reloading the page.
+You need visual proof of what a page showed — for monitoring, archiving, tests or a report. A viewport screenshot only covers the window; pages scroll; sometimes you want one component; sometimes a document. All of it can come from the one page the remote browser already rendered — but how big and how slow is each, once the bytes have to travel back to you?
 
 ## What we used, and why
 
 | What | Why |
 |---|---|
-| `chromium`, `headless: "new"` | PDF generation requires headless Chromium. |
-| `viewport: { width: 1280, height: 720 }` | A fixed viewport makes viewport screenshots reproducible across runs. |
-| `page.screenshot({ fullPage: false })` | The visible area only — 1280x720 pixels, smallest file. |
-| `page.screenshot({ fullPage: true })` | Stitches the entire scrollable page into one tall image. |
-| `locator('.product_pod').first().screenshot()` | Crops to the bounding box of a single element — useful for component-level visual testing. |
-| `page.pdf()` | Renders the page as a PDF document; only available in headless Chromium. |
-| `waitUntil: "networkidle"` | Ensures all images and styles have loaded before capturing. |
+| `chromium`, `headless: "new"` | `page.pdf()` needs headless Chromium. |
+| `page.screenshot()` | The visible area of the viewport. |
+| `page.screenshot({ fullPage: true })` | The whole scrollable page in one tall image. |
+| `locator(".product_pod").first().screenshot()` | Crops to one element's box — for component-level checks. |
+| `page.pdf()` | The page as a print document. |
+| `waitUntil: "networkidle"` | Images and styles have loaded before anything is captured. |
 
 ## How it works
 
-1. Open books.toscrape.com with a 1280x720 viewport and wait for network idle.
-2. Take a viewport screenshot (visible area only) and measure the file size.
-3. Take a full-page screenshot (entire scrollable page) and measure the file size.
-4. Take an element screenshot of the first product card and measure the file size.
-5. Generate a PDF of the page and measure the file size.
-6. Print one JSON object with each capture's type, file size and timing.
+1. Open books.toscrape.com and wait for the network to go quiet.
+2. Take a viewport screenshot, a full-page screenshot and an element screenshot of the first product card, saving each locally.
+3. Render the page as a PDF.
+4. Print the size and time of every capture.
 
 ## The code
 
 The same program in five languages, each verified on the production fleet (last run 2026-10-09):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
-- [Python](main.py) — pip install playwright==1.60.0 requests && python main.py
+- [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
 - [Java](Main.java) — Maven with com.microsoft.playwright:playwright:1.60.0 and com.google.code.gson:gson:2.11.0 (see templates/java), main class Main
 - [C#](Program.cs) — dotnet new console, dotnet add package Microsoft.Playwright --version 1.60.0, replace Program.cs, dotnet run
 - [Go](main.go) — go mod init example && go get github.com/playwright-community/playwright-go@v0.6000.0 && go run . (driver setup: templates/go/README.md)
@@ -43,19 +40,18 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 ## What we got
 
-| Capture | File size | Seconds |
+| Capture | KB | Seconds |
 |---|---|---|
-| Viewport screenshot (1280x720) | 150 KB | 0.74 |
-| Full-page screenshot | 403 KB | 1.12 |
-| Element screenshot (first product) | 15 KB | 0.31 |
-| PDF | 81 KB | 0.85 |
+| viewport screenshot | 139 | 0.18 |
+| full-page screenshot | 654 | 0.54 |
+| element screenshot | 23 | 0.16 |
+| pdf | 329 | 0.18 |
 
-Full output: [output.json](output.json).
+IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **Four capture types, one page load:** the page is already rendered in the remote browser; each capture is a different serialisation of the same state — no re-navigation, no extra proxy traffic.
-- **Full-page screenshots are 2–3x larger than viewport screenshots** because they stitch the entire scrollable area. Budget accordingly for storage and transfer.
-- **Element screenshots are tiny** — useful for visual regression testing when you only care about one component, not the whole page.
-- **PDF requires headless Chromium** — it will not work in headed mode or with Firefox/WebKit. The PDF is searchable and printable, unlike a screenshot.
-- **Files are generated in the remote browser and streamed back** over the fleet connection. They never touch the proxy; the capture is renderer-to-client.
+- **Four captures, one page load:** each is a different serialisation of the same rendered state — no re-navigation, no extra proxy traffic.
+- **The bytes travel back over the session's connection:** a full-page PNG is several times a viewport one, so prefer element crops for repeated visual checks.
+- **PDF is headless Chromium only** — on Firefox, WebKit or a headful session use screenshots instead.
+- **Wait for the network first:** capturing before images arrive gives you grey boxes that look like a broken page.

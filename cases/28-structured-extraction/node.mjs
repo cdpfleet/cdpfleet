@@ -32,13 +32,13 @@ try {
   const books = [];
 
   await page.goto(START, { timeout: 60000 });
-  books.push(...await page.evaluate(EXTRACT_JS));
+  books.push(...await page.evaluate(`(${EXTRACT_JS})()`));
 
   const next = page.locator('li.next a');
   if (await next.count() > 0) {
     await next.click();
     await page.waitForLoadState('domcontentloaded');
-    books.push(...await page.evaluate(EXTRACT_JS));
+    books.push(...await page.evaluate(`(${EXTRACT_JS})()`));
   }
 
   console.log(JSON.stringify({

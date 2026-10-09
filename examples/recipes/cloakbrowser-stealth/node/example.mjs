@@ -10,6 +10,7 @@ const res = await fetch('https://starter.cdpfleet.com/cloakbrowser/session', {
   headers: { 'x-api-key': KEY, 'content-type': 'application/json' },
   body: JSON.stringify({
     proxy: 'http://user:pass@proxy.example.com:8080',
+    headless: false,
     screen_size: '1920x1080',
   }),
 });

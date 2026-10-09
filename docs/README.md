@@ -14,13 +14,4 @@
 | [Errors](errors.md) | Status codes and what to do about each |
 | [Account API](account-api.md) | Usage, sessions, live threads and traffic over HTTPS |
 
-## Comparisons
-
-| Page | What |
-|---|---|
-| [cdpfleet vs Browserbase](compare/cdpfleet-vs-browserbase.md) | Cloud browser APIs compared: browser choice, anti-detection, proxy model, pricing |
-| [Firefox vs Camoufox](compare/firefox-vs-camoufox.md) | Same engine family, different detection profiles — when to use which |
-
-Existing comparisons on cdpfleet.com: [Camoufox vs Patchright](https://cdpfleet.com/docs/compare/camoufox-vs-patchright), [Chrome vs Edge](https://cdpfleet.com/docs/compare/chrome-vs-edge).
-
 The full, always-current docs are at [cdpfleet.com/docs](https://cdpfleet.com/docs).

@@ -5,13 +5,12 @@ import { chromium } from 'playwright';
 const KEY = process.env.CDPFLEET_API_KEY;
 
 // 1. Launch the browser
-const res = await fetch('https://starter.cdpfleet.com/chrome/session', {
+const res = await fetch('https://starter.cdpfleet.com/whale/session', {
   method: 'POST',
   headers: { 'x-api-key': KEY, 'content-type': 'application/json' },
   body: JSON.stringify({
     proxy: 'http://user:pass@proxy.example.com:8080',
     headless: 'new',
-    version: '131',
   }),
 });
 if (!res.ok) throw new Error(`launch failed: ${res.status} ${await res.text()}`);

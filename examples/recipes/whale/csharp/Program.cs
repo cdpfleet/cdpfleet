@@ -13,11 +13,10 @@ http.DefaultRequestHeaders.Add("x-api-key", key);
 var body = """
     {
       "proxy": "http://user:pass@proxy.example.com:8080",
-      "headless": "new",
-      "version": "131"
+      "headless": "new"
     }
     """;
-var res = await http.PostAsync("https://starter.cdpfleet.com/chrome/session",
+var res = await http.PostAsync("https://starter.cdpfleet.com/whale/session",
     new StringContent(body, Encoding.UTF8, "application/json"));
 if (!res.IsSuccessStatusCode)
     throw new Exception($"launch failed: {(int)res.StatusCode} {await res.Content.ReadAsStringAsync()}");

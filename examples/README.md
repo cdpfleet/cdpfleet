@@ -35,10 +35,10 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [cdpfleet residential: one sticky US identity](recipes/resi-sticky)
   - [Camoufox with exact fingerprint values](recipes/camoufox-config)
   - [WebKit (Safari's engine)](recipes/webkit)
-  - [Long-running session](recipes/long-session)
   - [Opera, developer channel](recipes/opera-developer)
-  - [CloakBrowser: fingerprint-spoofed Chromium for protected sites](recipes/cloakbrowser-stealth)
-  - [Chrome with a pinned older major version](recipes/chrome-version-pin)
+  - [Naver Whale](recipes/whale)
+  - [CloakBrowser, headful, full-HD display](recipes/cloakbrowser-stealth)
+  - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).
 

@@ -27,8 +27,8 @@ func main() {
 	// 1. Launch the browser
 	body := `{
 	  "proxy": "http://user:pass@proxy.example.com:8080",
-	  "headless": "new",
-	  "channel": "developer"
+	  "channel": "developer",
+	  "headless": "new"
 	}`
 	req, _ := http.NewRequest("POST", "https://starter.cdpfleet.com/opera/session", strings.NewReader(body))
 	req.Header.Set("x-api-key", key)

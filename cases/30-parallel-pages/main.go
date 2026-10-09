@@ -24,8 +24,8 @@ var urls = []string{
 	"https://books.toscrape.com/",
 	"https://quotes.toscrape.com/",
 	"https://example.com",
-	"https://httpbin.org/html",
-	"https://www.scrapethissite.com/",
+	"https://en.wikipedia.org/wiki/Web_scraping",
+	"https://news.ycombinator.com/",
 }
 
 func launch(name string, options map[string]any) (map[string]any, error) {
@@ -58,7 +58,7 @@ func extract(browser playwright.Browser, url string) (string, string) {
 		log.Fatal(err)
 	}
 	defer page.Close()
-	if _, err := page.Goto(url, playwright.PageGotoOptions{Timeout: playwright.Float(60000)}); err != nil {
+	if _, err := page.Goto(url, playwright.PageGotoOptions{WaitUntil: playwright.WaitUntilStateDomcontentloaded, Timeout: playwright.Float(60000)}); err != nil {
 		log.Fatal(err)
 	}
 	title, err := page.Title()

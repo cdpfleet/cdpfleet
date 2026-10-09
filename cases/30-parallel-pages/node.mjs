@@ -7,8 +7,8 @@ const URLS = [
   'https://books.toscrape.com/',
   'https://quotes.toscrape.com/',
   'https://example.com',
-  'https://httpbin.org/html',
-  'https://www.scrapethissite.com/',
+  'https://en.wikipedia.org/wiki/Web_scraping',
+  'https://news.ycombinator.com/',
 ];
 
 const res = await fetch('https://starter.cdpfleet.com/chromium/session', {
@@ -23,7 +23,7 @@ const browser = await chromium.connect(wsUrl, { headers: { 'x-api-key': KEY } })
 async function extract(browser, url) {
   const page = await browser.newPage();
   try {
-    await page.goto(url, { timeout: 60000 });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     return { url, title: await page.title() };
   } finally {
     await page.close();

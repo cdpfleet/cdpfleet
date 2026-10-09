@@ -1,8 +1,24 @@
 {
   "captures": [
-    { "type": "viewport screenshot", "file_size_bytes": 153842, "seconds": 0.74 },
-    { "type": "full-page screenshot", "file_size_bytes": 412563, "seconds": 1.12 },
-    { "type": "element screenshot", "file_size_bytes": 15287, "seconds": 0.31 },
-    { "type": "pdf", "file_size_bytes": 82941, "seconds": 0.85 }
+    {
+      "type": "viewport screenshot",
+      "file_size_bytes": 142800,
+      "seconds": 0.18
+    },
+    {
+      "type": "full-page screenshot",
+      "file_size_bytes": 669597,
+      "seconds": 0.54
+    },
+    {
+      "type": "element screenshot",
+      "file_size_bytes": 23401,
+      "seconds": 0.16
+    },
+    {
+      "type": "pdf",
+      "file_size_bytes": 337327,
+      "seconds": 0.18
+    }
   ]
 }

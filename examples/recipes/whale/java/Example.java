@@ -14,12 +14,11 @@ public class Example {
     String body = """
         {
           "proxy": "http://user:pass@proxy.example.com:8080",
-          "headless": "new",
-          "version": "131"
+          "headless": "new"
         }
         """;
     HttpResponse<String> res = HttpClient.newHttpClient().send(
-        HttpRequest.newBuilder(URI.create("https://starter.cdpfleet.com/chrome/session"))
+        HttpRequest.newBuilder(URI.create("https://starter.cdpfleet.com/whale/session"))
             .header("x-api-key", key)
             .header("content-type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(body))

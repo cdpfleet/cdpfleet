@@ -2,46 +2,246 @@
   "pages_scraped": 2,
   "total_books": 40,
   "books": [
-    { "title": "A Light in the Attic", "price": 51.77, "rating": 3, "in_stock": true },
-    { "title": "Tipping the Velvet", "price": 53.74, "rating": 1, "in_stock": true },
-    { "title": "Soumission", "price": 50.1, "rating": 1, "in_stock": true },
-    { "title": "Sharp Objects", "price": 47.82, "rating": 4, "in_stock": true },
-    { "title": "Sapiens: A Brief History of Humankind", "price": 54.23, "rating": 5, "in_stock": true },
-    { "title": "The Requiem Red", "price": 22.65, "rating": 1, "in_stock": true },
-    { "title": "The Dirty Little Secrets of Getting Your Dream Job", "price": 33.34, "rating": 4, "in_stock": true },
-    { "title": "The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull", "price": 17.93, "rating": 3, "in_stock": true },
-    { "title": "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics", "price": 22.6, "rating": 4, "in_stock": true },
-    { "title": "The Black Maria", "price": 52.15, "rating": 1, "in_stock": true },
-    { "title": "Starving Hearts (Triangular Trade Trilogy, #1)", "price": 13.99, "rating": 2, "in_stock": true },
-    { "title": "Shakespeare's Sonnets", "price": 20.66, "rating": 4, "in_stock": true },
-    { "title": "Set Me Free", "price": 17.46, "rating": 5, "in_stock": true },
-    { "title": "Scott Pilgrim's Precious Little Life (Scott Pilgrim #1)", "price": 52.29, "rating": 5, "in_stock": true },
-    { "title": "Rip it Up and Start Again", "price": 35.02, "rating": 5, "in_stock": true },
-    { "title": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991", "price": 57.25, "rating": 3, "in_stock": true },
-    { "title": "Olio", "price": 23.88, "rating": 1, "in_stock": true },
-    { "title": "Mesaerion: The Best Science Fiction Stories 1800-1849", "price": 37.59, "rating": 1, "in_stock": true },
-    { "title": "Libertarianism for Beginners", "price": 51.33, "rating": 2, "in_stock": true },
-    { "title": "It's Only the Himalayas", "price": 45.17, "rating": 2, "in_stock": true },
-    { "title": "In Her Wake", "price": 12.84, "rating": 1, "in_stock": true },
-    { "title": "How Music Works", "price": 37.32, "rating": 2, "in_stock": true },
-    { "title": "Foolproof Preserving: A Guide to Small Batch Jams, Jellies, Pickles, Condiments, and More", "price": 30.52, "rating": 3, "in_stock": true },
-    { "title": "Chase Me (Paris Nights #2)", "price": 25.27, "rating": 5, "in_stock": true },
-    { "title": "Black Dust", "price": 34.53, "rating": 5, "in_stock": true },
-    { "title": "Birdsong: A Story in Pictures", "price": 54.64, "rating": 3, "in_stock": true },
-    { "title": "America's Cradle of Quarterbacks: Western Pennsylvania's Football Factory from Johnny Unitas to Joe Montana", "price": 22.5, "rating": 3, "in_stock": true },
-    { "title": "Aladdin and His Wonderful Lamp", "price": 53.13, "rating": 3, "in_stock": true },
-    { "title": "Worlds Elsewhere: Journeys Around Shakespeare's Globe", "price": 40.3, "rating": 5, "in_stock": true },
-    { "title": "Wall and Piece", "price": 44.18, "rating": 4, "in_stock": true },
-    { "title": "The Four Agreements: A Practical Guide to Personal Freedom", "price": 17.66, "rating": 5, "in_stock": true },
-    { "title": "The Five Love Languages: How to Express Heartfelt Commitment to Your Mate", "price": 31.05, "rating": 3, "in_stock": true },
-    { "title": "The Elephant Tree", "price": 23.82, "rating": 5, "in_stock": true },
-    { "title": "The Bear and the Piano", "price": 36.89, "rating": 1, "in_stock": true },
-    { "title": "Sophie's World", "price": 15.94, "rating": 5, "in_stock": true },
-    { "title": "Penny Maybe", "price": 33.29, "rating": 3, "in_stock": true },
-    { "title": "Maude (1883-1993): She Grew Up with the Country", "price": 18.02, "rating": 2, "in_stock": true },
-    { "title": "In a Dark, Dark Wood", "price": 19.63, "rating": 1, "in_stock": true },
-    { "title": "Behind Closed Doors", "price": 52.22, "rating": 4, "in_stock": true },
-    { "title": "You can't bury them all: Poems", "price": 33.63, "rating": 2, "in_stock": true }
+    {
+      "title": "A Light in the Attic",
+      "price": 51.77,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "Tipping the Velvet",
+      "price": 53.74,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "Soumission",
+      "price": 50.1,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "Sharp Objects",
+      "price": 47.82,
+      "rating": 4,
+      "in_stock": true
+    },
+    {
+      "title": "Sapiens: A Brief History of Humankind",
+      "price": 54.23,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "The Requiem Red",
+      "price": 22.65,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "The Dirty Little Secrets of Getting Your Dream Job",
+      "price": 33.34,
+      "rating": 4,
+      "in_stock": true
+    },
+    {
+      "title": "The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull",
+      "price": 17.93,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+      "price": 22.6,
+      "rating": 4,
+      "in_stock": true
+    },
+    {
+      "title": "The Black Maria",
+      "price": 52.15,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "Starving Hearts (Triangular Trade Trilogy, #1)",
+      "price": 13.99,
+      "rating": 2,
+      "in_stock": true
+    },
+    {
+      "title": "Shakespeare's Sonnets",
+      "price": 20.66,
+      "rating": 4,
+      "in_stock": true
+    },
+    {
+      "title": "Set Me Free",
+      "price": 17.46,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "Scott Pilgrim's Precious Little Life (Scott Pilgrim #1)",
+      "price": 52.29,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "Rip it Up and Start Again",
+      "price": 35.02,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991",
+      "price": 57.25,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "Olio",
+      "price": 23.88,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "Mesaerion: The Best Science Fiction Stories 1800-1849",
+      "price": 37.59,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "Libertarianism for Beginners",
+      "price": 51.33,
+      "rating": 2,
+      "in_stock": true
+    },
+    {
+      "title": "It's Only the Himalayas",
+      "price": 45.17,
+      "rating": 2,
+      "in_stock": true
+    },
+    {
+      "title": "In Her Wake",
+      "price": 12.84,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "How Music Works",
+      "price": 37.32,
+      "rating": 2,
+      "in_stock": true
+    },
+    {
+      "title": "Foolproof Preserving: A Guide to Small Batch Jams, Jellies, Pickles, Condiments, and More: A Foolproof Guide to Making Small Batch Jams, Jellies, Pickles, Condiments, and More",
+      "price": 30.52,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "Chase Me (Paris Nights #2)",
+      "price": 25.27,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "Black Dust",
+      "price": 34.53,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "Birdsong: A Story in Pictures",
+      "price": 54.64,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "America's Cradle of Quarterbacks: Western Pennsylvania's Football Factory from Johnny Unitas to Joe Montana",
+      "price": 22.5,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "Aladdin and His Wonderful Lamp",
+      "price": 53.13,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "Worlds Elsewhere: Journeys Around Shakespeare’s Globe",
+      "price": 40.3,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "Wall and Piece",
+      "price": 44.18,
+      "rating": 4,
+      "in_stock": true
+    },
+    {
+      "title": "The Four Agreements: A Practical Guide to Personal Freedom",
+      "price": 17.66,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "The Five Love Languages: How to Express Heartfelt Commitment to Your Mate",
+      "price": 31.05,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "The Elephant Tree",
+      "price": 23.82,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "The Bear and the Piano",
+      "price": 36.89,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "Sophie's World",
+      "price": 15.94,
+      "rating": 5,
+      "in_stock": true
+    },
+    {
+      "title": "Penny Maybe",
+      "price": 33.29,
+      "rating": 3,
+      "in_stock": true
+    },
+    {
+      "title": "Maude (1883-1993):She Grew Up with the country",
+      "price": 18.02,
+      "rating": 2,
+      "in_stock": true
+    },
+    {
+      "title": "In a Dark, Dark Wood",
+      "price": 19.63,
+      "rating": 1,
+      "in_stock": true
+    },
+    {
+      "title": "Behind Closed Doors",
+      "price": 52.22,
+      "rating": 4,
+      "in_stock": true
+    },
+    {
+      "title": "You can't bury them all: Poems",
+      "price": 33.63,
+      "rating": 2,
+      "in_stock": true
+    }
   ],
-  "seconds": 3.2
+  "seconds": 10.18
 }

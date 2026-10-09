@@ -12,6 +12,7 @@ res = requests.post(
     headers={"x-api-key": KEY},
     json={
         "proxy": "http://user:pass@proxy.example.com:8080",
+        "headless": False,
         "screen_size": "1920x1080",
     },
     timeout=60,

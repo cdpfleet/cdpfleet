@@ -1,36 +1,37 @@
-# Five pages at once: extracting data in parallel within one browser session
+# Five pages at once: parallel tabs in one browser session
 
 **Easy** · 2026-10-09 · Chromium · [read it on cdpfleet.com](https://cdpfleet.com/docs/cases/parallel-pages)
 
-> Open five pages concurrently in one browser session, extract a title from each, and compare with doing it one at a time. Same session, same proxy, 2.7x faster.
+> Open five unrelated pages concurrently in one session and compare with loading them one by one — same thread, same proxy, a fraction of the wall time.
 
 ## The problem
 
-When you need data from several unrelated pages, the default approach is sequential: open a page, extract, close, repeat. Each page load waits for the previous one to finish, and most of that wait is network latency through the proxy — time the browser spends idle. A single browser session can hold multiple pages open at once. If the pages are independent, there is no reason to serialize them.
+You need something from several unrelated pages. The obvious loop opens one, extracts, closes, and moves on — and most of each wait is latency through the proxy while the browser sits idle. A session can hold many tabs, and each language has its own way to wait on several at once. How much does that save, and what does it cost?
 
 ## What we used, and why
 
 | What | Why |
 |---|---|
-| `chromium`, `headless: "new"` | One session, five pages. |
-| Five independent URLs | books.toscrape.com, quotes.toscrape.com, example.com, httpbin.org/html, scrapethissite.com — no auth, no overlap, safe to hit concurrently. |
-| `browser.newPage()` per URL | Each page is an isolated tab with its own navigation state, but they share the session's proxy and connection. |
-| `Promise.all` / `ThreadPoolExecutor` / `CompletableFuture` / `Task.WhenAll` / goroutines | Language-native concurrency — all five pages load at the same time. |
-| `page.title()` | A minimal extraction to prove the page loaded; replace with any real scraping logic. |
+| `chromium`, `headless: "new"` | One session (1 thread) for all five pages. |
+| Five independent URLs | books.toscrape.com, quotes.toscrape.com, example.com, httpbin.org/html and scrapethissite.com: public, no login, safe to load at once. |
+| `browser.newPage()` per URL | Each tab has its own navigation; all share the session's proxy and connection. |
+| `Promise.all` · `asyncio.gather` · `Task.WhenAll` · goroutines | Each language's own way to wait on five loads at once. Java starts all five navigations and then waits for each — no threads. |
+| `waitUntil: "domcontentloaded"` | Wait for the HTML, not every image and script: one slow asset would otherwise set the pace. |
+| `page.title()` | The smallest proof a page loaded; put your extraction here. |
 
 ## How it works
 
 1. Launch one Chromium session.
-2. **Sequential run:** open each of the 5 URLs in a new page one at a time, extract the title, close the page. Time the total.
-3. **Parallel run:** open all 5 URLs concurrently, each in its own page, extract titles, close pages. Time the total.
-4. Print both timings, the speedup ratio, and every result with its method label.
+2. Sequential: open each URL in a new tab, read its title, close it — timed.
+3. Parallel: open all five at once, read the titles, close the tabs — timed.
+4. Print both timings, the speedup and every title.
 
 ## The code
 
 The same program in five languages, each verified on the production fleet (last run 2026-10-09):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
-- [Python](main.py) — pip install playwright==1.60.0 requests && python main.py
+- [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
 - [Java](Main.java) — Maven with com.microsoft.playwright:playwright:1.60.0 and com.google.code.gson:gson:2.11.0 (see templates/java), main class Main
 - [C#](Program.cs) — dotnet new console, dotnet add package Microsoft.Playwright --version 1.60.0, replace Program.cs, dotnet run
 - [Go](main.go) — go mod init example && go get github.com/playwright-community/playwright-go@v0.6000.0 && go run . (driver setup: templates/go/README.md)
@@ -39,18 +40,19 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 ## What we got
 
-| Method | Pages | Seconds | Per page (s) |
-|---|---|---|---|
-| Sequential | 5 | 8.14 | 1.63 |
-| Parallel | 5 | 2.97 | 0.59 |
-| **Speedup** | | **2.7x** | |
+| Method | Pages | Seconds |
+|---|---|---|
+| Sequential | 5 | 28.86 |
+| Parallel | 5 | 4.26 |
+| Speedup |  | 6.8x |
 
-Full output: [output.json](output.json).
+IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **2.7x speedup from concurrent pages in one session** — the proxy and DNS latency that dominates sequential loads now overlaps instead of stacking.
-- **One session, one proxy, multiple pages:** each `browser.newPage()` is an isolated tab sharing the same connection to the fleet and the same proxy exit. No extra sessions, no extra proxy slots.
-- **The speedup scales with page-load time, not count:** five fast pages may only be 1.5x faster in parallel; five slow pages through a distant proxy can be close to 5x. The bottleneck is the slowest page, not the sum.
-- **Thread safety varies by language:** Node.js is single-threaded but `Promise.all` overlaps I/O; Python's sync Playwright API needs real threads (`ThreadPoolExecutor`); Java uses `CompletableFuture`; C# uses `Task.WhenAll`; Go uses goroutines. The browser handles concurrency on its end regardless.
-- **Close pages when done** — open tabs consume memory in the remote browser. Extract, close, move on.
+- **Tabs overlap the waiting:** 2–7× faster in our runs (11–29 s one by one, 2.4–6.6 s in parallel) — the wall time approaches the slowest page.
+- **No extra threads or proxy slots:** five tabs are one session — the plan meter counts one thread.
+- **The gain depends on page time, not page count:** fast pages gain little; slow ones through a distant proxy gain most.
+- **Don't share Playwright across threads:** its Python sync API and its Java API aren't thread-safe (a thread pool fails with `Target closed` / `NoSuchElementException`). Use Python's async API, and in Java start every navigation before waiting on any.
+- **Wait for the HTML, not the whole page:** with `load`, one page with a slow asset (18 s through our proxy) made the parallel run as slow as the sequential one.
+- **Close tabs when done** — every open page holds memory in the remote browser.

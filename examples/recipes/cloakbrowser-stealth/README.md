@@ -1,6 +1,6 @@
-# CloakBrowser: fingerprint-spoofed Chromium for protected sites
+# CloakBrowser, headful, full-HD display
 
-CloakBrowser is a Chromium build hardened against fingerprinting. Pages always see 1920x1080 for its fingerprint's screen, regardless of the actual display. Headful here (the default) so the virtual display is used; `screen_size` sizes the virtual display to match CloakBrowser's fingerprinted 1920x1080 so screenshots and live view look right.
+CloakBrowser presents itself as Google Chrome (Chrome 146 in the user agent and client hints) and its pages always see its fingerprint's 1920×1080 screen. `screen_size: "1920x1080"` sizes the display to match, so live view and recordings fill the frame. Headful (2 threads).
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)

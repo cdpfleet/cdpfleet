@@ -27,6 +27,7 @@ func main() {
 	// 1. Launch the browser
 	body := `{
 	  "proxy": "http://user:pass@proxy.example.com:8080",
+	  "headless": false,
 	  "screen_size": "1920x1080"
 	}`
 	req, _ := http.NewRequest("POST", "https://starter.cdpfleet.com/cloakbrowser/session", strings.NewReader(body))

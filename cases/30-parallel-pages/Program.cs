@@ -11,8 +11,8 @@ string[] urls = [
     "https://books.toscrape.com/",
     "https://quotes.toscrape.com/",
     "https://example.com",
-    "https://httpbin.org/html",
-    "https://www.scrapethissite.com/",
+    "https://en.wikipedia.org/wiki/Web_scraping",
+    "https://news.ycombinator.com/",
 ];
 
 var key = Environment.GetEnvironmentVariable("CDPFLEET_API_KEY")!;
@@ -32,7 +32,7 @@ try
         var page = await browser.NewPageAsync();
         try
         {
-            await page.GotoAsync(url, new() { Timeout = 60000 });
+            await page.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 60000 });
             return new JsonObject { ["url"] = url, ["title"] = await page.TitleAsync() };
         }
         finally
@@ -42,7 +42,7 @@ try
     }
 
     var sw1 = Stopwatch.StartNew();
-    var sequential = new JsonArray();
+    var sequential = new List<JsonObject>();
     foreach (var url in urls)
     {
         var r = await Extract(url);

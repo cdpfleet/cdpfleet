@@ -8,12 +8,11 @@ KEY = os.environ["CDPFLEET_API_KEY"]
 
 # 1. Launch the browser
 res = requests.post(
-    "https://starter.cdpfleet.com/chrome/session",
+    "https://starter.cdpfleet.com/whale/session",
     headers={"x-api-key": KEY},
     json={
         "proxy": "http://user:pass@proxy.example.com:8080",
         "headless": "new",
-        "version": "131",
     },
     timeout=60,
 )

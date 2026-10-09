@@ -14,6 +14,7 @@ public class Example {
     String body = """
         {
           "proxy": "http://user:pass@proxy.example.com:8080",
+          "headless": false,
           "screen_size": "1920x1080"
         }
         """;

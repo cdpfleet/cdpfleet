@@ -27,10 +27,9 @@ func main() {
 	// 1. Launch the browser
 	body := `{
 	  "proxy": "http://user:pass@proxy.example.com:8080",
-	  "headless": "new",
-	  "version": "131"
+	  "headless": "new"
 	}`
-	req, _ := http.NewRequest("POST", "https://starter.cdpfleet.com/chrome/session", strings.NewReader(body))
+	req, _ := http.NewRequest("POST", "https://starter.cdpfleet.com/whale/session", strings.NewReader(body))
 	req.Header.Set("x-api-key", key)
 	req.Header.Set("content-type", "application/json")
 	res, err := http.DefaultClient.Do(req)

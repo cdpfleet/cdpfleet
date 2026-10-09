@@ -4,7 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
-| #30 | [Five pages at once: extracting data in parallel within one browser session](30-parallel-pages) | Easy | Chromium |
+| #30 | [Five pages at once: parallel tabs in one browser session](30-parallel-pages) | Easy | Chromium |
 | #29 | [Visual capture: full-page screenshot, element crop and PDF in one session](29-screenshot-and-pdf) | Easy | Chromium |
 | #28 | [Scrape a catalogue page by page: structured data from rendered HTML](28-structured-extraction) | Easy | Chromium |
 | #27 | [Watch it live: streaming a remote browser to your code, frame by frame](27-live-view) | Easy | Chromium, Firefox |
