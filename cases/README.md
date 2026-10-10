@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #33 | [When is a page ready? commit, domcontentloaded, load, networkidle or a selector](33-wait-strategies) | Easy | Chromium |
+| #32 | [A page for an LLM: HTML, innerText or the accessibility snapshot?](32-page-to-text-for-llms) | Easy | Chromium |
+| #31 | [Content you can't querySelector: iframes and shadow DOM](31-iframes-and-shadow-dom) | Medium | Chromium |
 | #30 | [Five pages at once: parallel tabs in one browser session](30-parallel-pages) | Easy | Chromium |
 | #29 | [Visual capture: full-page screenshot, element crop and PDF in one session](29-screenshot-and-pdf) | Easy | Chromium |
 | #28 | [Scrape a catalogue page by page: structured data from rendered HTML](28-structured-extraction) | Easy | Chromium |

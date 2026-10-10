@@ -1,0 +1,94 @@
+{
+  "rows": [
+    {
+      "url": "https://books.toscrape.com/",
+      "strategy": "commit",
+      "ms": 6475,
+      "items_ready": 4
+    },
+    {
+      "url": "https://books.toscrape.com/",
+      "strategy": "domcontentloaded",
+      "ms": 3491,
+      "items_ready": 20
+    },
+    {
+      "url": "https://books.toscrape.com/",
+      "strategy": "load",
+      "ms": 3513,
+      "items_ready": 20
+    },
+    {
+      "url": "https://books.toscrape.com/",
+      "strategy": "networkidle",
+      "ms": 2563,
+      "items_ready": 20
+    },
+    {
+      "url": "https://books.toscrape.com/",
+      "strategy": "selector",
+      "ms": 3145,
+      "items_ready": 17
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_scraping",
+      "strategy": "commit",
+      "ms": 2634,
+      "items_ready": 35
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_scraping",
+      "strategy": "domcontentloaded",
+      "ms": 8730,
+      "items_ready": 35
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_scraping",
+      "strategy": "load",
+      "ms": 6203,
+      "items_ready": 35
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_scraping",
+      "strategy": "networkidle",
+      "ms": 5573,
+      "items_ready": 35
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_scraping",
+      "strategy": "selector",
+      "ms": 5110,
+      "items_ready": 35
+    },
+    {
+      "url": "https://quotes.toscrape.com/js-delayed/",
+      "strategy": "commit",
+      "ms": 1163,
+      "items_ready": 0
+    },
+    {
+      "url": "https://quotes.toscrape.com/js-delayed/",
+      "strategy": "domcontentloaded",
+      "ms": 2691,
+      "items_ready": 0
+    },
+    {
+      "url": "https://quotes.toscrape.com/js-delayed/",
+      "strategy": "load",
+      "ms": 6802,
+      "items_ready": 0
+    },
+    {
+      "url": "https://quotes.toscrape.com/js-delayed/",
+      "strategy": "networkidle",
+      "ms": 11819,
+      "items_ready": 0
+    },
+    {
+      "url": "https://quotes.toscrape.com/js-delayed/",
+      "strategy": "selector",
+      "ms": 13731,
+      "items_ready": 10
+    }
+  ]
+}

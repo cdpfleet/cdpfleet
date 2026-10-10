@@ -1,0 +1,31 @@
+{
+  "pages": [
+    {
+      "url": "https://news.ycombinator.com/",
+      "html_chars": 34742,
+      "text_chars": 4096,
+      "aria_chars": 40476,
+      "aria_links": 224,
+      "aria_vs_html": 116.5,
+      "aria_sample": "- table:\n  - rowgroup:\n    - row \"Hacker Newsnew | past | comments | ask | show | jobs | submit login\":\n      - cell \"Hacker Newsnew | past | comments | ask | show | jobs | submit login\":\n        - table:\n          - rowgroup:"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_scraping",
+      "html_chars": 256505,
+      "text_chars": 28589,
+      "aria_chars": 71320,
+      "aria_links": 383,
+      "aria_vs_html": 27.8,
+      "aria_sample": "- link \"Jump to content\":\n  - /url: \"#bodyContent\"\n- banner:\n  - navigation \"Site\":\n    - button \"Main menu\"\n  - link \"Wikipedia The Free Encyclopedia\":"
+    },
+    {
+      "url": "https://books.toscrape.com/",
+      "html_chars": 51004,
+      "text_chars": 2029,
+      "aria_chars": 16662,
+      "aria_links": 84,
+      "aria_vs_html": 32.7,
+      "aria_sample": "- banner:\n  - link \"Books to Scrape\":\n    - /url: index.html\n  - text: We love being scraped!\n- list:\n  - listitem:"
+    }
+  ]
+}

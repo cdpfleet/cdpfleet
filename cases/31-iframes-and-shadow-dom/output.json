@@ -1,0 +1,39 @@
+{
+  "frames": 3,
+  "cross_origin_frame": {
+    "url": "https://httpbin.org/html",
+    "title": ""
+  },
+  "rows": [
+    {
+      "target": "same-origin iframe",
+      "querySelector": null,
+      "playwright": "same-origin iframe text",
+      "how": "page.frameLocator('#same').locator('#inner')"
+    },
+    {
+      "target": "cross-origin iframe",
+      "querySelector": null,
+      "playwright": "Herman Melville - Moby-Dick",
+      "how": "page.frameLocator('#cross').locator('h1')"
+    },
+    {
+      "target": "open shadow root",
+      "querySelector": null,
+      "playwright": "open shadow text",
+      "how": "page.locator('.msg') — CSS pierces open shadow roots"
+    },
+    {
+      "target": "nested open shadow root",
+      "querySelector": null,
+      "playwright": "nested shadow text",
+      "how": "page.locator('.badge') — any depth"
+    },
+    {
+      "target": "closed shadow root",
+      "querySelector": null,
+      "playwright": null,
+      "how": "not reachable from page scripts or locators"
+    }
+  ]
+}

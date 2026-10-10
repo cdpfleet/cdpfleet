@@ -38,6 +38,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Opera, developer channel](recipes/opera-developer)
   - [Naver Whale](recipes/whale)
   - [CloakBrowser, headful, full-HD display](recipes/cloakbrowser-stealth)
+  - [Yandex Browser](recipes/yandex)
+  - [Camoufox reporting an older Firefox](recipes/camoufox-ff-version)
+  - [Camoufox with a macOS font list](recipes/camoufox-mac-fonts)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).
