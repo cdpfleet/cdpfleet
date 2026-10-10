@@ -1,0 +1,40 @@
+{
+  "name": "cdpfleet-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for cdpfleet: let Claude, Cursor or any MCP client drive real remote browsers — Chrome, Edge, Firefox, Camoufox and more — with residential proxies and live-view handoff.",
+  "type": "module",
+  "bin": {
+    "cdpfleet-mcp": "src/server.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "cdpfleet": "^0.1.0",
+    "playwright-core": "1.60.0",
+    "zod": "^3.25.76"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "browser",
+    "playwright",
+    "claude",
+    "cursor",
+    "agents",
+    "cdpfleet"
+  ],
+  "homepage": "https://cdpfleet.com/docs/mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdpfleet/cdpfleet.git",
+    "directory": "sdk/mcp"
+  },
+  "license": "MIT"
+}

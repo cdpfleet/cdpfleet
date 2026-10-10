@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Cdpfleet</RootNamespace>
+    <PackageId>Cdpfleet</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>cdpfleet</Authors>
+    <Description>cdpfleet SDK: launch a remote browser (Chrome, Chromium, Firefox, Camoufox, WebKit) and connect your own Playwright to it.</Description>
+    <PackageTags>playwright;browser;automation;cdp;headless;proxy</PackageTags>
+    <PackageProjectUrl>https://cdpfleet.com/docs/sdk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cdpfleet/cdpfleet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Playwright" Version="1.60.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

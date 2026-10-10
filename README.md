@@ -39,6 +39,10 @@ The same in [Python, Java, C# and Go](examples/quickstart). Get an API key in th
 | [cases/](cases) | Hard, real problems solved end to end — fingerprints, proxies, files, WebSockets, worker pools — with code in five languages and real output |
 | [templates/](templates) | Ready-to-run starter projects for Node.js, Python, Java, C# and Go |
 
+## SDKs and MCP server
+
+Optional client libraries that launch, connect your own Playwright, retry when the fleet is busy and handle keep_alive — Node.js, Python, Java, C# and Go — plus an MCP server that lets Claude, Cursor or Codex drive a real browser: see [sdk/](sdk). The [code builder](https://cdpfleet.com/docs/builder) writes SDK or plain-Playwright code for any browser.
+
 ## Good to know
 
 - **Playwright or CDP.** Use `browserType.connect(wsUrl)` with the Playwright client of the same minor version as the server — **1.60** (1.52 for Rebrowser). Or launch a Chromium-based browser with `"cdp": true` and connect **Puppeteer**, `connectOverCDP()` or any CDP client to the returned `cdpUrl` ([docs/cdp.md](docs/cdp.md)).
