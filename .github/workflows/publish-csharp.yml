@@ -1,0 +1,19 @@
+# Publishes the C# SDK (sdk/csharp, NuGet package Cdpfleet) when a tag like csharp-v0.1.0 is pushed.
+name: publish-csharp
+on:
+  push:
+    tags: ['csharp-v*']
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: sdk/csharp/src/Cdpfleet } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: '8.0.x' }
+      - name: Tag matches package version
+        run: test "csharp-v$(grep -oP '(?<=<Version>)[^<]+' Cdpfleet.csproj)" = "${GITHUB_REF_NAME}"
+      - run: dotnet pack -c Release -o out
+      - run: dotnet nuget push "out/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json

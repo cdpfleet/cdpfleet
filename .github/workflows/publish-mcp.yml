@@ -1,0 +1,22 @@
+# Publishes the MCP server (sdk/mcp, npm package cdpfleet-mcp) when a tag like mcp-v0.1.0 is pushed.
+# Publish the Node.js SDK first: cdpfleet-mcp depends on the cdpfleet package.
+name: publish-mcp
+on:
+  push:
+    tags: ['mcp-v*']
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: sdk/mcp } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, registry-url: 'https://registry.npmjs.org' }
+      - name: Tag matches package version
+        run: test "mcp-v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
+      - run: npm install --no-audit --no-fund && node --check src/server.js
+      - run: npm publish --access public --provenance
+        env: { NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}' }

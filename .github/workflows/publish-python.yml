@@ -1,0 +1,21 @@
+# Publishes the Python SDK (sdk/python) to PyPI when a tag like python-v0.1.0 is pushed.
+# Uses PyPI trusted publishing: no token; add this repo/workflow/environment as a publisher on PyPI.
+name: publish-python
+on:
+  push:
+    tags: ['python-v*']
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions: { contents: read, id-token: write }
+    defaults: { run: { working-directory: sdk/python } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Tag matches package version
+        run: test "python-v$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")" = "${GITHUB_REF_NAME}"
+      - run: python -m pip install --upgrade build && python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with: { packages-dir: sdk/python/dist }
