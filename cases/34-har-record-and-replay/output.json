@@ -1,0 +1,15 @@
+{
+  "har_entries": 31,
+  "har_kb": 868,
+  "live": {
+    "ms": 8902,
+    "books": 20
+  },
+  "replay": {
+    "ms": 601,
+    "books": 20,
+    "served_from_har": 30,
+    "refused": 2
+  },
+  "page_not_in_har": "refused"
+}

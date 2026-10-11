@@ -41,6 +41,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Yandex Browser](recipes/yandex)
   - [Camoufox reporting an older Firefox](recipes/camoufox-ff-version)
   - [Camoufox with a macOS font list](recipes/camoufox-mac-fonts)
+  - [Camoufox with slower, human-paced cursor moves](recipes/camoufox-slow-humanize)
+  - [Camoufox without WebGL](recipes/camoufox-no-webgl)
+  - [Chrome you can disconnect from and come back to](recipes/chrome-keep-alive)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).

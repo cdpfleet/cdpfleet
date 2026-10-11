@@ -1,0 +1,20 @@
+{
+  "rows": [
+    {
+      "profile": "no throttling",
+      "html_ms": 2719,
+      "load_ms": 3317
+    },
+    {
+      "profile": "Fast 4G",
+      "html_ms": 1948,
+      "load_ms": 2230
+    },
+    {
+      "profile": "Slow 3G",
+      "html_ms": 8752,
+      "load_ms": 15712
+    }
+  ],
+  "offline": "net::ERR_INTERNET_DISCONNECTED"
+}

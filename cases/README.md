@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #36 | [Slow 3G on a remote browser: network throttling over a CDP session](36-slow-network) | Easy | Chromium |
+| #35 | [A German IP with a UTC clock: making location, timezone and permissions agree](35-geolocation-and-permissions) | Easy | Chromium |
+| #34 | [Record a page once, replay it offline: HAR files with a remote browser](34-har-record-and-replay) | Medium | Chromium |
 | #33 | [When is a page ready? commit, domcontentloaded, load, networkidle or a selector](33-wait-strategies) | Easy | Chromium |
 | #32 | [A page for an LLM: HTML, innerText or the accessibility snapshot?](32-page-to-text-for-llms) | Easy | Chromium |
 | #31 | [Content you can't querySelector: iframes and shadow DOM](31-iframes-and-shadow-dom) | Medium | Chromium |

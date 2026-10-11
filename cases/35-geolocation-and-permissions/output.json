@@ -1,0 +1,39 @@
+{
+  "ip": {
+    "country": "DE",
+    "timezone": "Europe/Berlin"
+  },
+  "contexts": [
+    {
+      "setup": "defaults",
+      "geolocation": {
+        "error": "permission denied"
+      },
+      "permission": "prompt",
+      "timezone": "UTC",
+      "language": "en-US",
+      "utc_offset_min": 0
+    },
+    {
+      "setup": "permission granted, no position",
+      "geolocation": {
+        "error": "Timeout expired"
+      },
+      "permission": "granted",
+      "timezone": "UTC",
+      "language": "en-US",
+      "utc_offset_min": 0
+    },
+    {
+      "setup": "Berlin: geolocation + timezone + locale",
+      "geolocation": {
+        "lat": 52.52,
+        "lon": 13.41
+      },
+      "permission": "granted",
+      "timezone": "Europe/Berlin",
+      "language": "de-DE",
+      "utc_offset_min": 120
+    }
+  ]
+}
