@@ -6,7 +6,7 @@
 
 ## The problem
 
-Logging in on every run is slow, and on sites with a second factor it can't be automated without the secret. A [persistent profile](https://cdpfleet.com/docs/profiles) keeps the browser's state on cdpfleet between sessions: launch with `"profile": "<name>"`, and the next launch with the same name starts where the last one ended. But "where it ended" means what a browser keeps when it restarts — and that isn't everything a page had. We write every kind of browser storage in one session and look at what the next session gets back.
+Logging in on every run is slow, and on sites with a second factor it can't be automated without the secret. A [persistent profile](https://cdpfleet.com/docs/profiles) keeps the browser's state on cdpfleet between sessions: launch with `"profile": "<name>"`, and the next launch with the same name starts where the last one ended. But does "where it ended" include everything a page had — session cookies, sessionStorage? We write every kind of browser storage in one session, log into a site that keeps its login in a session cookie, and look at what the next session gets back.
 
 ## What we used, and why
 
@@ -42,18 +42,20 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 | Storage | Session A wrote | Session B (profile) | Session B, newContext() |
 |---|---|---|---|
 | Cookie with an expiry ("Remember me") | yes | kept | empty |
-| Session cookie (no expiry) | yes | gone | empty |
+| Session cookie (no expiry) | yes | kept | empty |
 | localStorage | yes | kept | empty |
 | sessionStorage | yes | gone | empty |
 | IndexedDB | yes | kept | empty |
-| Practice-site login (session cookie) | signed in | signed out |  |
+| Practice-site login (session cookie) | signed in | signed in |  |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **What came back:** the cookie with an expiry, localStorage and the IndexedDB record — in every run and every language. That is where "Remember me" logins, site preferences and IndexedDB-based logins such as Firebase Auth's live.
-- **What didn't:** the session cookie and sessionStorage. A restored profile is a browser restart, and browsers drop both on restart. The practice site keeps its login in a session cookie (no expiry), so session B was signed out: **profiles don't keep logins that live in session cookies.** For those, save the state with Playwright's `storageState()`, which does include session cookies ([TOTP login](https://cdpfleet.com/docs/cases/totp-login), [persisting logins](https://cdpfleet.com/docs/cases/persist-login)), or use the site's "Remember me" option where it has one, which usually sets a cookie with an expiry.
+- **What came back:** the cookie with an expiry, the session cookie, localStorage and the IndexedDB record — in every run and every language. Session cookies are kept too: the profile captures them before the browser closes and puts them back on restore, which a plain browser restart wouldn't do.
+- **Logins in session cookies survive.** The practice site keeps its login in `PHPSESSID`, a cookie with no expiry; session B opened the site already signed in, past the TOTP second factor — in all five runs. The login lasts as long as the site keeps the server-side session; when it ends it, you log in again and the next save keeps the new one.
+- **What didn't come back: sessionStorage.** It belongs to a tab, not to the browser, and isn't part of a profile. Keep anything that must outlive the session in localStorage, cookies or IndexedDB.
 - **Work in `browser.contexts()[0]`.** A `newContext()` in the same session started empty — no cookies, no localStorage, no IndexedDB — and, per [the docs](https://cdpfleet.com/docs/profiles), nothing in it is saved. This is the mistake to avoid when moving existing code to profiles. (Go: playwright-go 0.6000's `WaitForURL` panics on pages in `contexts()[0]`, a context the client didn't create, so the Go program polls `page.URL()` instead.)
 - **One writer, many readers.** While session B held the profile, a second normal launch got `409 profile_in_use`; three read-only launches all got the saved state, and the profile stayed at version 1 until B ended and saved version 2.
-- **Small and quick:** the saved profile was 4.7–4.8 KB across the five runs ([caches are left out](https://cdpfleet.com/docs/profiles)), and a launch with a profile — new or restored — took 0.8–1.7 s from the launch call to a connected page.
+- **Small and quick:** the saved profile was 4.9–5.0 KB across the five runs ([caches are left out](https://cdpfleet.com/docs/profiles)), and a launch with a profile — new or restored — took 0.6–1.1 s from the launch call to a connected page (one outlier: 3.8 s).
+- Profiles or `storageState()`? Both now keep session cookies. Profiles keep the state on cdpfleet and need no file handling; `storageState()` ([TOTP login](https://cdpfleet.com/docs/cases/totp-login), [persisting logins](https://cdpfleet.com/docs/cases/persist-login)) keeps it in your hands and works on every browser.

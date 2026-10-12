@@ -1,15 +1,19 @@
 {
   "profile_name_prefix": "case40-",
   "sessions": {
-    "a": "d997aa3e-605f-4928-8ce3-85a609547112",
-    "b": "6c492b3a-14a6-4928-887d-47c85801db0e"
+    "a": "0e01f4ee-9ba5-40ae-a96c-3e7452a7032c",
+    "b": "00aa7cd4-661c-456a-89ae-8115ee41ace7"
   },
   "first": {
-    "launch_ms": 1211,
+    "launch_ms": 890,
     "practice_login": true,
-    "practice_cookie_expires": [
-      "session"
+    "practice_cookies": [
+      {
+        "name": "PHPSESSID",
+        "session": true
+      }
     ],
+    "practice_signed_in": true,
     "wrote": {
       "persistent_cookie": true,
       "session_cookie": true,
@@ -20,18 +24,18 @@
   },
   "saved": {
     "version": 1,
-    "bytes": 4811
+    "bytes": 4922
   },
   "second": {
-    "launch_ms": 974,
+    "launch_ms": 646,
     "restored": {
       "persistent_cookie": true,
-      "session_cookie": false,
+      "session_cookie": true,
       "local_storage": true,
       "session_storage": false,
       "indexeddb": true
     },
-    "practice_signed_in": false
+    "practice_signed_in": true
   },
   "new_context": {
     "persistent_cookie": false,

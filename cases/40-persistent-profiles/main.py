@@ -9,7 +9,6 @@ import re
 import secrets
 import struct
 import time
-from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 
 import requests
@@ -73,7 +72,10 @@ def totp(secret, unix_seconds):
 
 def api(method, path):
     res = requests.request(method, f"https://cdpfleet.com{path}", headers={"x-api-key": KEY}, timeout=30)
-    return res.status_code, res.json()
+    try:
+        return res.status_code, res.json()
+    except ValueError:
+        return res.status_code, {}
 
 
 def profile_info():
@@ -151,7 +153,8 @@ with sync_playwright() as p:
             a["page"].click("input[type=submit]")
             a["page"].wait_for_url(re.compile(r"/login(Success|Fail)/"), timeout=60000)
             out["first"]["practice_login"] = urlparse(a["page"].url).path == "/loginSuccess/"
-            out["first"]["practice_cookie_expires"] = ["session" if c["expires"] == -1 else "persistent" for c in a["context"].cookies(PRACTICE)]
+            out["first"]["practice_cookies"] = [{"name": c["name"], "session": c["expires"] == -1} for c in a["context"].cookies(PRACTICE)]
+            out["first"]["practice_signed_in"] = signed_into_practice(a["page"])  # the detector session B relies on
             go(a["page"], SITE)
             a["page"].evaluate(WRITE_JS)
             out["first"]["wrote"] = storage(a["page"])
@@ -180,11 +183,9 @@ with sync_playwright() as p:
             out["second_writer"] = {"status": w["status"], "error": w.get("error")}
             if "browser" in w:
                 w["browser"].close()
-            # Launch the readers in parallel (HTTP only); the sync Playwright client is driven from this thread.
-            with ThreadPoolExecutor(3) as pool:
-                launches = list(pool.map(start, [{"id": NAME, "mode": "readonly"}] * 3))
-            for started in launches:
-                r = attach(p, started)
+            # Readers one at a time, each closed before the next: none sits idle, none is left behind.
+            for _ in range(3):
+                r = attach(p, start({"id": NAME, "mode": "readonly"}))
                 if "browser" not in r:
                     out["readonly"].append({"status": r["status"], "error": r["error"]})
                     continue
@@ -194,7 +195,8 @@ with sync_playwright() as p:
                                             "local_storage": s["local_storage"], "indexeddb": s["indexeddb"]})
                 finally:
                     r["browser"].close()
-            b["page"].evaluate("() => document.title")  # keep B active (idle sessions end after 60 s on shared threads)
+                b["page"].evaluate("() => document.title")  # keep B active (idle sessions end after 60 s on shared threads)
+            # A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
             out["after"]["version_after_readonly"] = (profile_info() or {}).get("version")
         finally:
             b["browser"].close()

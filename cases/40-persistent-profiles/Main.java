@@ -7,7 +7,6 @@ import java.net.http.*;
 import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -130,7 +129,10 @@ async () => {
 
   // Connect to a launched session and open a page in the profile's context.
   static Attached attach(Playwright playwright, Started s) {
-    if (s.status() != 200) return new Attached(s.status(), s.body().get("error").getAsString(), null, null, null, null, 0);
+    if (s.status() != 200) {
+      JsonElement err = s.body().get("error");
+      return new Attached(s.status(), err == null || err.isJsonNull() ? null : err.getAsString(), null, null, null, null, 0);
+    }
     Browser browser = playwright.chromium().connect(s.body().get("wsUrl").getAsString(),
         new BrowserType.ConnectOptions().setHeaders(Map.of("x-api-key", KEY)));
     BrowserContext context = browser.contexts().get(0); // the profile — a newContext() would not be saved
@@ -197,9 +199,15 @@ async () => {
           a.page().click("input[type=submit]");
           a.page().waitForURL(Pattern.compile("/login(Success|Fail)/"), new Page.WaitForURLOptions().setTimeout(60000));
           first.addProperty("practice_login", URI.create(a.page().url()).getPath().equals("/loginSuccess/"));
-          JsonArray kinds = new JsonArray();
-          for (var c : a.context().cookies(PRACTICE)) kinds.add(c.expires == null || c.expires == -1 ? "session" : "persistent");
-          first.add("practice_cookie_expires", kinds);
+          JsonArray cookies = new JsonArray();
+          for (var c : a.context().cookies(PRACTICE)) {
+            JsonObject entry = new JsonObject();
+            entry.addProperty("name", c.name);
+            entry.addProperty("session", c.expires == null || c.expires == -1);
+            cookies.add(entry);
+          }
+          first.add("practice_cookies", cookies);
+          first.addProperty("practice_signed_in", signedIntoPractice(a.page())); // the detector session B relies on
           go(a.page(), SITE);
           a.page().evaluate(WRITE_JS);
           first.add("wrote", storage(a.page()));
@@ -231,11 +239,9 @@ async () => {
           JsonObject ro = new JsonObject();
           ro.addProperty("id", NAME);
           ro.addProperty("mode", "readonly");
-          // Launch the readers in parallel (HTTP only); Playwright is driven from this thread.
-          List<CompletableFuture<Started>> launches = new ArrayList<>();
-          for (int i = 0; i < 3; i++) launches.add(CompletableFuture.supplyAsync(() -> start(ro)));
-          for (CompletableFuture<Started> f : launches) {
-            Attached r = attach(playwright, f.join());
+          // Readers one at a time, each closed before the next: none sits idle, none is left behind.
+          for (int i = 0; i < 3; i++) {
+            Attached r = attach(playwright, start(ro));
             if (r.browser() == null) { readonly.add(statusError(r)); continue; }
             try {
               JsonObject s = storage(r.page());
@@ -248,8 +254,9 @@ async () => {
             } finally {
               r.browser().close();
             }
+            b.page().evaluate("() => document.title"); // keep B active (idle sessions end after 60 s on shared threads)
           }
-          b.page().evaluate("() => document.title"); // keep B active (idle sessions end after 60 s on shared threads)
+          // A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
           JsonObject info = profileInfo();
           after.add("version_after_readonly", info == null ? JsonNull.INSTANCE : info.get("version"));
         } finally {

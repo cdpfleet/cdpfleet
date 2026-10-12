@@ -92,8 +92,9 @@ try
         await a.Page.ClickAsync("input[type=submit]");
         await a.Page.WaitForURLAsync(new Regex("/login(Success|Fail)/"), new() { Timeout = 60000 });
         first["practice_login"] = new Uri(a.Page.Url).AbsolutePath == "/loginSuccess/";
-        first["practice_cookie_expires"] = new JsonArray((await a.Context!.CookiesAsync([Practice]))
-            .Select(c => (JsonNode)(c.Expires == -1 ? "session" : "persistent")).ToArray());
+        first["practice_cookies"] = new JsonArray((await a.Context!.CookiesAsync([Practice]))
+            .Select(c => (JsonNode)new JsonObject { ["name"] = c.Name, ["session"] = c.Expires == -1 }).ToArray());
+        first["practice_signed_in"] = await SignedIntoPractice(a.Page); // the detector session B relies on
         await Go(a.Page, Site);
         await a.Page.EvaluateAsync(WriteJs);
         first["wrote"] = await Storage(a.Page);
@@ -124,11 +125,10 @@ try
         var w = await Attach(await Start(name));
         output["second_writer"] = new JsonObject { ["status"] = w.Status, ["error"] = w.Error };
         if (w.Browser is not null) await w.Browser.CloseAsync();
-        // Launch the readers in parallel (HTTP), then drive each one.
-        var launches = await Task.WhenAll(Enumerable.Range(0, 3).Select(_ => Start(new JsonObject { ["id"] = name, ["mode"] = "readonly" })));
-        foreach (var started in launches)
+        // Readers one at a time, each closed before the next: none sits idle, none is left behind.
+        for (var i = 0; i < 3; i++)
         {
-            var r = await Attach(started);
+            var r = await Attach(await Start(new JsonObject { ["id"] = name, ["mode"] = "readonly" }));
             if (r.Browser is null) { readonlyList.Add(new JsonObject { ["status"] = r.Status, ["error"] = r.Error }); continue; }
             try
             {
@@ -143,8 +143,9 @@ try
             {
                 await r.Browser.CloseAsync();
             }
+            await b.Page!.EvaluateAsync("() => document.title"); // keep B active (idle sessions end after 60 s on shared threads)
         }
-        await b.Page!.EvaluateAsync("() => document.title"); // keep B active (idle sessions end after 60 s on shared threads)
+        // A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
         after["version_after_readonly"] = (await ProfileInfo())?["version"]?.GetValue<int>();
     }
     finally

@@ -90,6 +90,11 @@ type ReadonlyEntry struct {
 	IndexedDB        *bool  `json:"indexeddb,omitempty"`
 }
 
+type PracticeCookie struct {
+	Name    string `json:"name"`
+	Session bool   `json:"session"`
+}
+
 type Output struct {
 	ProfileNamePrefix string `json:"profile_name_prefix"`
 	Sessions          struct {
@@ -97,10 +102,11 @@ type Output struct {
 		B string `json:"b,omitempty"`
 	} `json:"sessions"`
 	First struct {
-		LaunchMs              int64    `json:"launch_ms"`
-		PracticeLogin         bool     `json:"practice_login"`
-		PracticeCookieExpires []string `json:"practice_cookie_expires"`
-		Wrote                 *Storage `json:"wrote,omitempty"`
+		LaunchMs         int64            `json:"launch_ms"`
+		PracticeLogin    bool             `json:"practice_login"`
+		PracticeCookies  []PracticeCookie `json:"practice_cookies"`
+		PracticeSignedIn bool             `json:"practice_signed_in"`
+		Wrote            *Storage         `json:"wrote,omitempty"`
 	} `json:"first"`
 	Saved struct {
 		Version int   `json:"version"`
@@ -304,13 +310,13 @@ func sessionA(pw *playwright.Playwright, out *Output, secretKey []byte) error {
 	if err != nil {
 		return err
 	}
-	out.First.PracticeCookieExpires = []string{}
+	out.First.PracticeCookies = []PracticeCookie{}
 	for _, c := range cookies {
-		if c.Expires == -1 {
-			out.First.PracticeCookieExpires = append(out.First.PracticeCookieExpires, "session")
-		} else {
-			out.First.PracticeCookieExpires = append(out.First.PracticeCookieExpires, "persistent")
-		}
+		out.First.PracticeCookies = append(out.First.PracticeCookies, PracticeCookie{Name: c.Name, Session: c.Expires == -1})
+	}
+	// The detector session B relies on.
+	if out.First.PracticeSignedIn, err = signedIntoPractice(a.Page); err != nil {
+		return err
 	}
 	if err := gotoURL(a.Page, site); err != nil {
 		return err
@@ -366,18 +372,10 @@ func sessionB(pw *playwright.Playwright, out *Output) error {
 	if w.Browser != nil {
 		w.Browser.Close()
 	}
-	// Launch the readers in parallel (HTTP only); Playwright is driven from this goroutine.
-	launches := make([]Started, 3)
-	done := make(chan struct{})
-	for i := range launches {
-		go func(i int) { launches[i] = start(map[string]string{"id": name, "mode": "readonly"}); done <- struct{}{} }(i)
-	}
-	for range launches {
-		<-done
-	}
+	// Readers one at a time, each closed before the next: none sits idle, none is left behind.
 	out.Readonly = []ReadonlyEntry{}
-	for _, s := range launches {
-		r, err := attach(pw, s)
+	for i := 0; i < 3; i++ {
+		r, err := attach(pw, start(map[string]string{"id": name, "mode": "readonly"}))
 		if err != nil {
 			return err
 		}
@@ -391,10 +389,11 @@ func sessionB(pw *playwright.Playwright, out *Output) error {
 			return err
 		}
 		out.Readonly = append(out.Readonly, ReadonlyEntry{Status: r.Status, PersistentCookie: &st.PersistentCookie, LocalStorage: &st.LocalStorage, IndexedDB: &st.IndexedDB})
+		if _, err := b.Page.Evaluate("() => document.title"); err != nil { // keep B active (idle sessions end after 60 s on shared threads)
+			return err
+		}
 	}
-	if _, err := b.Page.Evaluate("() => document.title"); err != nil { // keep B active (idle sessions end after 60 s on shared threads)
-		return err
-	}
+	// A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
 	if p, err := profileInfo(); err == nil && p != nil {
 		out.After.VersionAfterReadonly = &p.Version
 	}

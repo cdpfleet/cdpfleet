@@ -112,7 +112,8 @@ try {
     await a.page.fill('#totpmfa', totp(LOGIN.secret, Date.now() / 1000));
     await Promise.all([a.page.waitForURL(/\/login(Success|Fail)\//, { timeout: 60000 }), a.page.click('input[type=submit]')]);
     out.first.practice_login = new URL(a.page.url()).pathname === '/loginSuccess/';
-    out.first.practice_cookie_expires = (await a.context.cookies(PRACTICE)).map((c) => (c.expires === -1 ? 'session' : 'persistent'));
+    out.first.practice_cookies = (await a.context.cookies(PRACTICE)).map((c) => ({ name: c.name, session: c.expires === -1 }));
+    out.first.practice_signed_in = await signedIntoPractice(a.page); // the detector session B relies on
     await go(a.page, SITE);
     await a.page.evaluate(async () => {
       document.cookie = 'remember_me=alice; max-age=2592000; path=/'; // what "Remember me" sets
@@ -155,8 +156,9 @@ try {
     const w = await launch(NAME);
     out.second_writer = { status: w.status, error: w.error ?? null };
     if (w.browser) await w.browser.close();
-    const readers = await Promise.all([1, 2, 3].map(() => launch({ id: NAME, mode: 'readonly' })));
-    for (const r of readers) {
+    // Readers one at a time, each closed before the next: none sits idle, none is left behind.
+    for (let i = 0; i < 3; i++) {
+      const r = await launch({ id: NAME, mode: 'readonly' });
       if (!r.browser) { out.readonly.push({ status: r.status, error: r.error }); continue; }
       try {
         const s = await storage(r.page);
@@ -164,8 +166,9 @@ try {
       } finally {
         await r.browser.close();
       }
+      await b.page.evaluate(() => document.title); // keep B active (idle sessions end after 60 s on shared threads)
     }
-    await b.page.evaluate(() => document.title); // keep B active (idle sessions end after 60 s on shared threads)
+    // A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
     out.after.version_after_readonly = (await profileInfo())?.version;
   } finally {
     await b.browser.close();
