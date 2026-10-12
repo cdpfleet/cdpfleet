@@ -1,0 +1,72 @@
+{
+  "profile_name_prefix": "case40-",
+  "sessions": {
+    "a": "d997aa3e-605f-4928-8ce3-85a609547112",
+    "b": "6c492b3a-14a6-4928-887d-47c85801db0e"
+  },
+  "first": {
+    "launch_ms": 1211,
+    "practice_login": true,
+    "practice_cookie_expires": [
+      "session"
+    ],
+    "wrote": {
+      "persistent_cookie": true,
+      "session_cookie": true,
+      "local_storage": true,
+      "session_storage": true,
+      "indexeddb": true
+    }
+  },
+  "saved": {
+    "version": 1,
+    "bytes": 4811
+  },
+  "second": {
+    "launch_ms": 974,
+    "restored": {
+      "persistent_cookie": true,
+      "session_cookie": false,
+      "local_storage": true,
+      "session_storage": false,
+      "indexeddb": true
+    },
+    "practice_signed_in": false
+  },
+  "new_context": {
+    "persistent_cookie": false,
+    "session_cookie": false,
+    "local_storage": false,
+    "session_storage": false,
+    "indexeddb": false
+  },
+  "second_writer": {
+    "status": 409,
+    "error": "profile_in_use"
+  },
+  "readonly": [
+    {
+      "status": 200,
+      "persistent_cookie": true,
+      "local_storage": true,
+      "indexeddb": true
+    },
+    {
+      "status": 200,
+      "persistent_cookie": true,
+      "local_storage": true,
+      "indexeddb": true
+    },
+    {
+      "status": 200,
+      "persistent_cookie": true,
+      "local_storage": true,
+      "indexeddb": true
+    }
+  ],
+  "after": {
+    "version_after_readonly": 1,
+    "version_after_b": 2,
+    "deleted": true
+  }
+}

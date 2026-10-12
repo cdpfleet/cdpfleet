@@ -1,6 +1,6 @@
 # Persistent profiles
 
-Launch with `"profile": "shop-login"` and the browser starts from that profile: the cookies, localStorage and IndexedDB of the last session that used it. When the session ends, the profile is saved again. Log in once and stay logged in across sessions, machines and days, with no state files to keep yourself.
+Launch with `"profile": "shop-login"` and the browser starts from that profile: the cookies, localStorage and IndexedDB of the last session that used it. When the session ends, the profile is saved again. On sites that remember a login across browser restarts, log in once and stay logged in across sessions, machines and days, with no state files to keep yourself.
 
 ```
 POST https://starter.cdpfleet.com/chrome/session
@@ -27,8 +27,9 @@ page = context.pages[0] if context.pages else context.new_page()
 
 ## What is saved
 
-- **Saved:** cookies, localStorage, IndexedDB.
-- **Not saved:** caches (HTTP, code, GPU and service-worker caches). A typical saved profile is tens of kilobytes to a few megabytes.
+- **Saved:** cookies with an expiry date, localStorage, IndexedDB.
+- **Not saved: session cookies and sessionStorage.** Restoring a profile is like restarting a browser. Sites that keep the login only in a session cookie (`PHPSESSID`, `ASP.NET_SessionId`, …) are signed out on the next launch; save their state with Playwright's `storageState` instead, which keeps session cookies.
+- **Not saved:** caches (HTTP, code, GPU and service-worker caches). A saved profile is typically a few kilobytes to a few megabytes.
 - **When:** after the session ends and the browser has exited. If a server fails mid-session, that session's changes are lost and the previous version stays.
 - **Camoufox keeps its device:** the fingerprint generated on the profile's first launch is saved and reused; later launches ignore fingerprint options (`os`, `screen_size`, `webgl_config`, `fonts`, `config` fingerprint keys). Timezone, locale and geolocation follow the exit IP, so keep a profile on one country or a sticky exit.
 

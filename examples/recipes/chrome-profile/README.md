@@ -1,6 +1,6 @@
 # Chrome that stays logged in between sessions
 
-`profile: "shop-login"` restores the profile's cookies, localStorage and IndexedDB at launch and saves them when the session ends — log in once, reuse it on every later launch. The generated code works in `browser.contexts()[0]`, the profile itself; a `newContext()` would not be saved. See [Persistent profiles](https://cdpfleet.com/docs/profiles).
+`profile: "shop-login"` restores the profile's cookies, localStorage and IndexedDB at launch and saves them when the session ends — log in once and reuse it on every later launch (session-only cookies aren't kept, like a browser restart). The generated code works in `browser.contexts()[0]`, the profile itself; a `newContext()` would not be saved. See [Persistent profiles](https://cdpfleet.com/docs/profiles).
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)
