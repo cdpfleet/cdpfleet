@@ -1,0 +1,45 @@
+{
+  "origin": "https://httpbin.org",
+  "sessions": [
+    "0098446e-ada1-4746-a61b-94c8d93cce96",
+    "92a2fc86-8733-4f28-be01-5e2efa9e8548"
+  ],
+  "state_files": [
+    {
+      "state": "cookies + localStorage",
+      "bytes": 403,
+      "indexeddb_databases": []
+    },
+    {
+      "state": "with IndexedDB",
+      "bytes": 2551,
+      "indexeddb_databases": [
+        "firebaseLocalStorageDb",
+        "typesDb"
+      ]
+    }
+  ],
+  "restored": [
+    {
+      "state": "cookies + localStorage",
+      "cookie_sent": true,
+      "local_storage_theme": "dark",
+      "firebase_user": null,
+      "signed_in": false
+    },
+    {
+      "state": "with IndexedDB",
+      "cookie_sent": true,
+      "local_storage_theme": "dark",
+      "firebase_user": "alice@example.com",
+      "signed_in": true
+    }
+  ],
+  "value_types_after_restore": {
+    "date": "Date",
+    "bytes": "Uint8Array",
+    "bigint": "BigInt",
+    "map": "Object {} (emptied)",
+    "blob": "Object {} (emptied)"
+  }
+}

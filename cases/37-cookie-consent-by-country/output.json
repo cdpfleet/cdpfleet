@@ -1,0 +1,203 @@
+{
+  "sites": [
+    {
+      "site": "theguardian.com",
+      "us": {
+        "status": 200,
+        "cmp": "Sourcepoint",
+        "banner": true,
+        "tcf": false,
+        "gpp": true,
+        "banner_after_ms": 9289,
+        "cookies": 33,
+        "third_party_cookies": 16,
+        "other_hosts": 66
+      },
+      "de": {
+        "status": 200,
+        "cmp": "Sourcepoint",
+        "banner": true,
+        "tcf": true,
+        "gpp": false,
+        "banner_after_ms": 4100,
+        "cookies": 7,
+        "third_party_cookies": 0,
+        "other_hosts": 5
+      },
+      "de_reject": null,
+      "de_reject_missing": "no reject button on the first layer",
+      "de_accept": {
+        "button": "Accept all",
+        "clicks": 1,
+        "cookies": 113,
+        "third_party_cookies": 90,
+        "other_hosts": 148
+      },
+      "de_accept_missing": null
+    },
+    {
+      "site": "bbc.com",
+      "us": {
+        "status": 200,
+        "cmp": "Sourcepoint",
+        "banner": false,
+        "tcf": true,
+        "gpp": true,
+        "banner_after_ms": null,
+        "cookies": 51,
+        "third_party_cookies": 17,
+        "other_hosts": 69
+      },
+      "de": {
+        "status": 200,
+        "cmp": "Sourcepoint",
+        "banner": true,
+        "tcf": true,
+        "gpp": true,
+        "banner_after_ms": 2527,
+        "cookies": 18,
+        "third_party_cookies": 2,
+        "other_hosts": 16
+      },
+      "de_reject": {
+        "button": "I do not agree",
+        "clicks": 1,
+        "cookies": 30,
+        "third_party_cookies": 4,
+        "other_hosts": 33
+      },
+      "de_reject_missing": null,
+      "de_accept": {
+        "button": "I agree",
+        "clicks": 1,
+        "cookies": 44,
+        "third_party_cookies": 15,
+        "other_hosts": 48
+      },
+      "de_accept_missing": null
+    },
+    {
+      "site": "apnews.com",
+      "us": {
+        "status": 200,
+        "cmp": "OneTrust",
+        "banner": true,
+        "tcf": false,
+        "gpp": true,
+        "banner_after_ms": 9002,
+        "cookies": 111,
+        "third_party_cookies": 75,
+        "other_hosts": 195
+      },
+      "de": {
+        "status": 200,
+        "cmp": "OneTrust",
+        "banner": true,
+        "tcf": true,
+        "gpp": false,
+        "banner_after_ms": 373,
+        "cookies": 26,
+        "third_party_cookies": 3,
+        "other_hosts": 72
+      },
+      "de_reject": {
+        "button": "I Reject All (except Strictly Necessary)",
+        "clicks": 1,
+        "cookies": 35,
+        "third_party_cookies": 3,
+        "other_hosts": 79
+      },
+      "de_reject_missing": null,
+      "de_accept": {
+        "button": "I Accept All",
+        "clicks": 1,
+        "cookies": 174,
+        "third_party_cookies": 142,
+        "other_hosts": 254
+      },
+      "de_accept_missing": null
+    },
+    {
+      "site": "theverge.com",
+      "us": {
+        "status": 200,
+        "cmp": "OneTrust",
+        "banner": false,
+        "tcf": false,
+        "gpp": true,
+        "banner_after_ms": null,
+        "cookies": 247,
+        "third_party_cookies": 223,
+        "other_hosts": 219
+      },
+      "de": {
+        "status": 200,
+        "cmp": "OneTrust",
+        "banner": true,
+        "tcf": true,
+        "gpp": false,
+        "banner_after_ms": 1903,
+        "cookies": 8,
+        "third_party_cookies": 0,
+        "other_hosts": 34
+      },
+      "de_reject": {
+        "button": "Reject Non-Essential",
+        "clicks": 1,
+        "cookies": 12,
+        "third_party_cookies": 0,
+        "other_hosts": 40
+      },
+      "de_reject_missing": null,
+      "de_accept": {
+        "button": "Accept",
+        "clicks": 1,
+        "cookies": 48,
+        "third_party_cookies": 14,
+        "other_hosts": 87
+      },
+      "de_accept_missing": null
+    },
+    {
+      "site": "huffpost.com",
+      "us": {
+        "status": 200,
+        "cmp": null,
+        "banner": false,
+        "tcf": false,
+        "gpp": true,
+        "banner_after_ms": null,
+        "cookies": 228,
+        "third_party_cookies": 218,
+        "other_hosts": 294
+      },
+      "de": {
+        "status": 200,
+        "cmp": "OneTrust",
+        "banner": true,
+        "tcf": true,
+        "gpp": false,
+        "banner_after_ms": 703,
+        "cookies": 8,
+        "third_party_cookies": 0,
+        "other_hosts": 62
+      },
+      "de_reject": {
+        "button": "Reject All",
+        "clicks": 1,
+        "cookies": 11,
+        "third_party_cookies": 0,
+        "other_hosts": 65
+      },
+      "de_reject_missing": null,
+      "de_accept": {
+        "button": "I Accept",
+        "clicks": 1,
+        "cookies": 186,
+        "third_party_cookies": 154,
+        "other_hosts": 252
+      },
+      "de_accept_missing": null
+    }
+  ]
+}

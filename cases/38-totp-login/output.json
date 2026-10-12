@@ -1,0 +1,71 @@
+{
+  "site": "https://authenticationtest.com/totpChallenge/",
+  "session_ids": {
+    "first": "02aef96a-94bc-47b1-98a2-18c6e94e410a",
+    "second": "c6bb701f-a165-4421-ad0d-4375eeb12d39"
+  },
+  "clocks": {
+    "server_date_within_request": true,
+    "request_s": 3.1,
+    "browser_minus_local_s": 0
+  },
+  "attempts": [
+    {
+      "attempt": "wrong code",
+      "offset_s": null,
+      "seconds_left_in_window": 11.4,
+      "waited_s": 0,
+      "landed": "/loginFail/",
+      "accepted": false,
+      "ms": 947
+    },
+    {
+      "attempt": "code from 2 windows ago (-60 s)",
+      "offset_s": -60,
+      "seconds_left_in_window": 8.4,
+      "waited_s": 0,
+      "landed": "/loginFail/",
+      "accepted": false,
+      "ms": 1229
+    },
+    {
+      "attempt": "code from the previous window (-30 s)",
+      "offset_s": -30,
+      "seconds_left_in_window": 4.5,
+      "waited_s": 4.5,
+      "landed": "/loginSuccess/",
+      "accepted": true,
+      "ms": 1105
+    },
+    {
+      "attempt": "code from the next window (+30 s)",
+      "offset_s": 30,
+      "seconds_left_in_window": 21.1,
+      "waited_s": 0,
+      "landed": "/loginSuccess/",
+      "accepted": true,
+      "ms": 1543
+    },
+    {
+      "attempt": "current code",
+      "offset_s": 0,
+      "seconds_left_in_window": 15.3,
+      "waited_s": 0,
+      "landed": "/loginSuccess/",
+      "accepted": true,
+      "ms": 2544
+    }
+  ],
+  "storage_state": {
+    "cookies": 1,
+    "session_cookies": 1
+  },
+  "second_session": {
+    "without_state": {
+      "signed_in": false
+    },
+    "with_state": {
+      "signed_in": true
+    }
+  }
+}

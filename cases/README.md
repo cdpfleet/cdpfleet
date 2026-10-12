@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #39 | [Saved the login, still logged out: storageState and IndexedDB](39-indexeddb-login-state) | Medium | Chromium |
+| #38 | [Logging in through a TOTP two-factor prompt from a remote browser](38-totp-login) | Medium | Chromium |
+| #37 | [Cookie banners by country: the same five sites from Germany and from the US](37-cookie-consent-by-country) | Medium | Chromium |
 | #36 | [Slow 3G on a remote browser: network throttling over a CDP session](36-slow-network) | Easy | Chromium |
 | #35 | [A German IP with a UTC clock: making location, timezone and permissions agree](35-geolocation-and-permissions) | Easy | Chromium |
 | #34 | [Record a page once, replay it offline: HAR files with a remote browser](34-har-record-and-replay) | Medium | Chromium |
