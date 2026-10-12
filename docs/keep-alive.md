@@ -1,6 +1,6 @@
 # Keeping a session alive
 
-> **Rolling out.** `keep_alive` is being enabled across the fleet after a node rollout. Until your account's nodes have it, a launch with `"keep_alive": true` returns `503 keep_alive_unavailable` — treat it as not yet available and retry once it's live.
+> Available on dedicated threads (a shared plan gets `403 keep_alive_requires_dedicated`), on every browser except Rebrowser.
 
 Normally a session ends when the last client disconnects (`browser.close()`) or after its `inactivity_timeout`. With `"keep_alive": true` the browser keeps running when your code disconnects, so you can reconnect to the **same** browser — same pages, cookies and storage — instead of launching a fresh one.
 

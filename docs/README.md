@@ -10,6 +10,7 @@
 | [Session recordings](recordings.md) | Save a session as MP4; free tier, plans and `"record": false` |
 | [Proxies](proxies.md) | Formats, pools, per-host rules, live swapping |
 | [Sessions and limits](sessions-and-limits.md) | Threads, metering, timeouts, plans |
+| [Persistent profiles](profiles.md) | Save a session's cookies and storage and reuse them with `"profile": "name"` |
 | [Keep-alive](keep-alive.md) | Reconnect to the same browser with `"keep_alive": true` (dedicated threads) |
 | [Errors](errors.md) | Status codes and what to do about each |
 | [Account API](account-api.md) | Usage, sessions, live threads and traffic over HTTPS |

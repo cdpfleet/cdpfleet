@@ -47,6 +47,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Camoufox that can click inside cross-origin iframes](recipes/camoufox-disable-coop)
   - [Microsoft Edge over CDP (Puppeteer or connectOverCDP)](recipes/edge-cdp)
   - [Headless Chrome a person can watch and take over](recipes/chrome-headless-live-view)
+  - [Chrome that stays logged in between sessions](recipes/chrome-profile)
+  - [Camoufox that keeps the same device and login](recipes/camoufox-profile)
+  - [Many scrapers sharing one saved login](recipes/profile-readonly)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).
