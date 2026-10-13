@@ -13,11 +13,14 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 400 | `cdp is not supported on this engine` | `"cdp": true` on a browser without CDP | Use a supported browser or `wsUrl` ([cdp.md](cdp.md)) |
 | 400 | `invalid_cdp` | `cdp` isn't a boolean | Send `true` or `false` |
 | 400 | `invalid_keep_alive` / `invalid_record` | `keep_alive` or `record` isn't a boolean | Send `true` or `false` |
+| 400 | `invalid_start_url` | `start_url` isn't an http(s) URL of at most 2,048 characters | Fix the URL ([live-view.md](live-view.md#launch-interactive)) |
+| 400 | `start_url_not_viewable` / `start_url_unsupported` | `start_url` on a session nobody could watch (headless without `live_view`, or headless Firefox/Camoufox/WebKit), or on Rebrowser | Launch headful, or headless Chromium-based with `"live_view": true` |
 | 401 | `missing_api_key` / `invalid_api_key` | No key, or an unknown or revoked key | Check `x-api-key` |
 | 402 | `subscription_inactive` | No active plan | Check your plan in the dashboard |
 | 402 | `proxy_balance_exhausted` | The launch uses the cdpfleet residential proxy and the balance is used up | Top up in the dashboard → Proxies |
 | 403 | `engine_not_allowed` | Your plan doesn't include this browser | Use another browser |
 | 403 | `keep_alive_requires_dedicated` | `"keep_alive": true` on a shared plan | Use dedicated threads ([keep-alive.md](keep-alive.md)) |
+| 403 | `profiles_disabled` | A `profile` on the free Community plan | Use a paid plan |
 | 404 | `not_found` | Unknown endpoint, e.g. a misspelled browser | Check the path |
 | 429 | `rate_limited` | Too many launches per second/minute | Wait `Retry-After` seconds |
 | 429 | `threads_exceeded` | The launch would exceed your threads | Close a session or wait; `Retry-After: 1` |
@@ -25,6 +28,7 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 429 | `hourly_quota_exhausted` | Shared plans: 25 % of the daily pool used in the last 60 minutes | Wait; `Retry-After: 60` |
 | 500 | — | The browser failed to start (e.g. the proxy is unreachable) | Check the proxy, then retry |
 | 503 | `shared_capacity_full` | Shared plans: the shared fleet is full right now | Retry after `Retry-After` (5 s) |
+| 503 | `community_capacity_full` | Community plan: all Community users together are at the plan's capacity | Retry after `Retry-After`, or upgrade |
 | 503 | `fleet_unavailable` / `starting_up` / `route_unavailable` | The fleet is momentarily busy | Retry with backoff (`Retry-After: 5`) |
 | 503 | `resi_unavailable` | The residential proxy is momentarily unavailable on that server | Retry |
 | 503 | `keep_alive_unavailable` | `keep_alive` isn't switched on for the fleet yet | Launch without it for now |

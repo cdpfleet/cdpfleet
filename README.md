@@ -46,7 +46,9 @@ Optional client libraries that launch, connect your own Playwright, retry when t
 ## Good to know
 
 - **Playwright or CDP.** Use `browserType.connect(wsUrl)` with the Playwright client of the same minor version as the server — **1.60** (1.52 for Rebrowser). Or launch a Chromium-based browser with `"cdp": true` and connect **Puppeteer**, `connectOverCDP()` or any CDP client to the returned `cdpUrl` ([docs/cdp.md](docs/cdp.md)).
-- **Every session needs a proxy.** Pass yours as `proxy`, or use ours: `"proxy": "cdpfleet-resi-country-us"` — residential IPs by country, device OS and sticky session, 1 GB free then $5/GB. See [docs/proxies.md](docs/proxies.md).
+- **Start free.** The Community plan gives 2 threads with 60 browser-minutes each per day, sessions up to 15 minutes and proxies included — invite-only for now, [join the waitlist](https://cdpfleet.com/#join). Paid plans from $10/month: [pricing](https://cdpfleet.com/docs/pricing).
+- **Every session needs a proxy.** Pass yours as `proxy`, or use ours: `"proxy": "cdpfleet-resi-country-us"` — residential IPs by country, device OS and sticky session, 4 price tiers from $0.50/GB (mix them per host with `proxy_rules`), $5 free credit. See [docs/proxies.md](docs/proxies.md).
+- **Try it live.** The dashboard's code generator launches any browser on a start page straight into a live view you control — the same settings are one click away as code. Over the API it's `"start_url"` ([docs/live-view.md](docs/live-view.md#launch-interactive)).
 - **Billing is per second while a session runs.** `browser.close()` ends it; a session you never connect to ends after 60 seconds. See [docs/sessions-and-limits.md](docs/sessions-and-limits.md).
 
 ## Popular cases

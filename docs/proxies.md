@@ -4,17 +4,39 @@ Every session browses through a proxy — yours, or the cdpfleet residential pro
 
 ## cdpfleet residential proxy
 
-No proxy of your own? Send a `cdpfleet-resi` token as `proxy`. Every account gets **1 GB free**, then **$5 per GB** (up + down, 1 GB = 10⁹ bytes), prepaid from a balance topped up in the [dashboard](https://cdpfleet.com/app#proxies), separately from threads.
+No proxy of your own? Send a `cdpfleet-resi` token as `proxy`. Traffic (up + down, 1 GB = 10⁹ bytes) is billed at the token's price tier from a prepaid USD balance topped up in the [dashboard](https://cdpfleet.com/app#proxies), separately from threads. Every account starts with **$5 free credit**.
+
+| Tier | Token | Price per GB |
+|---|---|---|
+| Tier 1 | `cdpfleet-resi…` (no tier) or `cdpfleet-resi-tier-1…` | $5.00 |
+| Tier 2 | `cdpfleet-resi-tier-2…` | $2.50 |
+| Tier 3 | `cdpfleet-resi-tier-3…` | $1.00 |
+| Tier 4 | `cdpfleet-resi-tier-4…` | $0.50 |
+
+Use Tier 1 for the pages that matter and a cheaper tier for bulk traffic such as CDN assets; the pools behind each tier can differ and may change, the targeting options are the same.
 
 ```jsonc
-"proxy": "cdpfleet-resi"                                        // new residential IP per connection, any country
+"proxy": "cdpfleet-resi"                                        // Tier 1: new residential IP per connection, any country
 "proxy": "cdpfleet-resi-country-us"                             // exits in the United States
 "proxy": "cdpfleet-resi-country-us-os-windows"                  // … from Windows devices
 "proxy": "cdpfleet-resi-country-de-session-cart1-lifetime-30"   // the same German IP for up to 30 minutes
+"proxy": "cdpfleet-resi-tier-4-country-us"                      // Tier 4 ($0.50/GB), US exits
+```
+
+Mix tiers in one session with `proxy_rules` — pages on Tier 1, CDN assets on Tier 4:
+
+```json
+{
+  "proxy": "cdpfleet-resi-country-us",
+  "proxy_rules": [
+    { "hosts": ["*.cloudfront.net", "*.akamaized.net", "static.*"], "proxy": "cdpfleet-resi-tier-4-country-us" }
+  ]
+}
 ```
 
 | Part | Values | Meaning |
 |---|---|---|
+| `-tier-N` | `1`–`4` | Price tier; Tier 1 if omitted |
 | `-country-XX` | ISO two-letter code | Exit country; any if omitted |
 | `-os-…` | `windows`, `android`, `ios`, `mac` | Device type behind the residential IP |
 | `-session-ID` | 1–10 of `A-Z a-z 0-9 _` | Sticky: same IP for every connection; reuse the name later to keep it |
@@ -22,7 +44,7 @@ No proxy of your own? Send a `cdpfleet-resi` token as `proxy`. Every account get
 
 - Parts go in this order; otherwise `400 invalid_proxy` names the wrong part.
 - Use it as the whole `proxy` or as one rule's proxy in `proxy_rules` — not inside a list of proxies.
-- Empty balance → `402 proxy_balance_exhausted`. Metering runs about once a minute; a running session may go 100 MB past zero before it's ended.
+- Empty balance → `402 proxy_balance_exhausted`. Metering runs about once a minute; a running session may go $0.50 past zero before it's ended.
 - Balance: `GET /v1/me/proxy-balance` ([Account API](account-api.md)).
 
 ## Formats
