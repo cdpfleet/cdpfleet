@@ -50,6 +50,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Chrome that stays logged in between sessions](recipes/chrome-profile)
   - [Camoufox that keeps the same device and login](recipes/camoufox-profile)
   - [Many scrapers sharing one saved login](recipes/profile-readonly)
+  - [Headful Chrome that isn't recorded](recipes/chrome-record-off)
+  - [Brave over CDP (Puppeteer or connectOverCDP)](recipes/brave-cdp)
+  - [Headful Chrome on a full-HD screen](recipes/chrome-screen-size)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).

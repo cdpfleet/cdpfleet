@@ -1,0 +1,31 @@
+{
+  "site": "https://quotes.toscrape.com",
+  "scrape": {
+    "last_page": 10,
+    "failed_at_s": 10.4,
+    "error": "timeout waiting for li.next a",
+    "quotes": 30,
+    "url_at_failure": "https://quotes.toscrape.com/page/10/",
+    "next_links": 0,
+    "previous_links": 1
+  },
+  "recording": {
+    "appeared_after_s": 5,
+    "duration_seconds": 11,
+    "width": 854,
+    "height": 480,
+    "bytes": 57443,
+    "downloaded_bytes": 57443,
+    "content_type": "video/mp4",
+    "mp4": true,
+    "link_expires_in_s": 900,
+    "deleted": true
+  },
+  "unrecorded": {
+    "session_id": "f3cdd8f0-40cf-4290-98ad-c3bb100b306d",
+    "recording_found": false
+  },
+  "session_id": "392bb039-23c2-4509-81c9-1bccbde164ed",
+  "session_seconds": 10.5,
+  "failure_within_recording": true
+}

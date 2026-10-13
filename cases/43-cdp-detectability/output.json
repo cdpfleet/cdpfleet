@@ -1,0 +1,70 @@
+{
+  "setups": [
+    {
+      "label": "Chromium, Playwright connect",
+      "engine": "chromium",
+      "connect": "connect",
+      "console_listener": true,
+      "console_events": 1,
+      "stack_getter_read": false,
+      "message_getter_read": true,
+      "log_cost_ratio": 3.98,
+      "evaluate_works": true
+    },
+    {
+      "label": "Patchright, Playwright connect",
+      "engine": "patchright",
+      "connect": "connect",
+      "console_listener": true,
+      "console_events": 0,
+      "stack_getter_read": false,
+      "message_getter_read": true,
+      "log_cost_ratio": 2.76,
+      "evaluate_works": true
+    },
+    {
+      "label": "Chrome, Playwright connect",
+      "engine": "chrome",
+      "connect": "connect",
+      "console_listener": true,
+      "console_events": 1,
+      "stack_getter_read": false,
+      "message_getter_read": true,
+      "log_cost_ratio": 3.98,
+      "evaluate_works": true
+    },
+    {
+      "label": "Chrome, connectOverCDP",
+      "engine": "chrome",
+      "connect": "connectOverCDP",
+      "console_listener": true,
+      "console_events": 1,
+      "stack_getter_read": false,
+      "message_getter_read": true,
+      "log_cost_ratio": 4.23,
+      "evaluate_works": true
+    },
+    {
+      "label": "Chrome, connectOverCDP, no console listener",
+      "engine": "chrome",
+      "connect": "connectOverCDP",
+      "console_listener": false,
+      "console_events": null,
+      "stack_getter_read": false,
+      "message_getter_read": true,
+      "log_cost_ratio": 4.75,
+      "evaluate_works": true
+    },
+    {
+      "label": "Camoufox, Playwright connect",
+      "engine": "camoufox",
+      "connect": "connect",
+      "console_listener": true,
+      "console_events": 1,
+      "stack_getter_read": false,
+      "message_getter_read": false,
+      "log_cost_ratio": 0.14,
+      "evaluate_works": true
+    }
+  ]
+}

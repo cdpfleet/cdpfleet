@@ -1,0 +1,31 @@
+{
+  "client": "Puppeteer (puppeteer-core 24)",
+  "connect_ms": 202,
+  "product": "Chrome/155.0.8059.39",
+  "protocol_version": "1.3",
+  "targets": {
+    "pages_before": 0,
+    "pages_after": 2
+  },
+  "loads": [
+    {
+      "label": "everything",
+      "resources": 32,
+      "transfer_kb": 331,
+      "images_blocked": 0,
+      "load_ms": 4280
+    },
+    {
+      "label": "images blocked",
+      "resources": 44,
+      "transfer_kb": 152,
+      "images_blocked": 32,
+      "load_ms": 1561
+    }
+  ],
+  "metrics": {
+    "dom_nodes": 1640,
+    "js_heap_used_mb": 1.2
+  },
+  "session_ended_s": 0.1
+}

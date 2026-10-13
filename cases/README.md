@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #43 | [Can a page tell your automation client is listening? CDP and the console](43-cdp-detectability) | Medium | Chromium, Patchright, Google Chrome, Camoufox |
+| #42 | [Puppeteer on real Google Chrome: cdpUrl, raw CDP and request interception](42-puppeteer-on-real-chrome) | Easy | Google Chrome |
+| #41 | [A scrape broke: find out why from its session recording](41-replay-a-failed-run) | Easy | Chromium |
 | #40 | [Persistent profiles: what a saved browser profile keeps, and what it doesn't](40-persistent-profiles) | Easy | Chromium |
 | #39 | [Saved the login, still logged out: storageState and IndexedDB](39-indexeddb-login-state) | Medium | Chromium |
 | #38 | [Logging in through a TOTP two-factor prompt from a remote browser](38-totp-login) | Medium | Chromium |
