@@ -23,6 +23,15 @@ Prices and sizes: [cdpfleet.com/docs/pricing](https://cdpfleet.com/docs/pricing)
 
 Minutes are counted per thread: a headful session takes 2 threads, so it uses two threads' minutes per minute.
 
+## Per-session limits
+
+| | Community | Shared | Dedicated |
+|---|---|---|---|
+| Open pages (tabs, popups, contexts) | 5 | 10 | 20 |
+| Memory (headful: +512 MB) | 3 GB | 4 GB | 8 GB |
+
+A page over the cap is closed at once on Chrome, Edge, Brave, Opera, Yandex, Chromium and CloakBrowser (the session continues); on other browsers the session ends with `page_limit`. Going over the memory limit ends that session with `session_memory_limit`; other sessions are unaffected.
+
 ## Metering
 
 - Usage is **thread-seconds**: threads × seconds, nothing rounded up.

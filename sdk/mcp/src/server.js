@@ -152,7 +152,10 @@ server.registerTool('list_browsers', { description: 'The browsers cdpfleet offer
 server.registerTool('account', { description: 'Your cdpfleet plan usage today, live sessions and residential-proxy balance.', inputSchema: {} },
   tool(async () => {
     const [usage, bal, threads] = await Promise.all([fleet.usage(), fleet.proxyBalance(), fleet.threads()]);
-    return text(JSON.stringify({ usage, live_sessions: threads.threads?.length ?? 0, residential_balance_gb: Math.round((bal.balance_bytes / 1e9) * 1000) / 1000 }, null, 2));
+    // The residential balance is USD, spent per GB at each tier's price (cdpfleet-resi-tier-N).
+    const usd = bal.balance_usd ?? (bal.balance_bytes / 1e9) * 5;
+    const gbAt = Object.fromEntries((bal.tiers || []).map((t) => [`tier_${t.tier}`, Math.round((usd / t.price_per_gb_usd) * 100) / 100]));
+    return text(JSON.stringify({ usage, live_sessions: threads.threads?.length ?? 0, residential_balance_usd: Math.round(usd * 100) / 100, residential_gb_at: gbAt }, null, 2));
   }));
 
 async function closeCurrent() {

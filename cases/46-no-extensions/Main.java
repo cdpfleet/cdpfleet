@@ -43,8 +43,9 @@ public class Main {
     }
   }
 
-  static JsonObject one(Playwright pw, Setup s) throws Exception {
-    // Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
+  // Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
+  // The fleet refuses browser-process fields with 400 unsupported_option, so nothing is started.
+  static JsonObject tryExtensions(String engine) throws Exception {
     JsonObject body = new JsonObject();
     body.addProperty("proxy", System.getenv("PROXY_URL"));
     JsonArray args = new JsonArray();
@@ -54,15 +55,34 @@ public class Main {
     JsonArray exts = new JsonArray();
     exts.add("/tmp/my-extension");
     body.add("extensions", exts);
+    HttpResponse<String> res = HttpClient.newHttpClient().send(HttpRequest.newBuilder(URI.create("https://starter.cdpfleet.com/" + engine + "/session"))
+        .header("x-api-key", KEY).header("content-type", "application/json")
+        .POST(HttpRequest.BodyPublishers.ofString(body.toString())).build(), HttpResponse.BodyHandlers.ofString());
+    JsonObject out = new JsonObject();
+    out.addProperty("status", res.statusCode());
+    try {
+      JsonElement e = JsonParser.parseString(res.body()).getAsJsonObject().get("error");
+      out.add("error", e == null ? JsonNull.INSTANCE : e);
+    } catch (Exception e) {
+      out.add("error", JsonNull.INSTANCE);
+    }
+    return out;
+  }
+
+  static JsonObject one(Playwright pw, Setup s) throws Exception {
+    JsonObject refused = tryExtensions(s.engine());
+    JsonObject out = new JsonObject();
+    out.addProperty("label", s.label());
+    out.add("launch_status", refused.get("status"));
+    out.add("launch_error", refused.get("error"));
+    // A normal launch, for the Playwright equivalents.
+    JsonObject body = new JsonObject();
+    body.addProperty("proxy", System.getenv("PROXY_URL"));
     Launched l = launch(s.engine(), body);
     BrowserType type = s.family().equals("firefox") ? pw.firefox() : pw.chromium();
     Browser browser = type.connect(l.session().get("wsUrl").getAsString(), new BrowserType.ConnectOptions().setHeaders(Map.of("x-api-key", KEY)));
-    JsonObject out = new JsonObject();
-    out.addProperty("label", s.label());
-    out.addProperty("launch_status", l.status());
     try {
       Page page = browser.newPage();
-      out.addProperty("args_applied", ((String) page.evaluate("navigator.userAgent")).contains("ARGS-WERE-APPLIED"));
       // chrome.runtime / browser.runtime exist in a page only when an extension talks to it.
       out.addProperty("extension_api", (Boolean) page.evaluate(s.api()));
       page.close();

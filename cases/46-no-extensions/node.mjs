@@ -33,18 +33,30 @@ const CONTENT_SCRIPT = `
     document.body.prepend(b);
   });`;
 
-async function one(s) {
-  // Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
-  const session = await launch(s.engine, {
-    proxy: process.env.PROXY_URL,
-    args: ['--load-extension=/tmp/my-extension', '--user-agent=ARGS-WERE-APPLIED'],
-    extensions: ['/tmp/my-extension'],
+// Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
+// The fleet refuses browser-process fields with 400 unsupported_option, so nothing is started.
+async function tryExtensions(engine) {
+  const res = await fetch(`https://starter.cdpfleet.com/${engine}/session`, {
+    method: 'POST',
+    headers: { 'x-api-key': KEY, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      proxy: process.env.PROXY_URL,
+      args: ['--load-extension=/tmp/my-extension', '--user-agent=ARGS-WERE-APPLIED'],
+      extensions: ['/tmp/my-extension'],
+    }),
   });
+  const body = await res.json().catch(() => ({}));
+  return { status: res.status, error: body.error ?? null };
+}
+
+async function one(s) {
+  const refused = await tryExtensions(s.engine);
+  const out = { label: s.label, launch_status: refused.status, launch_error: refused.error };
+  // A normal launch, for the Playwright equivalents.
+  const session = await launch(s.engine, { proxy: process.env.PROXY_URL });
   const browser = await s.type.connect(session.wsUrl, { headers: { 'x-api-key': KEY } });
-  const out = { label: s.label, launch_status: session.status };
   try {
     const page = await browser.newPage();
-    out.args_applied = (await page.evaluate(() => navigator.userAgent)).includes('ARGS-WERE-APPLIED');
     // chrome.runtime / browser.runtime exist in a page only when an extension talks to it.
     out.extension_api = await page.evaluate(s.api);
     await page.close();

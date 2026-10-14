@@ -13,8 +13,9 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 400 | `cdp is not supported on this engine` | `"cdp": true` on a browser without CDP | Use a supported browser or `wsUrl` ([cdp.md](cdp.md)) |
 | 400 | `invalid_cdp` | `cdp` isn't a boolean | Send `true` or `false` |
 | 400 | `invalid_keep_alive` / `invalid_record` | `keep_alive` or `record` isn't a boolean | Send `true` or `false` |
+| 400 | `unsupported_option` | A browser-process field the fleet doesn't take (`args`, `extensions`, `executablePath`, `ignoreDefaultArgs`, `env`, `userDataDir`, `chromiumSandbox`, `devtools`, `downloadsPath`, `tracesDir`) | Remove it; use the launch options and Playwright instead |
 | 400 | `invalid_start_url` | `start_url` isn't an http(s) URL of at most 2,048 characters | Fix the URL ([live-view.md](live-view.md#launch-interactive)) |
-| 400 | `start_url_not_viewable` / `start_url_unsupported` | `start_url` on a session nobody could watch (headless without `live_view`, or headless Firefox/Camoufox/WebKit), or on Rebrowser | Launch headful, or headless Chromium-based with `"live_view": true` |
+| 400 | `start_url_not_viewable` / `start_url_unsupported` | `start_url` on a session nobody could watch (headless without `live_view`, or headless Firefox/Camoufox/WebKit) | Launch headful, or headless Chromium-based with `"live_view": true` |
 | 401 | `missing_api_key` / `invalid_api_key` | No key, or an unknown or revoked key | Check `x-api-key` |
 | 402 | `subscription_inactive` | No active plan | Check your plan in the dashboard |
 | 402 | `proxy_balance_exhausted` | The launch uses the cdpfleet residential proxy and the balance is used up | Top up in the dashboard → Proxies |

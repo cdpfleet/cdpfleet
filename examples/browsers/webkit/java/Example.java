@@ -14,7 +14,7 @@ public class Example {
     String body = """
         {
           "proxy": "http://user:pass@proxy.example.com:8080",
-          "headless": "new"
+          "headless": true
         }
         """;
     HttpResponse<String> res = HttpClient.newHttpClient().send(

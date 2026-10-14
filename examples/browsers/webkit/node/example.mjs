@@ -10,7 +10,7 @@ const res = await fetch('https://starter.cdpfleet.com/webkit/session', {
   headers: { 'x-api-key': KEY, 'content-type': 'application/json' },
   body: JSON.stringify({
     proxy: 'http://user:pass@proxy.example.com:8080',
-    headless: 'new',
+    headless: true,
   }),
 });
 if (!res.ok) throw new Error(`launch failed: ${res.status} ${await res.text()}`);

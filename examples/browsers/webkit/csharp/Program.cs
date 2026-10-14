@@ -13,7 +13,7 @@ http.DefaultRequestHeaders.Add("x-api-key", key);
 var body = """
     {
       "proxy": "http://user:pass@proxy.example.com:8080",
-      "headless": "new"
+      "headless": true
     }
     """;
 var res = await http.PostAsync("https://starter.cdpfleet.com/webkit/session",

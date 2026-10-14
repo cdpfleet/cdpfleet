@@ -2,17 +2,17 @@
   "results": [
     {
       "label": "Chrome",
-      "launch_status": 200,
-      "args_applied": false,
+      "launch_status": 400,
+      "launch_error": "unsupported_option",
       "extension_api": false,
       "content_script_pages": 2,
-      "blocked_images": 45,
+      "blocked_images": 44,
       "header_added": true
     },
     {
       "label": "Firefox",
-      "launch_status": 200,
-      "args_applied": false,
+      "launch_status": 400,
+      "launch_error": "unsupported_option",
       "extension_api": false,
       "content_script_pages": 2,
       "blocked_images": 40,

@@ -44,22 +44,39 @@ async Task<(int Status, JsonElement Session)> Launch(string engine, JsonObject b
     }
 }
 
-async Task<JsonObject> One(string label, string engine, string family, string api)
+// Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
+// The fleet refuses browser-process fields with 400 unsupported_option, so nothing is started.
+async Task<(int Status, string? Error)> TryExtensions(string engine)
 {
-    // Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
-    var (status, session) = await Launch(engine, new JsonObject
+    var body = new JsonObject
     {
         ["proxy"] = Environment.GetEnvironmentVariable("PROXY_URL"),
         ["args"] = new JsonArray("--load-extension=/tmp/my-extension", "--user-agent=ARGS-WERE-APPLIED"),
         ["extensions"] = new JsonArray("/tmp/my-extension"),
-    });
+    };
+    var res = await http.PostAsync($"https://starter.cdpfleet.com/{engine}/session",
+        new StringContent(body.ToJsonString(), Encoding.UTF8, "application/json"));
+    string? error = null;
+    try
+    {
+        var json = await res.Content.ReadFromJsonAsync<JsonElement>();
+        if (json.ValueKind == JsonValueKind.Object && json.TryGetProperty("error", out var e) && e.ValueKind == JsonValueKind.String) error = e.GetString();
+    }
+    catch (JsonException) { }
+    return ((int)res.StatusCode, error);
+}
+
+async Task<JsonObject> One(string label, string engine, string family, string api)
+{
+    var (refusedStatus, refusedError) = await TryExtensions(engine);
+    var outp = new JsonObject { ["label"] = label, ["launch_status"] = refusedStatus, ["launch_error"] = refusedError };
+    // A normal launch, for the Playwright equivalents.
+    var (_, session) = await Launch(engine, new JsonObject { ["proxy"] = Environment.GetEnvironmentVariable("PROXY_URL") });
     var type = family == "firefox" ? playwright.Firefox : playwright.Chromium;
     var browser = await type.ConnectAsync(session.GetProperty("wsUrl").GetString()!, new() { Headers = new Dictionary<string, string> { ["x-api-key"] = key } });
-    var outp = new JsonObject { ["label"] = label, ["launch_status"] = status };
     try
     {
         var page = await browser.NewPageAsync();
-        outp["args_applied"] = (await page.EvaluateAsync<string>("navigator.userAgent")).Contains("ARGS-WERE-APPLIED");
         // chrome.runtime / browser.runtime exist in a page only when an extension talks to it.
         outp["extension_api"] = await page.EvaluateAsync<bool>(api);
         await page.CloseAsync();

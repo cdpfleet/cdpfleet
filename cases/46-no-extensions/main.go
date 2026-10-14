@@ -42,13 +42,13 @@ const contentScript = `
 
 // Field order matches the other languages' output.
 type result struct {
-	Label              string `json:"label"`
-	LaunchStatus       int    `json:"launch_status"`
-	ArgsApplied        bool   `json:"args_applied"`
-	ExtensionAPI       bool   `json:"extension_api"`
-	ContentScriptPages int    `json:"content_script_pages"`
-	BlockedImages      int    `json:"blocked_images"`
-	HeaderAdded        bool   `json:"header_added"`
+	Label              string  `json:"label"`
+	LaunchStatus       int     `json:"launch_status"`
+	LaunchError        *string `json:"launch_error"`
+	ExtensionAPI       bool    `json:"extension_api"`
+	ContentScriptPages int     `json:"content_script_pages"`
+	BlockedImages      int     `json:"blocked_images"`
+	HeaderAdded        bool    `json:"header_added"`
 }
 
 // 503 means the fleet is momentarily busy: wait Retry-After and try again.
@@ -79,18 +79,42 @@ func launch(engine string, opts map[string]any) (int, map[string]any, error) {
 	}
 }
 
-func one(pw *playwright.Playwright, s setup) (result, error) {
-	out := result{Label: s.label}
-	// Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
-	status, session, err := launch(s.engine, map[string]any{
+// Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
+// The fleet refuses browser-process fields with 400 unsupported_option, so nothing is started.
+func tryExtensions(engine string) (int, *string, error) {
+	body, _ := json.Marshal(map[string]any{
 		"proxy":      os.Getenv("PROXY_URL"),
 		"args":       []string{"--load-extension=/tmp/my-extension", "--user-agent=ARGS-WERE-APPLIED"},
 		"extensions": []string{"/tmp/my-extension"},
 	})
+	req, _ := http.NewRequest("POST", "https://starter.cdpfleet.com/"+engine+"/session", bytes.NewReader(body))
+	req.Header.Set("x-api-key", key)
+	req.Header.Set("content-type", "application/json")
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return 0, nil, err
+	}
+	defer res.Body.Close()
+	var reply struct {
+		Error *string `json:"error"`
+	}
+	b, _ := io.ReadAll(res.Body)
+	_ = json.Unmarshal(b, &reply)
+	return res.StatusCode, reply.Error, nil
+}
+
+func one(pw *playwright.Playwright, s setup) (result, error) {
+	out := result{Label: s.label}
+	status, refusal, err := tryExtensions(s.engine)
 	if err != nil {
 		return out, err
 	}
-	out.LaunchStatus = status
+	out.LaunchStatus, out.LaunchError = status, refusal
+	// A normal launch, for the Playwright equivalents.
+	_, session, err := launch(s.engine, map[string]any{"proxy": os.Getenv("PROXY_URL")})
+	if err != nil {
+		return out, err
+	}
 	browserType := pw.Chromium
 	if s.family == "firefox" {
 		browserType = pw.Firefox
@@ -105,11 +129,6 @@ func one(pw *playwright.Playwright, s setup) (result, error) {
 	if err != nil {
 		return out, err
 	}
-	ua, err := page.Evaluate("navigator.userAgent")
-	if err != nil {
-		return out, err
-	}
-	out.ArgsApplied = strings.Contains(fmt.Sprint(ua), "ARGS-WERE-APPLIED")
 	// chrome.runtime / browser.runtime exist in a page only when an extension talks to it.
 	api, err := page.Evaluate(s.api)
 	if err != nil {

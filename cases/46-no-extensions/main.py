@@ -37,18 +37,29 @@ def launch(engine, body):
         time.sleep(int(res.headers.get("retry-after", 5)))
 
 
-def one(p, s):
+def try_extensions(engine):
     # Try to load an extension the way a local launch would: Chromium flags and an "extensions" list.
-    status, session = launch(s["engine"], {
+    # The fleet refuses browser-process fields with 400 unsupported_option, so nothing is started.
+    res = requests.post(f"https://starter.cdpfleet.com/{engine}/session", headers={"x-api-key": KEY}, json={
         "proxy": os.environ["PROXY_URL"],
         "args": ["--load-extension=/tmp/my-extension", "--user-agent=ARGS-WERE-APPLIED"],
         "extensions": ["/tmp/my-extension"],
-    })
+    }, timeout=60)
+    try:
+        error = res.json().get("error")
+    except ValueError:
+        error = None
+    return res.status_code, error
+
+
+def one(p, s):
+    status, error = try_extensions(s["engine"])
+    out = {"label": s["label"], "launch_status": status, "launch_error": error}
+    # A normal launch, for the Playwright equivalents.
+    _, session = launch(s["engine"], {"proxy": os.environ["PROXY_URL"]})
     browser = getattr(p, s["family"]).connect(session["wsUrl"], headers={"x-api-key": KEY})
-    out = {"label": s["label"], "launch_status": status}
     try:
         page = browser.new_page()
-        out["args_applied"] = "ARGS-WERE-APPLIED" in page.evaluate("navigator.userAgent")
         # chrome.runtime / browser.runtime exist in a page only when an extension talks to it.
         out["extension_api"] = page.evaluate(s["api"])
         page.close()

@@ -45,7 +45,7 @@ POST https://starter.cdpfleet.com/chrome/session
 
 - The server opens the page itself; no client has to connect. Get a `control` live link as above and drive it.
 - Mouse and keyboard input count as activity; without input the session ends after `inactivity_timeout` (60 s at most on shared plans, up to 24 h on dedicated).
-- Headful on any browser, or headless Chromium-based with `"live_view": true` (else `400 start_url_not_viewable`); not on Rebrowser. `start_url` must be http(s), ≤ 2,048 characters (`400 invalid_start_url`).
+- Headful on any browser, or headless Chromium-based with `"live_view": true` (else `400 start_url_not_viewable`). On Rebrowser, code that connects later doesn't see the start page (live view does). `start_url` must be http(s), ≤ 2,048 characters (`400 invalid_start_url`).
 - Your code can connect later: `browser.contexts()[0].pages()` holds the page. Without `keep_alive`, disconnecting that client ends the session.
 
 Full page: [cdpfleet.com/docs/live-view](https://cdpfleet.com/docs/live-view).
