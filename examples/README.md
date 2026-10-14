@@ -52,6 +52,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Many scrapers sharing one saved login](recipes/profile-readonly)
   - [Headful Chrome that isn't recorded](recipes/chrome-record-off)
   - [Brave over CDP (Puppeteer or connectOverCDP)](recipes/brave-cdp)
+  - [Opera over CDP (Puppeteer or connectOverCDP)](recipes/opera-cdp)
+  - [Yandex Browser over CDP (Puppeteer or connectOverCDP)](recipes/yandex-cdp)
+  - [CloakBrowser over CDP (Puppeteer or connectOverCDP)](recipes/cloakbrowser-cdp)
   - [Headful Chrome on a full-HD screen](recipes/chrome-screen-size)
   - [Long-running session](recipes/long-session)
 

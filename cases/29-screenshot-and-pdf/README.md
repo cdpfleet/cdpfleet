@@ -12,7 +12,7 @@ You need visual proof of what a page showed — for monitoring, archiving, tests
 
 | What | Why |
 |---|---|
-| `chromium`, `headless: "new"` | `page.pdf()` needs headless Chromium. |
+| `chromium`, `headless: "new"` | `page.pdf()` needs a Chromium-based browser (Chrome and Edge print headful too). |
 | `page.screenshot()` | The visible area of the viewport. |
 | `page.screenshot({ fullPage: true })` | The whole scrollable page in one tall image. |
 | `locator(".product_pod").first().screenshot()` | Crops to one element's box — for component-level checks. |
@@ -53,5 +53,5 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 
 - **Four captures, one page load:** each is a different serialisation of the same rendered state — no re-navigation, no extra proxy traffic.
 - **The bytes travel back over the session's connection:** a full-page PNG is several times a viewport one, so prefer element crops for repeated visual checks.
-- **PDF is headless Chromium only** — on Firefox, WebKit or a headful session use screenshots instead.
+- **PDF is Chromium-based browsers only** — headless or headful ([print to PDF across browsers](https://cdpfleet.com/docs/cases/print-to-pdf)); on Firefox, Camoufox or WebKit use screenshots instead.
 - **Wait for the network first:** capturing before images arrive gives you grey boxes that look like a broken page.

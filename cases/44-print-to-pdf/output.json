@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "label": "Chromium, headless",
+      "pdf": "yes",
+      "pdf_bytes": 20044,
+      "pdf_pages": 4,
+      "with_background_bytes": 20170,
+      "pdf_seconds": 0.03,
+      "print_css_applied": true,
+      "print_screenshot_kb": 595
+    },
+    {
+      "label": "Chrome, headless",
+      "pdf": "yes",
+      "pdf_bytes": 20240,
+      "pdf_pages": 4,
+      "with_background_bytes": 20366,
+      "pdf_seconds": 0.17,
+      "print_css_applied": true,
+      "print_screenshot_kb": 595
+    },
+    {
+      "label": "Chrome, headful",
+      "pdf": "yes",
+      "pdf_bytes": 20232,
+      "pdf_pages": 4,
+      "with_background_bytes": 20358,
+      "pdf_seconds": 0.16,
+      "print_css_applied": true,
+      "print_screenshot_kb": 595
+    },
+    {
+      "label": "Edge, headful",
+      "pdf": "yes",
+      "pdf_bytes": 20246,
+      "pdf_pages": 4,
+      "with_background_bytes": 20372,
+      "pdf_seconds": 0.05,
+      "print_css_applied": true,
+      "print_screenshot_kb": 595
+    },
+    {
+      "label": "Firefox, headful",
+      "pdf": "no",
+      "error": "page.pdf: PDF generation is only supported for Headless Chromium",
+      "print_css_applied": true,
+      "print_screenshot_kb": 850
+    },
+    {
+      "label": "Camoufox, headful",
+      "pdf": "no",
+      "error": "page.pdf: PDF generation is only supported for Headless Chromium",
+      "print_css_applied": true,
+      "print_screenshot_kb": 312
+    },
+    {
+      "label": "WebKit, headful",
+      "pdf": "no",
+      "error": "page.pdf: PDF generation is only supported for Headless Chromium",
+      "print_css_applied": true,
+      "print_screenshot_kb": 759
+    }
+  ]
+}

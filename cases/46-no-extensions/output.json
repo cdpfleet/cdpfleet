@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "label": "Chrome",
+      "launch_status": 200,
+      "args_applied": false,
+      "extension_api": false,
+      "content_script_pages": 2,
+      "blocked_images": 45,
+      "header_added": true
+    },
+    {
+      "label": "Firefox",
+      "launch_status": 200,
+      "args_applied": false,
+      "extension_api": false,
+      "content_script_pages": 2,
+      "blocked_images": 40,
+      "header_added": true
+    }
+  ]
+}

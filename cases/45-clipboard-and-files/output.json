@@ -1,0 +1,52 @@
+{
+  "results": [
+    {
+      "label": "Chromium, headless",
+      "clipboard_write_default": "NotAllowedError",
+      "clipboard_read_default": "NotAllowedError",
+      "input_set_files": "report.csv:14",
+      "show_open_file_picker": true,
+      "picker_filechooser_event": false,
+      "private_file_system": "ok",
+      "picker_stubbed": "report.csv:14",
+      "grant_clipboard": "accepted",
+      "clipboard_write_granted": "ok",
+      "clipboard_read_granted": "ok"
+    },
+    {
+      "label": "Chrome, headful",
+      "clipboard_write_default": "ok",
+      "clipboard_read_default": "timed out (prompt?)",
+      "input_set_files": "report.csv:14",
+      "show_open_file_picker": true,
+      "picker_filechooser_event": false,
+      "private_file_system": "ok",
+      "picker_stubbed": "report.csv:14",
+      "grant_clipboard": "accepted",
+      "clipboard_write_granted": "ok",
+      "clipboard_read_granted": "ok"
+    },
+    {
+      "label": "Firefox, headful",
+      "clipboard_write_default": "ok",
+      "clipboard_read_default": "ok",
+      "input_set_files": "report.csv:14",
+      "show_open_file_picker": false,
+      "picker_filechooser_event": false,
+      "private_file_system": "ok",
+      "picker_stubbed": "report.csv:14",
+      "grant_clipboard": "Unknown permission: clipboard-read"
+    },
+    {
+      "label": "WebKit, headful",
+      "clipboard_write_default": "ok",
+      "clipboard_read_default": "NotAllowedError",
+      "input_set_files": "report.csv:14",
+      "show_open_file_picker": false,
+      "picker_filechooser_event": false,
+      "private_file_system": "no (TypeError)",
+      "picker_stubbed": "report.csv:14",
+      "grant_clipboard": "Unknown permission: clipboard-write"
+    }
+  ]
+}

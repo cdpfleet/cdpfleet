@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #46 | [Browser extensions aren't supported — what to use instead](46-no-extensions) | Easy | Google Chrome, Firefox |
+| #45 | [Clipboard and file permissions on remote browsers: what's blocked and what works](45-clipboard-and-files) | Medium | Chromium, Google Chrome, Firefox, WebKit |
+| #44 | [Print to PDF across browsers: which engines can, and the fallback for the rest](44-print-to-pdf) | Easy | Chromium, Google Chrome, Microsoft Edge, Firefox, Camoufox, WebKit |
 | #43 | [Can a page tell your automation client is listening? CDP and the console](43-cdp-detectability) | Medium | Chromium, Patchright, Google Chrome, Camoufox |
 | #42 | [Puppeteer on real Google Chrome: cdpUrl, raw CDP and request interception](42-puppeteer-on-real-chrome) | Easy | Google Chrome |
 | #41 | [A scrape broke: find out why from its session recording](41-replay-a-failed-run) | Easy | Chromium |
