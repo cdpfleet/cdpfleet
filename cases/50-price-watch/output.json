@@ -1,0 +1,32 @@
+{
+  "wait_seconds": 120,
+  "billed_seconds": 12.9,
+  "first_at": "2026-10-15T01:39:52.935Z",
+  "second_at": "2026-10-15T01:41:58.330Z",
+  "diff": [
+    {
+      "target": "Book price",
+      "changed": false,
+      "changes": [],
+      "now": {
+        "price": "£51.77",
+        "stock": "In stock (22 available)"
+      }
+    },
+    {
+      "target": "Bitcoin spot (USD)",
+      "changed": true,
+      "changes": [
+        {
+          "field": "price",
+          "before": "81676.54",
+          "after": "81715.885",
+          "percent": 0.05
+        }
+      ],
+      "now": {
+        "price": "81715.885"
+      }
+    }
+  ]
+}

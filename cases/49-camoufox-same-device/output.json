@@ -1,0 +1,84 @@
+{
+  "with_profile": [
+    {
+      "run": 1,
+      "device": "9b4c5e3d22",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+      "cores": 24,
+      "screen": "2176x1224",
+      "webgl_renderer": "ANGLE (Intel, Intel(R) HD Graphics Direct3D11 vs_5_0 ps_5_0), or similar",
+      "canvas": "2aa3626347ab",
+      "canvas_same_in_session": true,
+      "timezone": "America/New_York",
+      "login_cookie": true,
+      "login_storage": true
+    },
+    {
+      "run": 2,
+      "device": "9b4c5e3d22",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+      "cores": 24,
+      "screen": "2176x1224",
+      "webgl_renderer": "ANGLE (Intel, Intel(R) HD Graphics Direct3D11 vs_5_0 ps_5_0), or similar",
+      "canvas": "eee3aa52d041",
+      "canvas_same_in_session": true,
+      "timezone": "America/Chicago",
+      "login_cookie": true,
+      "login_storage": true
+    },
+    {
+      "run": 3,
+      "device": "9b4c5e3d22",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+      "cores": 24,
+      "screen": "2176x1224",
+      "webgl_renderer": "ANGLE (Intel, Intel(R) HD Graphics Direct3D11 vs_5_0 ps_5_0), or similar",
+      "canvas": "3406714b0218",
+      "canvas_same_in_session": true,
+      "timezone": "America/Chicago",
+      "login_cookie": true,
+      "login_storage": true
+    },
+    {
+      "run": 4,
+      "device": "9b4c5e3d22",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+      "cores": 24,
+      "screen": "2176x1224",
+      "webgl_renderer": "ANGLE (Intel, Intel(R) HD Graphics Direct3D11 vs_5_0 ps_5_0), or similar",
+      "canvas": "edfb4c52ec36",
+      "canvas_same_in_session": true,
+      "timezone": "America/New_York",
+      "login_cookie": true,
+      "login_storage": true
+    }
+  ],
+  "without_profile": [
+    {
+      "run": 1,
+      "device": "e57979ea7d",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+      "cores": 8,
+      "screen": "2176x1224",
+      "webgl_renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar",
+      "canvas": "3f49470cb734",
+      "canvas_same_in_session": true,
+      "timezone": "America/New_York",
+      "login_cookie": false,
+      "login_storage": false
+    },
+    {
+      "run": 2,
+      "device": "de4852f49f",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0",
+      "cores": 8,
+      "screen": "1920x1080",
+      "webgl_renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar",
+      "canvas": "42bb3f9ae210",
+      "canvas_same_in_session": true,
+      "timezone": "America/New_York",
+      "login_cookie": false,
+      "login_storage": false
+    }
+  ]
+}

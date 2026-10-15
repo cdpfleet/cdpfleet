@@ -32,6 +32,10 @@ Minutes are counted per thread: a headful session takes 2 threads, so it uses tw
 
 A page over the cap is closed at once on Chrome, Edge, Brave, Opera, Yandex, Chromium and CloakBrowser (the session continues); on other browsers the session ends with `page_limit`. Going over the memory limit ends that session with `session_memory_limit`; other sessions are unaffected.
 
+## Network
+
+A session reaches only public internet addresses. Loopback, private ranges, CGNAT, link-local and cloud-metadata addresses and the server's own addresses are refused — for page loads, redirects, `context.request`, DNS names that resolve to them, and as a `proxy` (`400` at launch).
+
 ## Metering
 
 - Usage is **thread-seconds**: threads × seconds, nothing rounded up.

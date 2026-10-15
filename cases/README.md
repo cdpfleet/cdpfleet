@@ -4,6 +4,10 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #50 | [A price watcher in one program: two snapshots minutes apart, diffed, billed only while reading](50-price-watch) | Easy | Chromium |
+| #49 | [The same Camoufox device across relaunches: what a persistent profile keeps, and what it doesn't](49-camoufox-same-device) | Medium | Camoufox |
+| #48 | [Mock, patch and fail API responses with route.fulfill on remote browsers](48-mock-api-responses) | Medium | Chromium, Firefox, WebKit |
+| #47 | [A first free scrape on the Community plan: no proxy to bring, country and sticky exits included](47-community-first-scrape) | Easy | Chromium |
 | #46 | [Browser extensions aren't supported — what to use instead](46-no-extensions) | Easy | Google Chrome, Firefox |
 | #45 | [Clipboard and file permissions on remote browsers: what's blocked and what works](45-clipboard-and-files) | Medium | Chromium, Google Chrome, Firefox, WebKit |
 | #44 | [Print to PDF across browsers: which engines can, and the fallback for the rest](44-print-to-pdf) | Easy | Chromium, Google Chrome, Microsoft Edge, Firefox, Camoufox, WebKit |
@@ -58,6 +62,7 @@ The programs read their configuration from environment variables:
 | Variable | What |
 |---|---|
 | `CDPFLEET_API_KEY` | your API key (dashboard → API keys) |
+| `COMMUNITY_API_KEY` | an API key of an account on the free Community plan (cases about that plan) |
 | `PROXY_URL` | your proxy, e.g. `http://user:pass@proxy.example.com:8000` |
 | `PROXY_URL_DE`, `PROXY_URL_US`, `PROXY_URL_JP` | proxy exits in Germany, the US, Japan (cases that compare countries) |
 | `SOCKS_PROXIES` | comma-separated `socks5://user:pass@host:port` proxies (cases that use several proxies) |

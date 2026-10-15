@@ -1,0 +1,43 @@
+{
+  "results": [
+    {
+      "engine": "chromium",
+      "items": [
+        "Red mug — $9",
+        "Blue mug — $11",
+        "Teapot — $24"
+      ],
+      "status": "ok",
+      "title": "Patched: Sample Slide Show",
+      "images_aborted": 2,
+      "error_status": "error 500",
+      "header_only_text": "Red mug — $9"
+    },
+    {
+      "engine": "firefox",
+      "items": [
+        "Red mug — $9",
+        "Blue mug — $11",
+        "Teapot — $24"
+      ],
+      "status": "ok",
+      "title": "Patched: Sample Slide Show",
+      "images_aborted": 2,
+      "error_status": "error 500",
+      "header_only_text": "Red mug — $9"
+    },
+    {
+      "engine": "webkit",
+      "items": [
+        "Red mug — $9",
+        "Blue mug — $11",
+        "Teapot — $24"
+      ],
+      "status": "ok",
+      "title": "Patched: Sample Slide Show",
+      "images_aborted": 2,
+      "error_status": "error 500",
+      "header_only_text": "Red mug â€” $9"
+    }
+  ]
+}

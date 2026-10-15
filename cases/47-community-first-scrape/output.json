@@ -1,0 +1,32 @@
+{
+  "plan": {
+    "plan": "community_60",
+    "threads": 2,
+    "minutes_per_thread_per_day": 60,
+    "max_session_minutes": 15,
+    "max_pages": 5,
+    "memory_mb": 3072,
+    "proxy_options": {
+      "country": true,
+      "os": false,
+      "session": true,
+      "lifetime": true
+    }
+  },
+  "default_proxy": {
+    "weight": 1,
+    "exit_country": "US",
+    "exit_ip": "203.0.113.1",
+    "books": 20,
+    "first_book": {
+      "title": "A Light in the Attic",
+      "price": "£51.77"
+    }
+  },
+  "plan_token": {
+    "token": "cdpfleet-plan-country-de-session-…-lifetime-10",
+    "first_country": "DE",
+    "second_country": "DE",
+    "same_ip": true
+  }
+}
