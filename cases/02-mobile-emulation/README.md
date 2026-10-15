@@ -48,9 +48,9 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 ## Takeaways
 
 - **What changes:** the user agent, viewport, screen size, device pixel ratio, touch points, `pointer: coarse`, and the `sec-ch-ua-mobile` / `sec-ch-ua-platform` client hints.
-- **Tell 1 — TLS:** the JA4 and HTTP/2 fingerprints are Chrome's in all three contexts. An "iPhone Safari" with Chrome's TLS is exactly what fingerprinting vendors look for.
-- **Tell 2 — client hints on "Safari":** Safari never sends `sec-ch-ua-*` headers or exposes `navigator.userAgentData`; the emulated iPhone does both (and says `platform: iOS`).
+- **Tell 1 — TLS:** the JA4 and HTTP/2 fingerprints are Chrome's in all three contexts. An "iPhone browser" with Chrome's TLS is exactly what fingerprinting vendors look for.
+- **Tell 2 — client hints on an iPhone user agent:** WebKit-based browsers never send `sec-ch-ua-*` headers or expose `navigator.userAgentData`; the emulated iPhone does both (and says `platform: iOS`).
 - **Tell 3 — `navigator.platform` stays `Linux x86_64`** in both mobile contexts. A real iPhone says `iPhone`, a real Pixel `Linux armv81`.
 - **Tell 4 — version skew on Android:** the Pixel descriptor's user agent says Chrome 148 while the browser (and its client hints) is Chrome 153.
 - **Tell 5 — headless:** the desktop context's user agent says `HeadlessChrome`. Use `headless: false` (2 threads) when that matters, or set a user agent.
-- Emulation is fine for layout and responsive testing. To look like a real phone to a bot check, use a real device — cdpfleet's hardware Android phones are in early access (iPhone runs on Apple's iOS Simulator today, hardware iPhone coming soon).
+- Emulation is fine for layout and responsive testing. To look like a real phone to a bot check, use a real device — cdpfleet's hardware Android phones and iOS WebView are in early access.

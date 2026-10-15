@@ -53,5 +53,5 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 - **Each engine sends its own real fingerprint.** Chrome's JA4 and HTTP/2 settings are Chrome's; Firefox's are Firefox's. Nothing to patch.
 - **Chrome and Edge differ by one extension** (JA4 `…1517…` vs `…1516…`) but share the HTTP/2 fingerprint — both are Chromium network stacks.
 - **Camoufox picks a random OS for its user agent in every session** (set `os` to choose one) **— and whatever it claims, its TLS is identical to Linux Firefox.** That's fine: Firefox's TLS stack (NSS) is the same on every OS, so a real Windows or Mac Firefox sends exactly this.
-- **WebKit speaks HTTP/1.1 through a proxy, with 29 cipher suites** — nothing like Safari on a Mac (HTTP/2, fewer ciphers). Use WebKit for rendering tests, not to impersonate Safari.
+- **WebKit speaks HTTP/1.1 through a proxy, with 29 cipher suites** — nothing like a browser on a real Mac (HTTP/2, fewer ciphers). Use WebKit for rendering tests, not to impersonate another browser.
 - Fingerprints are stable per build: read them once per version, not per request.

@@ -94,7 +94,7 @@ func main() {
 	}
 	defer pw.Stop()
 	// Every build twice: headless (1 thread) and headful on a virtual display (2 threads).
-	builds := []string{"chromium", "chrome", "patchright", "cloakbrowser"}
+	builds := []string{"chromium", "chrome", "patchright"}
 	results := make([]map[string]any, len(builds)*2)
 	var wg sync.WaitGroup
 	for i, b := range builds {

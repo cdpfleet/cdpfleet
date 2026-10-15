@@ -1,6 +1,6 @@
-# WebKit (Safari's engine)
+# WebKit
 
-Render with WebKit to see what Safari users see — layout, fonts and CSS quirks. It identifies as WebKit on Linux, so use it for rendering checks, not to impersonate Safari ([TLS fingerprints](https://cdpfleet.com/docs/cases/tls-fingerprints)).
+Render with WebKit to check layout, fonts and CSS quirks in the WebKit engine. It identifies as WebKit on Linux, so use it for rendering checks, not to impersonate another browser ([TLS fingerprints](https://cdpfleet.com/docs/cases/tls-fingerprints)).
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)

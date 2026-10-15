@@ -63,7 +63,7 @@ public class Main {
   public static void main(String[] args) throws Exception {
     // Every build twice: headless (1 thread) and headful on a virtual display (2 threads).
     List<Callable<JsonObject>> jobs = new ArrayList<>();
-    for (String b : List.of("chromium", "chrome", "patchright", "cloakbrowser")) {
+    for (String b : List.of("chromium", "chrome", "patchright")) {
       jobs.add(() -> check(b, true));
       jobs.add(() -> check(b, false));
     }

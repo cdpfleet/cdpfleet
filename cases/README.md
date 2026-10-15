@@ -49,7 +49,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 | #8 | [A bandwidth diet for residential proxies: what blocking really saves](08-bandwidth-diet) | Medium | Chromium |
 | #7 | [Different sites, different proxies, one browser: proxy_rules](07-per-host-proxy-rules) | Medium | Chromium |
 | #6 | [Swap a proxy mid-session without losing the login — and the keep-alive trap](06-live-proxy-swap) | Hard | Chromium |
-| #5 | [Four Chromium builds against common bot checks, headless and headful](05-stealth-builds) | Hard | Chromium, Google Chrome, Patchright, CloakBrowser |
+| #5 | [Three Chromium builds against common bot checks, headless and headful](05-stealth-builds) | Hard | Chromium, Google Chrome, Patchright |
 | #4 | [A German Windows persona with Camoufox — and the one setting that broke it](04-camoufox-persona) | Hard | Camoufox |
 | #3 | [Stable, beta, dev and an older major: four Chromes side by side](03-chrome-versions) | Easy | Google Chrome |
 | #2 | [Emulating an iPhone on real Chrome: what changes, and what gives you away](02-mobile-emulation) | Medium | Google Chrome |

@@ -59,6 +59,6 @@ async Task<JsonObject> Check(string name, bool headless)
 }
 
 // Every build twice: headless (1 thread) and headful on a virtual display (2 threads).
-var builds = new[] { "chromium", "chrome", "patchright", "cloakbrowser" };
+var builds = new[] { "chromium", "chrome", "patchright" };
 var rows = await Task.WhenAll(builds.SelectMany(b => new[] { Check(b, true), Check(b, false) }));
 Console.WriteLine(new JsonArray(rows.ToArray<JsonNode?>()).ToJsonString(new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));

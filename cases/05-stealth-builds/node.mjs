@@ -3,7 +3,7 @@
 import { chromium } from 'playwright';
 
 const KEY = process.env.CDPFLEET_API_KEY;
-const BUILDS = ['chromium', 'chrome', 'patchright', 'cloakbrowser'];
+const BUILDS = ['chromium', 'chrome', 'patchright'];
 
 // The checks a bot-detection script typically runs, as a page script (not page.evaluate),
 // exactly as a website would run them.

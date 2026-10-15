@@ -7,7 +7,7 @@ import { chromium, firefox, webkit } from 'playwright-core';
 import { z } from 'zod';
 import { Cdpfleet } from 'cdpfleet';
 
-const BROWSERS = ['chrome', 'edge', 'brave', 'opera', 'whale', 'yandex', 'chromium', 'patchright', 'cloakbrowser', 'camoufox', 'firefox', 'webkit'];
+const BROWSERS = ['chrome', 'edge', 'brave', 'opera', 'whale', 'yandex', 'chromium', 'patchright', 'camoufox', 'firefox', 'webkit'];
 const TYPE = { camoufox: firefox, firefox, webkit };
 const MAX_TEXT = 25000;
 

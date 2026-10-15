@@ -1,6 +1,6 @@
 # Camoufox without WebGL
 
-`block_webgl: true` turns WebGL off — no GPU fingerprint at all, and less work per page. A missing WebGL is itself a signal some sites score, so prefer a plausible GPU with `webgl_config` when they do (see [CloakBrowser vs Patchright](https://cdpfleet.com/docs/compare/cloakbrowser-vs-patchright)).
+`block_webgl: true` turns WebGL off — no GPU fingerprint at all, and less work per page. A missing WebGL is itself a signal some sites score, so prefer a plausible GPU with `webgl_config` when they do (see [stealth builds](https://cdpfleet.com/docs/cases/stealth-builds)).
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)

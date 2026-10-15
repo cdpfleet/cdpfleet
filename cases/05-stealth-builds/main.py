@@ -8,7 +8,7 @@ import requests
 from playwright.sync_api import sync_playwright
 
 KEY = os.environ["CDPFLEET_API_KEY"]
-BUILDS = ["chromium", "chrome", "patchright", "cloakbrowser"]
+BUILDS = ["chromium", "chrome", "patchright"]
 
 # The checks a bot-detection script typically runs, as a page script (not page.evaluate),
 # exactly as a website would run them.

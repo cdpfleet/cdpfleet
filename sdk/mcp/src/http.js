@@ -5,9 +5,7 @@
 //     protected-resource metadata; the client runs cdpfleet.com's OAuth flow and sends
 //     `Authorization: Bearer cdpfo_…`, checked with main (POST /internal/v1/mcp/token-info,
 //     MCP_SERVICE_TOKEN), which also returns the user's hidden MCP key to launch with;
-//   - `Authorization: Bearer <cdpfleet API key>` (or x-api-key) on /mcp, or
-//   - a personal MCP URL /mcp/u/<key> from the dashboard, for clients that can't send headers
-//     (Claude's custom connectors).
+//   - `Authorization: Bearer <cdpfleet API key>` (or x-api-key), for scripts and headless agents.
 // The browser belongs to the key, not to the MCP session: some clients (ChatGPT) open a new MCP
 // session for every tool call, or send calls with no session at all, and must still find the
 // browser they launched. Every session of a key shares that key's browser; a key unused for
@@ -25,7 +23,7 @@ const API = (process.env.CDPFLEET_API_URL || 'https://cdpfleet.com').replace(/\/
 const IDLE_MS = Number(process.env.MCP_IDLE_MS || 30 * 60000);
 const MAX_PER_KEY = Number(process.env.MCP_MAX_PER_KEY || 5);
 const MAX_BODY = 1 << 20;
-const PATH = /^\/mcp(?:\/u\/(cdpf_[\w-]{10,200}))?\/?$/;
+const PATH = /^\/mcp\/?$/;
 
 const SERVICE_TOKEN = process.env.MCP_SERVICE_TOKEN || '';
 const sessions = new Map(); // MCP session id → { transport, keyHash (owner), lastUsed }
@@ -55,8 +53,7 @@ async function tokenInfo(token) {
   return info;
 }
 
-function keyOf(req, urlKey) {
-  if (urlKey) return urlKey;
+function keyOf(req) {
   const bearer = /^Bearer\s+(\S+)$/i.exec(req.headers.authorization || '')?.[1];
   return bearer || req.headers['x-api-key'] || null;
 }
@@ -121,8 +118,8 @@ const server = http.createServer(async (req, res) => {
       res.setHeader('www-authenticate', `Bearer resource_metadata="${API}/.well-known/oauth-protected-resource/mcp"${invalidToken ? ', error="invalid_token"' : ''}`);
       return rpcError(res, 401, message, -32001);
     };
-    const key = keyOf(req, m[1]);
-    if (!key) return unauthorized('Connect with OAuth (Claude, ChatGPT: just add https://cdpfleet.com/mcp), send "Authorization: Bearer <API key>", or use your personal MCP URL from the dashboard.');
+    const key = keyOf(req);
+    if (!key) return unauthorized('Connect with OAuth (Claude, ChatGPT, Gemini: just add https://cdpfleet.com/mcp), or send "Authorization: Bearer <API key>".');
     let apiKey = key;
     let keyHash = sha(key);
     const oauth = key.startsWith('cdpfo_');
@@ -171,7 +168,7 @@ const server = http.createServer(async (req, res) => {
     await tools.server.connect(transport);
     await transport.handleRequest(req, res, body);
   } catch (err) {
-    log('mcp request failed', { path: path.replace(/\/u\/[^/]+/, '/u/…'), err: err.message });
+    log('mcp request failed', { path, err: err.message });
     if (!res.headersSent) rpcError(res, err.message === 'invalid JSON' || err.message === 'body too large' ? 400 : 500, err.message === 'invalid JSON' || err.message === 'body too large' ? err.message : 'internal error');
   }
 });

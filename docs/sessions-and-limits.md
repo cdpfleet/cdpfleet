@@ -8,7 +8,7 @@ Your plan gives you a number of **threads** — concurrent capacity. A session t
 |---|---|
 | Linux headless | 1 |
 | Linux headful (a virtual display — the default) | 2 |
-| Mobile WebView — Android WebView on hardware phones, iPhone WKWebView on Apple's iOS Simulator (hardware iPhone coming soon); early access | 3 |
+| Mobile WebView — Android WebView on hardware phones, iOS WebView; early access | 3 |
 | Mobile Chrome — Chrome and other full browsers on hardware Android phones; early access | 4 |
 
 A launch that would exceed your threads gets `429 threads_exceeded` until a session closes.
@@ -30,7 +30,7 @@ Minutes are counted per thread: a headful session takes 2 threads, so it uses tw
 | Open pages (tabs, popups, contexts) | 5 | 10 | 20 |
 | Memory (headful: +512 MB) | 3 GB | 4 GB | 8 GB |
 
-A page over the cap is closed at once on Chrome, Edge, Brave, Opera, Yandex, Chromium and CloakBrowser (the session continues); on other browsers the session ends with `page_limit`. Going over the memory limit ends that session with `session_memory_limit`; other sessions are unaffected.
+A page over the cap is closed at once on Chrome, Edge, Brave, Opera, Yandex and Chromium (the session continues); on other browsers the session ends with `page_limit`. Going over the memory limit ends that session with `session_memory_limit`; other sessions are unaffected.
 
 ## Network
 

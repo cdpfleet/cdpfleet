@@ -10,7 +10,7 @@ content-type: application/json
 { "proxy": "http://user:pass@proxy.example.com:8080", "headless": true }
 ```
 
-`<browser>` is one of the endpoints in [browsers-and-options.md](browsers-and-options.md) (`chrome`, `edge`, `brave`, `opera`, `whale`, `yandex`, `chromium`, `patchright`, `rebrowser`, `cloakbrowser`, `camoufox`, `firefox`, `webkit`). The body holds that browser's launch options; **`proxy` is required**.
+`<browser>` is one of the endpoints in [browsers-and-options.md](browsers-and-options.md) (`chrome`, `edge`, `brave`, `opera`, `whale`, `yandex`, `chromium`, `patchright`, `rebrowser`, `camoufox`, `firefox`, `webkit`). The body holds that browser's launch options; **`proxy` is required**.
 
 ### Response
 
@@ -39,7 +39,7 @@ Use Playwright's `connect()` with the client for the browser's family — `chrom
 
 ## Connect over CDP (Puppeteer, connectOverCDP)
 
-Launch with `"cdp": true` (Chrome, Edge, Brave, Opera, Yandex, Chromium, CloakBrowser) and the response also has `cdpUrl` (`<wsUrl>/cdp`). See [cdp.md](cdp.md).
+Launch with `"cdp": true` (Chrome, Edge, Brave, Opera, Yandex, Chromium) and the response also has `cdpUrl` (`<wsUrl>/cdp`). See [cdp.md](cdp.md).
 
 ```js
 const browser = await puppeteer.connect({ browserWSEndpoint: cdpUrl, headers: { 'x-api-key': KEY } });
