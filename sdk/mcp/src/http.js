@@ -4,14 +4,16 @@
 //   - `Authorization: Bearer <cdpfleet API key>` (or x-api-key) on /mcp, or
 //   - a personal MCP URL /mcp/u/<key> from the dashboard, for clients that can't send headers
 //     (Claude's custom connectors).
-// Each MCP session gets its own tools instance bound to the key that opened it; a session idle for
-// MCP_IDLE_MS is closed, which ends its browser (stops billing).
+// The browser belongs to the key, not to the MCP session: some clients (ChatGPT) open a new MCP
+// session for every tool call, or send calls with no session at all, and must still find the
+// browser they launched. Every session of a key shares that key's browser; a key unused for
+// MCP_IDLE_MS has its browser closed (stops billing). Sessions stay bound to the key that opened them.
 //   env: PORT (8410), HOST (127.0.0.1), CDPFLEET_API_URL, MCP_IDLE_MS, MCP_MAX_PER_KEY
 import http from 'node:http';
 import crypto from 'node:crypto';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { isInitializeRequest } from '@modelcontextprotocol/sdk/types.js';
-import { createServer } from './tools.js';
+import { createServer, createState } from './tools.js';
 
 const PORT = Number(process.env.PORT || 8410);
 const HOST = process.env.HOST || '127.0.0.1';
@@ -21,7 +23,8 @@ const MAX_PER_KEY = Number(process.env.MCP_MAX_PER_KEY || 5);
 const MAX_BODY = 1 << 20;
 const PATH = /^\/mcp(?:\/u\/(cdpf_[\w-]{10,200}))?\/?$/;
 
-const sessions = new Map(); // MCP session id → { transport, close, keyHash, lastUsed }
+const sessions = new Map(); // MCP session id → { transport, keyHash, lastUsed }
+const browsers = new Map(); // key hash → { state, lastUsed } — the key's browser, shared by its sessions
 const sha = (s) => crypto.createHash('sha256').update(s).digest('hex');
 const log = (msg, extra = {}) => console.log(JSON.stringify({ time: new Date().toISOString(), msg, ...extra }));
 
@@ -58,13 +61,28 @@ function readJson(req) {
   });
 }
 
+function browserOf(key, keyHash) {
+  let b = browsers.get(keyHash);
+  if (!b) browsers.set(keyHash, b = { state: createState({ apiKey: key }), lastUsed: Date.now() });
+  b.lastUsed = Date.now();
+  return b.state;
+}
+
 async function end(id, why) {
   const s = sessions.get(id);
   if (!s) return;
   sessions.delete(id);
-  await s.close().catch(() => {});
   await s.transport.close?.().catch(() => {});
   log('mcp session closed', { session: id, why, open: sessions.size });
+}
+
+async function closeBrowser(keyHash, why) {
+  const b = browsers.get(keyHash);
+  if (!b) return;
+  browsers.delete(keyHash);
+  const had = Boolean(b.state.current);
+  await b.state.close().catch(() => {});
+  if (had) log('mcp browser closed', { key: keyHash.slice(0, 12), why });
 }
 
 const server = http.createServer(async (req, res) => {
@@ -72,7 +90,7 @@ const server = http.createServer(async (req, res) => {
   try {
     if (path === '/mcp/healthz') {
       res.writeHead(200, { 'content-type': 'application/json' });
-      return res.end(JSON.stringify({ ok: true, sessions: sessions.size }));
+      return res.end(JSON.stringify({ ok: true, sessions: sessions.size, browsers: [...browsers.values()].filter((b) => b.state.current).length }));
     }
     const m = PATH.exec(path);
     if (!m) return rpcError(res, 404, 'not found');
@@ -87,20 +105,30 @@ const server = http.createServer(async (req, res) => {
       if (!s) return rpcError(res, 404, 'Unknown or expired MCP session: reconnect.');
       if (s.keyHash !== keyHash) return rpcError(res, 403, 'This MCP session belongs to another key.');
       s.lastUsed = Date.now();
+      browserOf(key, keyHash);
       return await s.transport.handleRequest(req, res, body);
     }
-    if (req.method !== 'POST' || !isInitializeRequest(body)) return rpcError(res, 400, 'Start the MCP session with an initialize request.');
+    if (req.method !== 'POST') return rpcError(res, 405, 'POST JSON-RPC requests to this endpoint.');
     if (!(await keyIsValid(key))) return rpcError(res, 401, 'Invalid or revoked cdpfleet API key.', -32001);
+
+    // No session and not an initialize: serve it statelessly, with the key's browser.
+    if (!isInitializeRequest(body)) {
+      const tools = createServer({ state: browserOf(key, keyHash) });
+      const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+      await tools.server.connect(transport);
+      res.on('close', () => { transport.close?.().catch(() => {}); });
+      return await transport.handleRequest(req, res, body);
+    }
 
     // A client that reconnects often shouldn't pile up browsers: keep the newest MAX_PER_KEY.
     const mine = [...sessions.entries()].filter(([, s]) => s.keyHash === keyHash).sort((a, b) => a[1].lastUsed - b[1].lastUsed);
     while (mine.length >= MAX_PER_KEY) await end(mine.shift()[0], 'too many sessions for this key');
 
-    const tools = createServer({ apiKey: key });
+    const tools = createServer({ state: browserOf(key, keyHash) });
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: () => crypto.randomUUID(),
       onsessioninitialized: (id) => {
-        sessions.set(id, { transport, close: tools.close, keyHash, lastUsed: Date.now() });
+        sessions.set(id, { transport, keyHash, lastUsed: Date.now() });
         log('mcp session opened', { session: id, key: keyHash.slice(0, 12), open: sessions.size });
       },
     });
@@ -115,11 +143,13 @@ const server = http.createServer(async (req, res) => {
 
 setInterval(() => {
   for (const [id, s] of sessions) if (Date.now() - s.lastUsed > IDLE_MS) end(id, 'idle');
+  for (const [h, b] of browsers) if (Date.now() - b.lastUsed > IDLE_MS) closeBrowser(h, 'idle');
 }, 60000).unref();
 
 for (const sig of ['SIGINT', 'SIGTERM']) {
   process.on(sig, async () => {
     await Promise.all([...sessions.keys()].map((id) => end(id, 'server stopping')));
+    await Promise.all([...browsers.keys()].map((h) => closeBrowser(h, 'server stopping')));
     process.exit(0);
   });
 }

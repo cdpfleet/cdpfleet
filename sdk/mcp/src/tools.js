@@ -1,6 +1,7 @@
-// cdpfleet MCP tools, as a factory: one instance per MCP client (one browser at a time each).
-// Used by the stdio server (src/server.js, `npx cdpfleet-mcp`) and the hosted HTTP server
-// (src/http.js, https://cdpfleet.com/mcp).
+// cdpfleet MCP tools, as a factory. The browser lives in a `state` object, so several MCP
+// servers can share one: the hosted server (src/http.js) keeps one state per API key, because
+// some clients (ChatGPT) open a new MCP session for every tool call. The stdio server
+// (src/server.js, `npx cdpfleet-mcp`) has one state of its own. One browser at a time per state.
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { chromium, firefox, webkit } from 'playwright-core';
 import { z } from 'zod';
@@ -10,18 +11,28 @@ const BROWSERS = ['chrome', 'edge', 'brave', 'opera', 'whale', 'yandex', 'chromi
 const TYPE = { camoufox: firefox, firefox, webkit };
 const MAX_TEXT = 25000;
 
-// → { server, close }: close() ends the open browser session (stops billing).
-export function createServer({ apiKey, defaultProxy } = {}) {
-  const fleet = new Cdpfleet(apiKey ? { apiKey } : {});
-  let current = null; // { session, browser, page, name }
+// The browser a client works with: { fleet, current: { session, browser, page, name } | null }.
+export function createState({ apiKey, defaultProxy } = {}) {
+  const state = { fleet: new Cdpfleet(apiKey ? { apiKey } : {}), defaultProxy, current: null };
+  state.close = async () => {
+    const c = state.current;
+    state.current = null;
+    if (c) await c.session.close().catch(() => {});
+  };
+  return state;
+}
+
+// → { server, close, state }: close() ends the open browser session (stops billing).
+export function createServer({ apiKey, defaultProxy, state = createState({ apiKey, defaultProxy }) } = {}) {
+  const { fleet } = state;
 
   const text = (t) => ({ content: [{ type: 'text', text: t }] });
   const fail = (t) => ({ content: [{ type: 'text', text: t }], isError: true });
   const clip = (s) => (s.length > MAX_TEXT ? `${s.slice(0, MAX_TEXT)}\n… (${s.length - MAX_TEXT} more characters; snapshot a narrower selector)` : s);
 
   function need() {
-    if (!current) throw new Error('No browser is open. Call launch_browser first.');
-    return current;
+    if (!state.current) throw new Error('No browser is open. Call launch_browser first.');
+    return state.current;
   }
 
   // A tool body that turns exceptions into an MCP error result.
@@ -50,15 +61,15 @@ export function createServer({ apiKey, defaultProxy } = {}) {
       options: z.record(z.any()).optional().describe('Extra launch options passed unchanged (e.g. channel, version, screen_size, Camoufox os/locale)'),
     },
   }, tool(async ({ browser, headless, proxy, country, record, options }) => {
-    if (current) await closeCurrent();
-    let p = proxy || defaultProxy || 'cdpfleet-resi';
+    if (state.current) await closeCurrent();
+    let p = proxy || state.defaultProxy || 'cdpfleet-resi';
     if (country && p.startsWith('cdpfleet-resi')) p = `${p}-country-${country.toLowerCase()}`;
     const live = headless && !['camoufox', 'firefox', 'webkit'].includes(browser) ? { live_view: true } : {};
     const session = await fleet.launch(browser, { proxy: p, headless, record, ...live, ...(options || {}) });
     const b = await session.connect(TYPE[browser] || chromium);
     const context = await b.newContext({ viewport: headless ? { width: 1280, height: 800 } : null });
     const page = await context.newPage();
-    current = { session, browser: b, page, name: browser };
+    state.current = { session, browser: b, page, name: browser };
     return text(`Launched ${browser} ${b.version()} (${session.resourceClass}, ${session.weight} thread(s)), session ${session.id}. Proxy: ${p.startsWith('cdpfleet-resi') ? p : 'your proxy'}. Use navigate next.`);
   }));
 
@@ -157,11 +168,7 @@ export function createServer({ apiKey, defaultProxy } = {}) {
       return text(JSON.stringify({ usage, live_sessions: threads.threads?.length ?? 0, residential_balance_usd: Math.round(usd * 100) / 100, residential_gb_at: gbAt }, null, 2));
     }));
 
-  async function closeCurrent() {
-    const c = current;
-    current = null;
-    if (c) await c.session.close().catch(() => {});
-  }
+  const closeCurrent = state.close;
 
-  return { server, close: closeCurrent };
+  return { server, close: closeCurrent, state };
 }
