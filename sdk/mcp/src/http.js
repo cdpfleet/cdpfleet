@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 // Hosted cdpfleet MCP server (MCP Streamable HTTP), served at https://cdpfleet.com/mcp: the same
 // tools as `npx cdpfleet-mcp`, with nothing to install. Auth, per MCP session:
+//   - OAuth 2.1 (Claude, ChatGPT…): no credentials → 401 with WWW-Authenticate pointing to the
+//     protected-resource metadata; the client runs cdpfleet.com's OAuth flow and sends
+//     `Authorization: Bearer cdpfo_…`, checked with main (POST /internal/v1/mcp/token-info,
+//     MCP_SERVICE_TOKEN), which also returns the user's hidden MCP key to launch with;
 //   - `Authorization: Bearer <cdpfleet API key>` (or x-api-key) on /mcp, or
 //   - a personal MCP URL /mcp/u/<key> from the dashboard, for clients that can't send headers
 //     (Claude's custom connectors).
@@ -8,7 +12,7 @@
 // session for every tool call, or send calls with no session at all, and must still find the
 // browser they launched. Every session of a key shares that key's browser; a key unused for
 // MCP_IDLE_MS has its browser closed (stops billing). Sessions stay bound to the key that opened them.
-//   env: PORT (8410), HOST (127.0.0.1), CDPFLEET_API_URL, MCP_IDLE_MS, MCP_MAX_PER_KEY
+//   env: PORT (8410), HOST (127.0.0.1), CDPFLEET_API_URL, MCP_SERVICE_TOKEN, MCP_IDLE_MS, MCP_MAX_PER_KEY
 import http from 'node:http';
 import crypto from 'node:crypto';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -23,8 +27,10 @@ const MAX_PER_KEY = Number(process.env.MCP_MAX_PER_KEY || 5);
 const MAX_BODY = 1 << 20;
 const PATH = /^\/mcp(?:\/u\/(cdpf_[\w-]{10,200}))?\/?$/;
 
-const sessions = new Map(); // MCP session id → { transport, keyHash, lastUsed }
-const browsers = new Map(); // key hash → { state, lastUsed } — the key's browser, shared by its sessions
+const SERVICE_TOKEN = process.env.MCP_SERVICE_TOKEN || '';
+const sessions = new Map(); // MCP session id → { transport, keyHash (owner), lastUsed }
+// Owner (API key hash, or "grant:<id>" for an OAuth-connected app) → its browser, shared by its sessions.
+const browsers = new Map();
 const sha = (s) => crypto.createHash('sha256').update(s).digest('hex');
 const log = (msg, extra = {}) => console.log(JSON.stringify({ time: new Date().toISOString(), msg, ...extra }));
 
@@ -32,6 +38,22 @@ const rpcError = (res, status, message, code = -32000) => {
   res.writeHead(status, { 'content-type': 'application/json', 'cache-control': 'no-store' });
   res.end(JSON.stringify({ jsonrpc: '2.0', error: { code, message }, id: null }));
 };
+
+// OAuth access token → { active, grant_id, key } from main, cached a minute.
+const tokenCache = new Map();
+async function tokenInfo(token) {
+  const h = sha(token);
+  const c = tokenCache.get(h);
+  if (c && Date.now() - c.at < 60000) return c.info;
+  const r = await fetch(`${API}/internal/v1/mcp/token-info`, {
+    method: 'POST', headers: { authorization: `Bearer ${SERVICE_TOKEN}`, 'content-type': 'application/json' },
+    body: JSON.stringify({ token }), signal: AbortSignal.timeout(10000),
+  }).catch(() => null);
+  const info = r?.ok ? await r.json() : { active: false };
+  tokenCache.set(h, { info, at: Date.now() });
+  if (tokenCache.size > 10000) tokenCache.clear();
+  return info;
+}
 
 function keyOf(req, urlKey) {
   if (urlKey) return urlKey;
@@ -94,9 +116,22 @@ const server = http.createServer(async (req, res) => {
     }
     const m = PATH.exec(path);
     if (!m) return rpcError(res, 404, 'not found');
+    // 401s point MCP clients to the OAuth flow (MCP authorization spec / RFC 9728).
+    const unauthorized = (message, invalidToken) => {
+      res.setHeader('www-authenticate', `Bearer resource_metadata="${API}/.well-known/oauth-protected-resource/mcp"${invalidToken ? ', error="invalid_token"' : ''}`);
+      return rpcError(res, 401, message, -32001);
+    };
     const key = keyOf(req, m[1]);
-    if (!key) return rpcError(res, 401, 'Send your cdpfleet API key as "Authorization: Bearer <key>", or use your personal MCP URL from the dashboard (cdpfleet.com/app).', -32001);
-    const keyHash = sha(key);
+    if (!key) return unauthorized('Connect with OAuth (Claude, ChatGPT: just add https://cdpfleet.com/mcp), send "Authorization: Bearer <API key>", or use your personal MCP URL from the dashboard.');
+    let apiKey = key;
+    let keyHash = sha(key);
+    const oauth = key.startsWith('cdpfo_');
+    if (oauth) {
+      const info = await tokenInfo(key);
+      if (!info.active) return unauthorized('The access token is invalid, expired or revoked.', true);
+      apiKey = info.key;
+      keyHash = `grant:${info.grant_id}`; // refreshed tokens keep the same sessions and browser
+    }
     const body = req.method === 'POST' ? await readJson(req) : undefined;
     const sid = req.headers['mcp-session-id'];
 
@@ -105,15 +140,15 @@ const server = http.createServer(async (req, res) => {
       if (!s) return rpcError(res, 404, 'Unknown or expired MCP session: reconnect.');
       if (s.keyHash !== keyHash) return rpcError(res, 403, 'This MCP session belongs to another key.');
       s.lastUsed = Date.now();
-      browserOf(key, keyHash);
+      browserOf(apiKey, keyHash);
       return await s.transport.handleRequest(req, res, body);
     }
     if (req.method !== 'POST') return rpcError(res, 405, 'POST JSON-RPC requests to this endpoint.');
-    if (!(await keyIsValid(key))) return rpcError(res, 401, 'Invalid or revoked cdpfleet API key.', -32001);
+    if (!oauth && !(await keyIsValid(key))) return unauthorized('Invalid or revoked cdpfleet API key.', true);
 
     // No session and not an initialize: serve it statelessly, with the key's browser.
     if (!isInitializeRequest(body)) {
-      const tools = createServer({ state: browserOf(key, keyHash) });
+      const tools = createServer({ state: browserOf(apiKey, keyHash) });
       const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
       await tools.server.connect(transport);
       res.on('close', () => { transport.close?.().catch(() => {}); });
@@ -124,7 +159,7 @@ const server = http.createServer(async (req, res) => {
     const mine = [...sessions.entries()].filter(([, s]) => s.keyHash === keyHash).sort((a, b) => a[1].lastUsed - b[1].lastUsed);
     while (mine.length >= MAX_PER_KEY) await end(mine.shift()[0], 'too many sessions for this key');
 
-    const tools = createServer({ state: browserOf(key, keyHash) });
+    const tools = createServer({ state: browserOf(apiKey, keyHash) });
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: () => crypto.randomUUID(),
       onsessioninitialized: (id) => {

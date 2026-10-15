@@ -65,7 +65,15 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     let p = proxy || state.defaultProxy || 'cdpfleet-resi';
     if (country && p.startsWith('cdpfleet-resi')) p = `${p}-country-${country.toLowerCase()}`;
     const live = headless && !['camoufox', 'firefox', 'webkit'].includes(browser) ? { live_view: true } : {};
-    const session = await fleet.launch(browser, { proxy: p, headless, record, ...live, ...(options || {}) });
+    // A key created moments ago reaches the starters with the next accounts sync (about a
+    // second): retry a refused key briefly instead of failing the first launch.
+    let session;
+    for (let i = 0; ; i++) {
+      try { session = await fleet.launch(browser, { proxy: p, headless, record, ...live, ...(options || {}) }); break; } catch (err) {
+        if (i >= 15 || !/invalid_api_key/.test(String(err.message || err))) throw err;
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+    }
     const b = await session.connect(TYPE[browser] || chromium);
     const context = await b.newContext({ viewport: headless ? { width: 1280, height: 800 } : null });
     const page = await context.newPage();
