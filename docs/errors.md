@@ -7,7 +7,7 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | Status | `error` | Meaning | What to do |
 |---|---|---|---|
 | 400 | `invalid_json` | The body isn't a JSON object | Fix the request |
-| 400 | `proxy_required` | The launch has no `proxy` | Add your proxy |
+| 400 | `proxy_required` | No `proxy`, and no Community proxy available for your plan (rare) | Add your proxy |
 | 400 | `invalid_proxy` | A `cdpfleet-resi` token that doesn't match the grammar, or inside a proxy list | Fix the token ([proxies](proxies.md#cdpfleet-residential-proxy)) |
 | 400 | — | A launch option was rejected (the message says which) | Fix the option; don't retry as is |
 | 400 | `cdp is not supported on this engine` | `"cdp": true` on a browser without CDP | Use a supported browser or `wsUrl` ([cdp.md](cdp.md)) |

@@ -48,7 +48,7 @@ const browser = await puppeteer.connect({ browserWSEndpoint: cdpUrl, headers: { 
 
 ## End a session
 
-`browser.close()` ends it at once. A session also ends when either side closes the WebSocket, after `inactivity_timeout` without traffic (60 s by default), at `overall_timeout`, or when you end it from the dashboard or the [Account API](account-api.md).
+`browser.close()` ends it at once. A session also ends when either side closes the WebSocket, after `inactivity_timeout` without traffic (120 s by default), at `overall_timeout`, or when you end it from the dashboard or the [Account API](account-api.md).
 
 ## Change the proxy of a running session
 

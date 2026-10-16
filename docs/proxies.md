@@ -1,6 +1,6 @@
 # Proxies
 
-Every session browses through a proxy — yours, or the cdpfleet residential proxy. cdpfleet never browses from its own server IPs.
+Every session browses through a proxy — yours, the cdpfleet residential proxy, or, when you send none, the free Community proxy (shared and slower). cdpfleet never browses from its own server IPs.
 
 ## cdpfleet residential proxy
 

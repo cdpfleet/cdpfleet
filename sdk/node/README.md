@@ -23,6 +23,7 @@ await session.close(); // ends the session and stops billing
 - `session.connectOverCDP(chromium)` for sessions launched with `cdp: true`.
 - **keep_alive** (dedicated threads): call `session.connect()` again after a disconnect to re-attach; `session.close()` ends the session.
 - `session.liveLink('control')`, `session.swapProxy(proxy, rules)`, and the account API: `fleet.usage()`, `threads()`, `sessions()`, `recordings()`, `recordingUrl(id)`, `proxyBalance()`.
+- **One-step connect URL:** `fleet.connectUrl('chrome', { headless: 'new' })` → `chromium.connect(url, { headers: fleet.headers() })` launches and connects at once (`cdp: true` → a `/cdp` URL for `connectOverCDP`/Puppeteer). Handy for Playwright Test's `wsEndpoint` ([docs](https://cdpfleet.com/docs/connect)).
 - Playwright is a peer dependency: you choose the client (1.60; 1.52 for Rebrowser).
 
 Docs: https://cdpfleet.com/docs/sdk · Spec: [../SPEC.md](../SPEC.md)

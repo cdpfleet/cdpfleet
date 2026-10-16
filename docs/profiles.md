@@ -43,7 +43,9 @@ page = context.pages[0] if context.pages else context.new_page()
 
 - Google Chrome, Microsoft Edge, Brave, Chromium and Camoufox (`400 profile_unsupported_engine` on others).
 - A profile belongs to the browser it was created with (`409 profile_engine_mismatch`) and can't be opened by an older major version (`409 profile_version_downgrade`).
-- 100 profiles per account, 50 MB per saved profile, included in every plan. List and delete with `GET https://cdpfleet.com/v1/me/profiles` and `DELETE https://cdpfleet.com/v1/me/profiles/{name}`.
+- 20 profiles per shared thread and 30 per dedicated thread (at least 100 per account), 50 MB per saved profile, included in every paid plan.
+- Over the limit (fewer threads, Community, or a plan that ended): nothing is deleted; new profiles can't be created, and 30 days later the ones beyond the limit are frozen (`403 profile_frozen`) — those marked `keep` (`PUT /v1/me/profiles/{name}` with `{"keep": true}`) and the most recently used stay active. Upgrading unfreezes them; profiles frozen for 90 days are deleted.
+- Camoufox keeps its device (user agent, screen, fonts, WebGL) across launches; the canvas readback changes per browser session, as in stock Firefox. List and delete with `GET https://cdpfleet.com/v1/me/profiles` and `DELETE https://cdpfleet.com/v1/me/profiles/{name}`.
 
 Profiles are encrypted with a key of their own and stored privately in Germany; browser servers never hold storage credentials.
 

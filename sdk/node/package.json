@@ -1,6 +1,6 @@
 {
   "name": "cdpfleet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Launch real remote browsers on cdpfleet and drive them with your own Playwright.",
   "type": "module",
   "exports": { ".": { "types": "./src/index.d.ts", "default": "./src/index.js" } },

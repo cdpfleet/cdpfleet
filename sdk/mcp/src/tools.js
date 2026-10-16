@@ -14,20 +14,20 @@ const MAX_TEXT = 25000;
 // The free Community plan: a short note at launch and after a session, and with the errors its
 // limits cause, saying what a paid plan adds (same wording as main's public/shared/upgrade.js).
 const UPGRADE_URL = 'https://cdpfleet.com/app#subscriptions';
-const UPGRADE_LINE = 'You\'re on the free Community plan. Ready for more? Paid plans unlock more threads, longer sessions, priority capacity, recordings and persistent profiles — from $10 a month';
+const UPGRADE_LINE = 'You\'re on the free Community plan. Ready for more? Paid plans unlock more threads, longer sessions, priority capacity, recordings and persistent profiles — from $5 a month';
 const NUDGE_EVERY_MS = 30 * 60000;
 const HINTS = {
   community_capacity_full: 'The free Community capacity is busy right now — paid plans get priority capacity and aren\'t affected.',
   daily_quota_exhausted: 'That\'s today\'s free minutes used — paid plans give you 60 to 480 minutes per thread a day, or unlimited on dedicated threads.',
   hourly_quota_exhausted: 'That\'s this hour\'s share of your free minutes — paid plans come with many more.',
-  threads_exceeded: 'The free plan runs 2 threads at a time — paid plans start at 10, and scale to thousands.',
+  threads_exceeded: 'The free plan runs 2 threads at a time — paid plans start at 5, and scale to thousands.',
   profiles_disabled: 'Persistent profiles (stay logged in across sessions) come with every paid plan.',
   keep_alive_requires_dedicated: 'keep_alive (reconnect to a running browser) comes with dedicated threads.',
 };
 
 // The browser a client works with: { fleet, current: { session, browser, page, name } | null }.
 export function createState({ apiKey, defaultProxy } = {}) {
-  const state = { fleet: new Cdpfleet(apiKey ? { apiKey } : {}), defaultProxy, current: null, community: undefined, nudgedAt: 0 };
+  const state = { fleet: new Cdpfleet(apiKey ? { apiKey } : {}), defaultProxy, current: null, plan: undefined, nudgedAt: 0 };
   state.close = async () => {
     const c = state.current;
     state.current = null;
@@ -44,11 +44,14 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
   const fail = (t) => ({ content: [{ type: 'text', text: t }], isError: true });
   const clip = (s) => (s.length > MAX_TEXT ? `${s.slice(0, MAX_TEXT)}\n… (${s.length - MAX_TEXT} more characters; snapshot a narrower selector)` : s);
 
-  // Whether the key is on the free Community plan (asked once per browser state).
-  async function community() {
-    if (state.community === undefined) state.community = await fleet.me().then((m) => Boolean(m.subscription?.features?.community), () => null);
-    return state.community;
+  // The key's plan, asked once per browser state: Community or not, and the longest idle time it allows.
+  async function plan() {
+    if (state.plan === undefined) {
+      state.plan = await fleet.me().then((m) => ({ community: Boolean(m.subscription?.features?.community), maxIdle: m.subscription?.max_inactivity_seconds || null }), () => null);
+    }
+    return state.plan;
   }
+  const community = async () => Boolean((await plan())?.community);
   // The upgrade note, at most every 30 minutes per key, for Community only.
   async function nudge() {
     if (!(await community()) || Date.now() - state.nudgedAt < NUDGE_EVERY_MS) return '';
@@ -74,7 +77,7 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     throw new Error('Give a selector, or a role (and name).');
   }
 
-  const server = new McpServer({ name: 'cdpfleet', version: '0.1.1' });
+  const server = new McpServer({ name: 'cdpfleet', version: '0.1.2' });
 
   server.registerTool('launch_browser', {
     description: 'Start a real remote browser on cdpfleet and open a page. Pick the browser the site should see. Headful by default (2 threads; less detectable). Proxy: your own proxy URL, or cdpfleet residential (default; billed per GB from your balance), optionally by country.',
@@ -98,11 +101,15 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     let p = proxy || state.defaultProxy || 'cdpfleet-resi';
     if (country && p.startsWith('cdpfleet-resi')) p = `${p}-country-${country.toLowerCase()}`;
     const live = headless && !['camoufox', 'firefox', 'webkit'].includes(browser) ? { live_view: true } : {};
+    // A conversation pauses between tool calls: keep the browser for the plan's longest idle time
+    // (shared 10 min, Community 5 min; dedicated capped at 30 min here, like the server's own idle).
+    const maxIdle = (await plan())?.maxIdle;
+    const idle = maxIdle ? { inactivity_timeout: Math.min(maxIdle, 1800) } : {};
     // A key created moments ago reaches the starters with the next accounts sync (about a
     // second): retry a refused key briefly instead of failing the first launch.
     let session;
     for (let i = 0; ; i++) {
-      try { session = await fleet.launch(browser, { proxy: p, headless, record, ...live, ...(options || {}) }); break; } catch (err) {
+      try { session = await fleet.launch(browser, { proxy: p, headless, record, ...live, ...idle, ...(options || {}) }); break; } catch (err) {
         if (i >= 15 || !/invalid_api_key/.test(String(err.message || err))) throw err;
         await new Promise((r) => setTimeout(r, 1000));
       }

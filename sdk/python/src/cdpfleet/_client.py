@@ -12,7 +12,7 @@ import urllib.parse
 import urllib.request
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 USER_AGENT = f"cdpfleet-sdk-python/{VERSION}"
 QUOTA = {"daily_quota_exhausted", "hourly_quota_exhausted"}
 DEFAULT_STARTER_URL = "https://starter.cdpfleet.com"
@@ -70,6 +70,7 @@ class Cdpfleet:
         starter_url: str = DEFAULT_STARTER_URL,
         api_url: str = DEFAULT_API_URL,
         max_wait: float = 120,
+        connect_base: str = "wss://router01.cdpfleet.com/connect",
     ):
         api_key = api_key or os.environ.get("CDPFLEET_API_KEY")
         if not api_key:
@@ -78,6 +79,7 @@ class Cdpfleet:
         self.starter_url = starter_url.rstrip("/")
         self.api_url = api_url.rstrip("/")
         self.max_wait = max_wait
+        self.connect_base = connect_base.rstrip("/")
 
     def _headers(self, json_body: bool = False) -> Dict[str, str]:
         h = {"x-api-key": self.api_key, "user-agent": USER_AGENT}
@@ -107,6 +109,22 @@ class Cdpfleet:
             if not retryable or time.monotonic() > deadline:
                 raise CdpfleetError(status, code, body)
             time.sleep(_sleep_retry(attempt, headers.get("retry-after") if headers else None))
+
+    def connect_url(self, browser: str, options: Optional[Dict[str, Any]] = None, **kwargs: Any) -> str:
+        """A launch-on-connect URL: connecting to it (Playwright connect(), or connect_over_cdp() when
+        cdp=True) launches the browser. Send the key as the x-api-key header. Plain string/bool options
+        go in the query; anything else as one base64url JSON `launch=` parameter."""
+        opts = {**(options or {}), **kwargs}
+        cdp = opts.pop("cdp", False) is True
+        path = f"{self.connect_base}/{browser}{'/cdp' if cdp else ''}"
+        if not opts:
+            return path
+        if all(isinstance(v, (str, bool)) for v in opts.values()):
+            q = "&".join(f"{k}={urllib.parse.quote(('true' if v else 'false') if isinstance(v, bool) else v, safe='')}" for k, v in opts.items())
+        else:
+            import base64
+            q = "launch=" + base64.urlsafe_b64encode(json.dumps(opts, separators=(",", ":")).encode()).decode().rstrip("=")
+        return f"{path}?{q}"
 
     def launch(self, browser: str, options: Optional[Dict[str, Any]] = None, **kwargs: Any) -> "Session":
         """Launches `browser` (chrome, chromium, firefox, camoufox, ...); options are the JSON body."""

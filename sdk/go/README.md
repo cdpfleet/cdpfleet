@@ -49,6 +49,12 @@ func main() {
 `Launch` retries fleet backpressure (503) and rate limits (429) for up to `WithMaxWait`
 (120 s); other failures return a `*cdpfleet.Error` with `Status`, `Code` and `Body`.
 
+## One-step connect URL
+
+`fleet.ConnectURL("chrome", cdpfleet.Options{"headless": "new"})` returns a URL that launches the browser when you
+connect to it: `pw.Chromium.Connect(url, playwright.BrowserTypeConnectOptions{Headers: map[string]string{"x-api-key": fleet.APIKey}})`
+(`"cdp": true` → a `/cdp` URL for `ConnectOverCDP`). See https://cdpfleet.com/docs/connect.
+
 ## keep_alive
 
 Launch with `"keep_alive": true` and the browser outlives your connection: after a disconnect,

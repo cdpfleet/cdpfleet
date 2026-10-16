@@ -41,6 +41,12 @@ async def main():
 asyncio.run(main())
 ```
 
+## One-step connect URL
+
+`fleet.connect_url("chrome", headless="new")` returns a URL that launches the browser when you connect to it:
+`p.chromium.connect(url, headers={"x-api-key": fleet.api_key})` (`cdp=True` → a `/cdp` URL for `connect_over_cdp`).
+See https://cdpfleet.com/docs/connect.
+
 ## keep_alive
 
 A session launched with `keep_alive=True` survives a disconnect: call `session.connect(...)`

@@ -5,6 +5,7 @@ package cdpfleet
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -22,7 +23,7 @@ import (
 )
 
 // Version is the SDK version sent in the User-Agent header.
-const Version = "0.1.0"
+const Version = "0.1.1"
 
 const userAgent = "cdpfleet-sdk-go/" + Version
 
@@ -82,11 +83,12 @@ func asMap(v any) map[string]any {
 
 // Client talks to the cdpfleet starter (launches) and account API.
 type Client struct {
-	APIKey     string
-	StarterURL string
-	APIURL     string
-	MaxWait    time.Duration
-	HTTPClient *http.Client
+	APIKey      string
+	StarterURL  string
+	APIURL      string
+	ConnectBase string // launch-on-connect base, wss://router01.cdpfleet.com/connect
+	MaxWait     time.Duration
+	HTTPClient  *http.Client
 }
 
 // ClientOption configures New.
@@ -107,11 +109,12 @@ func WithMaxWait(d time.Duration) ClientOption { return func(c *Client) { c.MaxW
 // New creates a client; it fails if no API key is given or set in CDPFLEET_API_KEY.
 func New(opts ...ClientOption) (*Client, error) {
 	c := &Client{
-		APIKey:     os.Getenv("CDPFLEET_API_KEY"),
-		StarterURL: "https://starter.cdpfleet.com",
-		APIURL:     "https://cdpfleet.com",
-		MaxWait:    120 * time.Second,
-		HTTPClient: &http.Client{},
+		APIKey:      os.Getenv("CDPFLEET_API_KEY"),
+		StarterURL:  "https://starter.cdpfleet.com",
+		APIURL:      "https://cdpfleet.com",
+		ConnectBase: "wss://router01.cdpfleet.com/connect",
+		MaxWait:     120 * time.Second,
+		HTTPClient:  &http.Client{},
 	}
 	for _, o := range opts {
 		o(c)
@@ -173,6 +176,46 @@ func backoff(n int) time.Duration {
 		s = 10
 	}
 	return time.Duration(s) * time.Second
+}
+
+// ConnectURL is a launch-on-connect URL: connecting to it (Playwright Connect, or ConnectOverCDP when
+// options["cdp"] is true) launches the browser. Send the key as the x-api-key header. Plain string/bool
+// options go in the query; anything else as one base64url JSON "launch" parameter.
+func (c *Client) ConnectURL(browser string, options Options) string {
+	opts := Options{}
+	cdp := false
+	for k, v := range options {
+		if k == "cdp" {
+			cdp = v == true
+			continue
+		}
+		opts[k] = v
+	}
+	path := strings.TrimSuffix(c.ConnectBase, "/") + "/" + browser
+	if cdp {
+		path += "/cdp"
+	}
+	if len(opts) == 0 {
+		return path
+	}
+	simple := true
+	for _, v := range opts {
+		switch v.(type) {
+		case string, bool:
+		default:
+			simple = false
+		}
+	}
+	q := url.Values{}
+	if simple {
+		for k, v := range opts {
+			q.Set(k, fmt.Sprint(v))
+		}
+	} else {
+		b, _ := json.Marshal(opts)
+		q.Set("launch", base64.RawURLEncoding.EncodeToString(b))
+	}
+	return path + "?" + q.Encode()
 }
 
 // Launch starts a browser; it retries fleet backpressure (503) and rate limits (429) as the API asks.

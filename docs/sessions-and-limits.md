@@ -23,6 +23,8 @@ Prices and sizes: [cdpfleet.com/docs/pricing](https://cdpfleet.com/docs/pricing)
 
 Minutes are counted per thread: a headful session takes 2 threads, so it uses two threads' minutes per minute.
 
+**Launch rate:** threads ÷ 5 launches per second and threads × 6 per minute (at least 2 and 10); dedicated threads get twice that. Above it: `429 rate_limited` with `Retry-After`. For many short pages, keep one session and open a fresh context per page.
+
 ## Per-session limits
 
 | | Community | Shared | Dedicated |
@@ -45,7 +47,7 @@ A session reaches only public internet addresses. Loopback, private ranges, CGNA
 
 ## Timeouts
 
-- `inactivity_timeout` — end the session after this long with no WebSocket traffic (default 60 s; shared plans can only lower it).
+- `inactivity_timeout` — end the session after this long with no WebSocket traffic (default 120 s; up to 10 min on shared plans, 5 on Community, 24 h on dedicated — idle minutes count).
 - `overall_timeout` — hard cap on the session's lifetime, at most 24 h (15 minutes on Community; on shared plans also your remaining daily minutes).
 
 Values are seconds (`90`) or strings with a unit (`500ms`, `45s`, `10m`, `2h`).

@@ -1,6 +1,6 @@
 // cdpfleet SDK for Node.js — launch a remote browser and connect your own Playwright to it.
 // Spec shared by every language: ../../SPEC.md
-const VERSION = '0.1.0';
+const VERSION = '0.1.1';
 const UA = `cdpfleet-sdk-node/${VERSION}`;
 const QUOTA = new Set(['daily_quota_exhausted', 'hourly_quota_exhausted']);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -21,9 +21,10 @@ async function readJson(res) {
 }
 
 export class Cdpfleet {
-  constructor({ apiKey = process.env.CDPFLEET_API_KEY, starterUrl = 'https://starter.cdpfleet.com', apiUrl = 'https://cdpfleet.com', maxWait = 120 } = {}) {
+  constructor({ apiKey = process.env.CDPFLEET_API_KEY, starterUrl = 'https://starter.cdpfleet.com', apiUrl = 'https://cdpfleet.com', connectBase = 'wss://router01.cdpfleet.com/connect', maxWait = 120 } = {}) {
     if (!apiKey) throw new Error('cdpfleet: no API key (pass apiKey or set CDPFLEET_API_KEY)');
     this.apiKey = apiKey;
+    this.connectBase = connectBase.replace(/\/$/, '');
     this.starterUrl = starterUrl.replace(/\/$/, '');
     this.apiUrl = apiUrl.replace(/\/$/, '');
     this.maxWait = maxWait;
@@ -31,6 +32,21 @@ export class Cdpfleet {
 
   headers(json = false) {
     return { 'x-api-key': this.apiKey, 'user-agent': UA, ...(json ? { 'content-type': 'application/json' } : {}) };
+  }
+
+  /**
+   * A launch-on-connect URL: connecting to it (Playwright connect(), or connectOverCDP()/Puppeteer when
+   * options.cdp) launches the browser. Send the key as the x-api-key header (fleet.headers()).
+   * Plain string/boolean options go in the query; anything else as one base64url JSON `launch=`.
+   */
+  connectUrl(browser, options = {}) {
+    const { cdp, ...opts } = options;
+    const path = `${this.connectBase}/${browser}${cdp === true ? '/cdp' : ''}`;
+    const keys = Object.keys(opts);
+    if (!keys.length) return path;
+    const simple = Object.values(opts).every((v) => typeof v === 'string' || typeof v === 'boolean');
+    const q = simple ? keys.map((k) => `${k}=${encodeURIComponent(String(opts[k]))}`).join('&') : `launch=${Buffer.from(JSON.stringify(opts)).toString('base64url')}`;
+    return `${path}?${q}`;
   }
 
   /** Launches a browser; retries fleet backpressure (503) and rate limits (429) as the API asks. */
