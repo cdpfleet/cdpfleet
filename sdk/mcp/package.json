@@ -1,6 +1,6 @@
 {
   "name": "cdpfleet-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for cdpfleet: let Claude, Cursor or any MCP client drive real remote browsers — Chrome, Edge, Firefox, Camoufox and more — with residential proxies and live-view handoff.",
   "type": "module",
   "bin": {

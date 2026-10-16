@@ -11,9 +11,23 @@ const BROWSERS = ['chrome', 'edge', 'brave', 'opera', 'whale', 'yandex', 'chromi
 const TYPE = { camoufox: firefox, firefox, webkit };
 const MAX_TEXT = 25000;
 
+// The free Community plan: a short note at launch and after a session, and with the errors its
+// limits cause, saying what a paid plan adds (same wording as main's public/shared/upgrade.js).
+const UPGRADE_URL = 'https://cdpfleet.com/app#subscriptions';
+const UPGRADE_LINE = 'You\'re on the free Community plan. Ready for more? Paid plans unlock more threads, longer sessions, priority capacity, recordings and persistent profiles — from $10 a month';
+const NUDGE_EVERY_MS = 30 * 60000;
+const HINTS = {
+  community_capacity_full: 'The free Community capacity is busy right now — paid plans get priority capacity and aren\'t affected.',
+  daily_quota_exhausted: 'That\'s today\'s free minutes used — paid plans give you 60 to 480 minutes per thread a day, or unlimited on dedicated threads.',
+  hourly_quota_exhausted: 'That\'s this hour\'s share of your free minutes — paid plans come with many more.',
+  threads_exceeded: 'The free plan runs 2 threads at a time — paid plans start at 10, and scale to thousands.',
+  profiles_disabled: 'Persistent profiles (stay logged in across sessions) come with every paid plan.',
+  keep_alive_requires_dedicated: 'keep_alive (reconnect to a running browser) comes with dedicated threads.',
+};
+
 // The browser a client works with: { fleet, current: { session, browser, page, name } | null }.
 export function createState({ apiKey, defaultProxy } = {}) {
-  const state = { fleet: new Cdpfleet(apiKey ? { apiKey } : {}), defaultProxy, current: null };
+  const state = { fleet: new Cdpfleet(apiKey ? { apiKey } : {}), defaultProxy, current: null, community: undefined, nudgedAt: 0 };
   state.close = async () => {
     const c = state.current;
     state.current = null;
@@ -29,6 +43,18 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
   const text = (t) => ({ content: [{ type: 'text', text: t }] });
   const fail = (t) => ({ content: [{ type: 'text', text: t }], isError: true });
   const clip = (s) => (s.length > MAX_TEXT ? `${s.slice(0, MAX_TEXT)}\n… (${s.length - MAX_TEXT} more characters; snapshot a narrower selector)` : s);
+
+  // Whether the key is on the free Community plan (asked once per browser state).
+  async function community() {
+    if (state.community === undefined) state.community = await fleet.me().then((m) => Boolean(m.subscription?.features?.community), () => null);
+    return state.community;
+  }
+  // The upgrade note, at most every 30 minutes per key, for Community only.
+  async function nudge() {
+    if (!(await community()) || Date.now() - state.nudgedAt < NUDGE_EVERY_MS) return '';
+    state.nudgedAt = Date.now();
+    return `\n\n${UPGRADE_LINE}: ${UPGRADE_URL}`;
+  }
 
   function need() {
     if (!state.current) throw new Error('No browser is open. Call launch_browser first.');
@@ -48,7 +74,7 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     throw new Error('Give a selector, or a role (and name).');
   }
 
-  const server = new McpServer({ name: 'cdpfleet', version: '0.1.0' });
+  const server = new McpServer({ name: 'cdpfleet', version: '0.1.1' });
 
   server.registerTool('launch_browser', {
     description: 'Start a real remote browser on cdpfleet and open a page. Pick the browser the site should see. Headful by default (2 threads; less detectable). Proxy: your own proxy URL, or cdpfleet residential (default; billed per GB from your balance), optionally by country.',
@@ -60,7 +86,14 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
       record: z.boolean().default(true).describe('Keep a video recording of the session'),
       options: z.record(z.any()).optional().describe('Extra launch options passed unchanged (e.g. channel, version, screen_size, Camoufox os/locale)'),
     },
-  }, tool(async ({ browser, headless, proxy, country, record, options }) => {
+  }, tool(async (args) => {
+    try { return await launch(args); } catch (err) {
+      const hint = HINTS[err.code] && (await community()) ? ` ${HINTS[err.code]} See plans: ${UPGRADE_URL}` : '';
+      return fail(`${String(err.message || err).split('\n')[0]}${hint}`);
+    }
+  }));
+
+  async function launch({ browser, headless, proxy, country, record, options }) {
     if (state.current) await closeCurrent();
     let p = proxy || state.defaultProxy || 'cdpfleet-resi';
     if (country && p.startsWith('cdpfleet-resi')) p = `${p}-country-${country.toLowerCase()}`;
@@ -78,8 +111,8 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     const context = await b.newContext({ viewport: headless ? { width: 1280, height: 800 } : null });
     const page = await context.newPage();
     state.current = { session, browser: b, page, name: browser };
-    return text(`Launched ${browser} ${b.version()} (${session.resourceClass}, ${session.weight} thread(s)), session ${session.id}. Proxy: ${p.startsWith('cdpfleet-resi') ? p : 'your proxy'}. Use navigate next.`);
-  }));
+    return text(`Launched ${browser} ${b.version()} (${session.resourceClass}, ${session.weight} thread(s)), session ${session.id}. Proxy: ${p.startsWith('cdpfleet-resi') ? p : p.startsWith('cdpfleet-plan') ? 'the Community proxy' : 'your proxy'}. Use navigate next.${await nudge()}`);
+  }
 
   server.registerTool('navigate', {
     description: 'Open a URL in the current page and wait for its HTML. Returns the title and final URL.',
@@ -159,7 +192,7 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
   }));
 
   server.registerTool('close_browser', { description: 'End the browser session (stops billing). The video recording appears in the dashboard (Sessions) shortly after.', inputSchema: {} },
-    tool(async () => { const id = need().session.id; await closeCurrent(); return text(`Session ${id} ended.`); }));
+    tool(async () => { const id = need().session.id; await closeCurrent(); return text(`Session ${id} ended.${await nudge()}`); }));
 
   server.registerTool('list_browsers', { description: 'The browsers cdpfleet offers, with their versions and channels.', inputSchema: {} },
     tool(async () => {
