@@ -38,7 +38,7 @@ Mix tiers in one session with `proxy_rules` — pages on Tier 1, CDN assets on T
 |---|---|---|
 | `-tier-N` | `1`–`4` | Price tier; Tier 1 if omitted |
 | `-country-XX` | ISO two-letter code | Exit country; any if omitted |
-| `-os-…` | `windows`, `android`, `ios`, `mac` | Device type behind the residential IP |
+| `-os-…` | `windows`, `android`, `ios`, `mac` | Device type behind the residential IP — **Tier 1 and 2 only** (a Tier 3/4 token with an OS returns `400 invalid_proxy`) |
 | `-session-ID` | 1–10 of `A-Z a-z 0-9 _` | Sticky: same IP for every connection; reuse the name later to keep it |
 | `-lifetime-MIN` | 1–1440, only with a session | How long the sticky IP is kept (default 30) |
 
