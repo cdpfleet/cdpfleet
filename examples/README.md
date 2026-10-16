@@ -54,6 +54,9 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Opera over CDP (Puppeteer or connectOverCDP)](recipes/opera-cdp)
   - [Yandex Browser over CDP (Puppeteer or connectOverCDP)](recipes/yandex-cdp)
   - [Headful Chrome on a full-HD screen](recipes/chrome-screen-size)
+  - [Microsoft Edge over CDP that survives a disconnect](recipes/edge-keep-alive)
+  - [cdpfleet residential from Windows devices, with a matching persona](recipes/resi-os-persona)
+  - [Camoufox without images, for less proxy traffic](recipes/camoufox-block-images)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).

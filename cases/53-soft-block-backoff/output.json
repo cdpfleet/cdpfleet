@@ -1,0 +1,123 @@
+{
+  "naive": {
+    "client": "naive",
+    "pages_fetched": 3,
+    "exits": [
+      "203.0.113.1"
+    ],
+    "waited_seconds": 0,
+    "proxy_swaps": 0,
+    "session_cookie_kept": true,
+    "pages": [
+      {
+        "page": 1,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.1",
+        "trail": "200"
+      },
+      {
+        "page": 2,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.1",
+        "trail": "200"
+      },
+      {
+        "page": 3,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.1",
+        "trail": "200"
+      },
+      {
+        "page": 4,
+        "outcome": "gave up",
+        "exit_ip": null,
+        "trail": "429 → 403"
+      },
+      {
+        "page": 5,
+        "outcome": "gave up",
+        "exit_ip": null,
+        "trail": "403"
+      },
+      {
+        "page": 6,
+        "outcome": "gave up",
+        "exit_ip": null,
+        "trail": "403"
+      },
+      {
+        "page": 7,
+        "outcome": "gave up",
+        "exit_ip": null,
+        "trail": "403"
+      },
+      {
+        "page": 8,
+        "outcome": "gave up",
+        "exit_ip": null,
+        "trail": "403"
+      }
+    ]
+  },
+  "polite": {
+    "client": "polite",
+    "pages_fetched": 8,
+    "exits": [
+      "203.0.113.2",
+      "203.0.113.3"
+    ],
+    "waited_seconds": 15,
+    "proxy_swaps": 1,
+    "session_cookie_kept": true,
+    "pages": [
+      {
+        "page": 1,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.2",
+        "trail": "200"
+      },
+      {
+        "page": 2,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.2",
+        "trail": "200"
+      },
+      {
+        "page": 3,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.2",
+        "trail": "200"
+      },
+      {
+        "page": 4,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.2",
+        "trail": "429 → wait 5s → 200"
+      },
+      {
+        "page": 5,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.2",
+        "trail": "429 → wait 5s → 200"
+      },
+      {
+        "page": 6,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.2",
+        "trail": "502 → 429 → wait 5s → 200"
+      },
+      {
+        "page": 7,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.3",
+        "trail": "403 → swap proxy → 200"
+      },
+      {
+        "page": 8,
+        "outcome": "ok",
+        "exit_ip": "203.0.113.3",
+        "trail": "200"
+      }
+    ]
+  }
+}

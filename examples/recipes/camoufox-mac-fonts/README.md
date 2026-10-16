@@ -1,6 +1,6 @@
 # Camoufox with a macOS font list
 
-A macOS persona that only exposes the fonts you list: with `custom_fonts_only`, font checks found Menlo and no longer found Arial or Courier New. Only fonts the server has can show up — Helvetica Neue isn't installed there, so listing it changes nothing.
+A macOS persona that only exposes the fonts you list: with `custom_fonts_only`, font checks found Menlo and no longer found Arial or Courier New. Only fonts the server has can show up: Helvetica Neue and Menlo do, a family it doesn't have (Fira Code, for one) never does — see [fonts and the fingerprint](https://cdpfleet.com/docs/cases/fonts-fingerprint).
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)

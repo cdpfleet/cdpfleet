@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #53 | [Surviving a soft block: honour Retry-After, then move to another exit without losing the login](53-soft-block-backoff) | Medium | Chromium |
+| #52 | [Installed fonts as a fingerprint: what a width probe sees on each Camoufox persona](52-fonts-fingerprint) | Medium | Camoufox |
+| #51 | [Cut residential spend: the page on Tier 1, the images on Tier 4, in one session](51-resi-tiers-mix) | Medium | Chromium |
 | #50 | [A price watcher in one program: two snapshots minutes apart, diffed, billed only while reading](50-price-watch) | Easy | Chromium |
 | #49 | [The same Camoufox device across relaunches: what a persistent profile keeps, and what it doesn't](49-camoufox-same-device) | Medium | Camoufox |
 | #48 | [Mock, patch and fail API responses with route.fulfill on remote browsers](48-mock-api-responses) | Medium | Chromium, Firefox, WebKit |
