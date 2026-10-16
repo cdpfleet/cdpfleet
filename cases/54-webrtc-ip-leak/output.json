@@ -1,0 +1,54 @@
+[
+  {
+    "setup": "Chromium",
+    "exit_ip": "203.0.113.1",
+    "webrtc_api": true,
+    "candidates": 1,
+    "mdns_host_candidates": 1,
+    "public_ips": [],
+    "shows_exit_ip": false,
+    "leaks_other_ip": false
+  },
+  {
+    "setup": "Google Chrome",
+    "exit_ip": "203.0.113.2",
+    "webrtc_api": true,
+    "candidates": 1,
+    "mdns_host_candidates": 1,
+    "public_ips": [],
+    "shows_exit_ip": false,
+    "leaks_other_ip": false
+  },
+  {
+    "setup": "Firefox",
+    "exit_ip": "203.0.113.3",
+    "webrtc_api": true,
+    "candidates": 2,
+    "mdns_host_candidates": 2,
+    "public_ips": [],
+    "shows_exit_ip": false,
+    "leaks_other_ip": false
+  },
+  {
+    "setup": "Camoufox (defaults: geoip on)",
+    "exit_ip": "203.0.113.4",
+    "webrtc_api": true,
+    "candidates": 3,
+    "mdns_host_candidates": 2,
+    "public_ips": [
+      "203.0.113.4"
+    ],
+    "shows_exit_ip": true,
+    "leaks_other_ip": false
+  },
+  {
+    "setup": "Camoufox, block_webrtc: true",
+    "exit_ip": "203.0.113.5",
+    "webrtc_api": false,
+    "candidates": 0,
+    "mdns_host_candidates": 0,
+    "public_ips": [],
+    "shows_exit_ip": false,
+    "leaks_other_ip": false
+  }
+]

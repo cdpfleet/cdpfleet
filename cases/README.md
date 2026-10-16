@@ -4,6 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #54 | [The WebRTC IP leak test behind a proxy: what Chromium, Chrome, Firefox and Camoufox reveal](54-webrtc-ip-leak) | Medium | Chromium, Google Chrome, Firefox, Camoufox |
 | #53 | [Surviving a soft block: honour Retry-After, then move to another exit without losing the login](53-soft-block-backoff) | Medium | Chromium |
 | #52 | [Installed fonts as a fingerprint: what a width probe sees on each Camoufox persona](52-fonts-fingerprint) | Medium | Camoufox |
 | #51 | [Cut residential spend: the page on Tier 1, the images on Tier 4, in one session](51-resi-tiers-mix) | Medium | Chromium |
