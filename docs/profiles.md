@@ -41,7 +41,7 @@ page = context.pages[0] if context.pages else context.new_page()
 
 ## Browsers and limits
 
-- Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Chromium, Patchright, Camoufox and Firefox (`400 profile_unsupported_engine` on Naver Whale, Rebrowser and WebKit).
+- Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Chromium, Patchright, Camoufox, Firefox and WebKit (`400 profile_unsupported_engine` on Naver Whale and Rebrowser).
 - A profile belongs to the browser it was created with (`409 profile_engine_mismatch`) and can't be opened by an older major version (`409 profile_version_downgrade`).
 - 20 profiles per shared thread and 30 per dedicated thread (at least 100 per account), 50 MB per saved profile, included in every paid plan.
 - Over the limit (fewer threads, Community, or a plan that ended): nothing is deleted; new profiles can't be created, and 30 days later the ones beyond the limit are frozen (`403 profile_frozen`) — those marked `keep` (`PUT /v1/me/profiles/{name}` with `{"keep": true}`) and the most recently used stay active. Upgrading unfreezes them; profiles frozen for 90 days are deleted.
