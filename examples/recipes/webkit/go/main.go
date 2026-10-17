@@ -58,7 +58,7 @@ func main() {
 		log.Fatal(err)
 	}
 	defer pw.Stop()
-	browser, err := pw.Webkit.Connect(session.WsURL, playwright.BrowserTypeConnectOptions{
+	browser, err := pw.WebKit.Connect(session.WsURL, playwright.BrowserTypeConnectOptions{
 		Headers: map[string]string{"x-api-key": key},
 	})
 	if err != nil {
