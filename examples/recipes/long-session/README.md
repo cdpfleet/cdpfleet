@@ -1,6 +1,6 @@
 # Long-running session
 
-Keep a session alive for up to two hours and tolerate five idle minutes (idle timeouts above 60 s need dedicated threads).
+Keep a session alive for up to two hours and tolerate five idle minutes. Both are capped by your plan.
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)

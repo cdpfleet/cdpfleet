@@ -2,7 +2,10 @@ module example.com/cdpfleet-starter
 
 go 1.22.2
 
-require github.com/playwright-community/playwright-go v0.6000.0
+require (
+	github.com/gorilla/websocket v1.5.3
+	github.com/playwright-community/playwright-go v0.6000.0
+)
 
 require (
 	github.com/deckarep/golang-set/v2 v2.8.0 // indirect

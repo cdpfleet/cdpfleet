@@ -1,0 +1,38 @@
+{
+  "live_protocol": "screencast",
+  "start_page_shown": true,
+  "form_shown": true,
+  "frames_while_by_hand": 142,
+  "watched_session_alive_after_45s": true,
+  "unwatched_twin_alive_after_45s": false,
+  "pages_found": [
+    "https://httpbin.org/forms/post"
+  ],
+  "typed_by_hand": {
+    "custname": "Ada Lovelace",
+    "custtel": "+44 20 7946 0000",
+    "custemail": "ada@example.com"
+  },
+  "submitted": {
+    "comments": "",
+    "custemail": "ada@example.com",
+    "custname": "Ada Lovelace",
+    "custtel": "+44 20 7946 0000",
+    "delivery": "19:30",
+    "size": "medium",
+    "topping": "cheese"
+  },
+  "viewer_saw": [
+    "https://httpbin.org/",
+    "https://httpbin.org/forms/post",
+    "https://httpbin.org/post"
+  ],
+  "watched_session": {
+    "seconds": 68,
+    "end_reason": "client_disconnected"
+  },
+  "unwatched_twin": {
+    "seconds": 30,
+    "end_reason": "node_closed"
+  }
+}

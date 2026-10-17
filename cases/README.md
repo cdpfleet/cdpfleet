@@ -4,6 +4,10 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #58 | [Do it by hand in live view, then let your code finish in the same browser](58-launch-interactive-to-code) | Medium | Chromium |
+| #57 | [Inspect and edit the cookie jar of a remote browser — and why WebKit refuses cookies on httpbin.org](57-inspect-and-edit-the-cookie-jar) | Easy | Chromium, Firefox, WebKit |
+| #56 | [A slow phone on a fast server: CPU throttling over a CDP session](56-cpu-throttling-via-cdp) | Easy | Chromium |
+| #55 | [Core Web Vitals from a remote browser: LCP, CLS and TTFB in lab runs](55-core-web-vitals-via-cdp) | Easy | Chromium |
 | #54 | [The WebRTC IP leak test behind a proxy: what Chromium, Chrome, Firefox and Camoufox reveal](54-webrtc-ip-leak) | Medium | Chromium, Google Chrome, Firefox, Camoufox |
 | #53 | [Surviving a soft block: honour Retry-After, then move to another exit without losing the login](53-soft-block-backoff) | Medium | Chromium |
 | #52 | [Installed fonts as a fingerprint: what a width probe sees on each Camoufox persona](52-fonts-fingerprint) | Medium | Camoufox |

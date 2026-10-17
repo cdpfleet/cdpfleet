@@ -1,0 +1,64 @@
+{
+  "rows": [
+    {
+      "page": "example.com",
+      "ttfb_ms": 445,
+      "connect_ms": 295,
+      "wait_ms": 150,
+      "fcp_ms": 480,
+      "lcp_ms": 592,
+      "lcp_element": "p",
+      "cls": 0,
+      "load_ms": 582,
+      "script_ms": 3,
+      "layouts": 3,
+      "dom_nodes": 60,
+      "js_heap_mb": 1.1
+    },
+    {
+      "page": "books.toscrape.com",
+      "ttfb_ms": 856,
+      "connect_ms": 639,
+      "wait_ms": 217,
+      "fcp_ms": 1348,
+      "lcp_ms": 1352,
+      "lcp_element": "img",
+      "cls": 0.002,
+      "load_ms": 1566,
+      "script_ms": 18,
+      "layouts": 14,
+      "dom_nodes": 1772,
+      "js_heap_mb": 2
+    },
+    {
+      "page": "Wikipedia article",
+      "ttfb_ms": 726,
+      "connect_ms": 465,
+      "wait_ms": 261,
+      "fcp_ms": 1124,
+      "lcp_ms": 1124,
+      "lcp_element": "p",
+      "cls": 0.095,
+      "load_ms": 7510,
+      "script_ms": 171,
+      "layouts": 13,
+      "dom_nodes": 9495,
+      "js_heap_mb": 8.8
+    },
+    {
+      "page": "shifting demo",
+      "ttfb_ms": 36,
+      "connect_ms": 0,
+      "wait_ms": 36,
+      "fcp_ms": 64,
+      "lcp_ms": 64,
+      "lcp_element": "p",
+      "cls": 0.234,
+      "load_ms": 45,
+      "script_ms": 1,
+      "layouts": 2,
+      "dom_nodes": 87,
+      "js_heap_mb": 1.1
+    }
+  ]
+}

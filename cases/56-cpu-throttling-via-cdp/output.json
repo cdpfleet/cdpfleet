@@ -1,0 +1,38 @@
+{
+  "rows": [
+    {
+      "rate": 1,
+      "work_ms": 77,
+      "response_ms": 2272,
+      "dcl_ms": 2758,
+      "load_ms": 4615,
+      "parse_ms": 486,
+      "main_thread_ms": 422,
+      "check": 488537
+    },
+    {
+      "rate": 4,
+      "work_ms": 327,
+      "response_ms": 1075,
+      "dcl_ms": 1760,
+      "load_ms": 3230,
+      "parse_ms": 685,
+      "main_thread_ms": 1448,
+      "check": 488537
+    },
+    {
+      "rate": 6,
+      "work_ms": 497,
+      "response_ms": 451,
+      "dcl_ms": 1256,
+      "load_ms": 2398,
+      "parse_ms": 805,
+      "main_thread_ms": 2110,
+      "check": 488537
+    }
+  ],
+  "side_by_side": {
+    "throttled_tab_ms": 494,
+    "other_tab_ms": 126
+  }
+}

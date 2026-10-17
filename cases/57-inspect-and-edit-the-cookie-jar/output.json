@@ -1,0 +1,134 @@
+{
+  "jar": {
+    "all_cookies": [
+      "other_site",
+      "session_token",
+      "theme"
+    ],
+    "for_site": [
+      "session_token",
+      "theme"
+    ],
+    "session_cookie_expires": -1,
+    "token_expires_in_days": 7,
+    "server_sees_after_edit": {
+      "session_token": "abc123",
+      "theme": "light"
+    },
+    "after_clear_by_name": [
+      "other_site",
+      "session_token"
+    ],
+    "saved_json_bytes": 151,
+    "new_session_before": [],
+    "new_session_server_sees": {
+      "session_token": "abc123"
+    }
+  },
+  "psl": [
+    {
+      "engine": "chromium",
+      "host": "httpbin.org",
+      "add_cookies": true,
+      "set_cookie": true,
+      "document_cookie": true,
+      "server_sees": [
+        "via_add_cookies",
+        "via_document_cookie",
+        "via_set_cookie"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "host": "www.httpbin.org",
+      "add_cookies": true,
+      "set_cookie": true,
+      "document_cookie": true,
+      "server_sees": [
+        "via_add_cookies",
+        "via_document_cookie",
+        "via_set_cookie"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "host": "postman-echo.com",
+      "add_cookies": true,
+      "set_cookie": true,
+      "document_cookie": true,
+      "server_sees": [
+        "__cf_bm",
+        "_cfuvid",
+        "via_add_cookies",
+        "via_document_cookie",
+        "via_set_cookie"
+      ]
+    },
+    {
+      "engine": "firefox",
+      "host": "httpbin.org",
+      "add_cookies": true,
+      "set_cookie": true,
+      "document_cookie": true,
+      "server_sees": [
+        "via_add_cookies",
+        "via_document_cookie",
+        "via_set_cookie"
+      ]
+    },
+    {
+      "engine": "firefox",
+      "host": "www.httpbin.org",
+      "add_cookies": true,
+      "set_cookie": true,
+      "document_cookie": true,
+      "server_sees": [
+        "via_add_cookies",
+        "via_document_cookie",
+        "via_set_cookie"
+      ]
+    },
+    {
+      "engine": "firefox",
+      "host": "postman-echo.com",
+      "add_cookies": true,
+      "set_cookie": true,
+      "document_cookie": true,
+      "server_sees": [
+        "__cf_bm",
+        "_cfuvid",
+        "via_add_cookies",
+        "via_document_cookie",
+        "via_set_cookie"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "host": "httpbin.org",
+      "add_cookies": false,
+      "set_cookie": false,
+      "document_cookie": false,
+      "server_sees": []
+    },
+    {
+      "engine": "webkit",
+      "host": "www.httpbin.org",
+      "add_cookies": true,
+      "set_cookie": true,
+      "document_cookie": true,
+      "server_sees": [
+        "via_add_cookies",
+        "via_document_cookie",
+        "via_set_cookie"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "host": "postman-echo.com",
+      "add_cookies": false,
+      "set_cookie": false,
+      "document_cookie": false,
+      "server_sees": []
+    }
+  ]
+}
