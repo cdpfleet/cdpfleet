@@ -3,21 +3,19 @@
 import json
 import os
 import re
-from urllib.parse import urlparse
 
 import requests
 from playwright.sync_api import sync_playwright
 
 KEY = os.environ["CDPFLEET_API_KEY"]
 socks_a, socks_b, socks_c = os.environ["SOCKS_PROXIES"].split(",")[:3]
-host_of = lambda url: urlparse(url).hostname
 
 options = {
     "proxy": os.environ["PROXY_URL"],  # everything not matched below
     "proxy_rules": [
         {"hosts": ["*.ident.me", "ident.me"], "proxy": socks_a},
         {"hosts": ["httpbin.org", "*.httpbin.org"], "proxy": [socks_b, socks_c]},  # round-robin
-        # IP-lookup services always use the default proxy, so this rule is ignored on purpose.
+        # An IP-lookup host: rules for it apply on every browser but Camoufox.
         {"hosts": ["api.ipify.org"], "proxy": socks_a},
     ],
     "headless": True,
@@ -49,9 +47,9 @@ with sync_playwright() as p:
                 "https://api.ipify.org/", "https://www.cloudflare.com/cdn-cgi/trace"]
         print(json.dumps({
             "rules": {
-                "*.ident.me": host_of(socks_a),
-                "httpbin.org": [host_of(socks_b), host_of(socks_c)],
-                "api.ipify.org": f"{host_of(socks_a)} (ignored: IP-lookup host)",
+                "*.ident.me": "SOCKS proxy A",
+                "httpbin.org": ["SOCKS proxy B", "SOCKS proxy C"],
+                "api.ipify.org": "SOCKS proxy A",
                 "(everything else)": "residential PROXY_URL",
             },
             "readings": [{"url": u, "exit_ip": exit_ip_via(browser, u)} for u in urls],

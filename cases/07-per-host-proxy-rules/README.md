@@ -2,7 +2,7 @@
 
 **Medium** · 2026-09-30 · Chromium · [read it on cdpfleet.com](https://cdpfleet.com/docs/cases/per-host-proxy-rules)
 
-> Route one host through a SOCKS5 proxy, another through a round-robin pool and everything else through residential — plus the hosts a rule can't move.
+> Route one host through a SOCKS5 proxy, another through a round-robin pool and everything else through residential — and the IP-lookup hosts only Camoufox keeps on the default proxy.
 
 ## The problem
 
@@ -15,7 +15,7 @@ Residential bandwidth is expensive; datacenter proxies are cheap but get blocked
 | `proxy` | The default route: every host no rule matches (residential here). |
 | `proxy_rules` rule 1 | `*.ident.me` and `ident.me` → one SOCKS5 proxy. Host patterns take `*` wildcards. |
 | `proxy_rules` rule 2 | `httpbin.org` → a list of two proxies, used round-robin per connection. |
-| `proxy_rules` rule 3 | `api.ipify.org` → a SOCKS5 proxy. It won't apply, on purpose — see below. |
+| `proxy_rules` rule 3 | `api.ipify.org` → the same SOCKS5 proxy as rule 1. An IP-lookup host: rules for it apply on every browser but Camoufox — see below. |
 | A new context per reading | Each context has its own connection pool, so every reading is a new connection and the round-robin shows. |
 
 ## How it works
@@ -26,7 +26,7 @@ Residential bandwidth is expensive; datacenter proxies are cheap but get blocked
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-09-30):
+The same program in five languages, each verified on the production fleet (last run 2026-10-17):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -40,11 +40,11 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL`, `SOCKS_PROXIES` (see [cases/README
 
 | URL | Exit IP | Rule |
 |---|---|---|
-| https://v4.ident.me/ | 203.0.113.1 | 203.0.113.1 |
-| https://httpbin.org/ip | 203.0.113.2 | 203.0.113.2 or 203.0.113.3 |
-| https://httpbin.org/ip | 203.0.113.3 | 203.0.113.2 or 203.0.113.3 |
-| https://httpbin.org/ip | 203.0.113.2 | 203.0.113.2 or 203.0.113.3 |
-| https://api.ipify.org/ | 203.0.113.4 | default proxy (IP-lookup host) |
+| https://v4.ident.me/ | 203.0.113.1 | SOCKS proxy A |
+| https://httpbin.org/ip | 203.0.113.2 | SOCKS proxy B or SOCKS proxy C |
+| https://httpbin.org/ip | 203.0.113.3 | SOCKS proxy B or SOCKS proxy C |
+| https://httpbin.org/ip | 203.0.113.4 | SOCKS proxy B or SOCKS proxy C |
+| https://api.ipify.org/ | 203.0.113.1 | SOCKS proxy A |
 | https://www.cloudflare.com/cdn-cgi/trace | 203.0.113.5 | default proxy |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
@@ -52,6 +52,6 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 ## Takeaways
 
 - **`ident.me` exited through its SOCKS5 proxy, `httpbin.org` alternated between its two, and everything else went out residential.**
-- **Round-robin is per connection,** not per request — requests on an open keep-alive connection stay on its proxy. A pool member that fails is skipped, so a run can show the same proxy twice.
-- **IP-lookup services always use the default proxy:** `api.ipify.org`, `checkip.amazonaws.com`, `ipinfo.io`, `icanhazip.com`, `ifconfig.co`, `ipecho.net`. Camoufox's `geoip` uses them to match its location to the exit, so they must follow `proxy`. To check a rule, use another echo service such as `v4.ident.me` or `httpbin.org/ip`.
+- **Round-robin is per connection,** not per request — requests on an open keep-alive connection stay on its proxy. A pool member that fails is skipped, so a run can show the same proxy twice, and a pool member that rotates its own exit IP can show a third address.
+- **IP-lookup hosts follow their rule here, on Chromium:** `api.ipify.org` exited through rule 3's proxy, the same exit as `ident.me`. **On Camoufox they stay on the default proxy:** `api.ipify.org`, `checkip.amazonaws.com`, `ipinfo.io`, `icanhazip.com`, `ifconfig.co` and `ipecho.net` ignore `proxy_rules` there, because Camoufox's `geoip` uses them to match its location to the exit. To check a rule on Camoufox, use another echo service such as `v4.ident.me` or `httpbin.org/ip`. (Until 2026-10-17 they were pinned on every browser.)
 - Rules route through a proxy only; there's no "direct from cdpfleet" rule — every session browses from a proxy you choose.

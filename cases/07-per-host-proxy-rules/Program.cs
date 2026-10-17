@@ -9,7 +9,6 @@ using Microsoft.Playwright;
 
 var key = Environment.GetEnvironmentVariable("CDPFLEET_API_KEY")!;
 var socks = Environment.GetEnvironmentVariable("SOCKS_PROXIES")!.Split(',');
-string HostOf(string url) => new Uri(url).Host;
 
 var options = new
 {
@@ -18,7 +17,7 @@ var options = new
     {
         new { hosts = new[] { "*.ident.me", "ident.me" }, proxy = socks[0] },
         new { hosts = new[] { "httpbin.org", "*.httpbin.org" }, proxy = new[] { socks[1], socks[2] } }, // round-robin
-        // IP-lookup services always use the default proxy, so this rule is ignored on purpose.
+        // An IP-lookup host: rules for it apply on every browser but Camoufox.
         new { hosts = new[] { "api.ipify.org" }, proxy = socks[0] },
     },
     headless = true,
@@ -63,9 +62,9 @@ try
     {
         ["rules"] = new JsonObject
         {
-            ["*.ident.me"] = HostOf(socks[0]),
-            ["httpbin.org"] = new JsonArray(HostOf(socks[1]), HostOf(socks[2])),
-            ["api.ipify.org"] = $"{HostOf(socks[0])} (ignored: IP-lookup host)",
+            ["*.ident.me"] = "SOCKS proxy A",
+            ["httpbin.org"] = new JsonArray("SOCKS proxy B", "SOCKS proxy C"),
+            ["api.ipify.org"] = "SOCKS proxy A",
             ["(everything else)"] = "residential PROXY_URL",
         },
         ["readings"] = readings,

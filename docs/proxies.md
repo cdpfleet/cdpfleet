@@ -78,7 +78,7 @@ A list of proxies is used round-robin, per connection:
 }
 ```
 
-A few IP-lookup services — `api.ipify.org`, `checkip.amazonaws.com`, `ipinfo.io`, `icanhazip.com`, `ifconfig.co`, `ipecho.net` — always use the default `proxy` (Camoufox matches its location with them). To check a rule's exit IP, use another echo service such as `https://v4.ident.me`. See the [per-host proxy rules case](../cases/07-per-host-proxy-rules).
+On Camoufox, a few IP-lookup services — `api.ipify.org`, `checkip.amazonaws.com`, `ipinfo.io`, `icanhazip.com`, `ifconfig.co`, `ipecho.net` — always use the default `proxy` when rules are set, because Camoufox matches its location with them. To check a rule's exit IP there, use another echo service such as `https://v4.ident.me`. On every other browser, rules for these hosts apply as written. See the [per-host proxy rules case](../cases/07-per-host-proxy-rules).
 
 ## Live swap
 

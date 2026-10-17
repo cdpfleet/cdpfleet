@@ -12,7 +12,6 @@ public class Main {
   static final String KEY = System.getenv("CDPFLEET_API_KEY");
   static final Pattern IP = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3}");
 
-  static String hostOf(String url) { return URI.create(url).getHost(); }
 
   // Each context has its own connection pool, so each reading is a fresh connection.
   // Proxies drop a connection now and then: one retry.
@@ -45,8 +44,8 @@ public class Main {
           "headless": true
         }""".formatted(gson.toJson(System.getenv("PROXY_URL")), gson.toJson(socks[0]),
         gson.toJson(socks[1]), gson.toJson(socks[2]), gson.toJson(socks[0]));
-    // Rule 2 round-robins over two proxies. Rule 3 is ignored on purpose: IP-lookup
-    // services always use the default proxy.
+    // Rule 2 round-robins over two proxies. Rule 3 is an IP-lookup host: rules for it
+    // apply on every browser but Camoufox.
     HttpResponse<String> res = HttpClient.newHttpClient().send(HttpRequest.newBuilder(URI.create("https://starter.cdpfleet.com/chromium/session"))
         .header("x-api-key", KEY).header("content-type", "application/json")
         .POST(HttpRequest.BodyPublishers.ofString(body)).build(), HttpResponse.BodyHandlers.ofString());
@@ -57,12 +56,12 @@ public class Main {
       Browser browser = playwright.chromium().connect(wsUrl, new BrowserType.ConnectOptions().setHeaders(Map.of("x-api-key", KEY)));
       try {
         JsonObject rules = new JsonObject();
-        rules.addProperty("*.ident.me", hostOf(socks[0]));
+        rules.addProperty("*.ident.me", "SOCKS proxy A");
         JsonArray pool = new JsonArray();
-        pool.add(hostOf(socks[1]));
-        pool.add(hostOf(socks[2]));
+        pool.add("SOCKS proxy B");
+        pool.add("SOCKS proxy C");
         rules.add("httpbin.org", pool);
-        rules.addProperty("api.ipify.org", hostOf(socks[0]) + " (ignored: IP-lookup host)");
+        rules.addProperty("api.ipify.org", "SOCKS proxy A");
         rules.addProperty("(everything else)", "residential PROXY_URL");
         JsonArray readings = new JsonArray();
         for (String url : List.of("https://v4.ident.me/", "https://httpbin.org/ip", "https://httpbin.org/ip", "https://httpbin.org/ip",

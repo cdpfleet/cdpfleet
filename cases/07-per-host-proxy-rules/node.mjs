@@ -4,14 +4,13 @@ import { chromium } from 'playwright';
 
 const KEY = process.env.CDPFLEET_API_KEY;
 const [socksA, socksB, socksC] = process.env.SOCKS_PROXIES.split(',');
-const hostOf = (url) => new URL(url.replace(/^socks5h?:/, 'http:')).hostname;
 
 const options = {
   proxy: process.env.PROXY_URL, // everything not matched below
   proxy_rules: [
     { hosts: ['*.ident.me', 'ident.me'], proxy: socksA },
     { hosts: ['httpbin.org', '*.httpbin.org'], proxy: [socksB, socksC] }, // round-robin
-    // IP-lookup services always use the default proxy, so this rule is ignored on purpose.
+    // An IP-lookup host: rules for it apply on every browser but Camoufox.
     { hosts: ['api.ipify.org'], proxy: socksA },
   ],
   headless: true,
@@ -50,9 +49,9 @@ try {
   }
   console.log(JSON.stringify({
     rules: {
-      '*.ident.me': hostOf(socksA),
-      'httpbin.org': [hostOf(socksB), hostOf(socksC)],
-      'api.ipify.org': `${hostOf(socksA)} (ignored: IP-lookup host)`,
+      '*.ident.me': 'SOCKS proxy A',
+      'httpbin.org': ['SOCKS proxy B', 'SOCKS proxy C'],
+      'api.ipify.org': 'SOCKS proxy A',
       '(everything else)': 'residential PROXY_URL',
     },
     readings,

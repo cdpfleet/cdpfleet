@@ -1,11 +1,11 @@
 {
   "rules": {
-    "*.ident.me": "203.0.113.1",
+    "*.ident.me": "SOCKS proxy A",
     "httpbin.org": [
-      "203.0.113.2",
-      "203.0.113.3"
+      "SOCKS proxy B",
+      "SOCKS proxy C"
     ],
-    "api.ipify.org": "203.0.113.1 (ignored: IP-lookup host)",
+    "api.ipify.org": "SOCKS proxy A",
     "(everything else)": "residential PROXY_URL"
   },
   "readings": [
@@ -23,11 +23,11 @@
     },
     {
       "url": "https://httpbin.org/ip",
-      "exit_ip": "203.0.113.2"
+      "exit_ip": "203.0.113.4"
     },
     {
       "url": "https://api.ipify.org/",
-      "exit_ip": "203.0.113.4"
+      "exit_ip": "203.0.113.1"
     },
     {
       "url": "https://www.cloudflare.com/cdn-cgi/trace",

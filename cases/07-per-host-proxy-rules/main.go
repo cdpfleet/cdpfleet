@@ -10,7 +10,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -40,7 +39,6 @@ func launch(name string, options map[string]any) (map[string]any, error) {
 
 var ipPattern = regexp.MustCompile(`\d{1,3}(\.\d{1,3}){3}`)
 
-func hostOf(u string) string { p, _ := url.Parse(u); return p.Hostname() }
 
 // Each context has its own connection pool, so each reading is a fresh connection.
 // Proxies drop a connection now and then: one retry.
@@ -81,7 +79,7 @@ func main() {
 		"proxy_rules": []map[string]any{
 			{"hosts": []string{"*.ident.me", "ident.me"}, "proxy": socks[0]},
 			{"hosts": []string{"httpbin.org", "*.httpbin.org"}, "proxy": []string{socks[1], socks[2]}}, // round-robin
-			// IP-lookup services always use the default proxy, so this rule is ignored on purpose.
+			// An IP-lookup host: rules for it apply on every browser but Camoufox.
 			{"hosts": []string{"api.ipify.org"}, "proxy": socks[0]},
 		},
 		"headless": true,
@@ -107,9 +105,9 @@ func main() {
 	}
 	out, _ := json.MarshalIndent(map[string]any{
 		"rules": map[string]any{
-			"*.ident.me":        hostOf(socks[0]),
-			"httpbin.org":       []string{hostOf(socks[1]), hostOf(socks[2])},
-			"api.ipify.org":     hostOf(socks[0]) + " (ignored: IP-lookup host)",
+			"*.ident.me":        "SOCKS proxy A",
+			"httpbin.org":       []string{"SOCKS proxy B", "SOCKS proxy C"},
+			"api.ipify.org":     "SOCKS proxy A",
 			"(everything else)": "residential PROXY_URL",
 		},
 		"readings": readings,
