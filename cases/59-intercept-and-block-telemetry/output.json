@@ -1,0 +1,44 @@
+[
+  {
+    "site": "The Guardian",
+    "title_ok": true,
+    "requests": 144,
+    "telemetry_requests": 24,
+    "telemetry_on_leave": 3,
+    "telemetry_kb": 1,
+    "total_kb": 1628,
+    "blocked": 24,
+    "headings": 182,
+    "headings_blocked_run": 182,
+    "dom_ready_ms": 2012,
+    "dom_ready_ms_blocked_run": 2416
+  },
+  {
+    "site": "NPR",
+    "title_ok": true,
+    "requests": 66,
+    "telemetry_requests": 3,
+    "telemetry_on_leave": 0,
+    "telemetry_kb": 198,
+    "total_kb": 2824,
+    "blocked": 8,
+    "headings": 61,
+    "headings_blocked_run": 61,
+    "dom_ready_ms": 6055,
+    "dom_ready_ms_blocked_run": 4420
+  },
+  {
+    "site": "Wikipedia",
+    "title_ok": true,
+    "requests": 40,
+    "telemetry_requests": 1,
+    "telemetry_on_leave": 0,
+    "telemetry_kb": 2,
+    "total_kb": 592,
+    "blocked": 1,
+    "headings": 12,
+    "headings_blocked_run": 12,
+    "dom_ready_ms": 4125,
+    "dom_ready_ms_blocked_run": 1628
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "user": "standard_user",
+    "empty_form_error": "Error: First Name is required",
+    "typed_back": {
+      "firstName": "Ada",
+      "lastName": "Lovelace",
+      "postalCode": "10115"
+    },
+    "step_one_error": null,
+    "item_sum": 39.98,
+    "subtotal": 39.98,
+    "tax": 3.2,
+    "total": 43.18,
+    "totals_add_up": true,
+    "completed": "Thank you for your order!",
+    "steps_ms": {
+      "login": 2674,
+      "cart": 535,
+      "step_one": 330,
+      "step_two_and_finish": 175
+    }
+  },
+  {
+    "user": "performance_glitch_user",
+    "empty_form_error": "Error: First Name is required",
+    "typed_back": {
+      "firstName": "Ada",
+      "lastName": "Lovelace",
+      "postalCode": "10115"
+    },
+    "step_one_error": null,
+    "item_sum": 39.98,
+    "subtotal": 39.98,
+    "tax": 3.2,
+    "total": 43.18,
+    "totals_add_up": true,
+    "completed": "Thank you for your order!",
+    "steps_ms": {
+      "login": 8004,
+      "cart": 292,
+      "step_one": 180,
+      "step_two_and_finish": 162
+    }
+  },
+  {
+    "user": "problem_user",
+    "empty_form_error": "Error: First Name is required",
+    "typed_back": {
+      "firstName": "Lovelace",
+      "lastName": "",
+      "postalCode": "10115"
+    },
+    "step_one_error": "Error: Last Name is required",
+    "item_sum": null,
+    "subtotal": null,
+    "tax": null,
+    "total": null,
+    "totals_add_up": null,
+    "completed": null,
+    "steps_ms": {
+      "login": 1960,
+      "cart": 280,
+      "step_one": 157
+    }
+  }
+]

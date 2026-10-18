@@ -4,6 +4,9 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #61 | [Borrow the page's token and read its paginated API directly](61-scrape-a-paginated-json-api-with-a-token) | Medium | Chromium |
+| #60 | [A multi-step checkout end to end: wait for each step, and check what you typed](60-fill-a-multi-step-form) | Easy | Chromium |
+| #59 | [Block analytics and beacons, keep the page: what telemetry a scraper sends without knowing](59-intercept-and-block-telemetry) | Easy | Chromium |
 | #58 | [Do it by hand in live view, then let your code finish in the same browser](58-launch-interactive-to-code) | Medium | Chromium |
 | #57 | [Inspect and edit the cookie jar of a remote browser — and why WebKit refuses cookies on httpbin.org](57-inspect-and-edit-the-cookie-jar) | Easy | Chromium, Firefox, WebKit |
 | #56 | [A slow phone on a fast server: CPU throttling over a CDP session](56-cpu-throttling-via-cdp) | Easy | Chromium |

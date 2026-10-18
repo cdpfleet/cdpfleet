@@ -66,8 +66,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	page, err := browser.NewPage()
-	if err != nil {
+	context := browser.Contexts()[0] // the default context — it survives a reconnect
+	var page playwright.Page
+	if pages := context.Pages(); len(pages) > 0 {
+		page = pages[0]
+	} else if page, err = context.NewPage(); err != nil {
 		log.Fatal(err)
 	}
 	if _, err := page.Goto("https://example.com"); err != nil {
@@ -75,5 +78,5 @@ func main() {
 	}
 	title, _ := page.Title()
 	fmt.Println(title)
-	browser.Close() // ends the session and stops billing
+	browser.Close() // with keep_alive this only disconnects: end the session with DELETE /v1/me/threads/{sessionId}, or it ends after inactivity_timeout
 }

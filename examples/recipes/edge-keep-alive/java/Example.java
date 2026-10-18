@@ -36,10 +36,11 @@ public class Example {
     try (Playwright playwright = Playwright.create()) {
       Browser browser = playwright.chromium().connectOverCDP(cdpUrl,
           new BrowserType.ConnectOverCDPOptions().setHeaders(Map.of("x-api-key", key)));
-      Page page = browser.newPage();
+      BrowserContext context = browser.contexts().get(0); // the default context — it survives a reconnect
+      Page page = context.pages().isEmpty() ? context.newPage() : context.pages().get(0);
       page.navigate("https://example.com");
       System.out.println(page.title());
-      browser.close(); // ends the session and stops billing
+      browser.close(); // with keep_alive this only disconnects: end the session with DELETE /v1/me/threads/{sessionId}, or it ends after inactivity_timeout
     }
   }
 }

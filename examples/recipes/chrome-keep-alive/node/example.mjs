@@ -20,7 +20,8 @@ const { wsUrl } = await res.json();
 
 // 2. Connect and drive it
 const browser = await chromium.connect(wsUrl, { headers: { 'x-api-key': KEY } });
-const page = await browser.newPage();
+const context = browser.contexts()[0]; // the default context — it survives a reconnect
+const page = context.pages()[0] ?? await context.newPage();
 await page.goto('https://example.com');
 console.log(await page.title());
-await browser.close(); // ends the session and stops billing
+await browser.close(); // with keep_alive this only disconnects: end the session with DELETE /v1/me/threads/{sessionId}, or it ends after inactivity_timeout

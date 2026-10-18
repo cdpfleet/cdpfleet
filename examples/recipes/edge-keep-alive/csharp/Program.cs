@@ -31,7 +31,8 @@ var browser = await playwright.Chromium.ConnectOverCDPAsync(cdpUrl, new BrowserT
 {
     Headers = new Dictionary<string, string> { ["x-api-key"] = key },
 });
-var page = await browser.NewPageAsync();
+var context = browser.Contexts[0]; // the default context — it survives a reconnect
+var page = context.Pages.Count > 0 ? context.Pages[0] : await context.NewPageAsync();
 await page.GotoAsync("https://example.com");
 Console.WriteLine(await page.TitleAsync());
-await browser.CloseAsync(); // ends the session and stops billing
+await browser.CloseAsync(); // with keep_alive this only disconnects: end the session with DELETE /v1/me/threads/{sessionId}, or it ends after inactivity_timeout

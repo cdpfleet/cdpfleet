@@ -1,0 +1,34 @@
+{
+  "token": {
+    "in_local_storage": "auth-token",
+    "header_matches": true,
+    "lifetime_seconds": 300,
+    "seconds_left_at_end": 287
+  },
+  "api": {
+    "total": 162,
+    "per_page": 15,
+    "last_page": 11,
+    "without_token": 401
+  },
+  "ui": {
+    "pages": 11,
+    "invoices": 162,
+    "invoice_calls": 11,
+    "columns": 5,
+    "seconds": 5.479
+  },
+  "direct": {
+    "requests": 11,
+    "statuses": [
+      200
+    ],
+    "invoices": 162,
+    "fields_per_invoice": 16,
+    "json_bytes": 406666,
+    "seconds_one_by_one": 4.1995,
+    "seconds_all_at_once": 0.7525
+  },
+  "same_invoices": true,
+  "ui_missing_from_api": 0
+}

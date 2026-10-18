@@ -60,6 +60,7 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Open a page on the server, take over in live view, then join from code](recipes/start-url-live)
   - [A hard time cap for batch jobs](recipes/overall-timeout-cap)
   - [Residential IPs for one strict host, your own proxy for the rest](recipes/resi-for-one-host)
+  - [Headful Opera over CDP that survives a disconnect](recipes/opera-keep-alive)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).
