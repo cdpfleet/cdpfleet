@@ -266,7 +266,7 @@ Camoufox is an anti-detect browser based on Firefox source (not affiliated with 
 | `block_images` | `boolean` | false | Block all images. Blocked images are themselves a detectable signal. |
 | `block_webrtc` | `boolean` | false | Disable WebRTC entirely. |
 | `block_webgl` | `boolean` | false | Disable WebGL. A missing WebGL is itself a fingerprint signal. |
-| `disable_coop` | `boolean` | false | Disable Cross-Origin-Opener-Policy. Detectable. |
+| `disable_coop` | `boolean` | false | Disable Cross-Origin-Opener-Policy. **Use it for:** Scrapers and agents that must click inside a cross-origin iframe — a CAPTCHA widget, an embedded login or payment frame — on Camoufox. Leave it off otherwise: a site can detect it. Detectable. |
 | `screen` | `object` | none | Constrain the fingerprint's screen size. Ignored when `fingerprint` is given. |
 | `window` | `[width, height]` | random | Fixed outer window size. Ignored when `fingerprint` is given. |
 | `fingerprint` | `object` | generated | Use a complete BrowserForge fingerprint. A non-Firefox fingerprint returns 400. |
