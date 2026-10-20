@@ -50,7 +50,7 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 
 ## Takeaways
 
-- **Tabs overlap the waiting:** 2–7× faster in our runs (11–29 s one by one, 2.4–6.6 s in parallel) — the wall time approaches the slowest page.
+- **Tabs overlap the waiting:** 1.6–4.9× faster in our latest runs (10.2–13.5 s one by one, 2.4–6.6 s in parallel) — the wall time approaches the slowest page.
 - **No extra threads or proxy slots:** five tabs are one session — the plan meter counts one thread.
 - **The gain depends on page time, not page count:** fast pages gain little; slow ones through a distant proxy gain most.
 - **Don't share Playwright across threads:** its Python sync API and its Java API aren't thread-safe (a thread pool fails with `Target closed` / `NoSuchElementException`). Use Python's async API, and in Java start every navigation before waiting on any.
