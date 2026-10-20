@@ -1,0 +1,174 @@
+{
+  "measured_at": "2026-10-20",
+  "pages": 20,
+  "no_vendor_found": 0,
+  "expected_vendor_found": 20,
+  "vendors": [
+    {
+      "vendor": "cloudflare",
+      "pages": 7,
+      "signals": {
+        "cf-ray header": 6,
+        "__cf_bm / cf_clearance cookie": 5,
+        "/cdn-cgi/challenge-platform request": 6
+      },
+      "outcomes": {
+        "content": 5,
+        "challenge": 2,
+        "blocked": 0,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "turnstile",
+      "pages": 4,
+      "signals": {
+        "Turnstile widget": 4
+      },
+      "outcomes": {
+        "content": 2,
+        "challenge": 2,
+        "blocked": 0,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "datadome",
+      "pages": 3,
+      "signals": {
+        "x-datadome header": 2,
+        "datadome cookie": 3,
+        "DataDome host (captcha-delivery.com, datadome.co)": 2
+      },
+      "outcomes": {
+        "content": 1,
+        "challenge": 2,
+        "blocked": 0,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "akamai",
+      "pages": 3,
+      "signals": {
+        "akamai header": 3,
+        "_abck / bm_sz cookie": 1
+      },
+      "outcomes": {
+        "content": 1,
+        "challenge": 0,
+        "blocked": 2,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "human",
+      "pages": 2,
+      "signals": {
+        "HUMAN host (px-cdn.net, px-cloud.net)": 2,
+        "_px cookie": 1
+      },
+      "outcomes": {
+        "content": 1,
+        "challenge": 1,
+        "blocked": 0,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "kasada",
+      "pages": 2,
+      "signals": {
+        "x-kpsdk header": 1,
+        "ips.js / kpsdk request": 2
+      },
+      "outcomes": {
+        "content": 0,
+        "challenge": 0,
+        "blocked": 2,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "awswaf",
+      "pages": 2,
+      "signals": {
+        "aws-waf-token cookie": 2,
+        "AWS WAF host (awswaf.com)": 1
+      },
+      "outcomes": {
+        "content": 2,
+        "challenge": 0,
+        "blocked": 0,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "recaptcha",
+      "pages": 1,
+      "signals": {
+        "reCAPTCHA script": 1
+      },
+      "outcomes": {
+        "content": 1,
+        "challenge": 0,
+        "blocked": 0,
+        "error": 0
+      }
+    },
+    {
+      "vendor": "hcaptcha",
+      "pages": 1,
+      "signals": {
+        "hCaptcha host": 1
+      },
+      "outcomes": {
+        "content": 1,
+        "challenge": 0,
+        "blocked": 0,
+        "error": 0
+      }
+    }
+  ],
+  "demo_pages": [
+    {
+      "page": "nowsecure.nl (Turnstile test page)",
+      "vendors": [
+        "cloudflare",
+        "turnstile"
+      ],
+      "outcome": "content"
+    },
+    {
+      "page": "scrapingcourse.com Cloudflare challenge",
+      "vendors": [
+        "cloudflare",
+        "turnstile"
+      ],
+      "outcome": "challenge"
+    },
+    {
+      "page": "peet.ws Turnstile test (non-interactive)",
+      "vendors": [
+        "cloudflare",
+        "turnstile"
+      ],
+      "outcome": "content"
+    },
+    {
+      "page": "Google reCAPTCHA v3 demo",
+      "vendors": [
+        "recaptcha"
+      ],
+      "outcome": "content"
+    },
+    {
+      "page": "hCaptcha demo",
+      "vendors": [
+        "cloudflare",
+        "hcaptcha"
+      ],
+      "outcome": "content"
+    }
+  ]
+}

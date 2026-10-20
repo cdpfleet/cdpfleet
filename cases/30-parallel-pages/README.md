@@ -28,7 +28,7 @@ You need something from several unrelated pages. The obvious loop opens one, ext
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-09):
+The same program in five languages, each verified on the production fleet (last run 2026-10-19):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -42,9 +42,9 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Method | Pages | Seconds |
 |---|---|---|
-| Sequential | 5 | 28.86 |
-| Parallel | 5 | 4.26 |
-| Speedup |  | 6.8x |
+| Sequential | 5 | 10.2 |
+| Parallel | 5 | 6.35 |
+| Speedup |  | 1.6x |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 

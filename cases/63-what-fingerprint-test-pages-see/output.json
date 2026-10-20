@@ -1,0 +1,139 @@
+[
+  {
+    "setup": "Chromium, headless",
+    "engine": "chromium",
+    "sannysoft": {
+      "checks": 31,
+      "failed": 11,
+      "failed_names": [
+        "User Agent (Old)",
+        "Chrome (New)",
+        "Permissions (New)",
+        "Plugins Length (Old)",
+        "Plugins is of type PluginArray",
+        "WebGL Renderer",
+        "HEADCHR_UA",
+        "HEADCHR_CHROME_OBJ",
+        "HEADCHR_PERMISSIONS",
+        "HEADCHR_IFRAME",
+        "CHR_MEMORY"
+      ]
+    },
+    "creepjs": {
+      "like_headless_pct": 94,
+      "headless_pct": 67,
+      "stealth_pct": 0
+    },
+    "deviceandbrowserinfo": {
+      "is_bot": true,
+      "signals": [
+        "hasBotUserAgent",
+        "hasInconsistentTimingResolution",
+        "isAutomatedWithCDP",
+        "isAutomatedWithCDPInWebWorker",
+        "hasSuspiciousWeakSignals"
+      ]
+    },
+    "fingerprint": {
+      "bot": "You are a bad bot (type: headless_chrome)",
+      "suspect_score": 23
+    }
+  },
+  {
+    "setup": "Google Chrome, headful",
+    "engine": "chrome",
+    "sannysoft": {
+      "checks": 31,
+      "failed": 1,
+      "failed_names": [
+        "WebGL Renderer"
+      ]
+    },
+    "creepjs": {
+      "like_headless_pct": 50,
+      "headless_pct": 0,
+      "stealth_pct": 0
+    },
+    "deviceandbrowserinfo": {
+      "error": "page.goto: Timeout 60000ms exceeded."
+    },
+    "fingerprint": {
+      "bot": "You are a bad bot (type: chromium_automation)",
+      "suspect_score": 43
+    }
+  },
+  {
+    "setup": "Patchright, headful",
+    "engine": "patchright",
+    "sannysoft": {
+      "checks": 31,
+      "failed": 1,
+      "failed_names": [
+        "WebGL Renderer"
+      ]
+    },
+    "creepjs": {
+      "like_headless_pct": 50,
+      "headless_pct": 0,
+      "stealth_pct": 0
+    },
+    "deviceandbrowserinfo": {
+      "is_bot": true,
+      "signals": [
+        "hasSuspiciousWeakSignals"
+      ]
+    },
+    "fingerprint": {
+      "bot": "You are a bad bot (type: chromium_automation)",
+      "suspect_score": 31
+    }
+  },
+  {
+    "setup": "Camoufox, defaults",
+    "engine": "camoufox",
+    "sannysoft": {
+      "checks": 31,
+      "failed": 1,
+      "failed_names": [
+        "Chrome (New)"
+      ]
+    },
+    "creepjs": {
+      "like_headless_pct": 13,
+      "headless_pct": 0,
+      "stealth_pct": 0
+    },
+    "deviceandbrowserinfo": {
+      "is_bot": false,
+      "signals": []
+    },
+    "fingerprint": {
+      "bot": "Not detected",
+      "suspect_score": 9
+    }
+  },
+  {
+    "setup": "WebKit, headless",
+    "engine": "webkit",
+    "sannysoft": {
+      "checks": 31,
+      "failed": 2,
+      "failed_names": [
+        "WebDriver (New)",
+        "Chrome (New)"
+      ]
+    },
+    "creepjs": {
+      "like_headless_pct": 19,
+      "headless_pct": 33,
+      "stealth_pct": 0
+    },
+    "deviceandbrowserinfo": {
+      "error": "page.goto: Timeout 60000ms exceeded."
+    },
+    "fingerprint": {
+      "bot": "You are a bad bot (type: webdriver)",
+      "suspect_score": 33
+    }
+  }
+]

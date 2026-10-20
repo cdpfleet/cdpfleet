@@ -4,6 +4,8 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #63 | [What four public bot-test pages say about five fleet browsers](63-what-fingerprint-test-pages-see) | Easy | Chromium, Google Chrome, Patchright, Camoufox, WebKit |
+| #62 | [Which bot protection is this? Detect the vendor from cookies, headers and requests](62-which-bot-protection-is-this) | Easy | Chromium |
 | #61 | [Borrow the page's token and read its paginated API directly](61-scrape-a-paginated-json-api-with-a-token) | Medium | Chromium |
 | #60 | [A multi-step checkout end to end: wait for each step, and check what you typed](60-fill-a-multi-step-form) | Easy | Chromium |
 | #59 | [Block analytics and beacons, keep the page: what telemetry a scraper sends without knowing](59-intercept-and-block-telemetry) | Easy | Chromium |
