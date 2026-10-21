@@ -25,7 +25,7 @@ You need the mobile version of a site, so you open a context with Playwright's `
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-04):
+The same program in five languages, each verified on the production fleet (last run 2026-10-21):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -39,7 +39,7 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Context | User agent | Viewport | DPR | Touch | navigator.platform | userAgentData | JA4 |
 |---|---|---|---|---|---|---|---|
-| desktop | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 | 1280x720 | 1 | 0 | Linux x86_64 | Linux | t13d1517h2_8daaf6152771_cb7bf5808d99 |
+| desktop | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 | 1280x720 | 1 | 0 | Linux x86_64 | Linux | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 | iPhone 15 Pro | Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Mobile/15E148 Safari/604.1 | 980x1644 | 3 | 1 | Linux x86_64 | iOS | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 | Pixel 7 | Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.7778.96 Mobile Safari/537.36 | 981x1996 | 2.625 | 1 | Linux x86_64 | Android | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 
@@ -51,6 +51,6 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 - **Tell 1 — TLS:** the JA4 and HTTP/2 fingerprints are Chrome's in all three contexts. An "iPhone browser" with Chrome's TLS is exactly what fingerprinting vendors look for.
 - **Tell 2 — client hints on an iPhone user agent:** WebKit-based browsers never send `sec-ch-ua-*` headers or expose `navigator.userAgentData`; the emulated iPhone does both (and says `platform: iOS`).
 - **Tell 3 — `navigator.platform` stays `Linux x86_64`** in both mobile contexts. A real iPhone says `iPhone`, a real Pixel `Linux armv81`.
-- **Tell 4 — version skew on Android:** the Pixel descriptor's user agent says Chrome 148 while the browser (and its client hints) is Chrome 153.
+- **Tell 4 — version skew on Android:** the Pixel descriptor's user agent says Chrome 148 while the browser (and its client hints) is Chrome 155 (2026-10-21) — and the gap grows with every release, since the descriptor is fixed in your Playwright version.
 - **Tell 5 — headless:** the desktop context's user agent says `HeadlessChrome`. Use `headless: false` (2 threads) when that matters, or set a user agent.
 - Emulation is fine for layout and responsive testing. To look like a real phone to a bot check, use a real device — cdpfleet's hardware Android phones and iOS WebView are in early access.

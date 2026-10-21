@@ -87,13 +87,13 @@ async Task<(JsonObject Before, JsonObject? After, string? Missing)> Visit(IBrows
         IResponse? res;
         try { res = await page.GotoAsync(url, load); }
         catch (PlaywrightException) { res = await page.GotoAsync(url, load); } // proxies drop a connection now and then: one retry
-        // Consent scripts load late on busy pages: wait up to 20 s for the banner, and give
+        // Consent scripts load late on busy pages: wait up to 30 s for the banner, and give
         // every page at least 6 s before measuring.
         var clock = System.Diagnostics.Stopwatch.StartNew();
         long? bannerAfterMs = null;
         try
         {
-            await page.Locator(Banner).First.WaitForAsync(new() { State = WaitForSelectorState.Visible, Timeout = 20000 });
+            await page.Locator(Banner).First.WaitForAsync(new() { State = WaitForSelectorState.Visible, Timeout = 30000 });
             bannerAfterMs = clock.ElapsedMilliseconds;
         }
         catch (Exception) { /* no banner */ }
@@ -141,7 +141,7 @@ async Task<(JsonObject Before, JsonObject? After, string? Missing)> VisitOnce(IB
     return status is >= 200 and < 300 ? r : await Visit(browser, url, choice);
 }
 
-// Sessions on shared threads end after 60 s without traffic, so the countries run one after the other.
+// Sessions on shared threads end after 2 minutes without traffic by default, so the countries run one after the other.
 var fromUs = new List<(JsonObject Before, JsonObject? After, string? Missing)>();
 var us = await Launch(Environment.GetEnvironmentVariable("PROXY_URL_US")!);
 try

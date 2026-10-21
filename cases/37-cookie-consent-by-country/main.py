@@ -80,11 +80,11 @@ def visit(browser, url, choice=None):
             res = open_page()
         except Exception:  # proxies drop a connection now and then: one retry
             res = open_page()
-        # Consent scripts load late on busy pages: wait up to 20 s for the banner, and give
+        # Consent scripts load late on busy pages: wait up to 30 s for the banner, and give
         # every page at least 6 s before measuring.
         t0 = time.monotonic()
         try:
-            page.locator(BANNER).first.wait_for(state="visible", timeout=20000)
+            page.locator(BANNER).first.wait_for(state="visible", timeout=30000)
             banner_after_ms = round((time.monotonic() - t0) * 1000)
         except Exception:
             banner_after_ms = None
@@ -130,7 +130,7 @@ def visit_once(browser, url, choice=None):
 
 
 with sync_playwright() as p:
-    # Sessions on shared threads end after 60 s without traffic, so the countries run one after the other.
+    # Sessions on shared threads end after 2 minutes without traffic by default, so the countries run one after the other.
     us = launch(p, os.environ["PROXY_URL_US"])
     try:
         from_us = [visit_once(us, url) for url in SITES]

@@ -254,7 +254,7 @@ async () => {
             } finally {
               r.browser().close();
             }
-            b.page().evaluate("() => document.title"); // keep B active (idle sessions end after 60 s on shared threads)
+            b.page().evaluate("() => document.title"); // keep B active (idle sessions end after 2 minutes by default)
           }
           // A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
           JsonObject info = profileInfo();

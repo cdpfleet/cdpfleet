@@ -143,7 +143,7 @@ try
             {
                 await r.Browser.CloseAsync();
             }
-            await b.Page!.EvaluateAsync("() => document.title"); // keep B active (idle sessions end after 60 s on shared threads)
+            await b.Page!.EvaluateAsync("() => document.title"); // keep B active (idle sessions end after 2 minutes by default)
         }
         // A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
         after["version_after_readonly"] = (await ProfileInfo())?["version"]?.GetValue<int>();

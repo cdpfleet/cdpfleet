@@ -195,7 +195,7 @@ with sync_playwright() as p:
                                             "local_storage": s["local_storage"], "indexeddb": s["indexeddb"]})
                 finally:
                     r["browser"].close()
-                b["page"].evaluate("() => document.title")  # keep B active (idle sessions end after 60 s on shared threads)
+                b["page"].evaluate("() => document.title")  # keep B active (idle sessions end after 2 minutes by default)
             # A read-only save would bump the version: it's still 1 here, and B's save makes it exactly 2.
             out["after"]["version_after_readonly"] = (profile_info() or {}).get("version")
         finally:

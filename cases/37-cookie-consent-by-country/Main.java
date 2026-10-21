@@ -100,12 +100,12 @@ public class Main {
       } catch (PlaywrightException e) { // proxies drop a connection now and then: one retry
         res = page.navigate(url, load);
       }
-      // Consent scripts load late on busy pages: wait up to 20 s for the banner, and give
+      // Consent scripts load late on busy pages: wait up to 30 s for the banner, and give
       // every page at least 6 s before measuring.
       long t0 = System.nanoTime();
       Long bannerAfterMs = null;
       try {
-        page.locator(BANNER).first().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(20000));
+        page.locator(BANNER).first().waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(30000));
         bannerAfterMs = (System.nanoTime() - t0) / 1_000_000;
       } catch (PlaywrightException e) {
         // no banner
@@ -161,7 +161,7 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     try (Playwright playwright = Playwright.create()) {
-      // Sessions on shared threads end after 60 s without traffic, so the countries run one after the other.
+      // Sessions on shared threads end after 2 minutes without traffic by default, so the countries run one after the other.
       List<JsonElement[]> fromUs = new ArrayList<>();
       Browser us = launch(playwright, System.getenv("PROXY_URL_US"));
       try {

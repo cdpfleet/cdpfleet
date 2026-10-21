@@ -188,7 +188,7 @@ func run() error {
 	}
 	defer pw.Stop()
 	results := []result{}
-	for _, s := range setups { // one at a time: an idle session ends after 60 s
+	for _, s := range setups { // one at a time: an idle session ends after 2 minutes by default
 		r, err := probe(pw, s)
 		if err != nil {
 			return fmt.Errorf("%s: %w", s.label, err)

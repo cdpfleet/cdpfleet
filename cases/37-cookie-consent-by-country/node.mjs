@@ -61,10 +61,10 @@ async function visit(browser, url, choice) {
     // Proxies drop a connection now and then: one retry.
     const open = () => page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     const res = await open().catch(open);
-    // Consent scripts load late on busy pages: wait up to 20 s for the banner, and give
+    // Consent scripts load late on busy pages: wait up to 30 s for the banner, and give
     // every page at least 6 s before measuring.
     const t0 = Date.now();
-    const seen = await page.locator(BANNER).first().waitFor({ state: 'visible', timeout: 20000 }).then(() => true, () => false);
+    const seen = await page.locator(BANNER).first().waitFor({ state: 'visible', timeout: 30000 }).then(() => true, () => false);
     const bannerAfterMs = seen ? Date.now() - t0 : null;
     if (Date.now() - t0 < 6000) await page.waitForTimeout(6000 - (Date.now() - t0));
     const probe = await page.evaluate(`(${PROBE})()`);
@@ -99,7 +99,7 @@ async function visitOnce(browser, url, choice) {
   return r.before.status >= 200 && r.before.status < 300 ? r : visit(browser, url, choice);
 }
 
-// Sessions on shared threads end after 60 s without traffic, so the countries run one after the other.
+// Sessions on shared threads end after 2 minutes without traffic by default, so the countries run one after the other.
 const fromUs = [];
 const us = await launch(process.env.PROXY_URL_US);
 try {

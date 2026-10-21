@@ -77,7 +77,7 @@ if (rec is not null)
     recording["appeared_after_s"] = (long)Math.Round((DateTime.UtcNow - t).TotalSeconds);
     var id = (string)rec["id"]!;
     var link = (await http.GetFromJsonAsync<JsonObject>($"https://cdpfleet.com/v1/me/recordings/{id}/url"))!;
-    using var plain = new HttpClient(); // the presigned link must not carry our API key
+    using var plain = new HttpClient(); // the private link needs no API key, so none is sent
     using var video = await plain.GetAsync((string)link["url"]!);
     var bytes = await video.Content.ReadAsByteArrayAsync();
     foreach (var k in new[] { "duration_seconds", "width", "height", "bytes" }) recording[k] = rec[k]!.DeepClone();

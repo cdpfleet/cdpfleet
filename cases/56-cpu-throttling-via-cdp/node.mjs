@@ -41,11 +41,18 @@ try {
     });
     const m = await metrics(cdp);
     const work = await page.evaluate(WORK);
+    // Load it once more and keep the shorter parse time: parsing waits for blocking scripts, and one
+    // slow download through the proxy can inflate a single load at any rate.
+    await page.reload({ waitUntil: 'load', timeout: 90000 });
+    const again = await page.evaluate(() => {
+      const n = performance.getEntriesByType('navigation')[0];
+      return Math.round(n.domContentLoadedEventEnd) - Math.round(n.responseEnd);
+    });
     rows.push({
       rate,
       work_ms: work.ms,
       ...nav,
-      parse_ms: nav.dcl_ms - nav.response_ms, // HTML fully received → DOMContentLoaded: parsing and scripts
+      parse_ms: Math.min(nav.dcl_ms - nav.response_ms, again), // HTML fully received → DOMContentLoaded: parsing and scripts
       main_thread_ms: Math.round(m.TaskDuration * 1000), // busy time while loading, from CDP
       check: work.check,
     });

@@ -162,11 +162,11 @@ func visit(browser playwright.Browser, site, choice string) (*before, *after, *s
 			return nil, nil, nil, err
 		}
 	}
-	// Consent scripts load late on busy pages: wait up to 20 s for the banner, and give every
+	// Consent scripts load late on busy pages: wait up to 30 s for the banner, and give every
 	// page at least 6 s before measuring.
 	t0 := time.Now()
 	var bannerAfterMs *int64
-	if page.Locator(banner).First().WaitFor(playwright.LocatorWaitForOptions{State: playwright.WaitForSelectorStateVisible, Timeout: playwright.Float(20000)}) == nil {
+	if page.Locator(banner).First().WaitFor(playwright.LocatorWaitForOptions{State: playwright.WaitForSelectorStateVisible, Timeout: playwright.Float(30000)}) == nil {
 		ms := time.Since(t0).Milliseconds()
 		bannerAfterMs = &ms
 	}
@@ -299,7 +299,7 @@ func main() {
 		}
 		return browser
 	}
-	// Sessions on shared threads end after 60 s without traffic, so the countries run one after the other.
+	// Sessions on shared threads end after 2 minutes without traffic by default, so the countries run one after the other.
 	us := connect(os.Getenv("PROXY_URL_US"))
 	fromUs, err := runUS(us)
 	us.Close()

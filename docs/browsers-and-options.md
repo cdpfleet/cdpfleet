@@ -226,7 +226,7 @@ Chromium launched with Patchright's anti-detection patches (leaner automation fl
 
 Endpoint `POST /rebrowser/session` · connect with Playwright `chromium` 1.52 · [docs page](https://cdpfleet.com/docs/browsers/rebrowser)
 
-Chromium launched with Rebrowser's anti-detection patches. **Connect with Playwright 1.52** — this browser's server is pinned to 1.52 and newer clients time out on connect. The generated examples already use 1.52. `keep_alive` isn't available: the 1.52 server can't keep contexts across connections, so a launch with it returns 400. `page.setContent()` never finishes on this browser (its patches replace the isolated world it runs in): use `page.goto('data:text/html,…')` or `page.evaluate(() => document.write(…))` instead.
+Chromium launched with Rebrowser's anti-detection patches. **Connect with Playwright 1.52** — this browser's server is pinned to 1.52 and newer clients time out on connect. The generated examples already use 1.52. `keep_alive` isn't available: the 1.52 server can't keep contexts across connections, so a launch with it returns 400. For the same reason `start_url` isn't offered: the page the server opens can't be handed to your code. `page.setContent()` never finishes on this browser (its patches replace the isolated world it runs in): use `page.goto('data:text/html,…')` or `page.evaluate(() => document.write(…))` instead.
 
 | Option | Type | Default | What it does |
 |---|---|---|---|
@@ -240,7 +240,6 @@ Chromium launched with Rebrowser's anti-detection patches. **Connect with Playwr
 | `live_view` | `boolean` | false (headful sessions are always watchable) | Make a headless session watchable and controllable from outside. Headless Chromium-based browsers only (Camoufox, Firefox and WebKit are watchable when headful, their default). Doesn't give your code CDP access — add `"cdp": true` for that. The session is also [recorded](https://cdpfleet.com/docs/recordings) unless you add `"record": false`. See [Live view](https://cdpfleet.com/docs/live-view). |
 | `screen_size` | `"WxH" \| { width, height }` | the server's display (1280×720 window) | Resolution of the session's own display (headful only). Headful sessions only — a headless launch with `screen_size` returns 400. Playwright contexts report a screen equal to their viewport (1280×720) unless you open them with `viewport: null` (Python `no_viewport=True`, Java `setViewportSize(null)`, C# `ViewportSize = ViewportSize.NoViewport`, Go `NoViewport: playwright.Bool(true)`); Camoufox always reports the display — the nearest real-world screen size no larger than it (exact for common sizes such as 1366×768 or 1920×1080); with `"os": "macos"` use 1440×900 or larger, since no Mac screen is smaller (400 otherwise). |
 | `record` | `boolean` | true (when recording applies) | Opt this session out of recording with false. Recording applies to headful sessions and to headless ones launched with `"cdp": true` or `"live_view": true`, at 480p (720p or 1080p on a recording plan). Recordings appear on the dashboard's Sessions page. See [Session recording](https://cdpfleet.com/docs/recordings). |
-| `start_url` | `string (http/https URL)` | none | Open this page at launch so the session can be driven in live view with no client connected. http or https, at most 2,048 characters (`400 invalid_start_url`). Headless needs `"live_view": true` on a Chromium-based browser; Firefox, Camoufox and WebKit only headful (`400 start_url_not_viewable`). Without `keep_alive`, a client that connects and then disconnects ends the session. See [Launch interactive](https://cdpfleet.com/docs/live-view#launch-interactive). |
 
 
 ## Camoufox
@@ -262,7 +261,7 @@ Camoufox is an anti-detect browser based on Firefox source (not affiliated with 
 | `os` | `"windows" \| "macos" \| "linux" \| array` | random among windows / macos / linux | Operating system of the generated fingerprint. Required when `webgl_config` is set. Any other value returns 400. |
 | `locale` | `string \| array` | derived from the proxy's exit IP | Browser locale(s). An unknown locale fails the launch. |
 | `geoip` | `boolean` | true | Match timezone, locale, geolocation and WebRTC IP to the proxy's exit IP. If the proxy can't reach the IP lookup services, the launch fails. |
-| `humanize` | `boolean \| number` | true | Human-like cursor movement. |
+| `humanize` | `boolean \| number` | true | Human-like cursor movement. With humanize on, a mouse move occasionally never returns (a Camoufox bug, fixed upstream; our upgrade is pending). Give `mouse.move` and clicks a timeout, and continue in a new page if one hangs. Set `false` when you don't need human-like paths: moves are then instant and unaffected. |
 | `block_images` | `boolean` | false | Block all images. Blocked images are themselves a detectable signal. |
 | `block_webrtc` | `boolean` | false | Disable WebRTC entirely. |
 | `block_webgl` | `boolean` | false | Disable WebGL. A missing WebGL is itself a fingerprint signal. |

@@ -29,7 +29,7 @@ async function launch(body) {
 }
 
 // One snapshot = one short session: launch, read every target, close. Nothing is billed while
-// waiting, and an idle session would end after 60 s anyway.
+// waiting, and an idle session would end after 2 minutes (the default) anyway.
 async function snapshot() {
   const t = Date.now();
   const { wsUrl } = await launch({ proxy: process.env.PROXY_URL, headless: true, record: false });

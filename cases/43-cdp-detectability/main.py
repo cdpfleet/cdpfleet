@@ -82,5 +82,5 @@ def run(p, s):
 
 
 with sync_playwright() as p:
-    setups = [run(p, s) for s in SETUPS]  # one at a time: an idle session ends after 60 s
+    setups = [run(p, s) for s in SETUPS]  # one at a time: an idle session ends after 2 minutes by default
 print(json.dumps({"setups": setups}, indent=2))

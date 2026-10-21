@@ -49,11 +49,15 @@ with sync_playwright() as p:
             nav = page.evaluate(NAV)
             m = metrics(cdp)
             work = page.evaluate(WORK)
+            # Load it once more and keep the shorter parse time: parsing waits for blocking scripts, and one
+            # slow download through the proxy can inflate a single load at any rate.
+            page.reload(wait_until="load", timeout=90000)
+            again = page.evaluate(NAV)
             rows.append({
                 "rate": rate,
                 "work_ms": work["ms"],
                 **nav,
-                "parse_ms": nav["dcl_ms"] - nav["response_ms"],  # HTML fully received → DOMContentLoaded: parsing and scripts
+                "parse_ms": min(nav["dcl_ms"] - nav["response_ms"], again["dcl_ms"] - again["response_ms"]),  # HTML fully received → DOMContentLoaded: parsing and scripts
                 "main_thread_ms": round(m["TaskDuration"] * 1000),  # busy time while loading, from CDP
                 "check": work["check"],
             })

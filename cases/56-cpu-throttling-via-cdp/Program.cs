@@ -52,6 +52,11 @@ try
         var metrics = (await cdp.SendAsync("Performance.getMetrics"))!.Value.GetProperty("metrics").EnumerateArray()
             .ToDictionary(m => m.GetProperty("name").GetString()!, m => m.GetProperty("value").GetDouble());
         var work = await page.EvaluateAsync<JsonElement>(Work);
+        // Load it once more and keep the shorter parse time: parsing waits for blocking scripts, and one
+        // slow download through the proxy can inflate a single load at any rate.
+        await page.ReloadAsync(new() { WaitUntil = WaitUntilState.Load, Timeout = 90000 });
+        var again = await page.EvaluateAsync<JsonElement>(Nav);
+        var parseAgain = again.GetProperty("dcl_ms").GetInt64() - again.GetProperty("response_ms").GetInt64();
         var responseMs = nav.GetProperty("response_ms").GetInt64();
         var dclMs = nav.GetProperty("dcl_ms").GetInt64();
         rows.Add(new JsonObject
@@ -61,7 +66,7 @@ try
             ["response_ms"] = responseMs,
             ["dcl_ms"] = dclMs,
             ["load_ms"] = nav.GetProperty("load_ms").GetInt64(),
-            ["parse_ms"] = dclMs - responseMs, // HTML fully received → DOMContentLoaded: parsing and scripts
+            ["parse_ms"] = Math.Min(dclMs - responseMs, parseAgain), // HTML fully received → DOMContentLoaded: parsing and scripts
             ["main_thread_ms"] = Math.Round(metrics["TaskDuration"] * 1000), // busy time while loading, from CDP
             ["check"] = work.GetProperty("check").GetInt64(),
         });

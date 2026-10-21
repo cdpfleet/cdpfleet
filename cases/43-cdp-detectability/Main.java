@@ -102,7 +102,7 @@ public class Main {
   public static void main(String[] args) throws Exception {
     JsonArray setups = new JsonArray();
     try (Playwright pw = Playwright.create()) {
-      for (Setup s : SETUPS) setups.add(run(pw, s)); // one at a time: an idle session ends after 60 s
+      for (Setup s : SETUPS) setups.add(run(pw, s)); // one at a time: an idle session ends after 2 minutes by default
     }
     JsonObject result = new JsonObject();
     result.add("setups", setups);

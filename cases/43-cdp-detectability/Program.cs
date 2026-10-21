@@ -98,5 +98,5 @@ async Task<JsonObject> Run(string label, string engine, string family, bool cdp,
 }
 
 var rows = new JsonArray();
-foreach (var s in setups) rows.Add(await Run(s.Label, s.Engine, s.Family, s.Cdp, s.Listen)); // one at a time: an idle session ends after 60 s
+foreach (var s in setups) rows.Add(await Run(s.Label, s.Engine, s.Family, s.Cdp, s.Listen)); // one at a time: an idle session ends after 2 minutes by default
 Console.WriteLine(new JsonObject { ["setups"] = rows }.ToJsonString(new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));

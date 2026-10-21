@@ -2,37 +2,37 @@
   "rows": [
     {
       "rate": 1,
-      "work_ms": 77,
-      "response_ms": 2272,
-      "dcl_ms": 2758,
-      "load_ms": 4615,
-      "parse_ms": 486,
-      "main_thread_ms": 422,
+      "work_ms": 119,
+      "response_ms": 441,
+      "dcl_ms": 706,
+      "load_ms": 4998,
+      "parse_ms": 112,
+      "main_thread_ms": 558,
       "check": 488537
     },
     {
       "rate": 4,
-      "work_ms": 327,
-      "response_ms": 1075,
-      "dcl_ms": 1760,
-      "load_ms": 3230,
-      "parse_ms": 685,
-      "main_thread_ms": 1448,
+      "work_ms": 316,
+      "response_ms": 2402,
+      "dcl_ms": 3078,
+      "load_ms": 4677,
+      "parse_ms": 676,
+      "main_thread_ms": 1040,
       "check": 488537
     },
     {
       "rate": 6,
-      "work_ms": 497,
-      "response_ms": 451,
-      "dcl_ms": 1256,
-      "load_ms": 2398,
-      "parse_ms": 805,
-      "main_thread_ms": 2110,
+      "work_ms": 484,
+      "response_ms": 2782,
+      "dcl_ms": 3983,
+      "load_ms": 5454,
+      "parse_ms": 395,
+      "main_thread_ms": 2320,
       "check": 488537
     }
   ],
   "side_by_side": {
-    "throttled_tab_ms": 494,
-    "other_tab_ms": 126
+    "throttled_tab_ms": 490,
+    "other_tab_ms": 130
   }
 }

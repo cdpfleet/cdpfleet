@@ -389,7 +389,7 @@ func sessionB(pw *playwright.Playwright, out *Output) error {
 			return err
 		}
 		out.Readonly = append(out.Readonly, ReadonlyEntry{Status: r.Status, PersistentCookie: &st.PersistentCookie, LocalStorage: &st.LocalStorage, IndexedDB: &st.IndexedDB})
-		if _, err := b.Page.Evaluate("() => document.title"); err != nil { // keep B active (idle sessions end after 60 s on shared threads)
+		if _, err := b.Page.Evaluate("() => document.title"); err != nil { // keep B active (idle sessions end after 2 minutes by default)
 			return err
 		}
 	}

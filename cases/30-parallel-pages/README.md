@@ -13,7 +13,7 @@ You need something from several unrelated pages. The obvious loop opens one, ext
 | What | Why |
 |---|---|
 | `chromium`, `headless: "new"` | One session (1 thread) for all five pages. |
-| Five independent URLs | books.toscrape.com, quotes.toscrape.com, example.com, httpbin.org/html and scrapethissite.com: public, no login, safe to load at once. |
+| Five independent URLs | books.toscrape.com, quotes.toscrape.com, example.com, a Wikipedia article and the Hacker News front page: public, no login, safe to load at once. |
 | `browser.newPage()` per URL | Each tab has its own navigation; all share the session's proxy and connection. |
 | `Promise.all` · `asyncio.gather` · `Task.WhenAll` · goroutines | Each language's own way to wait on five loads at once. Java starts all five navigations and then waits for each — no threads. |
 | `waitUntil: "domcontentloaded"` | Wait for the HTML, not every image and script: one slow asset would otherwise set the pace. |
@@ -24,11 +24,12 @@ You need something from several unrelated pages. The obvious loop opens one, ext
 1. Launch one Chromium session.
 2. Sequential: open each URL in a new tab, read its title, close it — timed.
 3. Parallel: open all five at once, read the titles, close the tabs — timed.
-4. Print both timings, the speedup and every title.
+4. Do both three times, alternating, and keep each method's best time: a single page that stalls in the proxy (we saw 14–28 s now and then) would otherwise decide one comparison on its own.
+5. Print both timings, the speedup, every round and every title.
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-19):
+The same program in five languages, each verified on the production fleet (last run 2026-10-21):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -42,15 +43,16 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Method | Pages | Seconds |
 |---|---|---|
-| Sequential | 5 | 10.2 |
-| Parallel | 5 | 6.35 |
-| Speedup |  | 1.6x |
+| Sequential | 5 | 12.77 |
+| Parallel | 5 | 9.39 |
+| Speedup |  | 1.4x |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **Tabs overlap the waiting:** 1.6–4.9× faster in our latest runs (10.2–13.5 s one by one, 2.4–6.6 s in parallel) — the wall time approaches the slowest page.
+- **Tabs overlap the waiting:** 1.4–4.4× faster in the 2026-10-21 runs, taking each method's best of three rounds (6.9–12.8 s one by one, 1.7–9.4 s in parallel) — the wall time approaches the slowest page.
+- **…which is also the catch:** in 3 of the 15 rounds one page stalled in the proxy (up to 30 s) and the parallel batch came out slower than loading one by one. Give each load a timeout and a retry, and compare methods over several rounds, not one.
 - **No extra threads or proxy slots:** five tabs are one session — the plan meter counts one thread.
 - **The gain depends on page time, not page count:** fast pages gain little; slow ones through a distant proxy gain most.
 - **Don't share Playwright across threads:** its Python sync API and its Java API aren't thread-safe (a thread pool fails with `Target closed` / `NoSuchElementException`). Use Python's async API, and in Java start every navigation before waiting on any.

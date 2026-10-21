@@ -141,10 +141,19 @@ func measure(browser playwright.Browser, rate int) (row, error) {
 	if err := evalJSON(page, workJS, &w); err != nil {
 		return r, err
 	}
+	// Load it once more and keep the shorter parse time: parsing waits for blocking scripts, and one
+	// slow download through the proxy can inflate a single load at any rate.
+	if _, err := page.Reload(playwright.PageReloadOptions{WaitUntil: playwright.WaitUntilStateLoad, Timeout: playwright.Float(90000)}); err != nil {
+		return r, err
+	}
+	var again nav
+	if err := evalJSON(page, navJS, &again); err != nil {
+		return r, err
+	}
 	r.WorkMs, r.Check = w.Ms, w.Check
 	r.ResponseMs, r.DCLMs, r.LoadMs = n.ResponseMs, n.DCLMs, n.LoadMs
-	r.ParseMs = n.DCLMs - n.ResponseMs            // HTML fully received → DOMContentLoaded: parsing and scripts
-	r.MainThreadMs = int64(math.Round(td * 1000)) // busy time while loading, from CDP
+	r.ParseMs = min(n.DCLMs-n.ResponseMs, again.DCLMs-again.ResponseMs) // HTML fully received → DOMContentLoaded: parsing and scripts
+	r.MainThreadMs = int64(math.Round(td * 1000))                       // busy time while loading, from CDP
 	return r, nil
 }
 

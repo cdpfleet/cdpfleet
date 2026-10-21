@@ -53,19 +53,28 @@ type result struct {
 }
 
 func extract(browser playwright.Browser, url string) (string, string) {
+	// One retry, in a fresh tab: over 30 loads through a rotating proxy, one occasionally fails.
+	for attempt := 1; ; attempt++ {
+		title, err := load(browser, url)
+		if err == nil {
+			return url, title
+		}
+		if attempt == 2 {
+			log.Fatal(err)
+		}
+	}
+}
+
+func load(browser playwright.Browser, url string) (string, error) {
 	page, err := browser.NewPage()
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 	defer page.Close()
 	if _, err := page.Goto(url, playwright.PageGotoOptions{WaitUntil: playwright.WaitUntilStateDomcontentloaded, Timeout: playwright.Float(60000)}); err != nil {
-		log.Fatal(err)
+		return "", err
 	}
-	title, err := page.Title()
-	if err != nil {
-		log.Fatal(err)
-	}
-	return url, title
+	return page.Title()
 }
 
 func main() {
@@ -84,38 +93,54 @@ func main() {
 	}
 	defer browser.Close()
 
-	t1 := time.Now()
-	var sequential []result
-	for _, u := range urls {
-		url, title := extract(browser, u)
-		sequential = append(sequential, result{URL: url, Title: title, Method: "sequential"})
+	// Three rounds of each, alternating; the best time of each method counts. One page that
+	// stalls for 20 s in the proxy would otherwise decide a single comparison on its own.
+	type timing struct {
+		SequentialSeconds float64 `json:"sequential_seconds"`
+		ParallelSeconds   float64 `json:"parallel_seconds"`
 	}
-	seqSeconds := math.Round(time.Since(t1).Seconds()*100) / 100
-
-	t2 := time.Now()
-	parallel := make([]result, len(urls))
-	var wg sync.WaitGroup
-	for i, u := range urls {
-		wg.Add(1)
-		go func(i int, u string) {
-			defer wg.Done()
+	var rounds []timing
+	var sequential, parallel []result
+	seqSeconds, parSeconds := math.MaxFloat64, math.MaxFloat64
+	for round := 0; round < 3; round++ {
+		t1 := time.Now()
+		sequential = nil
+		for _, u := range urls {
 			url, title := extract(browser, u)
-			parallel[i] = result{URL: url, Title: title, Method: "parallel"}
-		}(i, u)
+			sequential = append(sequential, result{URL: url, Title: title, Method: "sequential"})
+		}
+		seq := math.Round(time.Since(t1).Seconds()*100) / 100
+
+		t2 := time.Now()
+		parallel = make([]result, len(urls))
+		var wg sync.WaitGroup
+		for i, u := range urls {
+			wg.Add(1)
+			go func(i int, u string) {
+				defer wg.Done()
+				url, title := extract(browser, u)
+				parallel[i] = result{URL: url, Title: title, Method: "parallel"}
+			}(i, u)
+		}
+		wg.Wait()
+		par := math.Round(time.Since(t2).Seconds()*100) / 100
+		rounds = append(rounds, timing{seq, par})
+		seqSeconds = math.Min(seqSeconds, seq)
+		parSeconds = math.Min(parSeconds, par)
 	}
-	wg.Wait()
-	parSeconds := math.Round(time.Since(t2).Seconds()*100) / 100
 
 	all := append(sequential, parallel...)
 	out := struct {
 		SequentialSeconds float64  `json:"sequential_seconds"`
 		ParallelSeconds   float64  `json:"parallel_seconds"`
 		Speedup           string   `json:"speedup"`
+		Rounds            []timing `json:"rounds"`
 		Results           []result `json:"results"`
 	}{
 		SequentialSeconds: seqSeconds,
 		ParallelSeconds:   parSeconds,
 		Speedup:           fmt.Sprintf("%.1fx", math.Round(seqSeconds/parSeconds*10)/10),
+		Rounds:            rounds,
 		Results:           all,
 	}
 	var buf bytes.Buffer

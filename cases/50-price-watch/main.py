@@ -34,7 +34,7 @@ def launch(body):
 
 
 # One snapshot = one short session: launch, read every target, close. Nothing is billed while
-# waiting, and an idle session would end after 60 s anyway.
+# waiting, and an idle session would end after 2 minutes (the default) anyway.
 def snapshot(pw):
     t = time.time()
     s = launch({"proxy": os.environ["PROXY_URL"], "headless": True, "record": False})

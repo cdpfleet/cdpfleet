@@ -79,5 +79,5 @@ async function run({ label, engine, type, cdp, listen }) {
 }
 
 const setups = [];
-for (const s of SETUPS) setups.push(await run(s)); // one at a time: an idle session ends after 60 s
+for (const s of SETUPS) setups.push(await run(s)); // one at a time: an idle session ends after 2 minutes by default
 console.log(JSON.stringify({ setups }, null, 2));

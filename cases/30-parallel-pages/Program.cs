@@ -29,37 +29,56 @@ try
 {
     async Task<JsonObject> Extract(string url)
     {
-        var page = await browser.NewPageAsync();
-        try
+        // One retry, in a fresh tab: over 30 loads through a rotating proxy, one occasionally fails.
+        for (var attempt = 1; ; attempt++)
         {
-            await page.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 60000 });
-            return new JsonObject { ["url"] = url, ["title"] = await page.TitleAsync() };
-        }
-        finally
-        {
-            await page.CloseAsync();
+            var page = await browser.NewPageAsync();
+            try
+            {
+                await page.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 60000 });
+                return new JsonObject { ["url"] = url, ["title"] = await page.TitleAsync() };
+            }
+            catch (PlaywrightException) when (attempt == 1)
+            {
+            }
+            finally
+            {
+                await page.CloseAsync();
+            }
         }
     }
 
-    var sw1 = Stopwatch.StartNew();
+    // Three rounds of each, alternating; the best time of each method counts. One page that
+    // stalls for 20 s in the proxy would otherwise decide a single comparison on its own.
+    var rounds = new JsonArray();
     var sequential = new List<JsonObject>();
-    foreach (var url in urls)
+    JsonObject[] parallelResults = [];
+    double seqSeconds = double.MaxValue, parSeconds = double.MaxValue;
+    for (var round = 0; round < 3; round++)
     {
-        var r = await Extract(url);
-        r["method"] = "sequential";
-        sequential.Add(r);
-    }
-    var seqSeconds = Math.Round(sw1.Elapsed.TotalSeconds, 2);
+        var sw1 = Stopwatch.StartNew();
+        sequential = new List<JsonObject>();
+        foreach (var url in urls)
+        {
+            var r = await Extract(url);
+            r["method"] = "sequential";
+            sequential.Add(r);
+        }
+        var seq = Math.Round(sw1.Elapsed.TotalSeconds, 2);
 
-    var sw2 = Stopwatch.StartNew();
-    var tasks = urls.Select(async url =>
-    {
-        var r = await Extract(url);
-        r["method"] = "parallel";
-        return r;
-    }).ToArray();
-    var parallelResults = await Task.WhenAll(tasks);
-    var parSeconds = Math.Round(sw2.Elapsed.TotalSeconds, 2);
+        var sw2 = Stopwatch.StartNew();
+        var tasks = urls.Select(async url =>
+        {
+            var r = await Extract(url);
+            r["method"] = "parallel";
+            return r;
+        }).ToArray();
+        parallelResults = await Task.WhenAll(tasks);
+        var par = Math.Round(sw2.Elapsed.TotalSeconds, 2);
+        rounds.Add(new JsonObject { ["sequential_seconds"] = seq, ["parallel_seconds"] = par });
+        seqSeconds = Math.Min(seqSeconds, seq);
+        parSeconds = Math.Min(parSeconds, par);
+    }
 
     var results = new JsonArray();
     foreach (var r in sequential) results.Add(r);
@@ -70,6 +89,7 @@ try
         ["sequential_seconds"] = seqSeconds,
         ["parallel_seconds"] = parSeconds,
         ["speedup"] = $"{Math.Round(seqSeconds / parSeconds, 1)}x",
+        ["rounds"] = rounds,
         ["results"] = results,
     };
     Console.WriteLine(output.ToJsonString(new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));

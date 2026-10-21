@@ -61,12 +61,17 @@ public class Main {
           for (JsonElement m : cdp.send("Performance.getMetrics").getAsJsonArray("metrics"))
             if (m.getAsJsonObject().get("name").getAsString().equals("TaskDuration")) taskDuration = m.getAsJsonObject().get("value").getAsDouble();
           JsonObject work = json(page.evaluate(WORK));
+          // Load it once more and keep the shorter parse time: parsing waits for blocking scripts, and one
+          // slow download through the proxy can inflate a single load at any rate.
+          page.reload(new Page.ReloadOptions().setWaitUntil(WaitUntilState.LOAD).setTimeout(90000));
+          JsonObject again = json(page.evaluate(NAV));
           JsonObject row = new JsonObject();
           row.addProperty("rate", r);
           row.add("work_ms", work.get("ms"));
           for (Map.Entry<String, JsonElement> e : nav.entrySet()) row.add(e.getKey(), e.getValue());
           // HTML fully received → DOMContentLoaded: parsing and scripts
-          row.addProperty("parse_ms", nav.get("dcl_ms").getAsLong() - nav.get("response_ms").getAsLong());
+          row.addProperty("parse_ms", Math.min(nav.get("dcl_ms").getAsLong() - nav.get("response_ms").getAsLong(),
+              again.get("dcl_ms").getAsLong() - again.get("response_ms").getAsLong()));
           row.addProperty("main_thread_ms", Math.round(taskDuration * 1000)); // busy time while loading, from CDP
           row.add("check", work.get("check"));
           rows.add(row);

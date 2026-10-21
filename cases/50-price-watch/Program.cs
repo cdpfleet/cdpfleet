@@ -37,7 +37,7 @@ async Task<JsonElement> Launch(JsonObject body)
 }
 
 // One snapshot = one short session: launch, read every target, close. Nothing is billed while
-// waiting, and an idle session would end after 60 s anyway.
+// waiting, and an idle session would end after 2 minutes (the default) anyway.
 async Task<(string At, double Seconds, Dictionary<string, JsonObject> Values)> Snapshot()
 {
     var t = DateTime.UtcNow;

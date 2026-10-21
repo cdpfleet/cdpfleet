@@ -22,12 +22,17 @@ public class Main {
   record Result(String url, String title, String method) {}
 
   static Result extract(Browser browser, String url) {
-    Page page = browser.newPage();
-    try {
-      page.navigate(url, new Page.NavigateOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED).setTimeout(60000));
-      return new Result(url, page.title(), null);
-    } finally {
-      page.close();
+    // One retry, in a fresh tab: over 30 loads through a rotating proxy, one occasionally fails.
+    for (int attempt = 1; ; attempt++) {
+      Page page = browser.newPage();
+      try {
+        page.navigate(url, new Page.NavigateOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED).setTimeout(60000));
+        return new Result(url, page.title(), null);
+      } catch (PlaywrightException e) {
+        if (attempt == 2) throw e;
+      } finally {
+        page.close();
+      }
     }
   }
 
@@ -42,35 +47,51 @@ public class Main {
     try (Playwright playwright = Playwright.create()) {
       Browser browser = playwright.chromium().connect(wsUrl, new BrowserType.ConnectOptions().setHeaders(Map.of("x-api-key", KEY)));
       try {
-        long t1 = System.currentTimeMillis();
+        // Three rounds of each, alternating; the best time of each method counts. One page that
+        // stalls for 20 s in the proxy would otherwise decide a single comparison on its own.
+        JsonArray rounds = new JsonArray();
         List<Result> sequential = new ArrayList<>();
-        for (String url : URLS) {
-          Result r = extract(browser, url);
-          sequential.add(new Result(r.url, r.title, "sequential"));
-        }
-        double seqSeconds = Math.round((System.currentTimeMillis() - t1) / 10.0) / 100.0;
-
-        // Playwright for Java isn't thread-safe: start all five navigations, then wait for each.
-        long t2 = System.currentTimeMillis();
-        List<Page> pages = new ArrayList<>();
-        for (String url : URLS) {
-          Page page = browser.newPage();
-          page.evaluate("u => { location.href = u; }", url);
-          pages.add(page);
-        }
         List<Result> parallel = new ArrayList<>();
-        for (int i = 0; i < URLS.length; i++) {
-          Page page = pages.get(i);
-          page.waitForURL(u -> !u.startsWith("about:"), new Page.WaitForURLOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED).setTimeout(60000));
-          parallel.add(new Result(URLS[i], page.title(), "parallel"));
-          page.close();
+        double seqSeconds = Double.MAX_VALUE;
+        double parSeconds = Double.MAX_VALUE;
+        for (int round = 0; round < 3; round++) {
+          long t1 = System.currentTimeMillis();
+          sequential = new ArrayList<>();
+          for (String url : URLS) {
+            Result r = extract(browser, url);
+            sequential.add(new Result(r.url, r.title, "sequential"));
+          }
+          double seq = Math.round((System.currentTimeMillis() - t1) / 10.0) / 100.0;
+
+          // Playwright for Java isn't thread-safe: start all five navigations, then wait for each.
+          long t2 = System.currentTimeMillis();
+          List<Page> pages = new ArrayList<>();
+          for (String url : URLS) {
+            Page page = browser.newPage();
+            page.evaluate("u => { location.href = u; }", url);
+            pages.add(page);
+          }
+          parallel = new ArrayList<>();
+          for (int i = 0; i < URLS.length; i++) {
+            Page page = pages.get(i);
+            page.waitForURL(u -> !u.startsWith("about:"), new Page.WaitForURLOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED).setTimeout(60000));
+            parallel.add(new Result(URLS[i], page.title(), "parallel"));
+            page.close();
+          }
+          double par = Math.round((System.currentTimeMillis() - t2) / 10.0) / 100.0;
+          JsonObject r = new JsonObject();
+          r.addProperty("sequential_seconds", seq);
+          r.addProperty("parallel_seconds", par);
+          rounds.add(r);
+          seqSeconds = Math.min(seqSeconds, seq);
+          parSeconds = Math.min(parSeconds, par);
         }
-        double parSeconds = Math.round((System.currentTimeMillis() - t2) / 10.0) / 100.0;
 
         JsonObject out = new JsonObject();
         out.addProperty("sequential_seconds", seqSeconds);
         out.addProperty("parallel_seconds", parSeconds);
         out.addProperty("speedup", Math.round(seqSeconds / parSeconds * 10) / 10.0 + "x");
+        out.add("rounds", rounds);
         JsonArray results = new JsonArray();
         for (Result r : sequential) results.add(GSON.toJsonTree(r));
         for (Result r : parallel) results.add(GSON.toJsonTree(r));

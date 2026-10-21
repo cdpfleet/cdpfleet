@@ -1,7 +1,21 @@
 {
-  "sequential_seconds": 10.2,
-  "parallel_seconds": 6.35,
-  "speedup": "1.6x",
+  "sequential_seconds": 12.77,
+  "parallel_seconds": 9.39,
+  "speedup": "1.4x",
+  "rounds": [
+    {
+      "sequential_seconds": 16.61,
+      "parallel_seconds": 30.7
+    },
+    {
+      "sequential_seconds": 15.14,
+      "parallel_seconds": 9.39
+    },
+    {
+      "sequential_seconds": 12.77,
+      "parallel_seconds": 13.3
+    }
+  ],
   "results": [
     {
       "url": "https://books.toscrape.com/",

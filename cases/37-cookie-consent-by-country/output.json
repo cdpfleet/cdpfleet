@@ -8,10 +8,10 @@
         "banner": true,
         "tcf": false,
         "gpp": true,
-        "banner_after_ms": 9289,
-        "cookies": 33,
-        "third_party_cookies": 16,
-        "other_hosts": 66
+        "banner_after_ms": 3538,
+        "cookies": 17,
+        "third_party_cookies": 5,
+        "other_hosts": 46
       },
       "de": {
         "status": 200,
@@ -19,7 +19,7 @@
         "banner": true,
         "tcf": true,
         "gpp": false,
-        "banner_after_ms": 4100,
+        "banner_after_ms": 1974,
         "cookies": 7,
         "third_party_cookies": 0,
         "other_hosts": 5
@@ -29,9 +29,9 @@
       "de_accept": {
         "button": "Accept all",
         "clicks": 1,
-        "cookies": 113,
-        "third_party_cookies": 90,
-        "other_hosts": 148
+        "cookies": 102,
+        "third_party_cookies": 80,
+        "other_hosts": 146
       },
       "de_accept_missing": null
     },
@@ -40,13 +40,13 @@
       "us": {
         "status": 200,
         "cmp": "Sourcepoint",
-        "banner": false,
+        "banner": true,
         "tcf": true,
         "gpp": true,
-        "banner_after_ms": null,
-        "cookies": 51,
-        "third_party_cookies": 17,
-        "other_hosts": 69
+        "banner_after_ms": 4330,
+        "cookies": 18,
+        "third_party_cookies": 4,
+        "other_hosts": 14
       },
       "de": {
         "status": 200,
@@ -54,40 +54,40 @@
         "banner": true,
         "tcf": true,
         "gpp": true,
-        "banner_after_ms": 2527,
+        "banner_after_ms": 7347,
         "cookies": 18,
         "third_party_cookies": 2,
-        "other_hosts": 16
+        "other_hosts": 15
       },
       "de_reject": {
         "button": "I do not agree",
         "clicks": 1,
         "cookies": 30,
         "third_party_cookies": 4,
-        "other_hosts": 33
+        "other_hosts": 38
       },
       "de_reject_missing": null,
       "de_accept": {
         "button": "I agree",
         "clicks": 1,
-        "cookies": 44,
-        "third_party_cookies": 15,
-        "other_hosts": 48
+        "cookies": 31,
+        "third_party_cookies": 6,
+        "other_hosts": 31
       },
       "de_accept_missing": null
     },
     {
       "site": "apnews.com",
       "us": {
-        "status": 200,
-        "cmp": "OneTrust",
-        "banner": true,
+        "status": 403,
+        "cmp": null,
+        "banner": false,
         "tcf": false,
-        "gpp": true,
-        "banner_after_ms": 9002,
-        "cookies": 111,
-        "third_party_cookies": 75,
-        "other_hosts": 195
+        "gpp": false,
+        "banner_after_ms": null,
+        "cookies": 1,
+        "third_party_cookies": 0,
+        "other_hosts": 2
       },
       "de": {
         "status": 200,
@@ -95,25 +95,25 @@
         "banner": true,
         "tcf": true,
         "gpp": false,
-        "banner_after_ms": 373,
-        "cookies": 26,
-        "third_party_cookies": 3,
-        "other_hosts": 72
+        "banner_after_ms": 4918,
+        "cookies": 36,
+        "third_party_cookies": 15,
+        "other_hosts": 112
       },
       "de_reject": {
         "button": "I Reject All (except Strictly Necessary)",
         "clicks": 1,
-        "cookies": 35,
-        "third_party_cookies": 3,
-        "other_hosts": 79
+        "cookies": 42,
+        "third_party_cookies": 15,
+        "other_hosts": 121
       },
       "de_reject_missing": null,
       "de_accept": {
         "button": "I Accept All",
         "clicks": 1,
-        "cookies": 174,
-        "third_party_cookies": 142,
-        "other_hosts": 254
+        "cookies": 192,
+        "third_party_cookies": 165,
+        "other_hosts": 282
       },
       "de_accept_missing": null
     },
@@ -126,9 +126,9 @@
         "tcf": false,
         "gpp": true,
         "banner_after_ms": null,
-        "cookies": 247,
-        "third_party_cookies": 223,
-        "other_hosts": 219
+        "cookies": 328,
+        "third_party_cookies": 291,
+        "other_hosts": 285
       },
       "de": {
         "status": 200,
@@ -136,25 +136,25 @@
         "banner": true,
         "tcf": true,
         "gpp": false,
-        "banner_after_ms": 1903,
-        "cookies": 8,
+        "banner_after_ms": 1814,
+        "cookies": 7,
         "third_party_cookies": 0,
-        "other_hosts": 34
+        "other_hosts": 33
       },
       "de_reject": {
         "button": "Reject Non-Essential",
         "clicks": 1,
-        "cookies": 12,
+        "cookies": 10,
         "third_party_cookies": 0,
-        "other_hosts": 40
+        "other_hosts": 38
       },
       "de_reject_missing": null,
       "de_accept": {
         "button": "Accept",
         "clicks": 1,
-        "cookies": 48,
+        "cookies": 41,
         "third_party_cookies": 14,
-        "other_hosts": 87
+        "other_hosts": 74
       },
       "de_accept_missing": null
     },
@@ -162,14 +162,14 @@
       "site": "huffpost.com",
       "us": {
         "status": 200,
-        "cmp": null,
-        "banner": false,
+        "cmp": "OneTrust",
+        "banner": true,
         "tcf": false,
         "gpp": true,
-        "banner_after_ms": null,
-        "cookies": 228,
-        "third_party_cookies": 218,
-        "other_hosts": 294
+        "banner_after_ms": 3766,
+        "cookies": 76,
+        "third_party_cookies": 67,
+        "other_hosts": 170
       },
       "de": {
         "status": 200,
@@ -177,25 +177,25 @@
         "banner": true,
         "tcf": true,
         "gpp": false,
-        "banner_after_ms": 703,
-        "cookies": 8,
+        "banner_after_ms": 6663,
+        "cookies": 9,
         "third_party_cookies": 0,
-        "other_hosts": 62
+        "other_hosts": 55
       },
       "de_reject": {
         "button": "Reject All",
         "clicks": 1,
-        "cookies": 11,
+        "cookies": 12,
         "third_party_cookies": 0,
-        "other_hosts": 65
+        "other_hosts": 66
       },
       "de_reject_missing": null,
       "de_accept": {
         "button": "I Accept",
         "clicks": 1,
-        "cookies": 186,
-        "third_party_cookies": 154,
-        "other_hosts": 252
+        "cookies": 149,
+        "third_party_cookies": 118,
+        "other_hosts": 261
       },
       "de_accept_missing": null
     }
