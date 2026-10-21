@@ -1,0 +1,251 @@
+{
+  "measured_at": "2026-10-21",
+  "matrix": [
+    {
+      "setup": "Chromium, headless",
+      "network": "own proxy (rotating)",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "error",
+        "seconds": null
+      },
+      "ts_noninteractive": {
+        "outcome": "cleared",
+        "seconds": 6,
+        "token": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "own proxy (rotating)",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null,
+        "cf_clearance": false
+      },
+      "ts_noninteractive": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "own proxy (rotating)",
+      "nowsecure": {
+        "outcome": "challenge",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null,
+        "cf_clearance": false
+      },
+      "ts_noninteractive": {
+        "outcome": "cleared",
+        "seconds": 8,
+        "token": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "own proxy (rotating)",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "cleared",
+        "seconds": 2,
+        "cf_clearance": false
+      },
+      "ts_noninteractive": {
+        "outcome": "cleared",
+        "seconds": 8,
+        "token": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Chromium, headless",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null,
+        "cf_clearance": false
+      },
+      "ts_noninteractive": {
+        "outcome": "cleared",
+        "seconds": 7,
+        "token": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null,
+        "cf_clearance": false
+      },
+      "ts_noninteractive": {
+        "outcome": "cleared",
+        "seconds": 7,
+        "token": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null,
+        "cf_clearance": false
+      },
+      "ts_noninteractive": {
+        "outcome": "cleared",
+        "seconds": 7,
+        "token": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "cleared",
+        "seconds": 13,
+        "cf_clearance": true
+      },
+      "ts_noninteractive": {
+        "outcome": "cleared",
+        "seconds": 8,
+        "token": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    }
+  ],
+  "tier4": [
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 4, sticky US",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null,
+        "cf_clearance": false
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 4, sticky US",
+      "nowsecure": {
+        "outcome": "content",
+        "seconds": null,
+        "cf_clearance": true
+      },
+      "scrapingcourse": {
+        "outcome": "cleared",
+        "seconds": 18,
+        "cf_clearance": true
+      },
+      "ts_managed": {
+        "outcome": "challenge",
+        "seconds": null,
+        "token": false
+      }
+    }
+  ],
+  "profile": {
+    "setup": "Camoufox, defaults",
+    "network": "cdpfleet-resi Tier 1, sticky US",
+    "page": "scrapingcourse",
+    "first": {
+      "outcome": "cleared",
+      "seconds": 11,
+      "cf_clearance": true
+    },
+    "second": {
+      "outcome": "content",
+      "seconds": null,
+      "cf_clearance": true
+    }
+  }
+}

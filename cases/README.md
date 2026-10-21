@@ -4,6 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #64 | [Cloudflare: what gets through? Four browsers, three networks, four public test pages](64-cloudflare-what-gets-through) | Medium | Chromium, Google Chrome, Microsoft Edge, Camoufox |
 | #63 | [What four public bot-test pages say about five fleet browsers](63-what-fingerprint-test-pages-see) | Easy | Chromium, Google Chrome, Patchright, Camoufox, WebKit |
 | #62 | [Which bot protection is this? Detect the vendor from cookies, headers and requests](62-which-bot-protection-is-this) | Easy | Chromium |
 | #61 | [Borrow the page's token and read its paginated API directly](61-scrape-a-paginated-json-api-with-a-token) | Medium | Chromium |

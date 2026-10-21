@@ -62,6 +62,7 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Residential IPs for one strict host, your own proxy for the rest](recipes/resi-for-one-host)
   - [Headful Opera over CDP that survives a disconnect](recipes/opera-keep-alive)
   - [Record a headless session and get the video](recipes/headless-recording)
+  - [Camoufox with your own full fingerprint](recipes/camoufox-own-fingerprint)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).
