@@ -43,8 +43,8 @@ var setups = new (string Name, JsonObject Body)[]
     ("os: windows (launch 2)", new JsonObject { ["os"] = "windows" }),
     ("os: macos", new JsonObject { ["os"] = "macos" }),
     ("os: linux", new JsonObject { ["os"] = "linux" }),
-    ("windows + fonts", new JsonObject { ["os"] = "windows", ["fonts"] = new JsonArray("Menlo", "Helvetica Neue", "Fira Code") }),
-    ("windows + fonts + custom_fonts_only", new JsonObject { ["os"] = "windows", ["fonts"] = new JsonArray("Calibri", "Consolas", "Segoe UI", "Fira Code"), ["custom_fonts_only"] = true }),
+    ("windows + fonts", new JsonObject { ["os"] = "windows", ["fonts"] = new JsonArray("Menlo", "Helvetica Neue", "Noto Sans") }),
+    ("windows + fonts + custom_fonts_only", new JsonObject { ["os"] = "windows", ["fonts"] = new JsonArray("Calibri", "Consolas", "Segoe UI", "Noto Sans"), ["custom_fonts_only"] = true }),
 };
 
 using var http = new HttpClient();

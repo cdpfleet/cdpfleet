@@ -36,8 +36,8 @@ const SETUPS = [
   { setup: 'os: windows (launch 2)', body: { os: 'windows' } },
   { setup: 'os: macos', body: { os: 'macos' } },
   { setup: 'os: linux', body: { os: 'linux' } },
-  { setup: 'windows + fonts', body: { os: 'windows', fonts: ['Menlo', 'Helvetica Neue', 'Fira Code'] } },
-  { setup: 'windows + fonts + custom_fonts_only', body: { os: 'windows', fonts: ['Calibri', 'Consolas', 'Segoe UI', 'Fira Code'], custom_fonts_only: true } },
+  { setup: 'windows + fonts', body: { os: 'windows', fonts: ['Menlo', 'Helvetica Neue', 'Noto Sans'] } },
+  { setup: 'windows + fonts + custom_fonts_only', body: { os: 'windows', fonts: ['Calibri', 'Consolas', 'Segoe UI', 'Noto Sans'], custom_fonts_only: true } },
 ];
 
 // 503 means the fleet is momentarily busy: wait Retry-After and try again.

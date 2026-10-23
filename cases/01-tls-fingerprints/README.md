@@ -26,7 +26,7 @@ Anti-bot systems don't wait for JavaScript. The first thing a server sees is the
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-21):
+The same program in five languages, each verified on the production fleet (last run 2026-10-22):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -40,10 +40,10 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Browser | Version | HTTP | JA4 | Akamai h2 hash | Ciphers | Extensions |
 |---|---|---|---|---|---|---|
-| chrome | 155.0.8059.84 | h2 | t13d1517h2_8daaf6152771_cb7bf5808d99 | 52d84b11737d980aef856699f885ca86 | 16 | 19 |
+| chrome | 156.0.8078.47 | h2 | t13d1517h2_8daaf6152771_cb7bf5808d99 | 52d84b11737d980aef856699f885ca86 | 16 | 19 |
 | edge | 155.0.4283.62 | h2 | t13d1516h2_8daaf6152771_806a8c22fdea | 52d84b11737d980aef856699f885ca86 | 16 | 18 |
 | firefox | 150.0.2 | h2 | t13d1617h2_86a278354501_3cbfd9057e0d | 6ea73faa8fc5aac76bded7bd238f6433 | 16 | 17 |
-| camoufox | 152.0.4-beta.30 | h2 | t13d1617h2_86a278354501_3cbfd9057e0d | 6ea73faa8fc5aac76bded7bd238f6433 | 16 | 17 |
+| camoufox | 156.0.1-beta.36 | h2 | t13d1517h2_8daaf6152771_3cbfd9057e0d | 6ea73faa8fc5aac76bded7bd238f6433 | 15 | 17 |
 | webkit | 26.4 | HTTP/1.1 | t13d2913h1_723694b0fccc_5671b5df5029 | — | 29 | 13 |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
@@ -52,6 +52,7 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 
 - **Each engine sends its own real fingerprint.** Chrome's JA4 and HTTP/2 settings are Chrome's; Firefox's are Firefox's. Nothing to patch.
 - **Chrome and Edge differ by one extension** (JA4 `…1517…` vs `…1516…`) but share the HTTP/2 fingerprint — both are Chromium network stacks.
-- **Camoufox picks a random OS for its user agent in every session** (set `os` to choose one) **— and whatever it claims, its TLS is identical to Linux Firefox.** That's fine: Firefox's TLS stack (NSS) is the same on every OS, so a real Windows or Mac Firefox sends exactly this.
+- **Camoufox picks a random OS for its user agent in every session** (set `os` to choose one) **— and whatever it claims, its TLS is the same Firefox stack.** That's fine: Firefox's TLS (NSS) is identical on every OS, so a real Windows or Mac Firefox of that version sends exactly this.
+- **Since Camoufox 156 (fleet default from 2026-10-21) its JA4 no longer equals the fleet's stock Firefox 150.** Firefox 156 underneath offers 15 cipher suites instead of 16, so JA4's first two parts change (the cipher part now hashes the same as Chrome's), while the extension part and the HTTP/2 fingerprint are still Firefox's. A site comparing JA4 with the user agent sees a consistent Firefox 156; match `version` and user agent if you pin either.
 - **WebKit speaks HTTP/1.1 through a proxy, with 29 cipher suites** — nothing like a browser on a real Mac (HTTP/2, fewer ciphers). Use WebKit for rendering tests, not to impersonate another browser.
 - Fingerprints are stable per build: read them once per version, not per request.

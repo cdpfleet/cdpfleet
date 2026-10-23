@@ -4,6 +4,8 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #66 | [Which fingerprints stay the same across launches: canvas, WebGL, audio and fonts on seven browsers](66-fingerprint-stability-across-launches) | Medium | Google Chrome, Microsoft Edge, Chromium, Brave, Camoufox, Firefox, WebKit |
+| #65 | [DataDome: what gets through? Four browsers, three networks, DataDome's own site](65-datadome-what-gets-through) | Medium | Chromium, Google Chrome, Microsoft Edge, Camoufox |
 | #64 | [Cloudflare: what gets through? Four browsers, three networks, four public test pages](64-cloudflare-what-gets-through) | Medium | Chromium, Google Chrome, Microsoft Edge, Camoufox |
 | #63 | [What four public bot-test pages say about five fleet browsers](63-what-fingerprint-test-pages-see) | Easy | Chromium, Google Chrome, Patchright, Camoufox, WebKit |
 | #62 | [Which bot protection is this? Detect the vendor from cookies, headers and requests](62-which-bot-protection-is-this) | Easy | Chromium |

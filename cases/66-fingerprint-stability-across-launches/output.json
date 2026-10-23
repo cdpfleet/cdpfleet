@@ -1,0 +1,419 @@
+{
+  "launches": {
+    "chrome": [
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      }
+    ],
+    "edge": [
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0"
+      }
+    ],
+    "chromium": [
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "d432c413",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "d432c413",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "d432c413",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36"
+      }
+    ],
+    "brave": [
+      {
+        "canvas": "75d44b12",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "d54a031b",
+        "audio_same_in_session": true,
+        "fonts": "4887d8f3",
+        "font_count": 1,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      {
+        "canvas": "2bac1cf6",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "02ad4abc",
+        "audio_same_in_session": true,
+        "fonts": "4887d8f3",
+        "font_count": 1,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      {
+        "canvas": "22ccb850",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "9dc0da77",
+        "audio_same_in_session": true,
+        "fonts": "4887d8f3",
+        "font_count": 1,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      }
+    ],
+    "camoufox": [
+      {
+        "canvas": "f704ceae",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "2a2dc77e",
+        "font_count": 17,
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0"
+      },
+      {
+        "canvas": "5a2edf68",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Intel, Intel(R) HD Graphics 400 Direct3D11 vs_5_0 ps_5_0), or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "2a2dc77e",
+        "font_count": 17,
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0"
+      },
+      {
+        "canvas": "446f6d94",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "llvmpipe, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "57c9fd7c",
+        "font_count": 3,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:156.0) Gecko/20100101 Firefox/156.0"
+      }
+    ],
+    "firefox": [
+      {
+        "canvas": "2bbe8a63",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "llvmpipe, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "9cd21bcd",
+        "font_count": 5,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:150.0) Gecko/20100101 Firefox/150.0"
+      },
+      {
+        "canvas": "2bbe8a63",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "llvmpipe, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "9cd21bcd",
+        "font_count": 5,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:150.0) Gecko/20100101 Firefox/150.0"
+      },
+      {
+        "canvas": "2bbe8a63",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "llvmpipe, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "9cd21bcd",
+        "font_count": 5,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:150.0) Gecko/20100101 Firefox/150.0"
+      }
+    ],
+    "webkit": [
+      {
+        "canvas": "a6d70d50",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "Apple GPU",
+        "webgl_image": "311ab43e",
+        "audio": "07b0aac9",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15"
+      },
+      {
+        "canvas": "a6d70d50",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "Apple GPU",
+        "webgl_image": "311ab43e",
+        "audio": "07b0aac9",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15"
+      },
+      {
+        "canvas": "a6d70d50",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "Apple GPU",
+        "webgl_image": "311ab43e",
+        "audio": "07b0aac9",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15"
+      }
+    ]
+  },
+  "profile": {
+    "chrome": [
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      }
+    ],
+    "edge": [
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "b7a0343c",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0"
+      }
+    ],
+    "chromium": [
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "d432c413",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36"
+      },
+      {
+        "canvas": "1f06343f",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "d432c413",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36"
+      }
+    ],
+    "brave": [
+      {
+        "canvas": "653fa36e",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "a188ff79",
+        "audio_same_in_session": true,
+        "fonts": "4887d8f3",
+        "font_count": 1,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      {
+        "canvas": "a63d5c5e",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "webgl_image": "0eba6e27",
+        "audio": "a89dabd9",
+        "audio_same_in_session": true,
+        "fonts": "4887d8f3",
+        "font_count": 1,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      }
+    ],
+    "camoufox": [
+      {
+        "canvas": "d145e8ec",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "Apple M1, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "6160a704",
+        "font_count": 17,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:156.0) Gecko/20100101 Firefox/156.0"
+      },
+      {
+        "canvas": "1033ef85",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "Apple M1, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "6160a704",
+        "font_count": 17,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:156.0) Gecko/20100101 Firefox/156.0"
+      }
+    ],
+    "firefox": [
+      {
+        "canvas": "2bbe8a63",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "llvmpipe, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "9cd21bcd",
+        "font_count": 5,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:150.0) Gecko/20100101 Firefox/150.0"
+      },
+      {
+        "canvas": "2bbe8a63",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "llvmpipe, or similar",
+        "webgl_image": "2818fc2e",
+        "audio": "6eb5748e",
+        "audio_same_in_session": true,
+        "fonts": "9cd21bcd",
+        "font_count": 5,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:150.0) Gecko/20100101 Firefox/150.0"
+      }
+    ],
+    "webkit": [
+      {
+        "canvas": "a6d70d50",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "Apple GPU",
+        "webgl_image": "311ab43e",
+        "audio": "07b0aac9",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15"
+      },
+      {
+        "canvas": "a6d70d50",
+        "canvas_same_in_session": true,
+        "webgl_renderer": "Apple GPU",
+        "webgl_image": "311ab43e",
+        "audio": "07b0aac9",
+        "audio_same_in_session": true,
+        "fonts": "069b1d9e",
+        "font_count": 6,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15"
+      }
+    ]
+  }
+}

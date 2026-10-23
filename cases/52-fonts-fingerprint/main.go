@@ -58,8 +58,8 @@ var setups = []setup{
 	{"os: windows (launch 2)", map[string]any{"os": "windows"}},
 	{"os: macos", map[string]any{"os": "macos"}},
 	{"os: linux", map[string]any{"os": "linux"}},
-	{"windows + fonts", map[string]any{"os": "windows", "fonts": []string{"Menlo", "Helvetica Neue", "Fira Code"}}},
-	{"windows + fonts + custom_fonts_only", map[string]any{"os": "windows", "fonts": []string{"Calibri", "Consolas", "Segoe UI", "Fira Code"}, "custom_fonts_only": true}},
+	{"windows + fonts", map[string]any{"os": "windows", "fonts": []string{"Menlo", "Helvetica Neue", "Noto Sans"}}},
+	{"windows + fonts + custom_fonts_only", map[string]any{"os": "windows", "fonts": []string{"Calibri", "Consolas", "Segoe UI", "Noto Sans"}, "custom_fonts_only": true}},
 }
 
 type result struct {

@@ -45,8 +45,8 @@ public class Main {
       {"os: windows (launch 2)", "{\"os\":\"windows\"}"},
       {"os: macos", "{\"os\":\"macos\"}"},
       {"os: linux", "{\"os\":\"linux\"}"},
-      {"windows + fonts", "{\"os\":\"windows\",\"fonts\":[\"Menlo\",\"Helvetica Neue\",\"Fira Code\"]}"},
-      {"windows + fonts + custom_fonts_only", "{\"os\":\"windows\",\"fonts\":[\"Calibri\",\"Consolas\",\"Segoe UI\",\"Fira Code\"],\"custom_fonts_only\":true}"},
+      {"windows + fonts", "{\"os\":\"windows\",\"fonts\":[\"Menlo\",\"Helvetica Neue\",\"Noto Sans\"]}"},
+      {"windows + fonts + custom_fonts_only", "{\"os\":\"windows\",\"fonts\":[\"Calibri\",\"Consolas\",\"Segoe UI\",\"Noto Sans\"],\"custom_fonts_only\":true}"},
   };
 
   // 503 means the fleet is momentarily busy: wait Retry-After and try again.

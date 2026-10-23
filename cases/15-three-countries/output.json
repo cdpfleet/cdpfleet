@@ -2,7 +2,7 @@
   {
     "country": "United States",
     "locale": "en-US",
-    "exit": "Birmingham, United States",
+    "exit": "Lafayette, United States",
     "exit_timezone": "America/Chicago",
     "languages": [
       "en-US",
@@ -13,16 +13,16 @@
     "number": "1,234,567.891",
     "price": "€49.90",
     "position": {
-      "lat": 35.1947,
-      "lon": -80.744
+      "lat": 41.5433,
+      "lon": -81.4838
     },
-    "position_km_from_exit": 573,
-    "isolated_world_timezone": "UTC"
+    "position_km_from_exit": 1580,
+    "isolated_world_timezone": "America/New_York"
   },
   {
     "country": "Germany",
     "locale": "de-DE",
-    "exit": "Berlin, Germany",
+    "exit": "Munich, Germany",
     "exit_timezone": "Europe/Berlin",
     "languages": [
       "de-DE",
@@ -33,16 +33,16 @@
     "number": "1.234.567,891",
     "price": "49,90 €",
     "position": {
-      "lat": 51.5791,
-      "lon": 7.0599
+      "lat": 52.524526,
+      "lon": 13.410037
     },
-    "position_km_from_exit": 446,
-    "isolated_world_timezone": "UTC"
+    "position_km_from_exit": 501,
+    "isolated_world_timezone": "Europe/Berlin"
   },
   {
     "country": "Japan",
     "locale": "ja-JP",
-    "exit": "Nagoya, Japan",
+    "exit": "Kobe, Japan",
     "exit_timezone": "Asia/Tokyo",
     "languages": [
       "ja-JP",
@@ -53,10 +53,10 @@
     "number": "1,234,567.891",
     "price": "€49.90",
     "position": {
-      "lat": 34.6967,
-      "lon": 135.5154
+      "lat": 35.689497,
+      "lon": 139.692317
     },
-    "position_km_from_exit": 138,
-    "isolated_world_timezone": "UTC"
+    "position_km_from_exit": 425,
+    "isolated_world_timezone": "Asia/Tokyo"
   }
 ]

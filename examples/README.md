@@ -47,6 +47,8 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Headless Chrome a person can watch and take over](recipes/chrome-headless-live-view)
   - [Chrome that stays logged in between sessions](recipes/chrome-profile)
   - [Camoufox that keeps the same device and login](recipes/camoufox-profile)
+  - [Firefox that stays logged in between sessions](recipes/firefox-profile)
+  - [WebKit that stays logged in between sessions](recipes/webkit-profile)
   - [Many scrapers sharing one saved login](recipes/profile-readonly)
   - [Headful Chrome that isn't recorded](recipes/chrome-record-off)
   - [Brave over CDP (Puppeteer or connectOverCDP)](recipes/brave-cdp)

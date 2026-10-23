@@ -1,0 +1,203 @@
+{
+  "measured_at": "2026-10-22",
+  "matrix": [
+    {
+      "setup": "Chromium, headless",
+      "network": "own proxy (rotating)",
+      "home": {
+        "outcome": "blocked",
+        "status": 403,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "blocked",
+        "status": 403,
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "own proxy (rotating)",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "own proxy (rotating)",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "challenge",
+        "status": 403,
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "own proxy (rotating)",
+      "home": {
+        "outcome": "challenge",
+        "status": 403,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "cleared",
+        "status": 403,
+        "seconds": 22
+      }
+    },
+    {
+      "setup": "Chromium, headless",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "home": {
+        "outcome": "blocked",
+        "status": 403,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "blocked",
+        "status": 403,
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      }
+    }
+  ],
+  "tier4": [
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 4, sticky US",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 4, sticky US",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "first": {
+        "outcome": "challenge",
+        "status": 403,
+        "seconds": null,
+        "cookie": true
+      },
+      "second": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null,
+        "cookie": true
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "first": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null,
+        "cookie": true
+      },
+      "second": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null,
+        "cookie": true
+      }
+    }
+  ],
+  "humanize": [
+    {
+      "setup": "Camoufox, humanize on",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "move_seconds": 1.8
+    },
+    {
+      "setup": "Camoufox, humanize off",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "home": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "pricing": {
+        "outcome": "content",
+        "status": 200,
+        "seconds": null
+      },
+      "move_seconds": 0
+    }
+  ]
+}

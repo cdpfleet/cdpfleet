@@ -2,10 +2,11 @@
   {
     "setup": "os: windows (launch 1)",
     "platform": "Win32",
-    "detected": 20,
-    "font_hash": "8ae0b1fd1d",
+    "detected": 21,
+    "font_hash": "dd78c7d96b",
     "generics_identical": true,
     "fonts": [
+      "Arial",
       "Arial Black",
       "Calibri",
       "Cambria",
@@ -31,10 +32,11 @@
   {
     "setup": "os: windows (launch 2)",
     "platform": "Win32",
-    "detected": 20,
-    "font_hash": "8ae0b1fd1d",
+    "detected": 21,
+    "font_hash": "dd78c7d96b",
     "generics_identical": true,
     "fonts": [
+      "Arial",
       "Arial Black",
       "Calibri",
       "Cambria",
@@ -91,7 +93,7 @@
   },
   {
     "setup": "os: linux",
-    "platform": "Linux x86_64",
+    "platform": "Linux armv81",
     "detected": 3,
     "font_hash": "5bebd342f7",
     "generics_identical": true,
@@ -104,10 +106,11 @@
   {
     "setup": "windows + fonts",
     "platform": "Win32",
-    "detected": 22,
-    "font_hash": "049bd59a6d",
+    "detected": 23,
+    "font_hash": "db08511274",
     "generics_identical": true,
     "fonts": [
+      "Arial",
       "Arial Black",
       "Calibri",
       "Cambria",
@@ -135,10 +138,11 @@
   {
     "setup": "windows + fonts + custom_fonts_only",
     "platform": "Win32",
-    "detected": 2,
-    "font_hash": "0fc1fd0a15",
+    "detected": 3,
+    "font_hash": "0d966331f2",
     "generics_identical": true,
     "fonts": [
+      "Calibri",
       "Consolas",
       "Segoe UI"
     ]
