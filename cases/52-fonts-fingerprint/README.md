@@ -1,8 +1,8 @@
 # Installed fonts as a fingerprint: what a width probe sees on each Camoufox persona
 
-**Medium** · 2026-10-16 · Camoufox · [read it on cdpfleet.com](https://cdpfleet.com/docs/cases/fonts-fingerprint)
+**Medium** · 2026-10-23 · Camoufox · [read it on cdpfleet.com](https://cdpfleet.com/docs/cases/fonts-fingerprint)
 
-> The classic font probe — 46 families measured against the generic fonts — on Camoufox's Windows, macOS and Linux personas, with extra `fonts` and with `custom_fonts_only`. The list follows the OS and is identical every launch; `fonts` can only add what the server has; and the three generic families render in one face.
+> The classic font probe — 46 families measured against the generic fonts — on Camoufox's Windows, macOS and Linux personas, with extra `fonts` and with `custom_fonts_only`. The list follows the OS and repeats from launch to launch; since the fleet's 2026-10-22 Camoufox library change, `fonts` replaces the persona's list instead of adding to it, and the generic families only collapse into one face when you set `fonts`.
 
 ## The problem
 
@@ -14,7 +14,7 @@ Which fonts a machine has is one of the oldest fingerprinting signals: a script 
 |---|---|
 | A width probe over 46 families | Each family is set with `monospace`, `serif` and `sans-serif` as fallback; if any measurement differs from the generic family alone, the family counts as installed. This is how common fingerprinting libraries do it. |
 | `os: "windows" \| "macos" \| "linux"` | The persona decides which families the page can see. |
-| `fonts: [...]` | Families exposed in addition to the persona's list. |
+| `fonts: [...]` | Families to expose (documented as additions to the persona's list; see the takeaways). |
 | `custom_fonts_only: true` | Expose only the families in `fonts`. |
 | A hash of the detected list | One value per launch that a site could store and compare. |
 
@@ -25,7 +25,7 @@ Which fonts a machine has is one of the oldest fingerprinting signals: a script 
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-22):
+The same program in five languages, each verified on the production fleet (last run 2026-10-23):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -39,19 +39,19 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Setup | navigator.platform | Detected (of 46) | List hash | Generics identical | Families found |
 |---|---|---|---|---|---|
-| os: windows (launch 1) | Win32 | 21 | dd78c7d96b | yes | Arial, Arial Black, Calibri, Cambria, Candara, Comic Sans MS, Consolas, Constantia, Corbel, Courier New, Georgia, Impact, Lucida Console, Lucida Sans Unicode, Microsoft Sans Serif, Palatino Linotype, Segoe UI, Tahoma, Times New Roman, Trebuchet MS, Verdana |
-| os: windows (launch 2) | Win32 | 21 | dd78c7d96b | yes | Arial, Arial Black, Calibri, Cambria, Candara, Comic Sans MS, Consolas, Constantia, Corbel, Courier New, Georgia, Impact, Lucida Console, Lucida Sans Unicode, Microsoft Sans Serif, Palatino Linotype, Segoe UI, Tahoma, Times New Roman, Trebuchet MS, Verdana |
-| os: macos | MacIntel | 23 | 23e513dd7a | yes | Arial, Arial Black, Comic Sans MS, Courier New, Georgia, Impact, Microsoft Sans Serif, Tahoma, Times New Roman, Trebuchet MS, Verdana, American Typewriter, Avenir, Avenir Next, Futura, Geneva, Gill Sans, Helvetica, Helvetica Neue, Lucida Grande, Menlo, Monaco, Optima |
-| os: linux | Linux armv81 | 3 | 5bebd342f7 | yes | Arial, Courier New, Times New Roman |
-| windows + fonts | Win32 | 23 | db08511274 | yes | Arial, Arial Black, Calibri, Cambria, Candara, Comic Sans MS, Consolas, Constantia, Corbel, Courier New, Georgia, Impact, Lucida Console, Lucida Sans Unicode, Microsoft Sans Serif, Palatino Linotype, Segoe UI, Tahoma, Times New Roman, Trebuchet MS, Verdana, Helvetica Neue, Menlo |
-| windows + fonts + custom_fonts_only | Win32 | 3 | 0d966331f2 | yes | Calibri, Consolas, Segoe UI |
+| os: windows (launch 1) | Win32 | 22 | 6564fcf93f | no | Arial, Arial Black, Calibri, Cambria, Candara, Comic Sans MS, Consolas, Constantia, Corbel, Courier New, Georgia, Impact, Lucida Console, Lucida Sans Unicode, Microsoft Sans Serif, Palatino Linotype, Segoe UI, Tahoma, Times New Roman, Trebuchet MS, Verdana, Helvetica |
+| os: windows (launch 2) | Win32 | 22 | 6564fcf93f | no | Arial, Arial Black, Calibri, Cambria, Candara, Comic Sans MS, Consolas, Constantia, Corbel, Courier New, Georgia, Impact, Lucida Console, Lucida Sans Unicode, Microsoft Sans Serif, Palatino Linotype, Segoe UI, Tahoma, Times New Roman, Trebuchet MS, Verdana, Helvetica |
+| os: macos | MacIntel | 23 | 23e513dd7a | no | Arial, Arial Black, Comic Sans MS, Courier New, Georgia, Impact, Microsoft Sans Serif, Tahoma, Times New Roman, Trebuchet MS, Verdana, American Typewriter, Avenir, Avenir Next, Futura, Geneva, Gill Sans, Helvetica, Helvetica Neue, Lucida Grande, Menlo, Monaco, Optima |
+| os: linux | Linux x86_64 | 13 | f80842cabf | no | Arial, Calibri, Cambria, Courier New, Palatino Linotype, Times New Roman, Helvetica, DejaVu Sans, DejaVu Serif, Liberation Sans, Liberation Mono, Noto Sans, Ubuntu |
+| windows + fonts | Win32 | 2 | 97a32c3736 | yes | Helvetica Neue, Menlo |
+| windows + fonts + custom_fonts_only | Win32 | 3 | 4b85191c2b | yes | Calibri, Segoe UI, Noto Sans |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **The font list follows the persona and doesn't change between launches:** two Windows launches produced the same 21 families and the same hash. Unlike the canvas, which Camoufox re-seeds every launch ([case 49](https://cdpfleet.com/docs/cases/camoufox-same-device)), the font list is a stable trait of the persona.
-- **Each OS shows its own families:** Windows had Segoe UI, Calibri and Consolas (21 found); macOS had Helvetica Neue, Menlo, Monaco and Avenir (23 found); Linux only Arial, Courier New and Times New Roman. That Linux list is short, and a short list is itself unusual.
-- **`fonts` adds only what the server has:** Menlo and Helvetica Neue appeared on top of the Windows list; Noto Sans, which we also listed, never did. What the server has grew with Camoufox 156 (fleet default from 2026-10-21): measured separately on 2026-10-22, Fira Code, Roboto and JetBrains Mono now appear when listed, which they didn't on 152.
-- **`custom_fonts_only` replaces the list with the installed families you name:** of Calibri, Consolas, Segoe UI and Noto Sans, the probe found the first three. (On Camoufox 152 Calibri vanished here, because it became the face the generic families fall back to; on 156 it stays visible.)
-- **The three generic families render in one face.** In every setup `serif`, `sans-serif` and `monospace` measured exactly the same. On a normal desktop they are different faces, so a script that compares `serif` with `monospace` can see this. On Camoufox 152 that shared face also hid Arial from the Windows persona; on 156 Arial is detected on every persona.
+- **Each OS shows its own families, and the list repeats from launch to launch:** Windows had Segoe UI, Calibri and Consolas (22 found); macOS had Helvetica Neue, Menlo, Monaco and Avenir (23); Linux now shows a full Linux set, with DejaVu, Liberation, Noto Sans and Ubuntu (13–14). Measured 2026-10-23 on the fleet's Camoufox 156 with the official Camoufox library (from 2026-10-22); the earlier build showed only three Linux families. Unlike the canvas, which Camoufox re-seeds every launch ([case 49](https://cdpfleet.com/docs/cases/camoufox-same-device)), the font list is a trait of the persona.
+- **On the plain personas, `serif`, `sans-serif` and `monospace` now render in different faces**, as on a normal desktop. The earlier build drew all three in one face, which a script comparing them could see.
+- **`fonts` now replaces the persona's list instead of adding to it.** With `fonts: ["Menlo", "Helvetica Neue", "Noto Sans"]` on the Windows persona, the probe found only Menlo and Helvetica Neue: Segoe UI, Calibri and the rest were gone, and the three generic families collapsed into one face again (the face they fall back to is invisible to a width probe, which is likely why Noto Sans didn't show). Our docs describe `fonts` as additions; this is the behaviour measured since the library change, and it has been reported.
+- **`custom_fonts_only` exposes your listed families**, minus the one the generic families fall back to: of Calibri, Consolas, Segoe UI and Noto Sans, the probe found Calibri, Segoe UI and Noto Sans, but not Consolas.
+- **What to take from it:** keep the persona's own list (no `fonts`) unless you need a specific family, and if you do, list the whole set you want the site to see.

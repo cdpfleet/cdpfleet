@@ -2,9 +2,9 @@
   {
     "setup": "os: windows (launch 1)",
     "platform": "Win32",
-    "detected": 21,
-    "font_hash": "dd78c7d96b",
-    "generics_identical": true,
+    "detected": 22,
+    "font_hash": "6564fcf93f",
+    "generics_identical": false,
     "fonts": [
       "Arial",
       "Arial Black",
@@ -26,15 +26,16 @@
       "Tahoma",
       "Times New Roman",
       "Trebuchet MS",
-      "Verdana"
+      "Verdana",
+      "Helvetica"
     ]
   },
   {
     "setup": "os: windows (launch 2)",
     "platform": "Win32",
-    "detected": 21,
-    "font_hash": "dd78c7d96b",
-    "generics_identical": true,
+    "detected": 22,
+    "font_hash": "6564fcf93f",
+    "generics_identical": false,
     "fonts": [
       "Arial",
       "Arial Black",
@@ -56,7 +57,8 @@
       "Tahoma",
       "Times New Roman",
       "Trebuchet MS",
-      "Verdana"
+      "Verdana",
+      "Helvetica"
     ]
   },
   {
@@ -64,7 +66,7 @@
     "platform": "MacIntel",
     "detected": 23,
     "font_hash": "23e513dd7a",
-    "generics_identical": true,
+    "generics_identical": false,
     "fonts": [
       "Arial",
       "Arial Black",
@@ -93,44 +95,33 @@
   },
   {
     "setup": "os: linux",
-    "platform": "Linux armv81",
-    "detected": 3,
-    "font_hash": "5bebd342f7",
-    "generics_identical": true,
+    "platform": "Linux x86_64",
+    "detected": 13,
+    "font_hash": "f80842cabf",
+    "generics_identical": false,
     "fonts": [
       "Arial",
+      "Calibri",
+      "Cambria",
       "Courier New",
-      "Times New Roman"
+      "Palatino Linotype",
+      "Times New Roman",
+      "Helvetica",
+      "DejaVu Sans",
+      "DejaVu Serif",
+      "Liberation Sans",
+      "Liberation Mono",
+      "Noto Sans",
+      "Ubuntu"
     ]
   },
   {
     "setup": "windows + fonts",
     "platform": "Win32",
-    "detected": 23,
-    "font_hash": "db08511274",
+    "detected": 2,
+    "font_hash": "97a32c3736",
     "generics_identical": true,
     "fonts": [
-      "Arial",
-      "Arial Black",
-      "Calibri",
-      "Cambria",
-      "Candara",
-      "Comic Sans MS",
-      "Consolas",
-      "Constantia",
-      "Corbel",
-      "Courier New",
-      "Georgia",
-      "Impact",
-      "Lucida Console",
-      "Lucida Sans Unicode",
-      "Microsoft Sans Serif",
-      "Palatino Linotype",
-      "Segoe UI",
-      "Tahoma",
-      "Times New Roman",
-      "Trebuchet MS",
-      "Verdana",
       "Helvetica Neue",
       "Menlo"
     ]
@@ -139,12 +130,12 @@
     "setup": "windows + fonts + custom_fonts_only",
     "platform": "Win32",
     "detected": 3,
-    "font_hash": "0d966331f2",
+    "font_hash": "4b85191c2b",
     "generics_identical": true,
     "fonts": [
       "Calibri",
-      "Consolas",
-      "Segoe UI"
+      "Segoe UI",
+      "Noto Sans"
     ]
   }
 ]
