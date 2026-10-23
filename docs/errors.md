@@ -16,6 +16,7 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 400 | `unsupported_option` | A browser-process field the fleet doesn't take (`args`, `extensions`, `executablePath`, `ignoreDefaultArgs`, `env`, `userDataDir`, `chromiumSandbox`, `devtools`, `downloadsPath`, `tracesDir`) | Remove it; use the launch options and Playwright instead |
 | 400 | `invalid_start_url` | `start_url` isn't an http(s) URL of at most 2,048 characters | Fix the URL ([live-view.md](live-view.md#launch-interactive)) |
 | 400 | `start_url_not_viewable` / `start_url_unsupported` | `start_url` on a session nobody could watch (headless without `live_view`, or headless Firefox/Camoufox/WebKit) | Launch headful, or headless Chromium-based with `"live_view": true` |
+| 400 | `start_url_not_supported` | `start_url` on Rebrowser: its Playwright 1.52 server can't hand the opened page to your code | Use another Chromium-based browser for Launch interactive |
 | 401 | `missing_api_key` / `invalid_api_key` | No key, or an unknown or revoked key | Check `x-api-key` |
 | 402 | `subscription_inactive` | No active plan | Check your plan in the dashboard |
 | 402 | `proxy_balance_exhausted` | The launch uses the cdpfleet residential proxy and the balance is used up | Top up in the dashboard → Proxies |
@@ -23,6 +24,7 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 403 | `keep_alive_requires_dedicated` | `"keep_alive": true` on a shared plan | Use dedicated threads ([keep-alive.md](keep-alive.md)) |
 | 403 | `profiles_disabled` | A `profile` on the free Community plan | Use a paid plan |
 | 404 | `not_found` | Unknown endpoint, e.g. a misspelled browser | Check the path |
+| 413 | `payload_too_large` | The launch body is over 100 KB | Send a smaller body; a long `start_url` or big `config` object is the usual cause |
 | 429 | `rate_limited` | Too many launches per second/minute | Wait `Retry-After` seconds |
 | 429 | `threads_exceeded` | The launch would exceed your threads | Close a session or wait; `Retry-After: 1` |
 | 429 | `daily_quota_exhausted` | Shared plans: today's pool is used up | `Retry-After` counts down to midnight UTC |
@@ -33,7 +35,8 @@ Errors are JSON: `{"error": "…"}`, sometimes with extra fields.
 | 503 | `fleet_unavailable` / `starting_up` / `route_unavailable` | The fleet is momentarily busy | Retry with backoff (`Retry-After: 5`) |
 | 503 | `resi_unavailable` | The residential proxy is momentarily unavailable on that server | Retry |
 | 503 | `keep_alive_unavailable` | `keep_alive` isn't switched on for the fleet yet | Launch without it for now |
-| 503 | `version_unavailable` | The requested `version` isn't available; `available` lists the majors | Pick one from `available` |
+| 503 | `version_unavailable` | The requested `version` isn't available, or no server runs at least the version a `profile` was saved with (usually only during a browser rollout); `available` lists the majors | Pick one from `available`, or retry the profile launch in a few minutes |
+| 502 | `route_rejected` | The session couldn't be connected through the fleet's private network, so it was refused rather than exposed; not billed | Retry; a new launch goes to another server |
 
 Retry `503` with backoff and respect `Retry-After` on `429`; don't retry other `4xx` — the request needs fixing. See the [worker-pool case](../cases/10-worker-pool) for a complete retry loop.
 

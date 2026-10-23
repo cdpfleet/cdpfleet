@@ -1,0 +1,196 @@
+{
+  "measured_at": "2026-10-23",
+  "matrix": [
+    {
+      "setup": "Chromium, headless",
+      "network": "own proxy (rotating)",
+      "akamai": {
+        "outcome": "blocked",
+        "status": 403,
+        "sensor_posts": 0,
+        "abck_at_load": null,
+        "abck_after": null
+      },
+      "human": {
+        "outcome": "challenge",
+        "status": 403,
+        "sensor_posts": 5,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "own proxy (rotating)",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 3,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 4,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "own proxy (rotating)",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 2,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 7,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "own proxy (rotating)",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 1,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "challenge",
+        "status": 403,
+        "sensor_posts": 3,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Chromium, headless",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "akamai": {
+        "outcome": "blocked",
+        "status": 403,
+        "sensor_posts": 0,
+        "abck_at_load": null,
+        "abck_after": null
+      },
+      "human": {
+        "outcome": "challenge",
+        "status": 403,
+        "sensor_posts": 5,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 3,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 7,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 3,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "challenge",
+        "status": 403,
+        "sensor_posts": 5,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 3,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "challenge",
+        "status": 403,
+        "sensor_posts": 3,
+        "px3": true
+      }
+    }
+  ],
+  "tier4": [
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 4, sticky US",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 3,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 8,
+        "px3": true
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 4, sticky US",
+      "akamai": {
+        "outcome": "content",
+        "status": 200,
+        "sensor_posts": 3,
+        "abck_at_load": "-1",
+        "abck_after": "-1"
+      },
+      "human": {
+        "outcome": "challenge",
+        "status": 403,
+        "sensor_posts": 3,
+        "px3": true
+      }
+    }
+  ],
+  "profile": {
+    "setup": "Google Chrome, headful",
+    "network": "cdpfleet-resi Tier 1, sticky US",
+    "page": "akamai",
+    "first": {
+      "outcome": "content",
+      "status": 200,
+      "sensor_posts": 3,
+      "abck_at_load": "-1",
+      "abck_after": "-1"
+    },
+    "second": {
+      "outcome": "content",
+      "status": 200,
+      "sensor_posts": 3,
+      "abck_at_load": "-1",
+      "abck_after": "-1"
+    }
+  }
+}
