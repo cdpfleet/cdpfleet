@@ -4,6 +4,8 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #69 | [VPN Tunnel vs a plain residential proxy: WebRTC, HTTP/3 and two bot-protection pages](69-vpn-tunnel-vs-proxy) | Medium | Google Chrome, Camoufox |
+| #68 | [CAPTCHA demo pages: what reCAPTCHA v3 scores and hCaptcha show seven browsers, and why a demo can't rank them](68-captcha-scores-by-browser) | Easy | Chromium, Google Chrome, Microsoft Edge, Brave, Camoufox, Firefox, WebKit |
 | #67 | [Akamai and HUMAN: what gets through? Four browsers, three networks, the vendors' own sites](67-akamai-and-human-what-gets-through) | Medium | Chromium, Google Chrome, Microsoft Edge, Camoufox |
 | #66 | [Which fingerprints stay the same across launches: canvas, WebGL, audio and fonts on seven browsers](66-fingerprint-stability-across-launches) | Medium | Google Chrome, Microsoft Edge, Chromium, Brave, Camoufox, Firefox, WebKit |
 | #65 | [DataDome: what gets through? Four browsers, three networks, DataDome's own site](65-datadome-what-gets-through) | Medium | Chromium, Google Chrome, Microsoft Edge, Camoufox |

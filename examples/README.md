@@ -32,6 +32,7 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Chrome over CDP (connectOverCDP or Puppeteer)](recipes/chrome-cdp)
   - [Live view: stream the page to your code](recipes/live-view)
   - [cdpfleet residential: one sticky US identity](recipes/resi-sticky)
+  - [cdpfleet residential with VPN Tunnel: WebRTC and HTTP/3 on the same exit](recipes/resi-vpn-tunnel)
   - [Camoufox with exact fingerprint values](recipes/camoufox-config)
   - [WebKit](recipes/webkit)
   - [Opera, developer channel](recipes/opera-developer)

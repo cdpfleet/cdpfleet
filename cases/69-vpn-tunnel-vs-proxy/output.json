@@ -1,0 +1,99 @@
+{
+  "measured_at": "2026-10-24",
+  "rows": [
+    {
+      "setup": "Google Chrome, headful",
+      "network": "residential proxy",
+      "exit_ip": "203.0.113.1",
+      "webrtc_api": true,
+      "webrtc_ips": [],
+      "mdns_only": true,
+      "protocols": [
+        "h2",
+        "h2",
+        "h2",
+        "h2"
+      ],
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null
+      },
+      "datadome": {
+        "outcome": "challenge",
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "residential proxy + vpn_tunnel",
+      "exit_ip": "203.0.113.1",
+      "webrtc_api": true,
+      "webrtc_ips": [
+        "203.0.113.1"
+      ],
+      "mdns_only": false,
+      "protocols": [
+        "h2",
+        "h2",
+        "h3",
+        "h3"
+      ],
+      "scrapingcourse": {
+        "outcome": "challenge",
+        "seconds": null
+      },
+      "datadome": {
+        "outcome": "challenge",
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "residential proxy",
+      "exit_ip": "203.0.113.2",
+      "webrtc_api": true,
+      "webrtc_ips": [
+        "203.0.113.2"
+      ],
+      "mdns_only": false,
+      "protocols": [
+        "h2",
+        "h2",
+        "h2",
+        "h2"
+      ],
+      "scrapingcourse": {
+        "outcome": "cleared",
+        "seconds": 9
+      },
+      "datadome": {
+        "outcome": "content",
+        "seconds": null
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "residential proxy + vpn_tunnel",
+      "exit_ip": "203.0.113.2",
+      "webrtc_api": true,
+      "webrtc_ips": [
+        "203.0.113.2"
+      ],
+      "mdns_only": false,
+      "protocols": [
+        "h2",
+        "h3",
+        "h3",
+        "h3"
+      ],
+      "scrapingcourse": {
+        "outcome": "cleared",
+        "seconds": 10
+      },
+      "datadome": {
+        "outcome": "content",
+        "seconds": null
+      }
+    }
+  ]
+}

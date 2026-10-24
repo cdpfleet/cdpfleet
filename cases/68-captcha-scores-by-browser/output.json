@@ -1,0 +1,159 @@
+{
+  "measured_at": "2026-10-24",
+  "rows": [
+    {
+      "setup": "Chromium, headless",
+      "network": "own proxy (rotating)",
+      "recaptcha": {
+        "outcome": "no score",
+        "score": null
+      },
+      "hcaptcha": {
+        "outcome": "no widget"
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "own proxy (rotating)",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "no widget"
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "own proxy (rotating)",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Brave, headful",
+      "network": "own proxy (rotating)",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "own proxy (rotating)",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Firefox, headful",
+      "network": "own proxy (rotating)",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "WebKit, headful",
+      "network": "own proxy (rotating)",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Chromium, headless",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Microsoft Edge, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Brave, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Camoufox, defaults",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "Firefox, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    },
+    {
+      "setup": "WebKit, headful",
+      "network": "cdpfleet-resi Tier 1, sticky US",
+      "recaptcha": {
+        "outcome": "score",
+        "score": 0.9
+      },
+      "hcaptcha": {
+        "outcome": "widget shown"
+      }
+    }
+  ]
+}
