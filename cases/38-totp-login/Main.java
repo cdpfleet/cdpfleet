@@ -69,7 +69,20 @@ public class Main {
   // One login attempt in a fresh context (no cookies from earlier attempts). The code is made
   // after the form has loaded, right before typing it: offset null types a wrong code, otherwise
   // the code for now + offset seconds.
+  // The challenge page or the post-submit navigation occasionally hangs through a rotating proxy:
+  // one more try in a fresh context, with the code made again after the reload.
   static Attempt attempt(Browser browser, String label, Integer offset) throws Exception {
+    try {
+      return attemptOnce(browser, label, offset);
+    } catch (com.microsoft.playwright.TimeoutError e) {
+      for (BrowserContext c : new java.util.ArrayList<>(browser.contexts())) {
+        try { c.close(); } catch (Exception ignored) { }
+      }
+      return attemptOnce(browser, label, offset);
+    }
+  }
+
+  static Attempt attemptOnce(Browser browser, String label, Integer offset) throws Exception {
     BrowserContext context = browser.newContext();
     Page page = context.newPage();
     page.navigate(SITE + "/totpChallenge/", new Page.NavigateOptions().setTimeout(60000));

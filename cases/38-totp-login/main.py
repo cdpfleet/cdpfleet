@@ -12,7 +12,7 @@ from email.utils import parsedate_to_datetime
 from urllib.parse import urlparse
 
 import requests
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, sync_playwright
 
 KEY = os.environ["CDPFLEET_API_KEY"]
 SITE = "https://authenticationtest.com"
@@ -47,7 +47,7 @@ def launch(p):
     return session["sessionId"], p.chromium.connect(session["wsUrl"], headers={"x-api-key": KEY})
 
 
-def attempt(browser, label, offset):
+def attempt_once(browser, label, offset):
     """One login attempt in a fresh context (no cookies from earlier attempts). The code is made
     after the form has loaded, right before typing it: offset None types a wrong code, otherwise
     the code for now + offset seconds."""
@@ -65,6 +65,21 @@ def attempt(browser, label, offset):
     landed = urlparse(page.url).path
     return context, {"attempt": label, "offset_s": offset, **window, "landed": landed,
                      "accepted": landed == "/loginSuccess/", "ms": round((time.time() - t) * 1000)}
+
+
+
+def attempt(browser, label, offset):
+    """The challenge page or the post-submit navigation occasionally hangs through a rotating
+    proxy: one more try in a fresh context, with the code made again after the reload."""
+    try:
+        return attempt_once(browser, label, offset)
+    except PlaywrightTimeoutError:
+        for c in browser.contexts:
+            try:
+                c.close()
+            except Exception:
+                pass
+        return attempt_once(browser, label, offset)
 
 
 out = {"site": f"{SITE}/totpChallenge/", "session_ids": {}, "clocks": {}, "attempts": [], "storage_state": None, "second_session": None}

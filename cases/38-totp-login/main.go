@@ -10,6 +10,7 @@ import (
 	"encoding/base32"
 	"encoding/binary"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -95,7 +96,7 @@ type attemptResult struct {
 // One login attempt in a fresh context (no cookies from earlier attempts). The code is made
 // after the form has loaded, right before typing it: offset nil types a wrong code, otherwise
 // the code for now + offset seconds.
-func attempt(browser playwright.Browser, secretKey []byte, label string, offset *int) (playwright.BrowserContext, attemptResult, error) {
+func attemptOnce(browser playwright.Browser, secretKey []byte, label string, offset *int) (playwright.BrowserContext, attemptResult, error) {
 	context, err := browser.NewContext()
 	if err != nil {
 		return nil, attemptResult{}, err
@@ -128,6 +129,19 @@ func attempt(browser playwright.Browser, secretKey []byte, label string, offset 
 	u, _ := url.Parse(page.URL())
 	r.Landed, r.Accepted, r.Ms = u.Path, u.Path == "/loginSuccess/", time.Since(t).Milliseconds()
 	return context, r, nil
+}
+
+// The challenge page or the post-submit navigation occasionally hangs through a rotating proxy:
+// one more try in a fresh context, with the code made again after the reload.
+func attempt(browser playwright.Browser, secretKey []byte, label string, offset *int) (playwright.BrowserContext, attemptResult, error) {
+	context, r, err := attemptOnce(browser, secretKey, label, offset)
+	if err == nil || !errors.Is(err, playwright.ErrTimeout) {
+		return context, r, err
+	}
+	if context != nil {
+		context.Close()
+	}
+	return attemptOnce(browser, secretKey, label, offset)
 }
 
 type output struct {

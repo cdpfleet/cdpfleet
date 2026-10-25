@@ -103,7 +103,19 @@ async Task<(string Id, IBrowser Browser)> Launch()
 // One login attempt in a fresh context (no cookies from earlier attempts). The code is made
 // after the form has loaded, right before typing it: offset null types a wrong code, otherwise
 // the code for now + offset seconds.
+// The challenge page or the post-submit navigation occasionally hangs through a rotating proxy:
+// one more try in a fresh context, with the code made again after the reload.
 static async Task<(IBrowserContext Context, JsonObject Result)> Attempt(IBrowser browser, string label, int? offset)
+{
+    try { return await AttemptOnce(browser, label, offset); }
+    catch (System.TimeoutException)
+    {
+        foreach (var c in browser.Contexts.ToList()) { try { await c.CloseAsync(); } catch { } }
+        return await AttemptOnce(browser, label, offset);
+    }
+}
+
+static async Task<(IBrowserContext Context, JsonObject Result)> AttemptOnce(IBrowser browser, string label, int? offset)
 {
     var context = await browser.NewContextAsync();
     var page = await context.NewPageAsync();

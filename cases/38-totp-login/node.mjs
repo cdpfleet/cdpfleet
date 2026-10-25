@@ -42,7 +42,7 @@ async function launch() {
 // One login attempt in a fresh context (no cookies from earlier attempts). The code is made
 // after the form has loaded, right before typing it: offset null types a wrong code, otherwise
 // the code for now + offset seconds.
-async function attempt(browser, label, offset) {
+async function attemptOnce(browser, label, offset) {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(`${SITE}/totpChallenge/`, { timeout: 60000 });
@@ -55,6 +55,16 @@ async function attempt(browser, label, offset) {
   await Promise.all([page.waitForURL(/\/login(Success|Fail)\//, { timeout: 60000 }), page.click('input[type=submit]')]);
   const landed = new URL(page.url()).pathname;
   return { context, result: { attempt: label, offset_s: offset, ...window, landed, accepted: landed === '/loginSuccess/', ms: Date.now() - t } };
+}
+
+// The challenge page or the post-submit navigation occasionally hangs through a rotating proxy:
+// one more try in a fresh context, with the code made again after the reload.
+async function attempt(browser, label, offset) {
+  try { return await attemptOnce(browser, label, offset); } catch (err) {
+    if (err.name !== 'TimeoutError') throw err;
+    for (const c of browser.contexts()) await c.close().catch(() => {});
+    return attemptOnce(browser, label, offset);
+  }
 }
 
 const signedIn = async (page) => (await page.locator('text=Sign Out').count()) > 0;
