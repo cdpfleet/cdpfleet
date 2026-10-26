@@ -1,6 +1,6 @@
 # Browsers and launch options
 
-Generated from the same option table as the [code builder](https://cdpfleet.com/docs/builder). Every launch is `POST https://starter.cdpfleet.com/<endpoint>/session` with a JSON body of these options; `proxy` is required.
+Generated from the same option table as the [code builder](https://cdpfleet.com/docs/builder). Every launch is `POST https://starter.cdpfleet.com/<endpoint>/session` with a JSON body of these options; without `proxy` the free Community proxy is used.
 
 | Browser | Endpoint | Playwright client | Client version |
 |---|---|---|---|
