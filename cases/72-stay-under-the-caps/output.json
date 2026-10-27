@@ -1,0 +1,26 @@
+{
+  "measured_at": "2026-10-27",
+  "plan": {
+    "kind": "shared",
+    "max_pages": 10,
+    "memory_mb": 4096
+  },
+  "tab_cap": {
+    "opened_before_cap": 10,
+    "closed_at_tab": 11,
+    "session_alive": true
+  },
+  "pool": {
+    "pool_size": 4,
+    "urls": 12,
+    "loaded": 12,
+    "open_tabs": 4
+  },
+  "js_heap_mb_per_tab": 9.5,
+  "memory": {
+    "half_cap_ok": true,
+    "cut": true,
+    "allocated_mb_at_cut": 3968,
+    "end_reason": "session_memory_limit"
+  }
+}

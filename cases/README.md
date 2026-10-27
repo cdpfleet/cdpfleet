@@ -4,6 +4,8 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #72 | [Stay under the tab and memory caps: reuse a few pages, close what you're done with](72-stay-under-the-caps) | Easy | Chromium |
+| #71 | [DataDome on real sites: twelve browsers, three sites, one exit each](71-datadome-real-sites-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
 | #70 | [Cloudflare on real sites: twelve browsers, three sites, one exit each](70-cloudflare-real-sites-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
 | #69 | [VPN Tunnel vs a plain residential proxy: WebRTC, HTTP/3 and two bot-protection pages](69-vpn-tunnel-vs-proxy) | Medium | Google Chrome, Camoufox |
 | #68 | [CAPTCHA demo pages: what reCAPTCHA v3 scores and hCaptcha show seven browsers, and why a demo can't rank them](68-captcha-scores-by-browser) | Easy | Chromium, Google Chrome, Microsoft Edge, Brave, Camoufox, Firefox, WebKit |

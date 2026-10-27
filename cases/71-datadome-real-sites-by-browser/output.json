@@ -1,0 +1,191 @@
+{
+  "measured_at": "2026-10-27",
+  "setups": {
+    "chrome_headful": "Chrome, headful",
+    "chrome_headless": "Chrome, headless",
+    "edge": "Edge, headful",
+    "brave": "Brave, headful",
+    "opera": "Opera, headful",
+    "yandex": "Yandex, headful",
+    "whale": "Whale, headful",
+    "chromium_headless": "Chromium, headless",
+    "patchright": "Patchright, headful",
+    "firefox": "Firefox, headful",
+    "webkit": "WebKit, headful",
+    "camoufox": "Camoufox, headful",
+    "camoufox_returning": "Camoufox, returning profile (2nd visit)"
+  },
+  "sites": [
+    {
+      "site": "A",
+      "results": {
+        "chrome_headful": {
+          "outcome": "content",
+          "status": 200
+        },
+        "chrome_headless": {
+          "outcome": "content",
+          "status": 200
+        },
+        "edge": {
+          "outcome": "content",
+          "status": 200
+        },
+        "brave": {
+          "outcome": "content",
+          "status": 200
+        },
+        "opera": {
+          "outcome": "content",
+          "status": 200
+        },
+        "yandex": {
+          "outcome": "content",
+          "status": 200
+        },
+        "whale": {
+          "outcome": "content",
+          "status": 200
+        },
+        "chromium_headless": {
+          "outcome": "content",
+          "status": 200
+        },
+        "patchright": {
+          "outcome": "content",
+          "status": 200
+        },
+        "firefox": {
+          "outcome": "content",
+          "status": 200
+        },
+        "webkit": {
+          "outcome": "content",
+          "status": 200
+        },
+        "camoufox": {
+          "outcome": "content",
+          "status": 200
+        },
+        "camoufox_returning": {
+          "outcome": "content",
+          "status": 200
+        }
+      }
+    },
+    {
+      "site": "B",
+      "results": {
+        "chrome_headful": {
+          "outcome": "content",
+          "status": 200
+        },
+        "chrome_headless": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "edge": {
+          "outcome": "content",
+          "status": 200
+        },
+        "brave": {
+          "outcome": "content",
+          "status": 200
+        },
+        "opera": {
+          "outcome": "content",
+          "status": 200
+        },
+        "yandex": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "whale": {
+          "outcome": "content",
+          "status": 200
+        },
+        "chromium_headless": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "patchright": {
+          "outcome": "content",
+          "status": 200
+        },
+        "firefox": {
+          "outcome": "content",
+          "status": 200
+        },
+        "webkit": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "camoufox": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "camoufox_returning": {
+          "outcome": "challenge",
+          "status": 403
+        }
+      }
+    },
+    {
+      "site": "C",
+      "results": {
+        "chrome_headful": {
+          "outcome": "content",
+          "status": 200
+        },
+        "chrome_headless": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "edge": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "brave": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "opera": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "yandex": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "whale": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "chromium_headless": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "patchright": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "firefox": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "webkit": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "camoufox": {
+          "outcome": "challenge",
+          "status": 403
+        },
+        "camoufox_returning": {
+          "outcome": "challenge",
+          "status": 403
+        }
+      }
+    }
+  ]
+}
