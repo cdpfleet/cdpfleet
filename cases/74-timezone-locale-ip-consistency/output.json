@@ -1,0 +1,219 @@
+[
+  {
+    "setup": "Camoufox (geoip on, default)",
+    "country": "US",
+    "exit_country": "US",
+    "exit_timezone": "America/New_York",
+    "languages": "en-US, en",
+    "accept_language": "en-US",
+    "timezone": "America/New_York",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "exit IP",
+    "mismatches": []
+  },
+  {
+    "setup": "Camoufox, geoip: false",
+    "country": "US",
+    "exit_country": "US",
+    "exit_timezone": "America/New_York",
+    "languages": "en-US, en",
+    "accept_language": "en-US",
+    "timezone": "UTC",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": [
+      "timezone ≠ IP timezone"
+    ]
+  },
+  {
+    "setup": "Camoufox, locale: \"pt-BR\"",
+    "country": "US",
+    "exit_country": "US",
+    "exit_timezone": "America/New_York",
+    "languages": "pt-BR, pt",
+    "accept_language": "pt-BR",
+    "timezone": "America/New_York",
+    "intl_locale": "pt-BR",
+    "number": "1.234.567,891",
+    "webrtc": "exit IP",
+    "mismatches": [
+      "language region ≠ IP country"
+    ]
+  },
+  {
+    "setup": "Chrome headful, no locale",
+    "country": "US",
+    "exit_country": "US",
+    "exit_timezone": "America/New_York",
+    "languages": "en-US, en",
+    "accept_language": "en-US",
+    "timezone": "UTC",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": [
+      "timezone ≠ IP timezone"
+    ]
+  },
+  {
+    "setup": "Chrome headful, context locale + timezoneId from the exit",
+    "country": "US",
+    "exit_country": "US",
+    "exit_timezone": "America/New_York",
+    "languages": "en-US",
+    "accept_language": "en-US",
+    "timezone": "America/New_York",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": []
+  },
+  {
+    "setup": "Camoufox (geoip on, default)",
+    "country": "DE",
+    "exit_country": "DE",
+    "exit_timezone": "Europe/Berlin",
+    "languages": "de-DE, de",
+    "accept_language": "de-DE",
+    "timezone": "Europe/Berlin",
+    "intl_locale": "de-DE",
+    "number": "1.234.567,891",
+    "webrtc": "exit IP",
+    "mismatches": []
+  },
+  {
+    "setup": "Camoufox, geoip: false",
+    "country": "DE",
+    "exit_country": "DE",
+    "exit_timezone": "Europe/Berlin",
+    "languages": "en-US, en",
+    "accept_language": "en-US",
+    "timezone": "UTC",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": [
+      "timezone ≠ IP timezone",
+      "language region ≠ IP country"
+    ]
+  },
+  {
+    "setup": "Camoufox, locale: \"pt-BR\"",
+    "country": "DE",
+    "exit_country": "DE",
+    "exit_timezone": "Europe/Berlin",
+    "languages": "pt-BR, pt",
+    "accept_language": "pt-BR",
+    "timezone": "Europe/Berlin",
+    "intl_locale": "pt-BR",
+    "number": "1.234.567,891",
+    "webrtc": "exit IP",
+    "mismatches": [
+      "language region ≠ IP country"
+    ]
+  },
+  {
+    "setup": "Chrome headful, no locale",
+    "country": "DE",
+    "exit_country": "DE",
+    "exit_timezone": "Europe/Berlin",
+    "languages": "en-US, en",
+    "accept_language": "en-US",
+    "timezone": "UTC",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": [
+      "timezone ≠ IP timezone",
+      "language region ≠ IP country"
+    ]
+  },
+  {
+    "setup": "Chrome headful, context locale + timezoneId from the exit",
+    "country": "DE",
+    "exit_country": "DE",
+    "exit_timezone": "Europe/Berlin",
+    "languages": "de-DE",
+    "accept_language": "de-DE",
+    "timezone": "Europe/Berlin",
+    "intl_locale": "de-DE",
+    "number": "1.234.567,891",
+    "webrtc": "none",
+    "mismatches": []
+  },
+  {
+    "setup": "Camoufox (geoip on, default)",
+    "country": "JP",
+    "exit_country": "JP",
+    "exit_timezone": "Asia/Tokyo",
+    "languages": "ja-JP, ja",
+    "accept_language": "ja-JP",
+    "timezone": "Asia/Tokyo",
+    "intl_locale": "ja-JP",
+    "number": "1,234,567.891",
+    "webrtc": "exit IP",
+    "mismatches": []
+  },
+  {
+    "setup": "Camoufox, geoip: false",
+    "country": "JP",
+    "exit_country": "JP",
+    "exit_timezone": "Asia/Tokyo",
+    "languages": "en-US, en",
+    "accept_language": "en-US",
+    "timezone": "UTC",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": [
+      "timezone ≠ IP timezone",
+      "language region ≠ IP country"
+    ]
+  },
+  {
+    "setup": "Camoufox, locale: \"pt-BR\"",
+    "country": "JP",
+    "exit_country": "JP",
+    "exit_timezone": "Asia/Tokyo",
+    "languages": "pt-BR, pt",
+    "accept_language": "pt-BR",
+    "timezone": "Asia/Tokyo",
+    "intl_locale": "pt-BR",
+    "number": "1.234.567,891",
+    "webrtc": "exit IP",
+    "mismatches": [
+      "language region ≠ IP country"
+    ]
+  },
+  {
+    "setup": "Chrome headful, no locale",
+    "country": "JP",
+    "exit_country": "JP",
+    "exit_timezone": "Asia/Tokyo",
+    "languages": "en-US, en",
+    "accept_language": "en-US",
+    "timezone": "UTC",
+    "intl_locale": "en-US",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": [
+      "timezone ≠ IP timezone",
+      "language region ≠ IP country"
+    ]
+  },
+  {
+    "setup": "Chrome headful, context locale + timezoneId from the exit",
+    "country": "JP",
+    "exit_country": "JP",
+    "exit_timezone": "Asia/Tokyo",
+    "languages": "ja-JP",
+    "accept_language": "ja-JP",
+    "timezone": "Asia/Tokyo",
+    "intl_locale": "ja-JP",
+    "number": "1,234,567.891",
+    "webrtc": "none",
+    "mismatches": []
+  }
+]

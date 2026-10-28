@@ -1,0 +1,269 @@
+{
+  "measured_at": "2026-10-28",
+  "setups": {
+    "chrome_headful": "Chrome, headful",
+    "chrome_headless": "Chrome, headless",
+    "edge": "Edge, headful",
+    "brave": "Brave, headful",
+    "opera": "Opera, headful",
+    "yandex": "Yandex, headful",
+    "whale": "Whale, headful",
+    "chromium_headless": "Chromium, headless",
+    "patchright": "Patchright, headful",
+    "firefox": "Firefox, headful",
+    "webkit": "WebKit, headful",
+    "camoufox": "Camoufox, headful",
+    "camoufox_returning": "Camoufox, returning profile (2nd visit)"
+  },
+  "sites": [
+    {
+      "site": "A",
+      "results": {
+        "chrome_headful": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "chrome_headless": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "edge": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "brave": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "opera": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "yandex": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "whale": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "chromium_headless": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "patchright": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "firefox": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "webkit": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "camoufox": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "camoufox_returning": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        }
+      }
+    },
+    {
+      "site": "B",
+      "results": {
+        "chrome_headful": {
+          "outcome": "error",
+          "status": 0,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "chrome_headless": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "edge": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "brave": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "opera": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "yandex": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "whale": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "chromium_headless": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "patchright": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "firefox": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "webkit": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "camoufox": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "camoufox_returning": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        }
+      }
+    },
+    {
+      "site": "C",
+      "results": {
+        "chrome_headful": {
+          "outcome": "blocked",
+          "status": 403,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "chrome_headless": {
+          "outcome": "blocked",
+          "status": 0,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "edge": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "brave": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "opera": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "yandex": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "whale": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "chromium_headless": {
+          "outcome": "blocked",
+          "status": 0,
+          "abck_before": null,
+          "abck_after": null
+        },
+        "patchright": {
+          "outcome": "blocked",
+          "status": 403,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "firefox": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "webkit": {
+          "outcome": "blocked",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "camoufox": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        },
+        "camoufox_returning": {
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
+        }
+      }
+    }
+  ]
+}

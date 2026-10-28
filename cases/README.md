@@ -4,6 +4,8 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #74 | [Does the browser agree with its IP? Timezone, language and WebRTC through exits in three countries](74-timezone-locale-ip-consistency) | Medium | Camoufox, Google Chrome |
+| #73 | [Akamai on real sites: twelve browsers, three sites, one exit each](73-akamai-real-sites-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
 | #72 | [Stay under the tab and memory caps: reuse a few pages, close what you're done with](72-stay-under-the-caps) | Easy | Chromium |
 | #71 | [DataDome on real sites: twelve browsers, three sites, one exit each](71-datadome-real-sites-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
 | #70 | [Cloudflare on real sites: twelve browsers, three sites, one exit each](70-cloudflare-real-sites-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
