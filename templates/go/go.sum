@@ -1,3 +1,5 @@
+github.com/cdpfleet/cdpfleet/sdk/go v0.1.1 h1:bIl1BUqsOroBUDYn5h7RW7efwkS1aJ0fDgV0hShg8Sg=
+github.com/cdpfleet/cdpfleet/sdk/go v0.1.1/go.mod h1:xqkRzTHgzoOOI+4Z7G8sj3b0Ugd3hqIDxooLCRsdaDY=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/deckarep/golang-set/v2 v2.8.0 h1:swm0rlPCmdWn9mESxKOjWk8hXSqoxOp+ZlfuyaAdFlQ=
 github.com/deckarep/golang-set/v2 v2.8.0/go.mod h1:VAky9rY/yGXJOLEDv3OMci+7wtDpOF4IN+y82NBOac4=

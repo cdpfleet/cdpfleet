@@ -1,0 +1,41 @@
+{
+  "language": "node",
+  "sdk": "cdpfleet 0.1.1 (npm)",
+  "scrape": {
+    "plain": {
+      "books": 60,
+      "first_title": "A Light in the Attic",
+      "connected_ms": 579,
+      "seconds": 8.412
+    },
+    "sdk": {
+      "books": 60,
+      "first_title": "A Light in the Attic",
+      "connected_ms": 370,
+      "seconds": 11.204
+    },
+    "connect_url": {
+      "books": 60,
+      "first_title": "A Light in the Attic",
+      "connected_ms": 328,
+      "seconds": 6.834
+    }
+  },
+  "cap": {
+    "threads": 2,
+    "plain": {
+      "status": 429,
+      "error": "threads_exceeded",
+      "retry_after": "1",
+      "in_use": 2,
+      "upgrade_url": "https://cdpfleet.com/upgrade"
+    },
+    "retry": {
+      "by": "sdk",
+      "got_session": true,
+      "waited_s": 6.532
+    },
+    "threads_left": 0
+  },
+  "measured_at": "2026-10-29"
+}
