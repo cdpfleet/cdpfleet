@@ -15,7 +15,7 @@ A launch that would exceed your threads gets `429 threads_exceeded` until a sess
 
 ## Plans
 
-- **Community (free)** — 2 threads, 60 browser-minutes per thread per day, sessions up to 15 minutes, every browser, an included shared proxy (slower at peak), lowest priority. No recordings, persistent profiles or `keep_alive`. Invite-only for now; activated by verifying a card that is never charged. Request data may be used to learn which browser setups work on which sites (Terms, section 4A).
+- **Community (free)** — 2 threads, 60 browser-minutes per thread per day, sessions up to 15 minutes, every browser, an included shared proxy (slower at peak), lowest priority. No recordings, persistent profiles or `keep_alive`. Sign up free at cdpfleet.com and activate it by verifying a card that is never charged. Request data may be used to learn which browser setups work on which sites (Terms, section 4A).
 - **Shared threads** — pooled capacity: each purchased thread contributes browser-minutes per day to your account pool (60, 120, 240 or 480 by product); at most 25 % of the daily pool in any rolling 60 minutes. Idle timeout up to 60 s. Sessions hold 15-minute leases that renew automatically while shared capacity allows.
 - **Dedicated threads** — reserved capacity for continuous use: no daily or hourly limit, no leases; idle timeout up to 24 h.
 
