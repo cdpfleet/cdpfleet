@@ -1,17 +1,17 @@
 [
   {
     "variant": "channel stable",
-    "catalog_version": "155.0.8059.84",
-    "browser_version": "155.0.8059.84",
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
-    "sec_ch_ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+    "catalog_version": "156.0.8078.79",
+    "browser_version": "156.0.8078.79",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+    "sec_ch_ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"Google Chrome\";v=\"156\"",
     "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
     "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
   },
   {
     "variant": "channel beta",
-    "catalog_version": "157.0.8103.6",
-    "browser_version": "157.0.8103.6",
+    "catalog_version": "158.0.8127.2",
+    "browser_version": "157.0.8103.15",
     "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
     "sec_ch_ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
     "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
@@ -19,10 +19,19 @@
   },
   {
     "variant": "channel dev",
-    "catalog_version": "158.0.8106.0",
+    "catalog_version": "158.0.8117.2",
     "browser_version": "158.0.8106.0",
     "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36",
     "sec_ch_ua": "\"Chromium\";v=\"158\", \"Not.A/Brand\";v=\"24\", \"Google Chrome\";v=\"158\"",
+    "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
+    "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
+  },
+  {
+    "variant": "version 155",
+    "catalog_version": "155.0.8059.84",
+    "browser_version": "155.0.8059.84",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+    "sec_ch_ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
     "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
     "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
   },
@@ -32,15 +41,6 @@
     "browser_version": "154.0.8037.97",
     "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
     "sec_ch_ua": "\"Chromium\";v=\"154\", \"Google Chrome\";v=\"154\", \"Not A(Brand\";v=\"99\"",
-    "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
-    "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
-  },
-  {
-    "variant": "version 153",
-    "catalog_version": "153.0.8010.52",
-    "browser_version": "153.0.8010.52",
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
-    "sec_ch_ua": "\"Google Chrome\";v=\"153\", \"Not_A Brand\";v=\"8\", \"Chromium\";v=\"153\"",
     "ja4": "t13d1517h2_8daaf6152771_cb7bf5808d99",
     "akamai_h2_hash": "52d84b11737d980aef856699f885ca86"
   }

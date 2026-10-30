@@ -25,7 +25,7 @@ A site breaks on the new Chrome, or you need to test the next release before you
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-21):
+The same program in five languages, each verified on the production fleet (last run 2026-10-30):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -39,17 +39,17 @@ Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md
 
 | Variant | browser.version() | User agent | sec-ch-ua | JA4 |
 |---|---|---|---|---|
-| channel stable | 155.0.8059.84 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 | "Google Chrome";v="155", "Chromium";v="155", "Not(A:Brand";v="24" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
-| channel beta | 157.0.8103.6 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 | "Not-A.Brand";v="99", "Google Chrome";v="157", "Chromium";v="157" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
+| channel stable | 156.0.8078.79 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36 | "Not:A-Brand";v="8", "Chromium";v="156", "Google Chrome";v="156" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
+| channel beta | 157.0.8103.15 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 | "Not-A.Brand";v="99", "Google Chrome";v="157", "Chromium";v="157" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 | channel dev | 158.0.8106.0 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36 | "Chromium";v="158", "Not.A/Brand";v="24", "Google Chrome";v="158" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
+| version 155 | 155.0.8059.84 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 | "Google Chrome";v="155", "Chromium";v="155", "Not(A:Brand";v="24" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 | version 154 | 154.0.8037.97 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 | "Chromium";v="154", "Google Chrome";v="154", "Not A(Brand";v="99" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
-| version 153 | 153.0.8010.52 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36 | "Google Chrome";v="153", "Not_A Brand";v="8", "Chromium";v="153" | t13d1517h2_8daaf6152771_cb7bf5808d99 |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **Every channel got exactly the build the catalog lists,** to the last digit. **A pinned major gives you that major;** the patch level can differ between servers (the catalog shows the most common one).
+- **Stable and pinned versions got the major the catalog lists.** The exact build usually matches to the last digit; while a new build rolls across the servers it can lag for a while (on 2026-10-30 stable reported 156.0.8078.47 on some servers where the catalog listed .79), since the catalog shows the most common build. **A new beta major rolls out the same way:** that day the catalog listed beta 158.0.8127.2 while some servers still served 157.0.8103.15, so `channel: "beta"` gave 157 or 158 depending on the server. **A pinned major gives you that major;** the patch level can differ between servers.
 - **The user agent only carries the major** (`Chrome/155.0.0.0`): Chrome's user-agent reduction. The full version is in `sec-ch-ua-full-version-list` for sites that ask.
-- **`sec-ch-ua` changes per major** — including its "GREASE" brand (`Not_A Brand`, `Not(A:Brand`, `Not:A-Brand`…), which Chrome rotates on purpose. Copying one version's header onto another is detectable.
+- **`sec-ch-ua` changes per major** (channels on the same major send the same header: beta and dev were both 158 on 2026-10-30) — including its "GREASE" brand (`Not_A Brand`, `Not(A:Brand`, `Not:A-Brand`…), which Chrome rotates on purpose. Copying one version's header onto another is detectable.
 - **TLS (JA4) and HTTP/2 fingerprints are identical from 153 to 158** (2026-10-21; 152 to 157 on 2026-10-04) — so a pinned major doesn't cost you anything on the network side.
