@@ -14,7 +14,7 @@ const MAX_TEXT = 25000;
 // The free Community plan: a short note at launch and after a session, and with the errors its
 // limits cause, saying what a paid plan adds (same wording as main's public/shared/upgrade.js).
 const UPGRADE_URL = 'https://cdpfleet.com/upgrade';
-const UPGRADE_LINE = 'You\'re on the free Community plan. Ready for more? Paid plans unlock more threads, longer sessions, priority capacity, recordings and persistent profiles — from $5 a month';
+const UPGRADE_LINE = 'You\'re on the free Community plan. Ready for more? Paid plans unlock more threads, longer sessions, priority capacity, recordings and persistent profiles — from $7.50 a month';
 const NUDGE_EVERY_MS = 30 * 60000;
 const HINTS = {
   community_capacity_full: 'The free Community capacity is busy right now — paid plans get priority capacity and aren\'t affected.',

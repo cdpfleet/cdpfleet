@@ -30,7 +30,7 @@ Minutes are counted per thread: a headful session takes 2 threads, so it uses tw
 | | Community | Shared | Dedicated |
 |---|---|---|---|
 | Open pages (tabs, popups, contexts) | 50 | 50 | 50 |
-| Memory (headful: +512 MB) | 2 GB | 4 GB | 8 GB |
+| Memory (headful: +512 MB) | 2 GB | 4 GB | 6 GB |
 
 A page over the cap is closed at once on Chrome, Edge, Brave, Opera, Yandex and Chromium (the session continues); on other browsers the session ends with `page_limit`. Going over the memory limit ends that session with `session_memory_limit`; other sessions are unaffected.
 
