@@ -4,6 +4,8 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #78 | [keep_alive: an agent run that survives its client going away](78-keep-alive-reconnect) | Medium | Chromium |
+| #77 | [Kasada and AWS WAF on real sites: twelve browsers, four sites, one exit each](77-kasada-and-aws-waf-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
 | #76 | [The SDK vs plain Playwright: the same scrape, and what happens at the thread cap](76-sdk-vs-plain-playwright) | Easy | Chromium |
 | #75 | [HUMAN on real sites: twelve browsers, three sites, one exit each](75-human-real-sites-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
 | #74 | [Does the browser agree with its IP? Timezone, language and WebRTC through exits in three countries](74-timezone-locale-ip-consistency) | Medium | Camoufox, Google Chrome |

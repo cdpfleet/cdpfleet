@@ -1,0 +1,578 @@
+{
+  "measured_at": "2026-10-30",
+  "setups": {
+    "chrome_headful": "Chrome, headful",
+    "chrome_headless": "Chrome, headless",
+    "edge": "Edge, headful",
+    "brave": "Brave, headful",
+    "opera": "Opera, headful",
+    "yandex": "Yandex, headful",
+    "whale": "Whale, headful",
+    "chromium_headless": "Chromium, headless",
+    "patchright": "Patchright, headful",
+    "firefox": "Firefox, headful",
+    "webkit": "WebKit, headful",
+    "camoufox": "Camoufox, headful",
+    "camoufox_returning": "Camoufox, returning profile (2nd visit)"
+  },
+  "sites": [
+    {
+      "site": "A",
+      "results": {
+        "chrome_headful": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "chrome_headless": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "edge": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "brave": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "opera": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "yandex": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "whale": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "chromium_headless": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "patchright": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "firefox": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "webkit": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "camoufox": {
+          "outcome": "cleared",
+          "status": 429,
+          "final_status": 200,
+          "cleared_s": 3.9,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "camoufox_returning": {
+          "outcome": "content",
+          "status": 200,
+          "final_status": 200,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": []
+        }
+      }
+    },
+    {
+      "site": "B",
+      "results": {
+        "chrome_headful": {
+          "outcome": "cleared",
+          "status": 429,
+          "final_status": 200,
+          "cleared_s": 7.4,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "chrome_headless": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "edge": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "brave": {
+          "outcome": "cleared",
+          "status": 429,
+          "final_status": 200,
+          "cleared_s": 7.8,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "opera": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "yandex": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "whale": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "chromium_headless": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "patchright": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "firefox": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "webkit": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "camoufox": {
+          "outcome": "blocked",
+          "status": 429,
+          "final_status": 429,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        },
+        "camoufox_returning": {
+          "outcome": "content",
+          "status": 200,
+          "final_status": 200,
+          "kasada": true,
+          "aws_waf": false,
+          "cookies": [
+            "KP_UIDz",
+            "KP_UIDz-ssn"
+          ]
+        }
+      }
+    },
+    {
+      "site": "C",
+      "results": {
+        "chrome_headful": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 3.4,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "chrome_headless": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.8,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "edge": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 3.9,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "brave": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 3.1,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "opera": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 3.4,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "yandex": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 5.2,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "whale": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 5.1,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "chromium_headless": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.3,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "patchright": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 5.1,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "firefox": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.4,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "webkit": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 5.8,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "camoufox": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 3.9,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "camoufox_returning": {
+          "outcome": "error",
+          "status": 0,
+          "final_status": 0,
+          "kasada": false,
+          "aws_waf": false,
+          "cookies": []
+        }
+      }
+    },
+    {
+      "site": "D",
+      "results": {
+        "chrome_headful": {
+          "outcome": "error",
+          "status": 0,
+          "final_status": 0,
+          "kasada": false,
+          "aws_waf": false,
+          "cookies": []
+        },
+        "chrome_headless": {
+          "outcome": "blocked",
+          "status": 202,
+          "final_status": 403,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "edge": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.6,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "brave": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.9,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "opera": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.6,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "yandex": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.6,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "whale": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.7,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "chromium_headless": {
+          "outcome": "blocked",
+          "status": 202,
+          "final_status": 403,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "patchright": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.6,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "firefox": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.8,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "webkit": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.6,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "camoufox": {
+          "outcome": "cleared",
+          "status": 202,
+          "final_status": 200,
+          "cleared_s": 4.5,
+          "kasada": false,
+          "aws_waf": true,
+          "waf_action": "challenge",
+          "cookies": [
+            "aws-waf-token"
+          ]
+        },
+        "camoufox_returning": {
+          "outcome": "content",
+          "status": 200,
+          "final_status": 200,
+          "kasada": false,
+          "aws_waf": true,
+          "cookies": [
+            "aws-waf-token"
+          ]
+        }
+      }
+    }
+  ]
+}

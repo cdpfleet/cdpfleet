@@ -1,0 +1,43 @@
+{
+  "language": "node",
+  "inactivity_timeout_s": 30,
+  "before": {
+    "contexts": 2,
+    "pages": 3,
+    "url": "https://books.toscrape.com/catalogue/page-2.html"
+  },
+  "detached": {
+    "listed": true,
+    "running_seconds": 13,
+    "seconds": 15.1
+  },
+  "reconnect": {
+    "ms": 22,
+    "contexts": 2,
+    "pages": 3,
+    "urls": [
+      "/catalogue/a-light-in-the-attic_1000/index.html",
+      "/catalogue/category/books/poetry_23/index.html",
+      "/catalogue/page-2.html"
+    ],
+    "cookie": "2",
+    "local_storage": "{\"seen\":40,\"next\":\"page-3\"}",
+    "continued": "/catalogue/page-3.html"
+  },
+  "end": {
+    "gone_after_s": 61.1,
+    "late_reconnect": {
+      "connected": false,
+      "error": "browserType.connect: WebSocket error: wss://router01.cdpfleet.com/session/a17fefc7-b8e3-4565-9958-6da37e567d03 404 Not Found"
+    },
+    "end_reason": "inactivity_timeout",
+    "duration_seconds": 30,
+    "weight": 1,
+    "client_seconds": 29
+  },
+  "usage": {
+    "live_while_waiting": 49,
+    "billed": 30
+  },
+  "measured_at": "2026-10-30"
+}
