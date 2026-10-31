@@ -30,11 +30,11 @@ Claude, ChatGPT, Gemini and Cursor reach cdpfleet through its hosted MCP server,
 
 The same program in five languages, each verified on the production fleet (last run 2026-10-31):
 
-- [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
-- [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
-- [Java](Main.java) — Maven with com.microsoft.playwright:playwright:1.60.0 and com.google.code.gson:gson:2.11.0 (see templates/java), main class Main
-- [C#](Program.cs) — dotnet new console, dotnet add package Microsoft.Playwright --version 1.60.0, replace Program.cs, dotnet run
-- [Go](main.go) — go mod init example && go get github.com/playwright-community/playwright-go@v0.6000.0 && go run . (driver setup: templates/go/README.md)
+- [Node.js](node.mjs) — npm install @modelcontextprotocol/sdk@1.32.2 && node node.mjs
+- [Python](main.py) — pip install mcp==2.3.0 && python main.py
+- [Java](Main.java) — Maven with io.modelcontextprotocol.sdk:mcp:2.1.0 and com.google.code.gson:gson:2.11.0 (the templates/java pom plus the MCP SDK), main class Main
+- [C#](Program.cs) — dotnet new console, dotnet add package ModelContextProtocol --version 2.3.0, replace Program.cs, dotnet run
+- [Go](main.go) — go mod init example && go run . (standard library only: JSON-RPC over HTTP)
 
 Environment: `CDPFLEET_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md#environment)).
 

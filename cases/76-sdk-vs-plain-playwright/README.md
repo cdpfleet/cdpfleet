@@ -31,11 +31,11 @@ cdpfleet works with plain Playwright: one HTTP request launches a browser, `conn
 
 The same program in five languages, each verified on the production fleet (last run 2026-10-29):
 
-- [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
-- [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
+- [Node.js](node.mjs) — npm install playwright@1.60.0 cdpfleet@0.1.1 && node node.mjs
+- [Python](main.py) — pip install playwright==1.60.0 requests cdpfleet==0.1.1 && python main.py
 - [Java](Main.java) — Maven with com.microsoft.playwright:playwright:1.60.0 and com.google.code.gson:gson:2.11.0 (see templates/java), main class Main
 - [C#](Program.cs) — dotnet new console, dotnet add package Microsoft.Playwright --version 1.60.0, replace Program.cs, dotnet run
-- [Go](main.go) — go mod init example && go get github.com/playwright-community/playwright-go@v0.6000.0 && go run . (driver setup: templates/go/README.md)
+- [Go](main.go) — go mod init example && go get github.com/playwright-community/playwright-go@v0.6000.0 github.com/cdpfleet/cdpfleet/sdk/go@v0.1.1 && go run . (driver setup: templates/go/README.md)
 
 Environment: `CDPFLEET_API_KEY`, `COMMUNITY_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md#environment)).
 
