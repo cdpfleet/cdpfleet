@@ -1,0 +1,136 @@
+{
+  "language": "node",
+  "one_session": {
+    "mcp_session": true,
+    "tools": [
+      "account",
+      "click",
+      "close_browser",
+      "evaluate",
+      "launch_browser",
+      "list_browsers",
+      "live_view",
+      "navigate",
+      "press",
+      "screenshot",
+      "snapshot",
+      "type",
+      "wait_for"
+    ],
+    "browser": "chromium",
+    "version": "148.0.7778.96",
+    "resource_class": "linux_headless",
+    "weight": 1,
+    "session_id": "5b23c145-66cd-4d42-9435-171dd9af475d",
+    "navigate": "200 https://books.toscrape.com/",
+    "snapshot_chars": 16662,
+    "snapshot_list_chars": 9955,
+    "html_chars": 50989,
+    "books": 20,
+    "first_book": {
+      "title": "A Light in the Attic",
+      "price": "£51.77"
+    },
+    "closed": true,
+    "after_close": {
+      "error": true,
+      "text": "No browser is open. Call launch_browser first."
+    },
+    "live_sessions_after": 0,
+    "calls": [
+      {
+        "tool": "initialize",
+        "ms": 261,
+        "error": false
+      },
+      {
+        "tool": "tools/list",
+        "ms": 46,
+        "error": false
+      },
+      {
+        "tool": "launch_browser",
+        "ms": 584,
+        "error": false
+      },
+      {
+        "tool": "navigate",
+        "ms": 3317,
+        "error": false
+      },
+      {
+        "tool": "snapshot",
+        "ms": 190,
+        "error": false
+      },
+      {
+        "tool": "snapshot",
+        "ms": 121,
+        "error": false
+      },
+      {
+        "tool": "evaluate",
+        "ms": 77,
+        "error": false
+      },
+      {
+        "tool": "evaluate",
+        "ms": 65,
+        "error": false
+      },
+      {
+        "tool": "close_browser",
+        "ms": 29,
+        "error": false
+      },
+      {
+        "tool": "navigate",
+        "ms": 25,
+        "error": true
+      },
+      {
+        "tool": "account",
+        "ms": 107,
+        "error": false
+      }
+    ]
+  },
+  "per_call": {
+    "mcp_sessions": 4,
+    "distinct_mcp_sessions": 4,
+    "browser_session_id": "87f73103-8085-4ebe-956a-a86284f16b62",
+    "navigate": "200 https://books.toscrape.com/catalogue/page-2.html",
+    "later_session_sees": {
+      "url": "https://books.toscrape.com/catalogue/page-2.html",
+      "books": 20
+    },
+    "closed_same_browser": true,
+    "calls": [
+      {
+        "tool": "launch_browser",
+        "ms": 486,
+        "error": false,
+        "with_initialize_ms": 541
+      },
+      {
+        "tool": "navigate",
+        "ms": 4413,
+        "error": false,
+        "with_initialize_ms": 4480
+      },
+      {
+        "tool": "evaluate",
+        "ms": 36,
+        "error": false,
+        "with_initialize_ms": 137
+      },
+      {
+        "tool": "close_browser",
+        "ms": 31,
+        "error": false,
+        "with_initialize_ms": 91
+      }
+    ]
+  },
+  "measured_at": "2026-10-31"
+}
