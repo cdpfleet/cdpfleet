@@ -23,6 +23,7 @@ const HINTS = {
   threads_exceeded: 'The free plan runs 2 threads at a time — paid plans start at 5, and scale to thousands.',
   profiles_disabled: 'Persistent profiles (stay logged in across sessions) come with every paid plan.',
   keep_alive_requires_dedicated: 'keep_alive (reconnect to a running browser) comes with dedicated threads.',
+  downloads_not_available: 'Kept downloads (files saved for 2 days) come with every paid plan.',
 };
 
 // The browser a client works with: { fleet, current: { session, browser, page, name } | null }.
@@ -87,6 +88,7 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
       proxy: z.string().optional().describe('Proxy URL (http/https/socks5) or a cdpfleet-resi token. Default: CDPFLEET_PROXY or cdpfleet-resi'),
       country: z.string().length(2).optional().describe('Residential exit country (ISO code) when using the cdpfleet residential proxy'),
       record: z.boolean().default(true).describe('Keep a video recording of the session'),
+      downloads: z.boolean().default(false).describe('Keep every file the browser downloads, to fetch with the downloads tool after close_browser (paid plans, kept 2 days)'),
       options: z.record(z.any()).optional().describe('Extra launch options passed unchanged (e.g. channel, version, screen_size, Camoufox os/locale)'),
     },
   }, tool(async (args) => {
@@ -96,7 +98,7 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     }
   }));
 
-  async function launch({ browser, headless, proxy, country, record, options }) {
+  async function launch({ browser, headless, proxy, country, record, downloads, options }) {
     if (state.current) await closeCurrent();
     let p = proxy || state.defaultProxy || 'cdpfleet-resi';
     if (country && p.startsWith('cdpfleet-resi')) p = `${p}-country-${country.toLowerCase()}`;
@@ -109,7 +111,7 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     // second): retry a refused key briefly instead of failing the first launch.
     let session;
     for (let i = 0; ; i++) {
-      try { session = await fleet.launch(browser, { proxy: p, headless, record, ...live, ...idle, ...(options || {}) }); break; } catch (err) {
+      try { session = await fleet.launch(browser, { proxy: p, headless, record, ...(downloads ? { downloads: true } : {}), ...live, ...idle, ...(options || {}) }); break; } catch (err) {
         if (i >= 15 || !/invalid_api_key/.test(String(err.message || err))) throw err;
         await new Promise((r) => setTimeout(r, 1000));
       }
@@ -199,7 +201,19 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
   }));
 
   server.registerTool('close_browser', { description: 'End the browser session (stops billing). The video recording appears in the dashboard (Sessions) shortly after.', inputSchema: {} },
-    tool(async () => { const id = need().session.id; await closeCurrent(); return text(`Session ${id} ended.${await nudge()}`); }));
+    tool(async () => { const id = need().session.id; state.lastSessionId = id; await closeCurrent(); return text(`Session ${id} ended.${await nudge()}`); }));
+
+  server.registerTool('downloads', {
+    description: 'Files kept from a session launched with downloads: true — names, sizes and a private link per file (valid 15 minutes). Files appear within about a minute after close_browser; kept 2 days.',
+    inputSchema: { session_id: z.string().optional().describe('Default: the session closed last') },
+  }, tool(async ({ session_id: sid }) => {
+    const id = sid || state.lastSessionId;
+    if (!id) return fail('No session yet: launch with downloads: true, download something, close_browser, then call downloads.');
+    const { files = [] } = await fleet.request('GET', `/v1/me/downloads?session_id=${encodeURIComponent(id)}`);
+    if (!files.length) return text(`No kept files for session ${id} yet. They appear within about a minute after the session ends, and only for sessions launched with downloads: true.`);
+    const links = await Promise.all(files.map((f) => fleet.request('GET', `/v1/me/downloads/${f.id}/url`).then((r) => r.url).catch(() => null)));
+    return text(files.map((f, i) => `${f.name} — ${f.bytes ?? '?'} bytes, sha256 ${f.sha256 ?? '?'}${links[i] ? `\n  ${links[i]}` : ''}`).join('\n'));
+  }));
 
   server.registerTool('list_browsers', { description: 'The browsers cdpfleet offers, with their versions and channels.', inputSchema: {} },
     tool(async () => {
