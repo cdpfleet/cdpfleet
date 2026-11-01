@@ -20,6 +20,7 @@ claude mcp add cdpfleet -e CDPFLEET_API_KEY=your-key -- npx -y cdpfleet-mcp
 Optional `CDPFLEET_PROXY`: the default proxy (else the cdpfleet residential proxy, billed per GB).
 
 Tools: `launch_browser`, `navigate`, `snapshot`, `click`, `type`, `press`, `wait_for`,
-`screenshot`, `evaluate`, `live_view`, `close_browser`, `list_browsers`, `account`.
+`screenshot`, `evaluate`, `live_view`, `close_browser`, `downloads`, `list_browsers`, `account`.
+Launch with `downloads: true` (paid plans) and `downloads` lists the files the session downloaded, with private links, after `close_browser`.
 
 Docs: https://cdpfleet.com/docs/mcp

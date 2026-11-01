@@ -78,7 +78,7 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
     throw new Error('Give a selector, or a role (and name).');
   }
 
-  const server = new McpServer({ name: 'cdpfleet', version: '0.1.2' });
+  const server = new McpServer({ name: 'cdpfleet', version: '0.1.3' });
 
   server.registerTool('launch_browser', {
     description: 'Start a real remote browser on cdpfleet and open a page. Pick the browser the site should see. Headful by default (2 threads; less detectable). Proxy: your own proxy URL, or cdpfleet residential (default; billed per GB from your balance), optionally by country.',
