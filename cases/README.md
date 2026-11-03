@@ -93,6 +93,7 @@ The programs read their configuration from environment variables:
 |---|---|
 | `CDPFLEET_API_KEY` | your API key (dashboard → API keys) |
 | `COMMUNITY_API_KEY` | an API key of an account on the free Community plan (cases about that plan) |
+| `CDPFLEET_DEDICATED_API_KEY` | an API key of an account on a dedicated plan (optional; cases that compare plans) |
 | `PROXY_URL` | your proxy, e.g. `http://user:pass@proxy.example.com:8000` |
 | `PROXY_URL_DE`, `PROXY_URL_US`, `PROXY_URL_JP` | proxy exits in Germany, the US, Japan (cases that compare countries) |
 | `SOCKS_PROXIES` | comma-separated `socks5://user:pass@host:port` proxies (cases that use several proxies) |

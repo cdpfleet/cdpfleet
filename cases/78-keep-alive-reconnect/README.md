@@ -37,7 +37,7 @@ The same program in five languages, each verified on the production fleet (last 
 - [C#](Program.cs) — dotnet new console, dotnet add package Microsoft.Playwright --version 1.60.0, replace Program.cs, dotnet run
 - [Go](main.go) — go mod init example && go get github.com/playwright-community/playwright-go@v0.6000.0 && go run . (driver setup: templates/go/README.md)
 
-Environment: `PROXY_URL` (see [cases/README.md](../README.md#environment)).
+Environment: `CDPFLEET_DEDICATED_API_KEY`, `PROXY_URL` (see [cases/README.md](../README.md#environment)).
 
 ## What we got
 
