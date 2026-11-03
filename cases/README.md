@@ -4,6 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #80 | [How many tabs fit in one session, by plan, browser and "memory"](80-tabs-and-memory-by-plan) | Easy | Chromium, Firefox, WebKit |
 | #79 | [MCP in action: an MCP client drives a cloud browser through cdpfleet.com/mcp](79-mcp-in-action) | Easy | Chromium |
 | #78 | [keep_alive: an agent run that survives its client going away](78-keep-alive-reconnect) | Medium | Chromium |
 | #77 | [Kasada and AWS WAF on real sites: twelve browsers, four sites, one exit each](77-kasada-and-aws-waf-by-browser) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |

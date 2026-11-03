@@ -1,0 +1,92 @@
+{
+  "language": "node",
+  "page": "https://en.wikipedia.org/wiki/World_War_II",
+  "max_tabs": 50,
+  "measured_at": "2026-11-03",
+  "runs": [
+    {
+      "plan": "Community",
+      "engine": "chromium",
+      "memory": 1,
+      "weight": 1,
+      "memory_mb": 2048,
+      "tabs": 18,
+      "client_error": "Session closed: session_memory_limit (browser ran out of memory: plan limit 2048 MB)",
+      "tab_51": null,
+      "end_reason": "session_memory_limit",
+      "memory_peak_mb": 2048,
+      "seconds": 25,
+      "thread_seconds": 25
+    },
+    {
+      "plan": "Shared",
+      "engine": "chromium",
+      "memory": 1,
+      "weight": 1,
+      "memory_mb": 4096,
+      "tabs": 36,
+      "client_error": "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)",
+      "tab_51": null,
+      "end_reason": "session_memory_limit",
+      "memory_peak_mb": 4096,
+      "seconds": 27,
+      "thread_seconds": 27
+    },
+    {
+      "plan": "Shared",
+      "engine": "firefox",
+      "memory": 1,
+      "weight": 1,
+      "memory_mb": 4096,
+      "tabs": 28,
+      "client_error": "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)",
+      "tab_51": null,
+      "end_reason": "session_memory_limit",
+      "memory_peak_mb": 4096,
+      "seconds": 46,
+      "thread_seconds": 46
+    },
+    {
+      "plan": "Shared",
+      "engine": "webkit",
+      "memory": 1,
+      "weight": 1,
+      "memory_mb": 4096,
+      "tabs": 18,
+      "client_error": "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)",
+      "tab_51": null,
+      "end_reason": "session_memory_limit",
+      "memory_peak_mb": 4096,
+      "seconds": 185,
+      "thread_seconds": 185
+    },
+    {
+      "plan": "Shared",
+      "engine": "chromium",
+      "memory": 2,
+      "weight": 2,
+      "memory_mb": 8192,
+      "tabs": 50,
+      "client_error": null,
+      "tab_51": "browserContext.newPage: Target page, context or browser has been closed",
+      "end_reason": "client_closed",
+      "memory_peak_mb": 5246,
+      "seconds": 49,
+      "thread_seconds": 98
+    },
+    {
+      "plan": "Dedicated",
+      "engine": "chromium",
+      "memory": 1,
+      "weight": 1,
+      "memory_mb": 6144,
+      "tabs": 50,
+      "client_error": null,
+      "tab_51": "browserContext.newPage: Target page, context or browser has been closed",
+      "end_reason": "client_closed",
+      "memory_peak_mb": 5130,
+      "seconds": 77,
+      "thread_seconds": 77
+    }
+  ]
+}
