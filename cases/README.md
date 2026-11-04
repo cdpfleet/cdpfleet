@@ -4,6 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #82 | [Kept downloads in practice: a person in Launch interactive and an AI agent over MCP](82-downloads-in-practice) | Easy | Chromium |
 | #81 | [Behaviour scoring: Camoufox humanize on and off vs plain Chrome clicks on a public bot-test form](81-behaviour-scoring-humanize) | Medium | Camoufox, Google Chrome |
 | #80 | [How many tabs fit in one session, by plan, browser and "memory"](80-tabs-and-memory-by-plan) | Easy | Chromium, Firefox, WebKit |
 | #79 | [MCP in action: an MCP client drives a cloud browser through cdpfleet.com/mcp](79-mcp-in-action) | Easy | Chromium |

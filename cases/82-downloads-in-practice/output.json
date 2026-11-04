@@ -1,0 +1,139 @@
+{
+  "language": "node",
+  "person": {
+    "launch_downloads": true,
+    "resource_class": "linux_headless",
+    "live_protocol": "screencast",
+    "start_page_shown": true,
+    "frames": 7,
+    "pasted": [
+      "https://httpbingo.org/bytes/204800?seed=82",
+      "https://httpbingo.org/bytes/65536?seed=7"
+    ],
+    "page_after": "https://httpbingo.org/",
+    "end_status": 200,
+    "end_ms": 75,
+    "listed_after_ms": 309,
+    "files": [
+      {
+        "name": "204800",
+        "bytes": 204800,
+        "sha256": "4b2aa65bcf5e8352567b9360449ae160428bb23569ca520cead5909f13e96987",
+        "source_url": "https://httpbingo.org/bytes/204800?seed=82",
+        "link": "GET /v1/me/downloads/{id}/url (900 s)",
+        "fetched_status": 200,
+        "fetched_type": "application/octet-stream",
+        "fetched_bytes": 204800,
+        "fetched_sha256": "4b2aa65bcf5e8352567b9360449ae160428bb23569ca520cead5909f13e96987",
+        "original_bytes": 204800,
+        "original_sha256": "4b2aa65bcf5e8352567b9360449ae160428bb23569ca520cead5909f13e96987"
+      },
+      {
+        "name": "65536",
+        "bytes": 65536,
+        "sha256": "959b88aba150008c47bbc36cd2f68d8debd29e6849520b2301d1ecbbd02e2898",
+        "source_url": "https://httpbingo.org/bytes/65536?seed=7",
+        "link": "GET /v1/me/downloads/{id}/url (900 s)",
+        "fetched_status": 200,
+        "fetched_type": "application/octet-stream",
+        "fetched_bytes": 65536,
+        "fetched_sha256": "959b88aba150008c47bbc36cd2f68d8debd29e6849520b2301d1ecbbd02e2898",
+        "original_bytes": 65536,
+        "original_sha256": "959b88aba150008c47bbc36cd2f68d8debd29e6849520b2301d1ecbbd02e2898"
+      }
+    ]
+  },
+  "agent": {
+    "session_id_found": true,
+    "calls": [
+      {
+        "tool": "launch_browser",
+        "ms": 602,
+        "error": false,
+        "text": "Launched chromium 148.0.7778.96 (linux_headless, 1 thread(s)), session e5cd63b0-e45e-42cd-9dd6-b6cfd8d6bea1. Proxy: your proxy. Use navigate next."
+      },
+      {
+        "tool": "navigate",
+        "ms": 1264,
+        "error": false,
+        "text": "200 https://httpbingo.org/"
+      },
+      {
+        "tool": "click",
+        "ms": 552,
+        "error": false,
+        "text": "Clicked. Now at https://httpbingo.org/"
+      },
+      {
+        "tool": "navigate",
+        "ms": 431,
+        "error": true,
+        "text": "page.goto: Download is starting"
+      },
+      {
+        "tool": "evaluate",
+        "ms": 42,
+        "error": false,
+        "text": "https://httpbingo.org/"
+      },
+      {
+        "tool": "close_browser",
+        "ms": 45,
+        "error": false,
+        "text": "Session e5cd63b0-e45e-42cd-9dd6-b6cfd8d6bea1 ended."
+      },
+      {
+        "tool": "downloads",
+        "ms": 137,
+        "error": false,
+        "text": "102400 — 102400 bytes, sha256 69c384ebb4f18694d18e6c5bb03bac3a261bd1be2227ade66b842d3cee765c3f",
+        "polls": 2
+      }
+    ],
+    "tool_listed_after_ms": 741,
+    "first_downloads_call": "No kept files for session e5cd63b0-e45e-42cd-9dd6-b6cfd8d6bea1 yet. They appear within about a minute after the session ends, and only for sessions launched wit",
+    "tool_files": [
+      {
+        "name": "102400",
+        "bytes": 102400,
+        "sha256": "69c384ebb4f18694d18e6c5bb03bac3a261bd1be2227ade66b842d3cee765c3f",
+        "link_host": "cdpfleet.com"
+      },
+      {
+        "name": "1024",
+        "bytes": 1024,
+        "sha256": "3f15a75906526a96a1cd8bf481d5294a1f36e6ca97747b81a8cd8a6fb9a50c81",
+        "link_host": "cdpfleet.com"
+      }
+    ],
+    "files": [
+      {
+        "name": "102400",
+        "bytes": 102400,
+        "sha256": "69c384ebb4f18694d18e6c5bb03bac3a261bd1be2227ade66b842d3cee765c3f",
+        "source_url": "https://httpbingo.org/bytes/102400?seed=79",
+        "link": "from the downloads tool",
+        "fetched_status": 200,
+        "fetched_type": "application/octet-stream",
+        "fetched_bytes": 102400,
+        "fetched_sha256": "69c384ebb4f18694d18e6c5bb03bac3a261bd1be2227ade66b842d3cee765c3f",
+        "original_bytes": 102400,
+        "original_sha256": "69c384ebb4f18694d18e6c5bb03bac3a261bd1be2227ade66b842d3cee765c3f"
+      },
+      {
+        "name": "1024",
+        "bytes": 1024,
+        "sha256": "3f15a75906526a96a1cd8bf481d5294a1f36e6ca97747b81a8cd8a6fb9a50c81",
+        "source_url": "https://httpbingo.org/bytes/1024",
+        "link": "from the downloads tool",
+        "fetched_status": 200,
+        "fetched_type": "application/octet-stream",
+        "fetched_bytes": 1024,
+        "fetched_sha256": "3f15a75906526a96a1cd8bf481d5294a1f36e6ca97747b81a8cd8a6fb9a50c81",
+        "original_bytes": null,
+        "original_sha256": null
+      }
+    ]
+  },
+  "measured_at": "2026-11-04"
+}

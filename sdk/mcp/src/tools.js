@@ -201,15 +201,21 @@ export function createServer({ apiKey, defaultProxy, state = createState({ apiKe
   }));
 
   server.registerTool('close_browser', { description: 'End the browser session (stops billing). The video recording appears in the dashboard (Sessions) shortly after.', inputSchema: {} },
-    tool(async () => { const id = need().session.id; state.lastSessionId = id; await closeCurrent(); return text(`Session ${id} ended.${await nudge()}`); }));
+    tool(async () => { const id = need().session.id; state.lastSessionId = id; state.lastClosedAt = Date.now(); await closeCurrent(); return text(`Session ${id} ended.${await nudge()}`); }));
 
   server.registerTool('downloads', {
-    description: 'Files kept from a session launched with downloads: true — names, sizes and a private link per file (valid 15 minutes). Files appear within about a minute after close_browser; kept 2 days.',
+    description: 'Files kept from a session launched with downloads: true — names, sizes and a private link per file (valid 15 minutes). Files appear about a second after close_browser (this tool waits for them); kept 2 days.',
     inputSchema: { session_id: z.string().optional().describe('Default: the session closed last') },
   }, tool(async ({ session_id: sid }) => {
     const id = sid || state.lastSessionId;
     if (!id) return fail('No session yet: launch with downloads: true, download something, close_browser, then call downloads.');
-    const { files = [] } = await fleet.request('GET', `/v1/me/downloads?session_id=${encodeURIComponent(id)}`);
+    let { files = [] } = await fleet.request('GET', `/v1/me/downloads?session_id=${encodeURIComponent(id)}`);
+    // Files are listed about a second after the session ends (case downloads-in-practice): right after
+    // close_browser, wait up to 5 s for them rather than send the assistant away empty-handed.
+    for (let i = 0; !files.length && id === state.lastSessionId && Date.now() - (state.lastClosedAt || 0) < 5000 && i < 10; i++) {
+      await new Promise((r) => setTimeout(r, 500));
+      ({ files = [] } = await fleet.request('GET', `/v1/me/downloads?session_id=${encodeURIComponent(id)}`));
+    }
     if (!files.length) return text(`No kept files for session ${id} yet. They appear within about a minute after the session ends, and only for sessions launched with downloads: true.`);
     const links = await Promise.all(files.map((f) => fleet.request('GET', `/v1/me/downloads/${f.id}/url`).then((r) => r.url).catch(() => null)));
     return text(files.map((f, i) => `${f.name} — ${f.bytes ?? '?'} bytes, sha256 ${f.sha256 ?? '?'}${links[i] ? `\n  ${links[i]}` : ''}`).join('\n'));
