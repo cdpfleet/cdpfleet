@@ -12,11 +12,11 @@ import { chromium } from 'playwright';
 
 const KEY = process.env.CDPFLEET_API_KEY;
 
-// 1. Launch a browser (every session needs your proxy)
+// 1. Launch a browser (no proxy needed: the plan's shared proxy is used; add "proxy" for your own)
 const res = await fetch('https://starter.cdpfleet.com/chromium/session', {
   method: 'POST',
   headers: { 'x-api-key': KEY, 'content-type': 'application/json' },
-  body: JSON.stringify({ proxy: 'http://user:pass@proxy.example.com:8080', headless: true }),
+  body: JSON.stringify({ headless: true }),
 });
 const { wsUrl } = await res.json();
 

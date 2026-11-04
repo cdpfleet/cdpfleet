@@ -1,7 +1,7 @@
 # Getting started
 
 1. **Get an API key** in the [dashboard](https://cdpfleet.com/app) → API keys. It's shown once; keep it in an environment variable, e.g. `CDPFLEET_API_KEY`.
-2. **Have a proxy.** Every session browses through a proxy you provide (HTTP, HTTPS or SOCKS5). You can save and test proxies in the dashboard → Proxies.
+2. **A proxy is optional.** Without `proxy`, a session uses the free shared proxy every plan includes (slower at peak times). To use your own, pass it as `proxy` (HTTP, HTTPS or SOCKS5) — see [proxies](proxies.md); you can save and test proxies in the dashboard → Proxies.
 3. **Install Playwright 1.60** for your language — the client must match the server's minor version:
 
    | Language | Install |

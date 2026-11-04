@@ -13,7 +13,6 @@ public class Example {
     // 1. Launch the browser
     String body = """
         {
-          "proxy": "http://user:pass@proxy.example.com:8080",
           "headless": true
         }
         """;

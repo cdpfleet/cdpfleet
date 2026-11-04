@@ -9,7 +9,6 @@ const res = await fetch('https://starter.cdpfleet.com/chromium/session', {
   method: 'POST',
   headers: { 'x-api-key': KEY, 'content-type': 'application/json' },
   body: JSON.stringify({
-    proxy: 'http://user:pass@proxy.example.com:8080',
     headless: true,
   }),
 });

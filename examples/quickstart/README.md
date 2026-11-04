@@ -1,6 +1,6 @@
 # Quickstart
 
-Launch a Chromium browser, open a page, print its title, close the session.
+Launch a Chromium browser, open a page, print its title, close the session. No proxy needed: without `proxy` the session uses the free shared proxy every plan includes; pass `"proxy"` to use your own.
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)

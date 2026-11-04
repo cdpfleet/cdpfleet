@@ -12,7 +12,6 @@ using var http = new HttpClient();
 http.DefaultRequestHeaders.Add("x-api-key", key);
 var body = """
     {
-      "proxy": "http://user:pass@proxy.example.com:8080",
       "headless": true
     }
     """;

@@ -11,7 +11,6 @@ res = requests.post(
     "https://starter.cdpfleet.com/chromium/session",
     headers={"x-api-key": KEY},
     json={
-        "proxy": "http://user:pass@proxy.example.com:8080",
         "headless": True,
     },
     timeout=60,
