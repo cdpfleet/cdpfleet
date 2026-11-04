@@ -1,0 +1,541 @@
+{
+  "measured_at": "2026-11-04",
+  "runs": [
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 1,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 3,
+      "action_seconds": 2.7,
+      "measured": {
+        "time_to_fill_ms": 2302,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 16
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 1,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 3,
+      "action_seconds": 4.5,
+      "measured": {
+        "time_to_fill_ms": 4254,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 125
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 1,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 58,
+      "action_seconds": 6.8,
+      "measured": {
+        "time_to_fill_ms": 4316,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 9
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 1,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 84,
+      "action_seconds": 6.4,
+      "measured": {
+        "time_to_fill_ms": 5261,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 126
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 1,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 78,
+      "action_seconds": 2.6,
+      "measured": {
+        "time_to_fill_ms": 1335,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 3
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 1,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 49,
+      "action_seconds": 5.5,
+      "measured": {
+        "time_to_fill_ms": 4391,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 123
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 1,
+      "typing": "fast",
+      "verdict": "bot",
+      "flags": [
+        "hasInconsistentTimingResolution",
+        "isAutomatedWithCDP",
+        "isAutomatedWithCDPInWebWorker",
+        "hasSuspiciousWeakSignals",
+        "suspiciousClientSideBehavior",
+        "superHumanSpeed"
+      ],
+      "moves": 3,
+      "action_seconds": 0.8,
+      "measured": {
+        "time_to_fill_ms": 350,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 3
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 1,
+      "typing": "paced",
+      "verdict": "bot",
+      "flags": [
+        "hasInconsistentTimingResolution",
+        "isAutomatedWithCDP",
+        "isAutomatedWithCDPInWebWorker",
+        "hasSuspiciousWeakSignals",
+        "suspiciousClientSideBehavior"
+      ],
+      "moves": 3,
+      "action_seconds": 4.5,
+      "measured": {
+        "time_to_fill_ms": 4156,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 125
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 2,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 3,
+      "action_seconds": 2.2,
+      "measured": {
+        "time_to_fill_ms": 1939,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 4
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 2,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 3,
+      "action_seconds": 4.2,
+      "measured": {
+        "time_to_fill_ms": 4016,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 128
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 2,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 75,
+      "action_seconds": 5.9,
+      "measured": {
+        "time_to_fill_ms": 3225,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 14
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 2,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 72,
+      "action_seconds": 6.2,
+      "measured": {
+        "time_to_fill_ms": 5243,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 127
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 2,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 67,
+      "action_seconds": 6.5,
+      "measured": {
+        "time_to_fill_ms": 4621,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 32
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 2,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 76,
+      "action_seconds": 6.7,
+      "measured": {
+        "time_to_fill_ms": 5518,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 129
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 2,
+      "typing": "fast",
+      "verdict": "bot",
+      "flags": [
+        "hasInconsistentTimingResolution",
+        "isAutomatedWithCDP",
+        "isAutomatedWithCDPInWebWorker",
+        "hasSuspiciousWeakSignals",
+        "suspiciousClientSideBehavior",
+        "superHumanSpeed"
+      ],
+      "moves": 3,
+      "action_seconds": 0.6,
+      "measured": {
+        "time_to_fill_ms": 192,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 3
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 2,
+      "typing": "paced",
+      "verdict": "bot",
+      "flags": [
+        "hasInconsistentTimingResolution",
+        "isAutomatedWithCDP",
+        "isAutomatedWithCDPInWebWorker",
+        "hasSuspiciousWeakSignals",
+        "suspiciousClientSideBehavior"
+      ],
+      "moves": 3,
+      "action_seconds": 4.4,
+      "measured": {
+        "time_to_fill_ms": 4061,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 125
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 3,
+      "typing": "fast",
+      "verdict": "bot",
+      "flags": [
+        "suspiciousClientSideBehavior",
+        "superHumanSpeed"
+      ],
+      "moves": 3,
+      "action_seconds": 0.9,
+      "measured": {
+        "time_to_fill_ms": 508,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 4
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 3,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 3,
+      "action_seconds": 4.6,
+      "measured": {
+        "time_to_fill_ms": 4305,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 126
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 3,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 43,
+      "action_seconds": 4.2,
+      "measured": {
+        "time_to_fill_ms": 3067,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 14
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 3,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 75,
+      "action_seconds": 6.1,
+      "measured": {
+        "time_to_fill_ms": 4937,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 124
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 3,
+      "typing": "fast",
+      "verdict": "human",
+      "flags": [],
+      "moves": 69,
+      "action_seconds": 4.4,
+      "measured": {
+        "time_to_fill_ms": 3123,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 7
+      }
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 3,
+      "typing": "paced",
+      "verdict": "human",
+      "flags": [],
+      "moves": 65,
+      "action_seconds": 6.2,
+      "measured": {
+        "time_to_fill_ms": 5014,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 126
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 3,
+      "typing": "fast",
+      "verdict": "bot",
+      "flags": [
+        "hasInconsistentTimingResolution",
+        "isAutomatedWithCDP",
+        "isAutomatedWithCDPInWebWorker",
+        "hasSuspiciousWeakSignals",
+        "suspiciousClientSideBehavior",
+        "superHumanSpeed"
+      ],
+      "moves": 3,
+      "action_seconds": 0.5,
+      "measured": {
+        "time_to_fill_ms": 171,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 3
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 3,
+      "typing": "paced",
+      "verdict": "bot",
+      "flags": [
+        "hasInconsistentTimingResolution",
+        "isAutomatedWithCDP",
+        "isAutomatedWithCDPInWebWorker",
+        "hasSuspiciousWeakSignals",
+        "suspiciousClientSideBehavior"
+      ],
+      "moves": 3,
+      "action_seconds": 4.2,
+      "measured": {
+        "time_to_fill_ms": 3958,
+        "exact_center_clicks": 3,
+        "untrusted_event": false,
+        "cdp_mouse_leak": false,
+        "key_gap_median_ms": 125
+      }
+    }
+  ],
+  "recaptcha": [
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 1,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 1,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 1,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 1,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 2,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 2,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 2,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 2,
+      "before": null,
+      "after": null
+    },
+    {
+      "setup": "Camoufox, humanize: false",
+      "key": "cf_off",
+      "repeat": 3,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Camoufox, humanize: true (default)",
+      "key": "cf_on",
+      "repeat": 3,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Camoufox, humanize: 3",
+      "key": "cf_slow",
+      "repeat": 3,
+      "before": 0.9,
+      "after": 0.9
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "key": "chrome",
+      "repeat": 3,
+      "before": 0.9,
+      "after": 0.9
+    }
+  ]
+}
