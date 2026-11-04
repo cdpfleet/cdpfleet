@@ -33,7 +33,12 @@ public class Main {
     return JsonParser.parseString(HTTP.send(req, HttpResponse.BodyHandlers.ofString()).body()).getAsJsonObject();
   }
 
-  static String firstLine(Exception e) { return String.valueOf(e.getMessage()).split("\n")[0]; }
+  // Playwright for Java wraps the message as "Error {\n  message='…'\n  name=…": take the message line.
+  static String firstLine(Exception e) {
+    String m = String.valueOf(e.getMessage());
+    java.util.regex.Matcher x = java.util.regex.Pattern.compile("message='([^\n]*)").matcher(m);
+    return x.find() ? x.group(1).replaceAll("'$", "") : m.split("\n")[0];
+  }
 
   static JsonObject run(Playwright pw, String env, String engine, int memory) throws Exception {
     String key = System.getenv(env);

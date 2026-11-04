@@ -28,7 +28,7 @@ A crawler that keeps tabs open, an agent that never closes what it opened, a tes
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-11-03):
+The same program in five languages, each verified on the production fleet (last run 2026-11-04):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -42,12 +42,12 @@ Environment: `CDPFLEET_API_KEY`, `COMMUNITY_API_KEY`, `CDPFLEET_DEDICATED_API_KE
 
 | Plan · browser · memory | Memory cap · weight | Tabs opened | What ended it | Billed | Measured |
 |---|---|---|---|---|---|
-| Community · chromium | 2048 MB · weight 1 | 18 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 2048 MB)" | 25 s × 1 = 25 thread-seconds | 2026-11-03 |
-| Shared · chromium | 4096 MB · weight 1 | 36 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)" | 27 s × 1 = 27 thread-seconds | 2026-11-03 |
-| Shared · firefox | 4096 MB · weight 1 | 28 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)" | 46 s × 1 = 46 thread-seconds | 2026-11-03 |
-| Shared · webkit | 4096 MB · weight 1 | 18 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)" | 185 s × 1 = 185 thread-seconds | 2026-11-03 |
-| Shared · chromium · "memory": 2 | 8192 MB · weight 2 | 50 (the cap; 51st: refused) | client_closed (closed by the client), peak 5246 MB | 49 s × 2 = 98 thread-seconds | 2026-11-03 |
-| Dedicated · chromium | 6144 MB · weight 1 | 50 (the cap; 51st: refused) | client_closed (closed by the client), peak 5130 MB | 77 s × 1 = 77 thread-seconds | 2026-11-03 |
+| Community · chromium | 2048 MB · weight 1 | 20 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 2048 MB)" | 90 s × 1 = 90 thread-seconds | 2026-11-04 |
+| Shared · chromium | 4096 MB · weight 1 | 37 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)" | 40 s × 1 = 40 thread-seconds | 2026-11-04 |
+| Shared · firefox | 4096 MB · weight 1 | 26 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)" | 40 s × 1 = 40 thread-seconds | 2026-11-04 |
+| Shared · webkit | 4096 MB · weight 1 | 18 | session_memory_limit — the client saw "Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)" | 127 s × 1 = 127 thread-seconds | 2026-11-04 |
+| Shared · chromium · "memory": 2 | 8192 MB · weight 2 | 50 (the cap; 51st: refused) | client_closed (closed by the client), peak 5298 MB | 53 s × 2 = 106 thread-seconds | 2026-11-04 |
+| Dedicated · chromium | 6144 MB · weight 1 | 50 (the cap; 51st: refused) | client_closed (closed by the client), peak 5294 MB | 51 s × 1 = 51 thread-seconds | 2026-11-04 |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
@@ -57,5 +57,5 @@ IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay 
 - **Each engine fits a different number.** In the same 4 GB, Chromium fit 35–39 tabs, Firefox 26–28 and WebKit 18 — and WebKit was much the slowest, about 2 minutes for those 18 loads, so give it longer timeouts.
 - **The client is told why.** In Node.js, Python, Java and C#, the call that crossed the limit failed with `Session closed: session_memory_limit (browser ran out of memory: plan limit 4096 MB)`, and the session's record says `session_memory_limit`. Everything in the session is gone at that point; open fewer tabs at once, close finished ones, or launch with `"memory"`.
 - **Go isn't told the reason.** Node.js, Python, Java and C# got the `Session closed: session_memory_limit …` message; playwright-go 0.6000 only reported `Connection closed`. In Go, read the reason from the session's record (`GET /v1/me/sessions`, `end_reason`).
-- **A 51st tab is refused, but not by name.** At 50 tabs, `newPage()` failed with a generic `Target page, context or browser has been closed`, while the session itself stayed connected and usable. Count your open tabs: 50 is the cap on every plan, whatever the memory.
+- **A 51st tab is refused by name, and the session goes on.** At 50 tabs, `newPage()` failed in every language with `page_limit: this session already has 50 pages open (plan limit), so the new page was closed; the session continues`, and the session stayed connected and usable (re-run 2026-11-04; on 2026-11-03 the error was a generic `Target page, context or browser has been closed`). Count your open tabs: 50 is the cap on every plan, whatever the memory.
 - **`"memory": 2` is billed as two threads.** The `memory: 2` session reported `weight: 2` at launch and in its record, and its thread-seconds were twice its running time. Use it for the sessions that need it, not by default.
