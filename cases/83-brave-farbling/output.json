@@ -1,0 +1,543 @@
+{
+  "setups": [
+    {
+      "setup": "Brave, headless",
+      "engine": "brave",
+      "headless": true,
+      "visits": [
+        {
+          "visit": "site A",
+          "launch": 1,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "3929b51c",
+          "canvas_same_in_page": true,
+          "audio": "7d88c56c",
+          "cores": 39,
+          "memory": 16,
+          "plugins": "3517aa9c",
+          "plugin_names": [
+            "SRIMtWq",
+            "PDF Viewer",
+            "Online com.adobe.pdf extension",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF",
+            "o7GDBfPH"
+          ],
+          "screen": "1366x768",
+          "window": "1287x723"
+        },
+        {
+          "visit": "site B",
+          "launch": 1,
+          "context": 1,
+          "site": "site-b.test",
+          "canvas": "a6d8dc39",
+          "canvas_same_in_page": true,
+          "audio": "ccfc6c8e",
+          "cores": 45,
+          "memory": 8,
+          "plugins": "c18a66df",
+          "plugin_names": [
+            "Rnb0DozZ",
+            "WebKit built-in PDF",
+            "OpenSource PDF plug in",
+            "myCBfXq",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "PDF Viewer"
+          ],
+          "screen": "1366x768",
+          "window": "1283x725"
+        },
+        {
+          "visit": "site A again",
+          "launch": 1,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "3929b51c",
+          "canvas_same_in_page": true,
+          "audio": "7d88c56c",
+          "cores": 39,
+          "memory": 16,
+          "plugins": "3517aa9c",
+          "plugin_names": [
+            "SRIMtWq",
+            "PDF Viewer",
+            "Online com.adobe.pdf extension",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF",
+            "o7GDBfPH"
+          ],
+          "screen": "1366x768",
+          "window": "1287x723"
+        },
+        {
+          "visit": "site A, second context",
+          "launch": 1,
+          "context": 2,
+          "site": "site-a.example",
+          "canvas": "0f1dee48",
+          "canvas_same_in_page": true,
+          "audio": "6cc3bfb5",
+          "cores": 17,
+          "memory": 4,
+          "plugins": "0f8c46b8",
+          "plugin_names": [
+            "Chromium PDF Viewer",
+            "WebKit built-in PDF",
+            "Microsoft Edge PDF Viewer",
+            "PDF Viewer",
+            "Co7GLs1D",
+            "Chromium doc extension",
+            "v68eu2E"
+          ],
+          "screen": "1366x768",
+          "window": "1287x722"
+        },
+        {
+          "visit": "site A, next launch",
+          "launch": 2,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "f2fa3d3b",
+          "canvas_same_in_page": true,
+          "audio": "4957ea93",
+          "cores": 14,
+          "memory": 16,
+          "plugins": "bf2c840b",
+          "plugin_names": [
+            "PDF Viewer",
+            "WebKit built-in PDF",
+            "Microsoft Edge PDF Viewer",
+            "QQnTJjR",
+            "Chromium PDF Viewer",
+            "157laVSR",
+            "Chromium PDF Viewer"
+          ],
+          "screen": "1366x768",
+          "window": "1283x727"
+        },
+        {
+          "visit": "site B, next launch",
+          "launch": 2,
+          "context": 1,
+          "site": "site-b.test",
+          "canvas": "03b82bb5",
+          "canvas_same_in_page": true,
+          "audio": "59fe9049",
+          "cores": 7,
+          "memory": 4,
+          "plugins": "d777bd16",
+          "plugin_names": [
+            "Microsoft Edge PDF Viewer",
+            "Chromium PDF Viewer",
+            "WyhQIECg",
+            "Online PDF and PS plug-in",
+            "WebKit built-in PDF",
+            "PDF Viewer",
+            "zhQQnTR"
+          ],
+          "screen": "1366x768",
+          "window": "1284x724"
+        }
+      ],
+      "pages": {
+        "creepjs": {
+          "like_headless_pct": 50,
+          "headless_pct": 67,
+          "stealth_pct": 0,
+          "privacy": "Brave",
+          "canvas_noise": "13% rgba noise",
+          "lies": [
+            "Screen",
+            "Canvas 2d",
+            "Audio",
+            "Navigator"
+          ]
+        },
+        "browserleaks": {
+          "signature": "5665EF9CFB4247140C85C0EF68D6E19A",
+          "uniqueness": "100% (The signature is unique to our database)"
+        },
+        "sannysoft": {
+          "checks": 31,
+          "failed": 4,
+          "failed_names": [
+            "User Agent (Old)",
+            "WebGL Renderer",
+            "HEADCHR_UA",
+            "CHR_MEMORY"
+          ]
+        },
+        "deviceandbrowserinfo": {
+          "is_bot": true,
+          "signals": [
+            "hasBotUserAgent",
+            "hasInconsistentTimingResolution",
+            "isAutomatedWithCDP",
+            "isAutomatedWithCDPInWebWorker",
+            "hasSuspiciousWeakSignals"
+          ]
+        },
+        "fingerprint": {
+          "bot": "You are a bad bot (type: headless_chrome)",
+          "suspect_score": 41
+        }
+      }
+    },
+    {
+      "setup": "Brave, headful",
+      "engine": "brave",
+      "headless": false,
+      "visits": [
+        {
+          "visit": "site A",
+          "launch": 1,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "78aaddc1",
+          "canvas_same_in_page": true,
+          "audio": "260fc5cf",
+          "cores": 10,
+          "memory": 16,
+          "plugins": "7eb2a6c8",
+          "plugin_names": [
+            "aRvAfPHD",
+            "Microsoft Edge PDF Viewer",
+            "VpzZz4k",
+            "WebKit built-in PDF",
+            "PDF Viewer",
+            "Chromium PDF Renderer",
+            "Chromium PDF Viewer"
+          ],
+          "screen": "1366x768",
+          "window": "1284x726"
+        },
+        {
+          "visit": "site B",
+          "launch": 1,
+          "context": 1,
+          "site": "site-b.test",
+          "canvas": "c47f4c44",
+          "canvas_same_in_page": true,
+          "audio": "8a2ad350",
+          "cores": 62,
+          "memory": 8,
+          "plugins": "acbec43b",
+          "plugin_names": [
+            "Microsoft Edge PDF Viewer",
+            "Chromium PDF Viewer",
+            "BMl5cWL",
+            "PDF Viewer",
+            "nTRQvAny",
+            "WebKit built-in PDF",
+            "OpenSource com.adobe.pdf Plugin"
+          ],
+          "screen": "1366x768",
+          "window": "1285x722"
+        },
+        {
+          "visit": "site A again",
+          "launch": 1,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "78aaddc1",
+          "canvas_same_in_page": true,
+          "audio": "260fc5cf",
+          "cores": 10,
+          "memory": 16,
+          "plugins": "7eb2a6c8",
+          "plugin_names": [
+            "aRvAfPHD",
+            "Microsoft Edge PDF Viewer",
+            "VpzZz4k",
+            "WebKit built-in PDF",
+            "PDF Viewer",
+            "Chromium PDF Renderer",
+            "Chromium PDF Viewer"
+          ],
+          "screen": "1366x768",
+          "window": "1284x726"
+        },
+        {
+          "visit": "site A, second context",
+          "launch": 1,
+          "context": 2,
+          "site": "site-a.example",
+          "canvas": "8b9aa4aa",
+          "canvas_same_in_page": true,
+          "audio": "b8f8904c",
+          "cores": 50,
+          "memory": 16,
+          "plugins": "f3722525",
+          "plugin_names": [
+            "WebKit built-in PDF",
+            "ylSw3j4F",
+            "Microsoft Edge PDF Viewer",
+            "uAfPPmy",
+            "PDF Viewer",
+            "Chromium PDF Viewer",
+            "Chromium document plug-in"
+          ],
+          "screen": "1366x768",
+          "window": "1283x728"
+        },
+        {
+          "visit": "site A, next launch",
+          "launch": 2,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "e89d04a6",
+          "canvas_same_in_page": true,
+          "audio": "f6955e75",
+          "cores": 33,
+          "memory": 16,
+          "plugins": "c101b944",
+          "plugin_names": [
+            "PDF Viewer",
+            "Chromium PDF Viewer",
+            "PPm6dt15",
+            "WebKit built-in PDF",
+            "Brave Portable Document Format ",
+            "Microsoft Edge PDF Viewer",
+            "rVp78mT"
+          ],
+          "screen": "1366x768",
+          "window": "1281x725"
+        },
+        {
+          "visit": "site B, next launch",
+          "launch": 2,
+          "context": 1,
+          "site": "site-b.test",
+          "canvas": "609dba8e",
+          "canvas_same_in_page": true,
+          "audio": "f7932c8b",
+          "cores": 29,
+          "memory": 4,
+          "plugins": "8b2aba84",
+          "plugin_names": [
+            "yhYzCBn",
+            "Chromium com.adobe.pdf plug-in",
+            "1Do78eu2",
+            "WebKit built-in PDF",
+            "Microsoft Edge PDF Viewer",
+            "Chromium PDF Viewer",
+            "PDF Viewer"
+          ],
+          "screen": "1366x768",
+          "window": "1287x728"
+        }
+      ],
+      "pages": {
+        "creepjs": {
+          "like_headless_pct": 50,
+          "headless_pct": 0,
+          "stealth_pct": 0,
+          "privacy": "Brave",
+          "canvas_noise": "11% rgba noise",
+          "lies": [
+            "Screen",
+            "Canvas 2d",
+            "Audio",
+            "Navigator"
+          ]
+        },
+        "browserleaks": {
+          "signature": "81495C5956A1E9C8878409147E273E0F",
+          "uniqueness": "100% (The signature is unique to our database)"
+        },
+        "sannysoft": {
+          "checks": 31,
+          "failed": 1,
+          "failed_names": [
+            "WebGL Renderer"
+          ]
+        },
+        "deviceandbrowserinfo": {
+          "is_bot": true,
+          "signals": [
+            "hasInconsistentTimingResolution",
+            "isAutomatedWithCDP",
+            "isAutomatedWithCDPInWebWorker",
+            "hasSuspiciousWeakSignals"
+          ]
+        },
+        "fingerprint": {
+          "bot": "Not detected",
+          "suspect_score": 33
+        }
+      }
+    },
+    {
+      "setup": "Google Chrome, headful",
+      "engine": "chrome",
+      "headless": false,
+      "visits": [
+        {
+          "visit": "site A",
+          "launch": 1,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "a30ef280",
+          "canvas_same_in_page": true,
+          "audio": "b7a0343c",
+          "cores": 36,
+          "memory": 32,
+          "plugins": "1b059b58",
+          "plugin_names": [
+            "PDF Viewer",
+            "Chrome PDF Viewer",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF"
+          ],
+          "screen": "1280x720",
+          "window": "1288x805"
+        },
+        {
+          "visit": "site B",
+          "launch": 1,
+          "context": 1,
+          "site": "site-b.test",
+          "canvas": "a30ef280",
+          "canvas_same_in_page": true,
+          "audio": "b7a0343c",
+          "cores": 36,
+          "memory": 32,
+          "plugins": "1b059b58",
+          "plugin_names": [
+            "PDF Viewer",
+            "Chrome PDF Viewer",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF"
+          ],
+          "screen": "1280x720",
+          "window": "1288x805"
+        },
+        {
+          "visit": "site A again",
+          "launch": 1,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "a30ef280",
+          "canvas_same_in_page": true,
+          "audio": "b7a0343c",
+          "cores": 36,
+          "memory": 32,
+          "plugins": "1b059b58",
+          "plugin_names": [
+            "PDF Viewer",
+            "Chrome PDF Viewer",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF"
+          ],
+          "screen": "1280x720",
+          "window": "1288x805"
+        },
+        {
+          "visit": "site A, second context",
+          "launch": 1,
+          "context": 2,
+          "site": "site-a.example",
+          "canvas": "a30ef280",
+          "canvas_same_in_page": true,
+          "audio": "b7a0343c",
+          "cores": 36,
+          "memory": 32,
+          "plugins": "1b059b58",
+          "plugin_names": [
+            "PDF Viewer",
+            "Chrome PDF Viewer",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF"
+          ],
+          "screen": "1280x720",
+          "window": "1288x805"
+        },
+        {
+          "visit": "site A, next launch",
+          "launch": 2,
+          "context": 1,
+          "site": "site-a.example",
+          "canvas": "a30ef280",
+          "canvas_same_in_page": true,
+          "audio": "b7a0343c",
+          "cores": 64,
+          "memory": 32,
+          "plugins": "1b059b58",
+          "plugin_names": [
+            "PDF Viewer",
+            "Chrome PDF Viewer",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF"
+          ],
+          "screen": "1280x720",
+          "window": "1288x805"
+        },
+        {
+          "visit": "site B, next launch",
+          "launch": 2,
+          "context": 1,
+          "site": "site-b.test",
+          "canvas": "a30ef280",
+          "canvas_same_in_page": true,
+          "audio": "b7a0343c",
+          "cores": 64,
+          "memory": 32,
+          "plugins": "1b059b58",
+          "plugin_names": [
+            "PDF Viewer",
+            "Chrome PDF Viewer",
+            "Chromium PDF Viewer",
+            "Microsoft Edge PDF Viewer",
+            "WebKit built-in PDF"
+          ],
+          "screen": "1280x720",
+          "window": "1288x805"
+        }
+      ],
+      "pages": {
+        "creepjs": {
+          "like_headless_pct": 50,
+          "headless_pct": 0,
+          "stealth_pct": 0,
+          "privacy": "unknown",
+          "canvas_noise": null,
+          "lies": []
+        },
+        "browserleaks": {
+          "signature": "D64418DFFDD77D1444AE9BD3549AEFEE",
+          "uniqueness": "99.95% (119 of 258037 user agents have the same signature)"
+        },
+        "sannysoft": {
+          "checks": 31,
+          "failed": 1,
+          "failed_names": [
+            "WebGL Renderer"
+          ]
+        },
+        "deviceandbrowserinfo": {
+          "is_bot": true,
+          "signals": [
+            "hasInconsistentTimingResolution",
+            "isAutomatedWithCDP",
+            "isAutomatedWithCDPInWebWorker",
+            "hasSuspiciousWeakSignals"
+          ]
+        },
+        "fingerprint": {
+          "bot": "You are a bad bot (type: chromium_automation)",
+          "suspect_score": 47
+        }
+      }
+    }
+  ]
+}

@@ -68,6 +68,7 @@ Complete programs in Node.js, Python, Java, C# and Go. Each one launches a brows
   - [Record a headless session and get the video](recipes/headless-recording)
   - [Camoufox with your own full fingerprint](recipes/camoufox-own-fingerprint)
   - [Keep the files a session downloads, fetch them afterwards](recipes/downloads)
+  - [More memory for one heavy session](recipes/memory)
   - [Long-running session](recipes/long-session)
 
 Every example reads your key from `CDPFLEET_API_KEY` and uses a placeholder proxy — replace it with yours. For longer, real-world programs (fingerprints, proxy swaps, worker pools, files, WebSockets…) see [cases/](../cases).
