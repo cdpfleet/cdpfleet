@@ -4,6 +4,8 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #85 | [A Function or your own browser? Screenshot, PDF and Markdown of the same pages, timed and billed](85-function-vs-your-own-browser) | Easy | Chromium, Camoufox |
+| #84 | [Does the TLS fingerprint (JA4) explain which browsers got in? Twelve browsers against six vendors](84-ja4-vs-vendor-verdicts) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |
 | #83 | [Brave's fingerprint randomisation per site, per context and per launch, and what public fingerprint pages make of it](83-brave-farbling) | Medium | Brave, Google Chrome |
 | #82 | [Kept downloads in practice: a person in Launch interactive and an AI agent over MCP](82-downloads-in-practice) | Easy | Chromium |
 | #81 | [Behaviour scoring: Camoufox humanize on and off vs plain Chrome clicks on a public bot-test form](81-behaviour-scoring-humanize) | Medium | Camoufox, Google Chrome |

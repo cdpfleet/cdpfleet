@@ -1,0 +1,262 @@
+{
+  "language": "node",
+  "proxy": "the same PROXY_URL for every Function call and every session",
+  "runs": [
+    {
+      "page": "example.com",
+      "task": "screenshot",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 4011,
+        "bytes": 83455,
+        "content_type": "image/png",
+        "partial": null,
+        "engine": "function:screenshot",
+        "weight": 1,
+        "thread_seconds": 3.8,
+        "width": 1280,
+        "height": 800
+      },
+      "session": {
+        "ms": 1545,
+        "launch_ms": 312,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 1.3,
+        "bytes": 70583,
+        "width": 1280,
+        "height": 797
+      }
+    },
+    {
+      "page": "example.com",
+      "task": "pdf",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 3113,
+        "bytes": 98924,
+        "content_type": "application/pdf",
+        "partial": null,
+        "engine": "function:pdf",
+        "weight": 1,
+        "thread_seconds": 3,
+        "text_pdf": false,
+        "pages": 0,
+        "image_height": 775
+      },
+      "session": {
+        "ms": 1922,
+        "launch_ms": 449,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 1.5,
+        "bytes": 45438,
+        "text_pdf": true,
+        "pages": 1,
+        "image_height": 0
+      }
+    },
+    {
+      "page": "example.com",
+      "task": "markdown",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 4097,
+        "bytes": 1395,
+        "content_type": "text/markdown; charset=utf-8",
+        "partial": null,
+        "engine": "function:markdown",
+        "weight": 1,
+        "thread_seconds": 4.1,
+        "first_line": "# Example Domain",
+        "has_source_line": true
+      },
+      "session": {
+        "ms": 2116,
+        "launch_ms": 259,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 1.9,
+        "bytes": 2373,
+        "html_bytes": 2373,
+        "text_bytes": 1301
+      }
+    },
+    {
+      "page": "books.toscrape.com",
+      "task": "screenshot",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 5166,
+        "bytes": 870755,
+        "content_type": "image/png",
+        "partial": null,
+        "engine": "function:screenshot",
+        "weight": 1,
+        "thread_seconds": 5,
+        "width": 1280,
+        "height": 2549
+      },
+      "session": {
+        "ms": 5365,
+        "launch_ms": 447,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 5.1,
+        "bytes": 669597,
+        "width": 1280,
+        "height": 2549
+      }
+    },
+    {
+      "page": "books.toscrape.com",
+      "task": "pdf",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 7085,
+        "bytes": 580995,
+        "content_type": "application/pdf",
+        "partial": null,
+        "engine": "function:pdf",
+        "weight": 1,
+        "thread_seconds": 7,
+        "text_pdf": false,
+        "pages": 0,
+        "image_height": 2549
+      },
+      "session": {
+        "ms": 6366,
+        "launch_ms": 418,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 6.1,
+        "bytes": 338351,
+        "text_pdf": true,
+        "pages": 4,
+        "image_height": 155
+      }
+    },
+    {
+      "page": "books.toscrape.com",
+      "task": "markdown",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 3990,
+        "bytes": 13153,
+        "content_type": "text/markdown; charset=utf-8",
+        "partial": null,
+        "engine": "function:markdown",
+        "weight": 1,
+        "thread_seconds": 3.9,
+        "first_line": "# All products | Books to Scrape - Sandbox",
+        "has_source_line": true
+      },
+      "session": {
+        "ms": 1980,
+        "launch_ms": 317,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 1.7,
+        "bytes": 51024,
+        "html_bytes": 51024,
+        "text_bytes": 2049
+      }
+    },
+    {
+      "page": "wikipedia",
+      "task": "screenshot",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 5537,
+        "bytes": 2999095,
+        "content_type": "image/png",
+        "partial": null,
+        "engine": "function:screenshot",
+        "weight": 1,
+        "thread_seconds": 5.4,
+        "width": 1280,
+        "height": 10838
+      },
+      "session": {
+        "ms": 6932,
+        "launch_ms": 330,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 6.8,
+        "bytes": 2447315,
+        "width": 1280,
+        "height": 10474
+      }
+    },
+    {
+      "page": "wikipedia",
+      "task": "pdf",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 7582,
+        "bytes": 3491544,
+        "content_type": "application/pdf",
+        "partial": null,
+        "engine": "function:pdf",
+        "weight": 1,
+        "thread_seconds": 7.5,
+        "text_pdf": false,
+        "pages": 0,
+        "image_height": 10838
+      },
+      "session": {
+        "ms": 5896,
+        "launch_ms": 460,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 5.6,
+        "bytes": 269738,
+        "text_pdf": true,
+        "pages": 8,
+        "image_height": 0
+      }
+    },
+    {
+      "page": "wikipedia",
+      "task": "markdown",
+      "function": {
+        "status": 200,
+        "attempts": 1,
+        "ms": 10298,
+        "bytes": 56237,
+        "content_type": "text/markdown; charset=utf-8",
+        "partial": null,
+        "engine": "function:markdown",
+        "weight": 1,
+        "thread_seconds": 10.2,
+        "first_line": "# Web scraping",
+        "has_source_line": true
+      },
+      "session": {
+        "ms": 2421,
+        "launch_ms": 430,
+        "engine": "chromium",
+        "weight": 1,
+        "thread_seconds": 2.2,
+        "bytes": 419020,
+        "html_bytes": 419020,
+        "text_bytes": 28724
+      }
+    }
+  ],
+  "one_session": {
+    "captures": 9,
+    "ms": 15114,
+    "thread_seconds": 14.8,
+    "weight": 1
+  },
+  "measured_at": "2026-11-06"
+}
