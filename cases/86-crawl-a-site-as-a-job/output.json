@@ -1,0 +1,158 @@
+{
+  "language": "node",
+  "site": "https://books.toscrape.com/",
+  "map": {
+    "status": 200,
+    "seconds": 5.8,
+    "urls": 73,
+    "sources": {
+      "sitemap": 0,
+      "links": 73
+    },
+    "partial": "fetch_errors",
+    "categories": 51
+  },
+  "crawl": {
+    "max_depth": 2,
+    "max_pages": 100,
+    "concurrency": 4,
+    "delay_ms": 250,
+    "formats": [
+      "markdown"
+    ],
+    "extract": [
+      "title",
+      "price"
+    ],
+    "start_status": 202
+  },
+  "stop": {
+    "requested_at_done": 37,
+    "reply": "stopping",
+    "seconds_to_stopped": 6.1,
+    "status": "stopped",
+    "progress": {
+      "done": 41,
+      "total": 1821,
+      "failed": 0,
+      "queued": 1780
+    },
+    "stored_results": 41,
+    "webhooks_by_then": [
+      "job.done interrupted"
+    ],
+    "archive": "none"
+  },
+  "resume": {
+    "status": 202,
+    "reply": "running"
+  },
+  "job": {
+    "status": "done",
+    "runs": 2,
+    "progress": {
+      "done": 100,
+      "total": 1680,
+      "failed": 0,
+      "queued": 1580
+    },
+    "concurrency": 4,
+    "billed_seconds": 868,
+    "results": {
+      "parts": 2,
+      "bytes": 830120
+    },
+    "started_at": "2026-11-07T02:21:14.160Z",
+    "ended_at": "2026-11-07T02:24:52.636Z",
+    "expires_at": "2026-11-21T02:24:52.636Z"
+  },
+  "results_jsonl": {
+    "lines": 100,
+    "distinct_urls": 100,
+    "bytes": 830120,
+    "status_200": 100,
+    "errors": [],
+    "with_markdown": 100,
+    "books_with_price": 44,
+    "category_pages": 53,
+    "depths": {
+      "0": 1,
+      "1": 73,
+      "2": 26
+    },
+    "first_run": 41,
+    "second_run_new": 59,
+    "sample": [
+      {
+        "url": "https://books.toscrape.com/catalogue/sharp-objects_997/index.html",
+        "title": "Sharp Objects",
+        "price": "£47.82"
+      },
+      {
+        "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+        "title": "Tipping the Velvet",
+        "price": "£53.74"
+      }
+    ]
+  },
+  "archive": {
+    "status": "ready",
+    "bytes": 257657,
+    "downloaded_bytes": 257657,
+    "files": 203,
+    "markdown_files": 100,
+    "extract_files": 100,
+    "index_lines": 100,
+    "has": [
+      "index.jsonl",
+      "errors.jsonl",
+      "job.json"
+    ]
+  },
+  "webhook": {
+    "deliveries": [
+      {
+        "event": "job.done",
+        "status": "interrupted",
+        "job_id_matches": true,
+        "delivery_id_is_uuid": true,
+        "signature_valid": true
+      },
+      {
+        "event": "job.done",
+        "status": "done",
+        "job_id_matches": true,
+        "delivery_id_is_uuid": true,
+        "signature_valid": true
+      },
+      {
+        "event": "job.archive",
+        "status": "ready",
+        "job_id_matches": true,
+        "delivery_id_is_uuid": true,
+        "signature_valid": true
+      }
+    ],
+    "final_done": {
+      "data": {
+        "status": "done",
+        "progress": {
+          "done": 100,
+          "failed": 0,
+          "queued": 1580,
+          "total": 1680
+        }
+      },
+      "signed_seconds_after_end": 0
+    }
+  },
+  "cost": {
+    "billed_thread_seconds": 868,
+    "pages": 100,
+    "run_seconds": 217,
+    "pages_per_minute": 27.6,
+    "thread_seconds_per_page": 8.7,
+    "client_running_seconds": 219
+  },
+  "measured_at": "2026-11-07"
+}
