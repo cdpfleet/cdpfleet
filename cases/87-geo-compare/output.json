@@ -1,0 +1,634 @@
+{
+  "language": "node",
+  "countries": [
+    "us",
+    "de",
+    "gb",
+    "jp",
+    "br"
+  ],
+  "formats": [
+    "markdown",
+    "html"
+  ],
+  "max_wait": 45,
+  "pages": [
+    {
+      "page": "Steam store page",
+      "url": "https://store.steampowered.com/app/620/Portal_2/",
+      "attempts": 1,
+      "first_attempt": null,
+      "status": 200,
+      "error": null,
+      "seconds": 46.4,
+      "call_id": "f20c69f8-530a-42c8-abd2-e33fb719b331",
+      "warning": null,
+      "response_bytes": 2790193,
+      "diff_bytes": {
+        "markdown": 157197,
+        "html": 1304329
+      },
+      "ok_countries": [
+        "us",
+        "de",
+        "jp",
+        "br"
+      ],
+      "countries": {
+        "us": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en",
+          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "title": "Portal 2 on Steam",
+          "currencies": [
+            "USD"
+          ],
+          "prices": [
+            "$5.69",
+            "$1.99",
+            "$11.38",
+            "$8.54"
+          ],
+          "consent_banner": false,
+          "markdown_bytes": 23026,
+          "html_bytes": 222046,
+          "same_markdown_as_baseline": null,
+          "diff": null
+        },
+        "de": {
+          "status": 200,
+          "error": null,
+          "partial": true,
+          "lang": "de",
+          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "title": "Portal 2 bei Steam",
+          "currencies": [
+            "EUR"
+          ],
+          "prices": [
+            "9,69€",
+            "1,59€",
+            "19,38€",
+            "14,54€"
+          ],
+          "consent_banner": true,
+          "markdown_bytes": 24772,
+          "html_bytes": 189182,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 48105,
+              "hunks": 1,
+              "added": 214,
+              "removed": 208,
+              "price_changes": [
+                "$5.69 → 9,69€",
+                "$1.99 → 1,59€",
+                "$11.38 → 19,38€"
+              ]
+            },
+            "html_bytes": 400987
+          }
+        },
+        "gb": {
+          "status": null,
+          "error": "page_timeout",
+          "partial": false,
+          "lang": null,
+          "canonical": null,
+          "title": null,
+          "currencies": [],
+          "prices": [],
+          "consent_banner": null,
+          "markdown_bytes": 0,
+          "html_bytes": 0,
+          "same_markdown_as_baseline": null,
+          "diff": {
+            "markdown": {
+              "bytes": 0,
+              "hunks": 0,
+              "added": 0,
+              "removed": 0,
+              "price_changes": []
+            },
+            "html_bytes": 0
+          }
+        },
+        "jp": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "ja",
+          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "title": "Steam：Portal 2",
+          "currencies": [
+            "JPY"
+          ],
+          "prices": [
+            "¥ 1,400",
+            "¥ 205",
+            "¥ 2,800",
+            "¥ 2,100"
+          ],
+          "consent_banner": false,
+          "markdown_bytes": 26591,
+          "html_bytes": 233497,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 45890,
+              "hunks": 2,
+              "added": 168,
+              "removed": 168,
+              "price_changes": [
+                "$5.69 → ¥ 1,400",
+                "$1.99 → ¥ 205",
+                "$11.38 → ¥ 2,800"
+              ]
+            },
+            "html_bytes": 352737
+          }
+        },
+        "br": {
+          "status": 200,
+          "error": null,
+          "partial": true,
+          "lang": "pt-br",
+          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "title": "Portal 2 no Steam",
+          "currencies": [
+            "BRL"
+          ],
+          "prices": [
+            "R$ 33,99",
+            "R$ 4,49",
+            "R$ 67,98",
+            "R$ 50,98"
+          ],
+          "consent_banner": false,
+          "markdown_bytes": 39191,
+          "html_bytes": 349350,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 63202,
+              "hunks": 1,
+              "added": 618,
+              "removed": 335,
+              "price_changes": [
+                "$5.69 → R$ 33,99",
+                "$1.99 → R$ 4,49",
+                "$11.38 → R$ 67,98"
+              ]
+            },
+            "html_bytes": 550605
+          }
+        }
+      },
+      "billed": {
+        "engine": "function:geo",
+        "weight": 5,
+        "thread_seconds": 230.7
+      }
+    },
+    {
+      "page": "Google home page",
+      "url": "https://www.google.com/",
+      "attempts": 1,
+      "first_attempt": null,
+      "status": 200,
+      "error": null,
+      "seconds": 35.9,
+      "call_id": "fab2d574-9371-4579-924b-cf24bba9bd02",
+      "warning": null,
+      "response_bytes": 3635808,
+      "diff_bytes": {
+        "markdown": 23571,
+        "html": 2056713
+      },
+      "ok_countries": [
+        "us",
+        "de",
+        "gb",
+        "jp",
+        "br"
+      ],
+      "countries": {
+        "us": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en",
+          "canonical": null,
+          "title": "Google",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 2030,
+          "html_bytes": 277382,
+          "same_markdown_as_baseline": null,
+          "diff": null
+        },
+        "de": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "de",
+          "canonical": null,
+          "title": "Google",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": true,
+          "markdown_bytes": 6927,
+          "html_bytes": 343134,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 9097,
+              "hunks": 1,
+              "added": 140,
+              "removed": 17,
+              "price_changes": []
+            },
+            "html_bytes": 566487
+          }
+        },
+        "gb": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en-GB",
+          "canonical": null,
+          "title": "Google",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": true,
+          "markdown_bytes": 6003,
+          "html_bytes": 349569,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 7352,
+              "hunks": 2,
+              "added": 137,
+              "removed": 13,
+              "price_changes": []
+            },
+            "html_bytes": 572922
+          }
+        },
+        "jp": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "ja",
+          "canonical": null,
+          "title": "Google",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 1570,
+          "html_bytes": 242476,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 3616,
+              "hunks": 1,
+              "added": 16,
+              "removed": 18,
+              "price_changes": []
+            },
+            "html_bytes": 465802
+          }
+        },
+        "br": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "pt-BR",
+          "canonical": null,
+          "title": "Google",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 1415,
+          "html_bytes": 204486,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 3506,
+              "hunks": 1,
+              "added": 15,
+              "removed": 21,
+              "price_changes": []
+            },
+            "html_bytes": 451502
+          }
+        }
+      },
+      "billed": {
+        "engine": "function:geo",
+        "weight": 5,
+        "thread_seconds": 178.8
+      }
+    },
+    {
+      "page": "Nike home page",
+      "url": "https://www.nike.com/",
+      "attempts": 1,
+      "first_attempt": null,
+      "status": 200,
+      "error": null,
+      "seconds": 36,
+      "call_id": "98c9c172-d261-4b6f-8915-8028e344c14d",
+      "warning": null,
+      "response_bytes": 19406211,
+      "diff_bytes": {
+        "markdown": 301485,
+        "html": 10984248
+      },
+      "ok_countries": [
+        "us",
+        "de",
+        "gb",
+        "jp",
+        "br"
+      ],
+      "countries": {
+        "us": {
+          "status": 200,
+          "error": null,
+          "partial": true,
+          "lang": "en-US",
+          "canonical": "https://www.nike.com/",
+          "title": "Nike. Just Do It. Nike.com",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 40687,
+          "html_bytes": 1590508,
+          "same_markdown_as_baseline": null,
+          "diff": null
+        },
+        "de": {
+          "status": 200,
+          "error": null,
+          "partial": true,
+          "lang": "de-DE",
+          "canonical": "https://www.nike.com/de/",
+          "title": "Nike. Just Do It. Nike DE",
+          "currencies": [
+            "EUR",
+            "GBP"
+          ],
+          "prices": [
+            "50 €",
+            "£50",
+            "100 €",
+            "£50"
+          ],
+          "consent_banner": false,
+          "markdown_bytes": 27833,
+          "html_bytes": 1255834,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 70218,
+              "hunks": 1,
+              "added": 657,
+              "removed": 1121,
+              "price_changes": []
+            },
+            "html_bytes": 2830773
+          }
+        },
+        "gb": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en-GB",
+          "canonical": "https://www.nike.com/gb/",
+          "title": "Nike. Just Do It. Nike UK",
+          "currencies": [
+            "GBP"
+          ],
+          "prices": [
+            "£50",
+            "£100"
+          ],
+          "consent_banner": true,
+          "markdown_bytes": 28897,
+          "html_bytes": 1274865,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 71285,
+              "hunks": 1,
+              "added": 683,
+              "removed": 1102,
+              "price_changes": []
+            },
+            "html_bytes": 2872919
+          }
+        },
+        "jp": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "ja-JP",
+          "canonical": "https://www.nike.com/jp/",
+          "title": "Nike. Just Do It. Nike.com (JP).オンラインストア (通販サイト)",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 40978,
+          "html_bytes": 1297466,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 83405,
+              "hunks": 1,
+              "added": 797,
+              "removed": 1087,
+              "price_changes": []
+            },
+            "html_bytes": 2893009
+          }
+        },
+        "br": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en-US",
+          "canonical": "https://www.nike.com/",
+          "title": "Nike. Just Do It. Nike.com",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 34153,
+          "html_bytes": 1534711,
+          "same_markdown_as_baseline": false,
+          "diff": {
+            "markdown": {
+              "bytes": 76577,
+              "hunks": 1,
+              "added": 804,
+              "removed": 1081,
+              "price_changes": []
+            },
+            "html_bytes": 2387547
+          }
+        }
+      },
+      "billed": {
+        "engine": "function:geo",
+        "weight": 5,
+        "thread_seconds": 177.4
+      }
+    },
+    {
+      "page": "example.com (control)",
+      "url": "https://example.com/",
+      "attempts": 1,
+      "first_attempt": null,
+      "status": 200,
+      "error": null,
+      "seconds": 8.1,
+      "call_id": "ac97a27b-4f15-4090-ab51-61056d16e496",
+      "warning": null,
+      "response_bytes": 19368,
+      "diff_bytes": {
+        "markdown": 0,
+        "html": 0
+      },
+      "ok_countries": [
+        "us",
+        "de",
+        "gb",
+        "jp",
+        "br"
+      ],
+      "countries": {
+        "us": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en",
+          "canonical": null,
+          "title": "Example Domain",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 1360,
+          "html_bytes": 2373,
+          "same_markdown_as_baseline": null,
+          "diff": null
+        },
+        "de": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en",
+          "canonical": null,
+          "title": "Example Domain",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 1360,
+          "html_bytes": 2373,
+          "same_markdown_as_baseline": true,
+          "diff": {
+            "markdown": {
+              "bytes": 0,
+              "hunks": 0,
+              "added": 0,
+              "removed": 0,
+              "price_changes": []
+            },
+            "html_bytes": 0
+          }
+        },
+        "gb": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en",
+          "canonical": null,
+          "title": "Example Domain",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 1360,
+          "html_bytes": 2373,
+          "same_markdown_as_baseline": true,
+          "diff": {
+            "markdown": {
+              "bytes": 0,
+              "hunks": 0,
+              "added": 0,
+              "removed": 0,
+              "price_changes": []
+            },
+            "html_bytes": 0
+          }
+        },
+        "jp": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en",
+          "canonical": null,
+          "title": "Example Domain",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 1360,
+          "html_bytes": 2373,
+          "same_markdown_as_baseline": true,
+          "diff": {
+            "markdown": {
+              "bytes": 0,
+              "hunks": 0,
+              "added": 0,
+              "removed": 0,
+              "price_changes": []
+            },
+            "html_bytes": 0
+          }
+        },
+        "br": {
+          "status": 200,
+          "error": null,
+          "partial": false,
+          "lang": "en",
+          "canonical": null,
+          "title": "Example Domain",
+          "currencies": [],
+          "prices": [],
+          "consent_banner": false,
+          "markdown_bytes": 1360,
+          "html_bytes": 2373,
+          "same_markdown_as_baseline": true,
+          "diff": {
+            "markdown": {
+              "bytes": 0,
+              "hunks": 0,
+              "added": 0,
+              "removed": 0,
+              "price_changes": []
+            },
+            "html_bytes": 0
+          }
+        }
+      },
+      "billed": {
+        "engine": "function:geo",
+        "weight": 5,
+        "thread_seconds": 40
+      }
+    }
+  ],
+  "measured_at": "2026-11-08"
+}

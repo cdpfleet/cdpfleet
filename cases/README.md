@@ -4,6 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #87 | [Geo compare: the same pages from five countries in one call, and reading the diff](87-geo-compare) | Easy | Camoufox |
 | #86 | [Crawl a whole site as a job: map, crawl, stop, resume, results, zip and a signed webhook](86-crawl-a-site-as-a-job) | Medium | Camoufox |
 | #85 | [A Function or your own browser? Screenshot, PDF and Markdown of the same pages, timed and billed](85-function-vs-your-own-browser) | Easy | Chromium, Camoufox |
 | #84 | [Does the TLS fingerprint (JA4) explain which browsers got in? Twelve browsers against six vendors](84-ja4-vs-vendor-verdicts) | Medium | Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox |

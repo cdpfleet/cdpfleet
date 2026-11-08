@@ -1,6 +1,6 @@
 # Opera, developer channel
 
-Run the next Opera before it ships: the channel is called `"developer"` (not `"dev"`). Today that is Opera 138 on Chromium 153 — the user agent ends in `OPR/138.0.0.0 (Edition developer)` and the client hints say `Opera`. Headless here (1 thread), so the user agent says `HeadlessChrome`; use `headless: false` where that matters.
+Run the next Opera before it ships: the channel is called `"developer"` (not `"dev"`). On 2026-11-08 that was Opera 140 on Chromium 155 — the user agent ends in `OPR/140.0.0.0 (Edition developer)` and the client hints say `Opera` (the [developer vs stable comparison](https://cdpfleet.com/docs/compare/opera-developer-vs-stable) has the rest). Headless here (1 thread), so the user agent says `HeadlessChrome`; use `headless: false` where that matters.
 
 - [Node.js](node/example.mjs)
 - [Python](python/example.py)
