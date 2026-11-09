@@ -1,0 +1,124 @@
+{
+  "language": "node",
+  "page": "https://quotes.toscrape.com/random",
+  "monitor": {
+    "create_status": 201,
+    "every": "1h",
+    "format": "text",
+    "selector": ".quote",
+    "remove": [
+      ".tags"
+    ],
+    "ignore": [
+      "\\(about\\)"
+    ],
+    "webhook": true,
+    "active": true,
+    "listed": true,
+    "first_check_due_seconds": 0
+  },
+  "webhook": {
+    "deliveries": 1,
+    "event_header": "monitor.change",
+    "type": "monitor.change",
+    "delivery_id_is_uuid": true,
+    "signature_valid": true,
+    "tampered_body_rejected": true,
+    "monitor_id_matches": true,
+    "url": "https://quotes.toscrape.com/random",
+    "keys": [
+      "added",
+      "at",
+      "change_id",
+      "diff",
+      "monitor_id",
+      "removed",
+      "snapshot_url",
+      "url"
+    ],
+    "seconds_run_to_seen": 19.1,
+    "seconds_run_to_signed": 19,
+    "signed_within_1s_of_change": true
+  },
+  "change": {
+    "after_runs": 2,
+    "change_id": "680396e6-4751-4759-9378-a455ace3a147",
+    "added": 2,
+    "removed": 2,
+    "diff_bytes": 288,
+    "diff_lines": 7,
+    "removed_lines": [
+      "“It is impossible to live without failing at something, unless you live so cautiously that you might as well not have lived at all - in which case, you fail by default.”",
+      "by J.K. Rowling"
+    ],
+    "added_lines": [
+      "“He's like a drug for you, Bella.”",
+      "by Stephenie Meyer"
+    ],
+    "diff_has_ignored_text": false,
+    "api_diff_equal": true,
+    "api_counts_equal": true,
+    "snapshot_equals_after": true,
+    "before_lines": 2,
+    "after_lines": 2,
+    "after_text": "“He's like a drug for you, Bella.”\nby Stephenie Meyer"
+  },
+  "history": {
+    "changes": 1,
+    "change_ids": [
+      "680396e6-4751-4759-9378-a455ace3a147"
+    ],
+    "newest_is_webhook_change": true,
+    "monitor_checks": 2,
+    "monitor_changes": 1,
+    "last_status": "changed",
+    "next_run_minutes_after_last_check": 60
+  },
+  "pause": {
+    "status": 200,
+    "active": false,
+    "next_run_at": null
+  },
+  "billing": [
+    {
+      "check": 1,
+      "sessions_in_window": 1,
+      "engine": "function:scrape",
+      "weight": 1,
+      "seconds": 10.7,
+      "thread_seconds": 10.7
+    },
+    {
+      "check": 2,
+      "sessions_in_window": 1,
+      "engine": "function:scrape",
+      "weight": 1,
+      "seconds": 18.5,
+      "thread_seconds": 18.5
+    }
+  ],
+  "checks": [
+    {
+      "n": 1,
+      "run_status": 202,
+      "status": "baseline",
+      "error": null,
+      "seconds_to_status": 11,
+      "check_seconds": 10.8
+    },
+    {
+      "n": 2,
+      "run_status": 202,
+      "status": "changed",
+      "error": null,
+      "seconds_to_status": 19.1,
+      "check_seconds": 18.7
+    }
+  ],
+  "deleted": {
+    "status": 200,
+    "deleted": true,
+    "get_after": 404
+  },
+  "measured_at": "2026-11-09"
+}
