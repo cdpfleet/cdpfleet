@@ -1,0 +1,134 @@
+{
+  "language": "node",
+  "page": "https://wheretheiss.at/",
+  "watch": {
+    "url": "https://wheretheiss.at/",
+    "browser": "chrome",
+    "duration": 300,
+    "reload_every": 15,
+    "filter": {
+      "url": [
+        "*/w/ajax/realtime*"
+      ],
+      "selector": ".span3 table.table-striped",
+      "types": [
+        "xhr",
+        "fetch",
+        "dom"
+      ]
+    },
+    "stop_after_s": 40,
+    "start_status": 202
+  },
+  "sse": {
+    "events": 38,
+    "by_type": {
+      "xhr": 25,
+      "dom": 13
+    },
+    "messages": {
+      "progress": 4,
+      "part": 1,
+      "event": 17,
+      "done": 1
+    },
+    "first_event_seconds": 17,
+    "first_xhr_seconds": 17,
+    "first_dom_seconds": 27.9,
+    "lag_seconds": {
+      "min": 0.02,
+      "median": 0.55,
+      "max": 1.01
+    },
+    "done_status": "stopped",
+    "stream_seconds": 42.2
+  },
+  "stop": {
+    "after_seconds": 40.1,
+    "status": 200,
+    "reply": "stopping",
+    "seconds_to_ended": 0.3
+  },
+  "job": {
+    "status": "stopped",
+    "own_session": true,
+    "concurrency": 1,
+    "runs": 1,
+    "progress": {
+      "events": 38
+    },
+    "billed_seconds": 40,
+    "run_seconds": 40.4,
+    "results": {
+      "parts": 1,
+      "bytes": 28077
+    },
+    "error": null
+  },
+  "session": {
+    "engine": "chrome",
+    "weight": 1,
+    "seconds": 40.1
+  },
+  "stored": {
+    "events": 38,
+    "by_type": {
+      "xhr": 25,
+      "dom": 13
+    },
+    "same_as_live": true,
+    "xhr_urls_match_glob": true,
+    "xhr_without_body": 0,
+    "positions": 25,
+    "distinct_positions": 25,
+    "first": {
+      "lat": -42.451,
+      "lon": 166.723,
+      "time": "6:23:53 pm PST"
+    },
+    "last": {
+      "lat": -41.593,
+      "lon": 168.359,
+      "time": "6:24:17 pm PST"
+    },
+    "ground_km": 165.4,
+    "ground_km_per_s": 6.93,
+    "dom_events": 13,
+    "dom_text_sample": "Time 6:24:04 pm PST Altitude 267.61 miles Velocity 17,121.66 mph Latitude -42.060081861191 Longitude 167.48044385043 The ISS is in daylight",
+    "dom_html_bytes": 1038
+  },
+  "webhook": {
+    "deliveries": 13,
+    "inbox_full": false,
+    "by_event": {
+      "job.event": 12,
+      "job.done": 1
+    },
+    "signatures_valid": 13,
+    "tampered_body_rejected": true,
+    "delivery_ids_unique_uuids": true,
+    "job_id_matches": true,
+    "events": 33,
+    "events_by_type": {
+      "xhr": 22,
+      "dom": 11
+    },
+    "events_all_stored": true,
+    "stored_not_in_webhooks": 5,
+    "not_sent_are_the_last": true,
+    "signed_after_newest_event_seconds": {
+      "min": -0.8,
+      "max": 1.1
+    },
+    "min_gap_seconds": 2,
+    "max_events_per_batch": 5,
+    "done": {
+      "status": "interrupted",
+      "progress": {
+        "events": 38
+      },
+      "error": null
+    }
+  },
+  "measured_at": "2026-11-10"
+}

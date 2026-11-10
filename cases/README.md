@@ -4,6 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #89 | [Watch a page live: its XHR calls and DOM changes over SSE and a signed webhook](89-watch-a-page-live) | Medium | Google Chrome |
 | #88 | [A monitor end to end: create it, trigger a change, verify the signed webhook, read the diff and history](88-monitor-end-to-end) | Medium | Camoufox |
 | #87 | [Geo compare: the same pages from five countries in one call, and reading the diff](87-geo-compare) | Easy | Camoufox |
 | #86 | [Crawl a whole site as a job: map, crawl, stop, resume, results, zip and a signed webhook](86-crawl-a-site-as-a-job) | Medium | Camoufox |
