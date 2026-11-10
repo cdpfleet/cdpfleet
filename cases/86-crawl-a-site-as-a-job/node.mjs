@@ -89,14 +89,14 @@ const mapOut = {
   categories: (map.json?.urls || []).filter((u) => u.includes('/catalogue/category/')).length,
 };
 
-// 2. Start the crawl as a job: a webhook when it's done, and a zip archive at the end.
+// 2. Start the crawl as a job: a zip archive at the end, and webhooks when it's done and when the zip is ready.
 // The receiver here is cdpfleet.com's own test inbox (keeps deliveries an hour, read back with GET);
 // use your own public https endpoint.
 const hook = `${API}/e2e/hook/${crypto.randomBytes(18).toString('base64url')}`;
 const tStart = Date.now();
 const start = await api('POST', '/v1/functions/crawl', {
   url: SITE, ...CRAWL, extract: EXTRACT,
-  deliver: { webhook: { url: hook, events: ['done'] }, format: 'archive' },
+  deliver: { webhook: { url: hook, events: ['done', 'archive'] }, format: 'archive' },
 });
 if (start.status !== 202) throw new Error(`crawl ${start.status} ${start.text}`);
 const id = start.json.job_id;
@@ -145,9 +145,12 @@ const check = (d) => {
 let deliveries = [];
 for (const end = Date.now() + 90000; Date.now() < end; await sleep(3000)) {
   deliveries = (await (await fetch(hook)).json()).items.map(check);
-  if (deliveries.some((d) => d.event === 'job.done' && d.status === 'done')) break;
+  if (deliveries.some((d) => d.event === 'job.done' && d.status === 'done') && deliveries.some((d) => d.event === 'job.archive')) break;
 }
 const final = deliveries.find((d) => d.event === 'job.done' && d.status === 'done');
+// job.archive carries the zip's size and a download link, like GET /v1/jobs/{id}/archive.
+const archiveHook = deliveries.find((d) => d.event === 'job.archive');
+const hookZip = typeof archiveHook?.data?.url === 'string' ? await fetch(archiveHook.data.url).then((r) => r.arrayBuffer()) : null;
 
 // 8. What it cost: a run holds `concurrency` threads, billed_seconds is the total in thread-seconds.
 const runSeconds = done.billed_seconds / done.concurrency;
@@ -171,6 +174,7 @@ console.log(JSON.stringify({
   results_jsonl: {
     lines: rows.length, distinct_urls: urls.size, bytes: Buffer.byteLength(jsonl),
     status_200: rows.filter((r) => r.status === 200).length,
+    statuses: Object.fromEntries([...new Set(rows.map((r) => String(r.status)))].sort().map((s) => [s, rows.filter((r) => String(r.status) === s).length])),
     errors: rows.filter((r) => r.error).map((r) => ({ url: r.url, status: r.status ?? null, error: String(r.error).slice(0, 120) })),
     with_markdown: rows.filter((r) => typeof r.markdown === 'string' && r.markdown.length > 0).length,
     books_with_price: rows.filter((r) => typeof r.extract?.price === 'string').length,
@@ -189,6 +193,10 @@ console.log(JSON.stringify({
   webhook: {
     deliveries: deliveries.map(({ data, signed_at, ...d }) => d),
     final_done: final ? { data: final.data, signed_seconds_after_end: final.signed_at - Math.floor(Date.parse(done.ended_at) / 1000) } : null,
+    archive: archiveHook ? {
+      status: archiveHook.data?.status ?? null, bytes: archiveHook.data?.bytes ?? null, has_url: typeof archiveHook.data?.url === 'string',
+      url_downloads_bytes: hookZip ? hookZip.byteLength : null, signed_seconds_after_end: archiveHook.signed_at - Math.floor(Date.parse(done.ended_at) / 1000),
+    } : null,
   },
   cost: {
     billed_thread_seconds: done.billed_seconds, pages: rows.length,

@@ -20,17 +20,18 @@
       "first_attempt": null,
       "status": 200,
       "error": null,
-      "seconds": 46.4,
-      "call_id": "f20c69f8-530a-42c8-abd2-e33fb719b331",
+      "seconds": 35.4,
+      "call_id": "c27880d3-30ae-4993-a3f6-15a89cfd2d45",
       "warning": null,
-      "response_bytes": 2790193,
+      "response_bytes": 3096123,
       "diff_bytes": {
-        "markdown": 157197,
-        "html": 1304329
+        "markdown": 143433,
+        "html": 1477835
       },
       "ok_countries": [
         "us",
         "de",
+        "gb",
         "jp",
         "br"
       ],
@@ -40,20 +41,20 @@
           "error": null,
           "partial": false,
           "lang": "en",
-          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "url": "https://store.steampowered.com/app/620/Portal_2/",
           "title": "Portal 2 on Steam",
           "currencies": [
             "USD"
           ],
           "prices": [
-            "$5.69",
+            "$9.99",
             "$1.99",
-            "$11.38",
-            "$8.54"
+            "$19.98",
+            "$14.98"
           ],
           "consent_banner": false,
-          "markdown_bytes": 23026,
-          "html_bytes": 222046,
+          "markdown_bytes": 22994,
+          "html_bytes": 223766,
           "same_markdown_as_baseline": null,
           "diff": null
         },
@@ -62,7 +63,7 @@
           "error": null,
           "partial": true,
           "lang": "de",
-          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "url": "https://store.steampowered.com/app/620/Portal_2/",
           "title": "Portal 2 bei Steam",
           "currencies": [
             "EUR"
@@ -74,46 +75,57 @@
             "14,54€"
           ],
           "consent_banner": true,
-          "markdown_bytes": 24772,
-          "html_bytes": 189182,
+          "markdown_bytes": 23898,
+          "html_bytes": 185916,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 48105,
+              "bytes": 47265,
               "hunks": 1,
-              "added": 214,
-              "removed": 208,
+              "added": 226,
+              "removed": 224,
               "price_changes": [
-                "$5.69 → 9,69€",
+                "$9.99 → 9,69€",
                 "$1.99 → 1,59€",
-                "$11.38 → 19,38€"
+                "$19.98 → 19,38€"
               ]
             },
-            "html_bytes": 400987
+            "html_bytes": 399478
           }
         },
         "gb": {
-          "status": null,
-          "error": "page_timeout",
+          "status": 200,
+          "error": null,
           "partial": false,
-          "lang": null,
-          "canonical": null,
-          "title": null,
-          "currencies": [],
-          "prices": [],
-          "consent_banner": null,
-          "markdown_bytes": 0,
-          "html_bytes": 0,
-          "same_markdown_as_baseline": null,
+          "lang": "en",
+          "url": "https://store.steampowered.com/app/620/Portal_2/",
+          "title": "Portal 2 on Steam",
+          "currencies": [
+            "GBP"
+          ],
+          "prices": [
+            "£8.19",
+            "£1.69",
+            "£16.38",
+            "£12.28"
+          ],
+          "consent_banner": true,
+          "markdown_bytes": 23472,
+          "html_bytes": 226029,
+          "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 0,
-              "hunks": 0,
-              "added": 0,
-              "removed": 0,
-              "price_changes": []
+              "bytes": 3365,
+              "hunks": 9,
+              "added": 20,
+              "removed": 12,
+              "price_changes": [
+                "$9.99 → £8.19",
+                "$1.99 → £1.69",
+                "$19.98 → £16.38"
+              ]
             },
-            "html_bytes": 0
+            "html_bytes": 334452
           }
         },
         "jp": {
@@ -121,7 +133,7 @@
           "error": null,
           "partial": false,
           "lang": "ja",
-          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "url": "https://store.steampowered.com/app/620/Portal_2/",
           "title": "Steam：Portal 2",
           "currencies": [
             "JPY"
@@ -133,30 +145,30 @@
             "¥ 2,100"
           ],
           "consent_banner": false,
-          "markdown_bytes": 26591,
-          "html_bytes": 233497,
+          "markdown_bytes": 26593,
+          "html_bytes": 233295,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 45890,
-              "hunks": 2,
-              "added": 168,
-              "removed": 168,
+              "bytes": 49372,
+              "hunks": 1,
+              "added": 179,
+              "removed": 179,
               "price_changes": [
-                "$5.69 → ¥ 1,400",
+                "$9.99 → ¥ 1,400",
                 "$1.99 → ¥ 205",
-                "$11.38 → ¥ 2,800"
+                "$19.98 → ¥ 2,800"
               ]
             },
-            "html_bytes": 352737
+            "html_bytes": 397752
           }
         },
         "br": {
           "status": 200,
           "error": null,
-          "partial": true,
+          "partial": false,
           "lang": "pt-br",
-          "canonical": "https://store.steampowered.com/app/620/Portal_2/",
+          "url": "https://store.steampowered.com/app/620/Portal_2/",
           "title": "Portal 2 no Steam",
           "currencies": [
             "BRL"
@@ -168,29 +180,29 @@
             "R$ 50,98"
           ],
           "consent_banner": false,
-          "markdown_bytes": 39191,
-          "html_bytes": 349350,
+          "markdown_bytes": 24260,
+          "html_bytes": 225064,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 63202,
-              "hunks": 1,
-              "added": 618,
-              "removed": 335,
+              "bytes": 43431,
+              "hunks": 2,
+              "added": 171,
+              "removed": 171,
               "price_changes": [
-                "$5.69 → R$ 33,99",
+                "$9.99 → R$ 33,99",
                 "$1.99 → R$ 4,49",
-                "$11.38 → R$ 67,98"
+                "$19.98 → R$ 67,98"
               ]
             },
-            "html_bytes": 550605
+            "html_bytes": 346153
           }
         }
       },
       "billed": {
         "engine": "function:geo",
         "weight": 5,
-        "thread_seconds": 230.7
+        "thread_seconds": 175.9
       }
     },
     {
@@ -200,13 +212,13 @@
       "first_attempt": null,
       "status": 200,
       "error": null,
-      "seconds": 35.9,
-      "call_id": "fab2d574-9371-4579-924b-cf24bba9bd02",
+      "seconds": 33,
+      "call_id": "99126d18-87e8-4bd0-9a52-ab97c6876ccc",
       "warning": null,
-      "response_bytes": 3635808,
+      "response_bytes": 3353632,
       "diff_bytes": {
-        "markdown": 23571,
-        "html": 2056713
+        "markdown": 22951,
+        "html": 1751591
       },
       "ok_countries": [
         "us",
@@ -221,38 +233,38 @@
           "error": null,
           "partial": false,
           "lang": "en",
-          "canonical": null,
+          "url": "https://www.google.com/",
           "title": "Google",
           "currencies": [],
           "prices": [],
           "consent_banner": false,
-          "markdown_bytes": 2030,
-          "html_bytes": 277382,
+          "markdown_bytes": 1612,
+          "html_bytes": 240533,
           "same_markdown_as_baseline": null,
           "diff": null
         },
         "de": {
           "status": 200,
           "error": null,
-          "partial": false,
+          "partial": true,
           "lang": "de",
-          "canonical": null,
+          "url": "https://www.google.com/",
           "title": "Google",
           "currencies": [],
           "prices": [],
           "consent_banner": true,
           "markdown_bytes": 6927,
-          "html_bytes": 343134,
+          "html_bytes": 340188,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 9097,
+              "bytes": 8679,
               "hunks": 1,
-              "added": 140,
-              "removed": 17,
+              "added": 141,
+              "removed": 16,
               "price_changes": []
             },
-            "html_bytes": 566487
+            "html_bytes": 461245
           }
         },
         "gb": {
@@ -260,23 +272,23 @@
           "error": null,
           "partial": false,
           "lang": "en-GB",
-          "canonical": null,
+          "url": "https://www.google.com/",
           "title": "Google",
           "currencies": [],
           "prices": [],
           "consent_banner": true,
-          "markdown_bytes": 6003,
-          "html_bytes": 349569,
+          "markdown_bytes": 5585,
+          "html_bytes": 321343,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 7352,
+              "bytes": 6956,
               "hunks": 2,
               "added": 137,
               "removed": 13,
               "price_changes": []
             },
-            "html_bytes": 572922
+            "html_bytes": 442400
           }
         },
         "jp": {
@@ -284,23 +296,23 @@
           "error": null,
           "partial": false,
           "lang": "ja",
-          "canonical": null,
+          "url": "https://www.google.com/",
           "title": "Google",
           "currencies": [],
           "prices": [],
           "consent_banner": false,
-          "markdown_bytes": 1570,
-          "html_bytes": 242476,
+          "markdown_bytes": 2137,
+          "html_bytes": 276475,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 3616,
+              "bytes": 3765,
               "hunks": 1,
-              "added": 16,
-              "removed": 18,
+              "added": 18,
+              "removed": 16,
               "price_changes": []
             },
-            "html_bytes": 465802
+            "html_bytes": 462954
           }
         },
         "br": {
@@ -308,30 +320,30 @@
           "error": null,
           "partial": false,
           "lang": "pt-BR",
-          "canonical": null,
+          "url": "https://www.google.com/",
           "title": "Google",
           "currencies": [],
           "prices": [],
           "consent_banner": false,
-          "markdown_bytes": 1415,
-          "html_bytes": 204486,
+          "markdown_bytes": 1880,
+          "html_bytes": 263962,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 3506,
+              "bytes": 3551,
               "hunks": 1,
-              "added": 15,
-              "removed": 21,
+              "added": 17,
+              "removed": 17,
               "price_changes": []
             },
-            "html_bytes": 451502
+            "html_bytes": 384992
           }
         }
       },
       "billed": {
         "engine": "function:geo",
         "weight": 5,
-        "thread_seconds": 178.8
+        "thread_seconds": 164.1
       }
     },
     {
@@ -341,18 +353,17 @@
       "first_attempt": null,
       "status": 200,
       "error": null,
-      "seconds": 36,
-      "call_id": "98c9c172-d261-4b6f-8915-8028e344c14d",
+      "seconds": 46.8,
+      "call_id": "23dd89ec-6913-408b-b490-2b64a8479cfa",
       "warning": null,
-      "response_bytes": 19406211,
+      "response_bytes": 14223084,
       "diff_bytes": {
-        "markdown": 301485,
-        "html": 10984248
+        "markdown": 180248,
+        "html": 8065612
       },
       "ok_countries": [
         "us",
         "de",
-        "gb",
         "jp",
         "br"
       ],
@@ -360,15 +371,15 @@
         "us": {
           "status": 200,
           "error": null,
-          "partial": true,
+          "partial": false,
           "lang": "en-US",
-          "canonical": "https://www.nike.com/",
+          "url": "https://www.nike.com/",
           "title": "Nike. Just Do It. Nike.com",
           "currencies": [],
           "prices": [],
           "consent_banner": false,
-          "markdown_bytes": 40687,
-          "html_bytes": 1590508,
+          "markdown_bytes": 33868,
+          "html_bytes": 1510798,
           "same_markdown_as_baseline": null,
           "diff": null
         },
@@ -377,7 +388,7 @@
           "error": null,
           "partial": true,
           "lang": "de-DE",
-          "canonical": "https://www.nike.com/de/",
+          "url": "https://www.nike.com/de/",
           "title": "Nike. Just Do It. Nike DE",
           "currencies": [
             "EUR",
@@ -390,71 +401,60 @@
             "£50"
           ],
           "consent_banner": false,
-          "markdown_bytes": 27833,
-          "html_bytes": 1255834,
+          "markdown_bytes": 19388,
+          "html_bytes": 847795,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 70218,
+              "bytes": 54511,
               "hunks": 1,
-              "added": 657,
-              "removed": 1121,
+              "added": 494,
+              "removed": 810,
               "price_changes": []
             },
-            "html_bytes": 2830773
+            "html_bytes": 2363409
           }
         },
         "gb": {
-          "status": 200,
-          "error": null,
+          "status": null,
+          "error": "page_timeout",
           "partial": false,
-          "lang": "en-GB",
-          "canonical": "https://www.nike.com/gb/",
-          "title": "Nike. Just Do It. Nike UK",
-          "currencies": [
-            "GBP"
-          ],
-          "prices": [
-            "£50",
-            "£100"
-          ],
-          "consent_banner": true,
-          "markdown_bytes": 28897,
-          "html_bytes": 1274865,
-          "same_markdown_as_baseline": false,
+          "lang": null,
+          "url": null,
+          "title": null,
+          "currencies": [],
+          "prices": [],
+          "consent_banner": null,
+          "markdown_bytes": 0,
+          "html_bytes": 0,
+          "same_markdown_as_baseline": null,
           "diff": {
-            "markdown": {
-              "bytes": 71285,
-              "hunks": 1,
-              "added": 683,
-              "removed": 1102,
-              "price_changes": []
-            },
-            "html_bytes": 2872919
+            "markdown": null,
+            "html_bytes": null
           }
         },
         "jp": {
           "status": 200,
           "error": null,
-          "partial": false,
+          "partial": true,
           "lang": "ja-JP",
-          "canonical": "https://www.nike.com/jp/",
+          "url": "https://www.nike.com/jp/",
           "title": "Nike. Just Do It. Nike.com (JP).オンラインストア (通販サイト)",
           "currencies": [],
           "prices": [],
           "consent_banner": false,
-          "markdown_bytes": 40978,
-          "html_bytes": 1297466,
+          "markdown_bytes": 22074,
+          "html_bytes": 1243359,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 83405,
+              "bytes": 57299,
               "hunks": 1,
-              "added": 797,
-              "removed": 1087,
+              "added": 606,
+              "removed": 792,
               "price_changes": []
             },
-            "html_bytes": 2893009
+            "html_bytes": 2759200
           }
         },
         "br": {
@@ -462,30 +462,30 @@
           "error": null,
           "partial": false,
           "lang": "en-US",
-          "canonical": "https://www.nike.com/",
+          "url": "https://www.nike.com/",
           "title": "Nike. Just Do It. Nike.com",
           "currencies": [],
           "prices": [],
           "consent_banner": false,
-          "markdown_bytes": 34153,
-          "html_bytes": 1534711,
+          "markdown_bytes": 33939,
+          "html_bytes": 1513445,
           "same_markdown_as_baseline": false,
           "diff": {
             "markdown": {
-              "bytes": 76577,
+              "bytes": 68438,
               "hunks": 1,
-              "added": 804,
-              "removed": 1081,
+              "added": 596,
+              "removed": 592,
               "price_changes": []
             },
-            "html_bytes": 2387547
+            "html_bytes": 2943003
           }
         }
       },
       "billed": {
         "engine": "function:geo",
         "weight": 5,
-        "thread_seconds": 177.4
+        "thread_seconds": 231.9
       }
     },
     {
@@ -495,10 +495,10 @@
       "first_attempt": null,
       "status": 200,
       "error": null,
-      "seconds": 8.1,
-      "call_id": "ac97a27b-4f15-4090-ab51-61056d16e496",
+      "seconds": 7.1,
+      "call_id": "aaa4766c-4092-42d0-9c48-1f8237c32ae6",
       "warning": null,
-      "response_bytes": 19368,
+      "response_bytes": 19513,
       "diff_bytes": {
         "markdown": 0,
         "html": 0
@@ -516,7 +516,7 @@
           "error": null,
           "partial": false,
           "lang": "en",
-          "canonical": null,
+          "url": "https://example.com/",
           "title": "Example Domain",
           "currencies": [],
           "prices": [],
@@ -531,7 +531,7 @@
           "error": null,
           "partial": false,
           "lang": "en",
-          "canonical": null,
+          "url": "https://example.com/",
           "title": "Example Domain",
           "currencies": [],
           "prices": [],
@@ -555,7 +555,7 @@
           "error": null,
           "partial": false,
           "lang": "en",
-          "canonical": null,
+          "url": "https://example.com/",
           "title": "Example Domain",
           "currencies": [],
           "prices": [],
@@ -579,7 +579,7 @@
           "error": null,
           "partial": false,
           "lang": "en",
-          "canonical": null,
+          "url": "https://example.com/",
           "title": "Example Domain",
           "currencies": [],
           "prices": [],
@@ -603,7 +603,7 @@
           "error": null,
           "partial": false,
           "lang": "en",
-          "canonical": null,
+          "url": "https://example.com/",
           "title": "Example Domain",
           "currencies": [],
           "prices": [],
@@ -626,9 +626,26 @@
       "billed": {
         "engine": "function:geo",
         "weight": 5,
-        "thread_seconds": 40
+        "thread_seconds": 35.1
       }
     }
   ],
-  "measured_at": "2026-11-08"
+  "failure": {
+    "status": 200,
+    "max_wait": 1,
+    "results": {
+      "us": {
+        "status": null,
+        "error": "page_timeout"
+      },
+      "de": {
+        "status": null,
+        "error": "page_timeout"
+      }
+    },
+    "diff": {
+      "de": null
+    }
+  },
+  "measured_at": "2026-11-10"
 }

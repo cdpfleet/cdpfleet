@@ -140,13 +140,13 @@ func main() {
 	}
 	mapOut := M{"status": mapStatus, "seconds": round1(time.Since(t).Seconds()), "urls": urlsFound, "sources": m["sources"], "partial": partial, "categories": categories}
 
-	// 2. Start the crawl as a job: a webhook when it's done, and a zip archive at the end.
+	// 2. Start the crawl as a job: a zip archive at the end, and webhooks when it's done and when the zip is ready.
 	// The receiver here is cdpfleet.com's own test inbox (keeps deliveries an hour, read back with GET);
 	// use your own public https endpoint.
 	token := make([]byte, 18)
 	must(rand.Read(token))
 	hook := api + "/e2e/hook/" + base64.RawURLEncoding.EncodeToString(token)
-	body := M{"url": site, "extract": extract, "deliver": M{"webhook": M{"url": hook, "events": []string{"done"}}, "format": "archive"}}
+	body := M{"url": site, "extract": extract, "deliver": M{"webhook": M{"url": hook, "events": []string{"done", "archive"}}, "format": "archive"}}
 	for k, v := range crawl {
 		body[k] = v
 	}
@@ -202,10 +202,15 @@ func main() {
 	}
 	status200, withMarkdown, booksWithPrice, categoryPages := 0, 0, 0, 0
 	errors, sample := []M{}, []M{}
-	depthCount := map[string]int{}
+	depthCount, statuses := map[string]int{}, map[string]int{}
 	for _, r := range rows {
 		if num(r["status"]) == 200 {
 			status200++
+		}
+		if r["status"] == nil {
+			statuses["null"]++
+		} else {
+			statuses[fmt.Sprint(r["status"])]++
 		}
 		if e, ok := r["error"]; ok && e != nil {
 			msg := fmt.Sprint(e)
@@ -293,20 +298,23 @@ func main() {
 		}
 	}
 	var deliveries []delivery
-	var final *delivery
-	for end := time.Now().Add(90 * time.Second); time.Now().Before(end) && final == nil; {
+	var final, archiveHook *delivery
+	for end := time.Now().Add(90 * time.Second); time.Now().Before(end); time.Sleep(3 * time.Second) {
 		deliveries = nil
 		for _, d := range hookItems(hook) {
 			deliveries = append(deliveries, check(d))
 		}
+		final, archiveHook = nil, nil
 		for i := range deliveries {
 			if deliveries[i].out["event"] == "job.done" && deliveries[i].out["status"] == "done" {
 				final = &deliveries[i]
-				break
+			}
+			if deliveries[i].out["event"] == "job.archive" {
+				archiveHook = &deliveries[i]
 			}
 		}
-		if final == nil {
-			time.Sleep(3 * time.Second)
+		if final != nil && archiveHook != nil {
+			break
 		}
 	}
 	deliveryOut := []M{}
@@ -317,6 +325,21 @@ func main() {
 	var finalOut any
 	if final != nil {
 		finalOut = M{"data": final.data, "signed_seconds_after_end": final.signedAt - endedAt.Unix()}
+	}
+	// job.archive carries the zip's size and a download link, like GET /v1/jobs/{id}/archive.
+	var archiveHookOut any
+	if archiveHook != nil {
+		data := obj(archiveHook.data)
+		url, hasURL := data["url"].(string)
+		var downloaded any
+		if hasURL {
+			_, _, b := call("GET", url, nil, false)
+			downloaded = len(b)
+		}
+		archiveHookOut = M{
+			"status": data["status"], "bytes": data["bytes"], "has_url": hasURL, "url_downloads_bytes": downloaded,
+			"signed_seconds_after_end": archiveHook.signedAt - endedAt.Unix(),
+		}
 	}
 
 	// 8. What it cost: a run holds `concurrency` threads, billed_seconds is the total in thread-seconds.
@@ -353,14 +376,14 @@ func main() {
 		},
 		"results_jsonl": M{
 			"lines": len(rows), "distinct_urls": len(urls), "bytes": len(jsonl),
-			"status_200": status200, "errors": errors, "with_markdown": withMarkdown, "books_with_price": booksWithPrice,
+			"status_200": status200, "statuses": statuses, "errors": errors, "with_markdown": withMarkdown, "books_with_price": booksWithPrice,
 			"category_pages": categoryPages, "depths": depths, "first_run": len(firstRun), "second_run_new": secondNew, "sample": sample,
 		},
 		"archive": M{
 			"status": archive["status"], "bytes": archive["bytes"], "downloaded_bytes": len(zipBytes), "files": len(zr.File),
 			"markdown_files": markdownFiles, "extract_files": extractFiles, "index_lines": indexLines, "has": has,
 		},
-		"webhook": M{"deliveries": deliveryOut, "final_done": finalOut},
+		"webhook": M{"deliveries": deliveryOut, "final_done": finalOut, "archive": archiveHookOut},
 		"cost": M{
 			"billed_thread_seconds": billed, "pages": len(rows), "run_seconds": round1(runSeconds),
 			"pages_per_minute":        round1(pages / (runSeconds / 60)),

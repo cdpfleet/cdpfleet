@@ -22,6 +22,11 @@ public class Main {
   // (XHR to /w/ajax/realtime) and rewrites a small table with it.
   static final String PAGE = "https://wheretheiss.at/";
   static final int STOP_AFTER_S = 40; // DELETE the job this long after starting it
+  // A second, short watch for WebSocket messages: mempool.space pushes Bitcoin mempool stats to its page over one.
+  // No browser given: watch defaults to Chrome (WebSocket capture needs a Chromium-based browser).
+  static final String WS_WATCH = """
+      {"url": "https://mempool.space/", "duration": 120, "filter": {"url": ["*/api/v1/ws*"], "types": ["ws"]}}""";
+  static final int WS_STOP_AFTER_S = 45;
   static final List<String> ENDED = List.of("done", "failed", "stopped", "interrupted");
   static final List<String> TYPES = List.of("xhr", "fetch", "ws", "dom");
   static final Pattern UUID_RE = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$");
@@ -86,7 +91,7 @@ public class Main {
 
     // 1. Start the watch: XHR/fetch calls matching the glob, and changes under the selector, with a webhook.
     JsonObject watch = JsonParser.parseString("""
-        {"url": "%s", "browser": "chrome", "duration": 300, "reload_every": 15,
+        {"url": "%s", "browser": "chrome", "duration": 300,
          "filter": {"url": ["*/w/ajax/realtime*"], "selector": ".span3 table.table-striped", "types": ["xhr", "fetch", "dom"]}}"""
         .formatted(PAGE)).getAsJsonObject(); // duration 300: a safety net, the program stops the job itself
     JsonObject body = watch.deepCopy();
@@ -175,8 +180,11 @@ public class Main {
     }
     Collections.sort(sent);
     Collections.sort(delays);
-    long minGap = Long.MAX_VALUE;
-    for (int i = 1; i < sent.size(); i++) minGap = Math.min(minGap, sent.get(i) - sent.get(i - 1));
+    long minGap = Long.MAX_VALUE, minGapBeforeStop = Long.MAX_VALUE;
+    for (int i = 1; i < sent.size(); i++) {
+      minGap = Math.min(minGap, sent.get(i) - sent.get(i - 1));
+      if (i < sent.size() - 1) minGapBeforeStop = Math.min(minGapBeforeStop, sent.get(i) - sent.get(i - 1));
+    }
     Set<String> storedKeys = stored.stream().map(Main::key).collect(Collectors.toSet());
     Set<String> hookKeys = hookEvents.stream().map(Main::key).collect(Collectors.toSet());
 
@@ -192,14 +200,44 @@ public class Main {
     List<Double> lags = live.stream().map(x -> (x.received() - ms(str(x.ev(), "at"))) / 1000.0).sorted().toList();
     List<JsonObject> dom = stored.stream().filter(e -> "dom".equals(str(e, "type"))).toList();
 
-    // 6. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
+    // 6. WebSocket messages: start the second watch, stop it after WS_STOP_AFTER_S, read what it stored.
+    long tWs = System.currentTimeMillis();
+    Res wsStart = api("POST", "/v1/functions/watch", JsonParser.parseString(WS_WATCH).getAsJsonObject());
+    if (wsStart.status() != 202) throw new RuntimeException("ws watch " + wsStart.status() + " " + wsStart.text());
+    String wsId = str(wsStart.json(), "job_id");
+    Thread.sleep(Math.max(0, WS_STOP_AFTER_S * 1000L - (System.currentTimeMillis() - tWs)));
+    api("DELETE", "/v1/jobs/" + wsId, null);
+    JsonObject wsJob = api("GET", "/v1/jobs/" + wsId, null).json();
+    for (int i = 0; i < 20 && !ENDED.contains(str(wsJob, "status")); i++) { Thread.sleep(2000); wsJob = api("GET", "/v1/jobs/" + wsId, null).json(); }
+    List<JsonObject> wsEvents = new ArrayList<>();
+    for (long cursor = 0; ; ) {
+      JsonObject r = api("GET", "/v1/jobs/" + wsId + "/results?cursor=" + cursor, null).json();
+      r.getAsJsonArray("results").forEach(x -> wsEvents.add(x.getAsJsonObject()));
+      if (r.get("next_cursor").isJsonNull() || r.get("next_cursor").getAsLong() == cursor) break;
+      cursor = r.get("next_cursor").getAsLong();
+    }
+    // Each message is the frame's text: here JSON, cut at 64 KB (a cut one no longer parses).
+    List<JsonObject> wsIn = wsEvents.stream().filter(e -> "ws".equals(str(e, "type")) && "in".equals(str(e, "direction"))).toList();
+    List<JsonObject> wsOut = wsEvents.stream().filter(e -> "ws".equals(str(e, "type")) && "out".equals(str(e, "direction"))).toList();
+    Map<String, Integer> inKeys = new LinkedHashMap<>();
+    List<JsonElement> mempool = new ArrayList<>(); // mempoolInfo.size of each update
+    for (JsonObject e : wsIn) {
+      JsonObject msg = null;
+      try { msg = JsonParser.parseString(str(e, "data")).getAsJsonObject(); } catch (Exception ex) { /* cut at 64 KB */ }
+      String k = msg != null && !msg.keySet().isEmpty() ? msg.keySet().iterator().next() : "(cut at 64 KB)";
+      inKeys.merge(k, 1, Integer::sum);
+      if (msg != null && obj(msg, "mempoolInfo") != null) mempool.add(obj(msg, "mempoolInfo").get("size"));
+    }
+
+    // 7. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
     String since = Instant.ofEpochMilli(t0 - 60000).toString();
     JsonArray sessions = api("GET", "/v1/me/sessions?from=" + URLEncoder.encode(since, StandardCharsets.UTF_8) + "&limit=200", null).json().getAsJsonArray("sessions");
-    String sessionId = str(job, "session_id");
-    JsonObject session = null;
+    String sessionId = str(job, "session_id"), wsSessionId = str(wsJob, "session_id");
+    JsonObject session = null, wsSession = null;
     for (JsonElement s : sessions) {
       JsonObject so = s.getAsJsonObject();
       if (sessionId != null && (sessionId.equals(str(so, "session_id")) || sessionId.equals(str(so, "id")))) session = so;
+      if (wsSessionId != null && (wsSessionId.equals(str(so, "session_id")) || wsSessionId.equals(str(so, "id")))) wsSession = so;
     }
 
     JsonObject out = new JsonObject();
@@ -314,6 +352,7 @@ public class Main {
       wh.add("signed_after_newest_event_seconds", dl);
     }
     wh.addProperty("min_gap_seconds", sent.size() > 1 ? secs(minGap) : null);
+    wh.addProperty("min_gap_before_stop_seconds", sent.size() > 2 ? secs(minGapBeforeStop) : null);
     wh.addProperty("max_events_per_batch", maxPerBatch);
     if (doneHook != null) {
       JsonObject dd = JsonParser.parseString(str(doneHook, "body")).getAsJsonObject().getAsJsonObject("data");
@@ -324,6 +363,31 @@ public class Main {
       wh.add("done", o);
     } else wh.add("done", JsonNull.INSTANCE);
     out.add("webhook", wh);
+
+    JsonObject ws = new JsonObject();
+    JsonObject wsSpec = JsonParser.parseString(WS_WATCH).getAsJsonObject();
+    ws.add("page", wsSpec.get("url"));
+    ws.add("filter", wsSpec.get("filter"));
+    ws.addProperty("start_status", wsStart.status());
+    ws.addProperty("status", str(wsJob, "status"));
+    ws.addProperty("session_engine", wsSession == null ? null : str(wsSession, "engine"));
+    ws.addProperty("events", wsEvents.size());
+    ws.addProperty("in", wsIn.size());
+    ws.addProperty("out", wsOut.size());
+    ws.add("urls", GSON.toJsonTree(wsEvents.stream().map(e -> str(e, "url")).distinct().toList()));
+    ws.addProperty("first_in_seconds", wsIn.isEmpty() ? null : secs(ms(str(wsIn.get(0), "at")) - tWs));
+    ws.add("sent", GSON.toJsonTree(wsOut.stream().map(e -> str(e, "data")).toList()));
+    ws.add("received", GSON.toJsonTree(inKeys));
+    if (mempool.isEmpty()) ws.add("mempool_txs", JsonNull.INSTANCE);
+    else {
+      JsonObject mp = new JsonObject();
+      mp.add("first", mempool.get(0));
+      mp.add("last", mempool.get(mempool.size() - 1));
+      mp.addProperty("updates", mempool.size());
+      ws.add("mempool_txs", mp);
+    }
+    ws.add("billed_seconds", wsJob.has("billed_seconds") ? wsJob.get("billed_seconds") : JsonNull.INSTANCE);
+    out.add("ws", ws);
     out.addProperty("measured_at", LocalDate.now(ZoneOffset.UTC).toString());
     System.out.println(GSON.toJson(out));
   }

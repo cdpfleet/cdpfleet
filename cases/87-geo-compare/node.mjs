@@ -53,13 +53,13 @@ async function billed(id) {
   return null;
 }
 
-async function geo(url) {
+async function geo(url, countries = COUNTRIES, maxWait = MAX_WAIT, formats = FORMATS) {
   const t = Date.now();
   const res = await fetch(`${API}/v1/functions/geo`, {
     method: 'POST',
     headers: { 'x-api-key': KEY, 'content-type': 'application/json' },
-    body: JSON.stringify({ url, countries: COUNTRIES, formats: FORMATS, max_wait: MAX_WAIT }),
-    signal: AbortSignal.timeout((MAX_WAIT + 30) * 1000),
+    body: JSON.stringify({ url, countries, formats, max_wait: maxWait }),
+    signal: AbortSignal.timeout((maxWait + 30) * 1000),
   });
   const text = await res.text();
   let body = {};
@@ -88,7 +88,7 @@ for (const [name, url] of PAGES) { // one call per page, one after another
       error: r.error ?? null,
       partial: r.partial === true,
       lang: attr(html, /<html[^>]*\slang="([^"]+)"/i),
-      canonical: attr(html, /<link[^>]*rel="canonical"[^>]*href="([^"]+)"/i) ?? attr(html, /<link[^>]*href="([^"]+)"[^>]*rel="canonical"/i),
+      url: r.url ?? null, // the final URL after redirects (only for a country that loaded)
       title: attr(html, /<title[^>]*>([^<]*)</i)?.trim() ?? null,
       currencies: [...new Set(found.map(currency))],
       prices: found.slice(0, 4),
@@ -96,7 +96,8 @@ for (const [name, url] of PAGES) { // one call per page, one after another
       markdown_bytes: bytes(md),
       html_bytes: bytes(html),
       same_markdown_as_baseline: c === COUNTRIES[0] || !md || !base.markdown ? null : md === base.markdown,
-      diff: c === COUNTRIES[0] ? null : { markdown: readDiff(body.diff?.markdown?.[c]), html_bytes: bytes(body.diff?.html?.[c]) },
+      // A diff is a string ("" = identical), or null when this country or the baseline failed.
+      diff: c === COUNTRIES[0] ? null : { markdown: readDiff(body.diff?.markdown?.[c]), html_bytes: body.diff?.html?.[c] === null ? null : bytes(body.diff?.html?.[c]) },
     };
   }
   pages.push({
@@ -106,7 +107,7 @@ for (const [name, url] of PAGES) { // one call per page, one after another
     first_attempt: call === first ? null : {
       call_id: first.res.headers.get('x-call-id'),
       errors: Object.fromEntries(COUNTRIES.filter((c) => !loaded(first.body.results?.[c])).map((c) => [c, first.body.results?.[c]?.error ?? null])),
-      diffs: Object.fromEntries(Object.entries(first.body.diff?.markdown || {}).map(([c, d]) => [c, bytes(d)])),
+      diffs: Object.fromEntries(Object.entries(first.body.diff?.markdown || {}).map(([c, d]) => [c, d === null ? null : bytes(d)])),
     },
     status: res.status,
     error: body.error ?? null,
@@ -119,9 +120,17 @@ for (const [name, url] of PAGES) { // one call per page, one after another
     countries,
   });
 }
+// What a failure looks like: the same Steam page with max_wait 1, so no country can load it in time.
+const failed = await geo('https://store.steampowered.com/app/620/Portal_2/', ['us', 'de'], 1, ['markdown']);
+const failure = {
+  status: failed.res.status, max_wait: 1,
+  results: Object.fromEntries(Object.entries(failed.body.results || {}).map(([c, r]) => [c, { status: r.status ?? null, error: r.error ?? null }])),
+  diff: failed.body.diff?.markdown ?? null,
+};
+
 for (const p of pages) {
   p.billed = await billed(p.call_id);
   if (p.first_attempt) p.first_attempt.billed = await billed(p.first_attempt.call_id);
 }
 
-console.log(JSON.stringify({ language: 'node', countries: COUNTRIES, formats: FORMATS, max_wait: MAX_WAIT, pages, measured_at: new Date().toISOString().slice(0, 10) }, null, 2));
+console.log(JSON.stringify({ language: 'node', countries: COUNTRIES, formats: FORMATS, max_wait: MAX_WAIT, pages, failure, measured_at: new Date().toISOString().slice(0, 10) }, null, 2));

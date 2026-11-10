@@ -67,14 +67,14 @@ map_out = {
     "categories": sum("/catalogue/category/" in u for u in mj.get("urls", [])),
 }
 
-# 2. Start the crawl as a job: a webhook when it's done, and a zip archive at the end.
+# 2. Start the crawl as a job: a zip archive at the end, and webhooks when it's done and when the zip is ready.
 # The receiver here is cdpfleet.com's own test inbox (keeps deliveries an hour, read back with GET);
 # use your own public https endpoint.
 hook = f"{API}/e2e/hook/{secrets.token_urlsafe(18)}"
 t_start = time.time()
 start = api("POST", "/v1/functions/crawl", {
     "url": SITE, **CRAWL, "extract": EXTRACT,
-    "deliver": {"webhook": {"url": hook, "events": ["done"]}, "format": "archive"},
+    "deliver": {"webhook": {"url": hook, "events": ["done", "archive"]}, "format": "archive"},
 })
 if start.status_code != 202:
     raise RuntimeError(f"crawl {start.status_code} {start.text}")
@@ -132,10 +132,14 @@ deliveries = []
 end = time.time() + 90
 while time.time() < end:
     deliveries = [check(d) for d in hook_items(hook)]
-    if any(d["event"] == "job.done" and d["status"] == "done" for d in deliveries):
+    if any(d["event"] == "job.done" and d["status"] == "done" for d in deliveries) and any(d["event"] == "job.archive" for d in deliveries):
         break
     time.sleep(3)
 final = next((d for d in deliveries if d["event"] == "job.done" and d["status"] == "done"), None)
+# job.archive carries the zip's size and a download link, like GET /v1/jobs/{id}/archive.
+archive_hook = next((d for d in deliveries if d["event"] == "job.archive"), None)
+archive_hook_data = (archive_hook or {}).get("data") or {}
+hook_zip = requests.get(archive_hook_data["url"], timeout=120).content if isinstance(archive_hook_data.get("url"), str) else None
 
 # 8. What it cost: a run holds `concurrency` threads, billed_seconds is the total in thread-seconds.
 run_seconds = done["billed_seconds"] / done["concurrency"]
@@ -165,6 +169,7 @@ print(json.dumps({
     "results_jsonl": {
         "lines": len(rows), "distinct_urls": len(urls), "bytes": len(jsonl.encode("utf-8")),
         "status_200": sum(r.get("status") == 200 for r in rows),
+        "statuses": {s: sum(json.dumps(r.get("status")) == s for r in rows) for s in sorted({json.dumps(r.get("status")) for r in rows})},
         "errors": [{"url": r["url"], "status": r.get("status"), "error": str(r["error"])[:120]} for r in rows if r.get("error")],
         "with_markdown": sum(isinstance(r.get("markdown"), str) and len(r["markdown"]) > 0 for r in rows),
         "books_with_price": sum(isinstance((r.get("extract") or {}).get("price"), str) for r in rows),
@@ -184,6 +189,12 @@ print(json.dumps({
     "webhook": {
         "deliveries": [{k: v for k, v in d.items() if k not in ("data", "signed_at")} for d in deliveries],
         "final_done": {"data": final["data"], "signed_seconds_after_end": final["signed_at"] - int(ended_at)} if final else None,
+        "archive": {
+            "status": archive_hook_data.get("status"), "bytes": archive_hook_data.get("bytes"),
+            "has_url": isinstance(archive_hook_data.get("url"), str),
+            "url_downloads_bytes": len(hook_zip) if hook_zip is not None else None,
+            "signed_seconds_after_end": archive_hook["signed_at"] - int(ended_at),
+        } if archive_hook else None,
     },
     "cost": {
         "billed_thread_seconds": done["billed_seconds"], "pages": len(rows),

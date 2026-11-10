@@ -10,10 +10,13 @@ const WATCH = {
   url: PAGE,
   browser: 'chrome',
   duration: 300, // a safety net: the program stops the job itself
-  reload_every: 15,
   filter: { url: ['*/w/ajax/realtime*'], selector: '.span3 table.table-striped', types: ['xhr', 'fetch', 'dom'] },
 };
 const STOP_AFTER_S = 40; // DELETE the job this long after starting it
+// A second, short watch for WebSocket messages: mempool.space pushes Bitcoin mempool stats to its page over one.
+// No browser given: watch defaults to Chrome (WebSocket capture needs a Chromium-based browser).
+const WS_WATCH = { url: 'https://mempool.space/', duration: 120, filter: { url: ['*/api/v1/ws*'], types: ['ws'] } };
+const WS_STOP_AFTER_S = 45;
 const ENDED = ['done', 'failed', 'stopped', 'interrupted'];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const secs = (ms) => Math.round(ms / 100) / 10;
@@ -130,9 +133,34 @@ const byType = (list) => Object.fromEntries(['xhr', 'fetch', 'ws', 'dom'].map((t
 const firstOf = (t) => { const x = live.find((e) => e.ev.type === t); return x ? secs(x.received - t0) : null; };
 const dom = stored.filter((e) => e.type === 'dom');
 
-// 6. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
+// 6. WebSocket messages: start the second watch, stop it after WS_STOP_AFTER_S, read what it stored.
+const tWs = Date.now();
+const wsStart = await api('POST', '/v1/functions/watch', WS_WATCH);
+if (wsStart.status !== 202) throw new Error(`ws watch ${wsStart.status} ${wsStart.text}`);
+const wsId = wsStart.json.job_id;
+await sleep(WS_STOP_AFTER_S * 1000 - (Date.now() - tWs));
+await api('DELETE', `/v1/jobs/${wsId}`);
+let wsJob = (await api('GET', `/v1/jobs/${wsId}`)).json;
+for (let i = 0; i < 20 && !ENDED.includes(wsJob.status); i++) { await sleep(2000); wsJob = (await api('GET', `/v1/jobs/${wsId}`)).json; }
+const wsEvents = [];
+for (let cursor = 0; cursor !== null;) {
+  const r = (await api('GET', `/v1/jobs/${wsId}/results?cursor=${cursor}`)).json;
+  wsEvents.push(...r.results);
+  if (r.next_cursor === cursor) break;
+  cursor = r.next_cursor;
+}
+// Each message is the frame's text: here JSON, cut at 64 KB (a cut one no longer parses).
+const parse = (text) => { try { return JSON.parse(text); } catch { return null; } };
+const wsIn = wsEvents.filter((e) => e.type === 'ws' && e.direction === 'in');
+const wsOut = wsEvents.filter((e) => e.type === 'ws' && e.direction === 'out');
+const inKeys = {};
+for (const e of wsIn) { const k = Object.keys(parse(e.data) || {})[0] ?? '(cut at 64 KB)'; inKeys[k] = (inKeys[k] || 0) + 1; }
+const mempool = wsIn.map((e) => parse(e.data)?.mempoolInfo).filter(Boolean);
+
+// 7. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
 const sessions = (await api('GET', `/v1/me/sessions?from=${encodeURIComponent(new Date(t0 - 60000).toISOString())}&limit=200`)).json?.sessions || [];
 const session = sessions.find((s) => s.session_id === job.session_id || s.id === job.session_id);
+const wsSession = sessions.find((s) => s.session_id === wsJob.session_id || s.id === wsJob.session_id);
 
 console.log(JSON.stringify({
   language: 'node',
@@ -173,8 +201,17 @@ console.log(JSON.stringify({
     stored_not_in_webhooks: stored.filter((e) => !hookKeys.has(key(e))).length,
     not_sent_are_the_last: stored.filter((e) => !hookKeys.has(key(e))).every((e) => hookEvents.every((h) => Date.parse(h.at) <= Date.parse(e.at))),
     signed_after_newest_event_seconds: delays.length ? { min: round(delays[0]), max: round(delays.at(-1)) } : null,
-    min_gap_seconds: gaps.length ? secs(Math.min(...gaps)) : null, max_events_per_batch: Math.max(0, ...batches.map((d) => d.json.data?.events?.length || 0)),
+    min_gap_seconds: gaps.length ? secs(Math.min(...gaps)) : null,
+    min_gap_before_stop_seconds: gaps.length > 1 ? secs(Math.min(...gaps.slice(0, -1))) : null, max_events_per_batch: Math.max(0, ...batches.map((d) => d.json.data?.events?.length || 0)),
     done: doneHook ? { status: doneHook.json.data?.status, progress: doneHook.json.data?.progress, error: doneHook.json.data?.error ?? null } : null,
+  },
+  ws: {
+    page: WS_WATCH.url, filter: WS_WATCH.filter, start_status: wsStart.status, status: wsJob.status, session_engine: wsSession?.engine ?? null,
+    events: wsEvents.length, in: wsIn.length, out: wsOut.length, urls: [...new Set(wsEvents.map((e) => e.url))],
+    first_in_seconds: wsIn.length ? secs(Date.parse(wsIn[0].at) - tWs) : null,
+    sent: wsOut.map((e) => e.data), received: inKeys,
+    mempool_txs: mempool.length ? { first: mempool[0].size, last: mempool.at(-1).size, updates: mempool.length } : null,
+    billed_seconds: wsJob.billed_seconds,
   },
   measured_at: new Date().toISOString().slice(0, 10),
 }, null, 2));

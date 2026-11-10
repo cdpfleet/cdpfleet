@@ -22,10 +22,13 @@ WATCH = {
     "url": PAGE,
     "browser": "chrome",
     "duration": 300,  # a safety net: the program stops the job itself
-    "reload_every": 15,
     "filter": {"url": ["*/w/ajax/realtime*"], "selector": ".span3 table.table-striped", "types": ["xhr", "fetch", "dom"]},
 }
 STOP_AFTER_S = 40  # DELETE the job this long after starting it
+# A second, short watch for WebSocket messages: mempool.space pushes Bitcoin mempool stats to its page over one.
+# No browser given: watch defaults to Chrome (WebSocket capture needs a Chromium-based browser).
+WS_WATCH = {"url": "https://mempool.space/", "duration": 120, "filter": {"url": ["*/api/v1/ws*"], "types": ["ws"]}}
+WS_STOP_AFTER_S = 45
 ENDED = ["done", "failed", "stopped", "interrupted"]
 HEADERS = {"x-api-key": KEY}
 UUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
@@ -169,10 +172,50 @@ def first_of(t):
     return next((secs(rec - t0) for ev, rec in live if ev["type"] == t), None)
 
 
-# 6. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
+# 6. WebSocket messages: start the second watch, stop it after WS_STOP_AFTER_S, read what it stored.
+t_ws = now_ms()
+ws_start = api("POST", "/v1/functions/watch", WS_WATCH)
+if ws_start.status_code != 202:
+    raise RuntimeError(f"ws watch {ws_start.status_code} {ws_start.text}")
+ws_id = ws_start.json()["job_id"]
+time.sleep(max(0.0, WS_STOP_AFTER_S - (now_ms() - t_ws) / 1000))
+api("DELETE", f"/v1/jobs/{ws_id}")
+ws_job = api("GET", f"/v1/jobs/{ws_id}").json()
+for _ in range(20):
+    if ws_job["status"] in ENDED:
+        break
+    time.sleep(2)
+    ws_job = api("GET", f"/v1/jobs/{ws_id}").json()
+ws_events, cursor = [], 0
+while cursor is not None:
+    r = api("GET", f"/v1/jobs/{ws_id}/results?cursor={cursor}").json()
+    ws_events += r["results"]
+    if r["next_cursor"] == cursor:
+        break
+    cursor = r["next_cursor"]
+
+
+def parse(text):  # each message is the frame's text: here JSON, cut at 64 KB (a cut one no longer parses)
+    try:
+        return json.loads(text)
+    except ValueError:
+        return None
+
+
+ws_in = [e for e in ws_events if e["type"] == "ws" and e["direction"] == "in"]
+ws_out = [e for e in ws_events if e["type"] == "ws" and e["direction"] == "out"]
+in_keys = {}
+for e in ws_in:
+    msg = parse(e["data"])
+    k = next(iter(msg), "(cut at 64 KB)") if isinstance(msg, dict) else "(cut at 64 KB)"
+    in_keys[k] = in_keys.get(k, 0) + 1
+mempool = [m["mempoolInfo"] for m in map(lambda e: parse(e["data"]), ws_in) if isinstance(m, dict) and m.get("mempoolInfo")]
+
+# 7. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
 since = datetime.fromtimestamp(t0 / 1000 - 60, timezone.utc).isoformat().replace("+00:00", "Z")
 sessions = requests.get(f"{API}/v1/me/sessions", headers=HEADERS, params={"from": since, "limit": 200}, timeout=60).json().get("sessions", [])
 session = next((s for s in sessions if job.get("session_id") in (s.get("session_id"), s.get("id"))), None)
+ws_session = next((s for s in sessions if ws_job.get("session_id") in (s.get("session_id"), s.get("id"))), None)
 
 print(json.dumps({
     "language": "python",
@@ -218,8 +261,18 @@ print(json.dumps({
         "not_sent_are_the_last": all(ms(e["at"]) >= max((ms(h["at"]) for h in hook_events), default=0) for e in stored if key(e) not in hook_keys),
         "signed_after_newest_event_seconds": {"min": round(delays[0], 1), "max": round(delays[-1], 1)} if delays else None,
         "min_gap_seconds": secs(min(gaps)) if gaps else None,
+        "min_gap_before_stop_seconds": secs(min(gaps[:-1])) if len(gaps) > 1 else None,
         "max_events_per_batch": max([len(d["json"]["data"]["events"]) for d in batches], default=0),
         "done": {"status": done_hook["json"]["data"].get("status"), "progress": done_hook["json"]["data"].get("progress"), "error": done_hook["json"]["data"].get("error")} if done_hook else None,
+    },
+    "ws": {
+        "page": WS_WATCH["url"], "filter": WS_WATCH["filter"], "start_status": ws_start.status_code, "status": ws_job["status"],
+        "session_engine": ws_session["engine"] if ws_session else None,
+        "events": len(ws_events), "in": len(ws_in), "out": len(ws_out), "urls": list(dict.fromkeys(e["url"] for e in ws_events)),
+        "first_in_seconds": secs(ms(ws_in[0]["at"]) - t_ws) if ws_in else None,
+        "sent": [e["data"] for e in ws_out], "received": in_keys,
+        "mempool_txs": {"first": mempool[0]["size"], "last": mempool[-1]["size"], "updates": len(mempool)} if mempool else None,
+        "billed_seconds": ws_job.get("billed_seconds"),
     },
     "measured_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
 }, indent=2, ensure_ascii=False))

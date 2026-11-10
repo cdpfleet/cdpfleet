@@ -36,6 +36,8 @@ public class Main {
   record Call(HttpResponse<byte[]> res, JsonObject body, long ms) {}
 
   static int bytes(JsonElement e) { return e != null && e.isJsonPrimitive() ? e.getAsString().getBytes(StandardCharsets.UTF_8).length : 0; }
+  // A diff's size, or null when the diff is null (this country or the baseline failed).
+  static JsonElement diffBytes(JsonElement e) { return e == null || e.isJsonNull() ? JsonNull.INSTANCE : new JsonPrimitive(bytes(e)); }
   static String str(JsonObject o, String k) { return o != null && o.has(k) && !o.get(k).isJsonNull() ? o.get(k).getAsString() : null; }
   static JsonObject obj(JsonObject o, String k) { return o != null && o.has(k) && o.get(k).isJsonObject() ? o.getAsJsonObject(k) : new JsonObject(); }
   static JsonArray arr(Collection<String> xs) { JsonArray a = new JsonArray(); xs.forEach(a::add); return a; }
@@ -102,14 +104,14 @@ public class Main {
     return JsonNull.INSTANCE;
   }
 
-  static Call geo(String url) throws Exception {
+  static Call geo(String url, List<String> countries, int maxWait, List<String> formats) throws Exception {
     JsonObject body = new JsonObject();
     body.addProperty("url", url);
-    body.add("countries", arr(COUNTRIES));
-    body.add("formats", arr(FORMATS));
-    body.addProperty("max_wait", MAX_WAIT);
+    body.add("countries", arr(countries));
+    body.add("formats", arr(formats));
+    body.addProperty("max_wait", maxWait);
     long t = System.currentTimeMillis();
-    HttpRequest req = HttpRequest.newBuilder(URI.create(API + "/v1/functions/geo")).timeout(Duration.ofSeconds(MAX_WAIT + 30))
+    HttpRequest req = HttpRequest.newBuilder(URI.create(API + "/v1/functions/geo")).timeout(Duration.ofSeconds(maxWait + 30))
       .header("x-api-key", KEY).header("content-type", "application/json").POST(HttpRequest.BodyPublishers.ofString(body.toString())).build();
     HttpResponse<byte[]> res = HTTP.send(req, HttpResponse.BodyHandlers.ofByteArray());
     JsonObject json;
@@ -126,9 +128,9 @@ public class Main {
     JsonArray pages = new JsonArray();
     List<String[]> ids = new ArrayList<>(); // call ids to look up: [this one, the first attempt's or null]
     for (String[] p : PAGES) { // one call per page, one after another
-      Call first = geo(p[1]), call = first;
+      Call first = geo(p[1], COUNTRIES, MAX_WAIT, FORMATS), call = first;
       // Every diff is against the first country: if that one failed, the call is retried once.
-      if (call.res().statusCode() == 200 && !loaded(obj(obj(call.body(), "results"), COUNTRIES.get(0)))) call = geo(p[1]);
+      if (call.res().statusCode() == 200 && !loaded(obj(obj(call.body(), "results"), COUNTRIES.get(0)))) call = geo(p[1], COUNTRIES, MAX_WAIT, FORMATS);
       JsonObject results = obj(call.body(), "results"), diff = obj(call.body(), "diff");
       JsonObject base = obj(results, COUNTRIES.get(0));
       JsonObject countries = new JsonObject();
@@ -137,15 +139,13 @@ public class Main {
         String html = Objects.requireNonNullElse(str(r, "html"), "");
         String md = Objects.requireNonNullElse(str(r, "markdown"), "");
         List<String> found = prices(md);
-        String canonical = attr(html, "<link[^>]*rel=\"canonical\"[^>]*href=\"([^\"]+)\"");
-        if (canonical == null) canonical = attr(html, "<link[^>]*href=\"([^\"]+)\"[^>]*rel=\"canonical\"");
         String title = attr(html, "<title[^>]*>([^<]*)<");
         JsonObject o = new JsonObject();
         o.add("status", r.has("status") ? r.get("status") : JsonNull.INSTANCE);
         o.addProperty("error", str(r, "error"));
         o.addProperty("partial", r.has("partial") && r.get("partial").isJsonPrimitive() && r.get("partial").getAsBoolean());
         o.addProperty("lang", attr(html, "<html[^>]*\\slang=\"([^\"]+)\""));
-        o.addProperty("canonical", canonical);
+        o.addProperty("url", str(r, "url")); // the final URL after redirects (only for a country that loaded)
         o.addProperty("title", title == null ? null : title.trim());
         o.add("currencies", arr(new LinkedHashSet<>(found.stream().map(Main::currency).toList())));
         o.add("prices", arr(found.subList(0, Math.min(4, found.size()))));
@@ -155,10 +155,10 @@ public class Main {
         String baseMd = str(base, "markdown");
         o.add("same_markdown_as_baseline", c.equals(COUNTRIES.get(0)) || md.isEmpty() || baseMd == null || baseMd.isEmpty() ? JsonNull.INSTANCE : new JsonPrimitive(md.equals(baseMd)));
         if (c.equals(COUNTRIES.get(0))) o.add("diff", JsonNull.INSTANCE);
-        else {
+        else { // a diff is a string ("" = identical), or null when this country or the baseline failed
           JsonObject d = new JsonObject();
           d.add("markdown", readDiff(obj(diff, "markdown").get(c)));
-          d.addProperty("html_bytes", bytes(obj(diff, "html").get(c)));
+          d.add("html_bytes", diffBytes(obj(diff, "html").get(c)));
           o.add("diff", d);
         }
         countries.add(c, o);
@@ -172,7 +172,7 @@ public class Main {
         JsonObject fa = new JsonObject(), errors = new JsonObject(), diffs = new JsonObject();
         JsonObject fresults = obj(first.body(), "results");
         for (String c : COUNTRIES) if (!loaded(obj(fresults, c))) errors.addProperty(c, str(obj(fresults, c), "error"));
-        for (Map.Entry<String, JsonElement> e : obj(obj(first.body(), "diff"), "markdown").entrySet()) diffs.addProperty(e.getKey(), bytes(e.getValue()));
+        for (Map.Entry<String, JsonElement> e : obj(obj(first.body(), "diff"), "markdown").entrySet()) diffs.add(e.getKey(), diffBytes(e.getValue()));
         fa.addProperty("call_id", first.res().headers().firstValue("x-call-id").orElse(null));
         fa.add("errors", errors);
         fa.add("diffs", diffs);
@@ -192,6 +192,21 @@ public class Main {
       pages.add(page);
       ids.add(new String[] {page.get("call_id").isJsonNull() ? null : page.get("call_id").getAsString(), call == first ? null : first.res().headers().firstValue("x-call-id").orElse(null)});
     }
+    // What a failure looks like: the same Steam page with max_wait 1, so no country can load it in time.
+    Call failed = geo("https://store.steampowered.com/app/620/Portal_2/", List.of("us", "de"), 1, List.of("markdown"));
+    JsonObject failure = new JsonObject(), failedResults = new JsonObject();
+    failure.addProperty("status", failed.res().statusCode());
+    failure.addProperty("max_wait", 1);
+    for (Map.Entry<String, JsonElement> e : obj(failed.body(), "results").entrySet()) {
+      JsonObject r = new JsonObject();
+      r.add("status", e.getValue().getAsJsonObject().has("status") ? e.getValue().getAsJsonObject().get("status") : JsonNull.INSTANCE);
+      r.addProperty("error", str(e.getValue().getAsJsonObject(), "error"));
+      failedResults.add(e.getKey(), r);
+    }
+    failure.add("results", failedResults);
+    JsonObject failedDiff = obj(failed.body(), "diff");
+    failure.add("diff", failedDiff.has("markdown") ? failedDiff.get("markdown") : JsonNull.INSTANCE);
+
     for (int i = 0; i < pages.size(); i++) {
       JsonObject page = pages.get(i).getAsJsonObject();
       page.add("billed", billed(ids.get(i)[0]));
@@ -203,6 +218,7 @@ public class Main {
     out.add("formats", arr(FORMATS));
     out.addProperty("max_wait", MAX_WAIT);
     out.add("pages", pages);
+    out.add("failure", failure);
     out.addProperty("measured_at", LocalDate.now(ZoneOffset.UTC).toString());
     System.out.println(GSON.toJson(out));
   }

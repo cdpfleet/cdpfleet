@@ -87,10 +87,10 @@ def billed(call_id):
     return None
 
 
-def geo(url):
+def geo(url, countries=COUNTRIES, max_wait=MAX_WAIT, formats=FORMATS):
     t = time.time()
-    res = requests.post(f"{API}/v1/functions/geo", headers=HEADERS, timeout=MAX_WAIT + 30,
-                        json={"url": url, "countries": COUNTRIES, "formats": FORMATS, "max_wait": MAX_WAIT})
+    res = requests.post(f"{API}/v1/functions/geo", headers=HEADERS, timeout=max_wait + 30,
+                        json={"url": url, "countries": countries, "formats": formats, "max_wait": max_wait})
     try:
         body = res.json()
     except ValueError:
@@ -124,7 +124,7 @@ for name, url in PAGES:  # one call per page, one after another
             "error": r.get("error"),
             "partial": r.get("partial") is True,
             "lang": attr(html, r'<html[^>]*\slang="([^"]+)"'),
-            "canonical": attr(html, r'<link[^>]*rel="canonical"[^>]*href="([^"]+)"') or attr(html, r'<link[^>]*href="([^"]+)"[^>]*rel="canonical"'),
+            "url": r.get("url"),  # the final URL after redirects (only for a country that loaded)
             "title": title.strip() if title is not None else None,
             "currencies": list(dict.fromkeys(currency(p) for p in found)),
             "prices": found[:4],
@@ -132,9 +132,10 @@ for name, url in PAGES:  # one call per page, one after another
             "markdown_bytes": nbytes(md),
             "html_bytes": nbytes(html),
             "same_markdown_as_baseline": None if c == COUNTRIES[0] or not md or not base.get("markdown") else md == base["markdown"],
+            # A diff is a string ("" = identical), or None (null) when this country or the baseline failed.
             "diff": None if c == COUNTRIES[0] else {
                 "markdown": read_diff((diff.get("markdown") or {}).get(c)),
-                "html_bytes": nbytes((diff.get("html") or {}).get(c)),
+                "html_bytes": None if (diff.get("html") or {}).get(c) is None else nbytes(diff["html"][c]),
             },
         }
     fresults = first["body"].get("results") or {}
@@ -145,7 +146,7 @@ for name, url in PAGES:  # one call per page, one after another
         "first_attempt": None if call is first else {
             "call_id": first["res"].headers.get("x-call-id"),
             "errors": {c: (fresults.get(c) or {}).get("error") for c in COUNTRIES if not loaded(fresults.get(c))},
-            "diffs": {c: nbytes(d) for c, d in ((first["body"].get("diff") or {}).get("markdown") or {}).items()},
+            "diffs": {c: None if d is None else nbytes(d) for c, d in ((first["body"].get("diff") or {}).get("markdown") or {}).items()},
         },
         "status": res.status_code,
         "error": body.get("error"),
@@ -158,10 +159,18 @@ for name, url in PAGES:  # one call per page, one after another
         "countries": countries,
     })
 
+# What a failure looks like: the same Steam page with max_wait 1, so no country can load it in time.
+failed = geo("https://store.steampowered.com/app/620/Portal_2/", ["us", "de"], 1, ["markdown"])
+failure = {
+    "status": failed["res"].status_code, "max_wait": 1,
+    "results": {c: {"status": r.get("status"), "error": r.get("error")} for c, r in (failed["body"].get("results") or {}).items()},
+    "diff": (failed["body"].get("diff") or {}).get("markdown"),
+}
+
 for p in pages:
     p["billed"] = billed(p["call_id"])
     if p["first_attempt"]:
         p["first_attempt"]["billed"] = billed(p["first_attempt"]["call_id"])
 
-print(json.dumps({"language": "python", "countries": COUNTRIES, "formats": FORMATS, "max_wait": MAX_WAIT, "pages": pages,
+print(json.dumps({"language": "python", "countries": COUNTRIES, "formats": FORMATS, "max_wait": MAX_WAIT, "pages": pages, "failure": failure,
                   "measured_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")}, indent=2, ensure_ascii=False))

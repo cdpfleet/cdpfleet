@@ -5,7 +5,6 @@
     "url": "https://wheretheiss.at/",
     "browser": "chrome",
     "duration": 300,
-    "reload_every": 15,
     "filter": {
       "url": [
         "*/w/ajax/realtime*"
@@ -21,23 +20,23 @@
     "start_status": 202
   },
   "sse": {
-    "events": 38,
+    "events": 60,
     "by_type": {
-      "xhr": 25,
-      "dom": 13
+      "xhr": 30,
+      "dom": 30
     },
     "messages": {
       "progress": 4,
       "part": 1,
-      "event": 17,
+      "event": 24,
       "done": 1
     },
-    "first_event_seconds": 17,
-    "first_xhr_seconds": 17,
-    "first_dom_seconds": 27.9,
+    "first_event_seconds": 12.1,
+    "first_xhr_seconds": 12.1,
+    "first_dom_seconds": 12.1,
     "lag_seconds": {
       "min": 0.02,
-      "median": 0.55,
+      "median": 0.53,
       "max": 1.01
     },
     "done_status": "stopped",
@@ -47,7 +46,7 @@
     "after_seconds": 40.1,
     "status": 200,
     "reply": "stopping",
-    "seconds_to_ended": 0.3
+    "seconds_to_ended": 0.5
   },
   "job": {
     "status": "stopped",
@@ -55,80 +54,121 @@
     "concurrency": 1,
     "runs": 1,
     "progress": {
-      "events": 38
+      "events": 60
     },
     "billed_seconds": 40,
-    "run_seconds": 40.4,
+    "run_seconds": 40.6,
     "results": {
       "parts": 1,
-      "bytes": 28077
+      "bytes": 52937
     },
     "error": null
   },
   "session": {
     "engine": "chrome",
     "weight": 1,
-    "seconds": 40.1
+    "seconds": 40
   },
   "stored": {
-    "events": 38,
+    "events": 60,
     "by_type": {
-      "xhr": 25,
-      "dom": 13
+      "xhr": 30,
+      "dom": 30
     },
     "same_as_live": true,
     "xhr_urls_match_glob": true,
     "xhr_without_body": 0,
-    "positions": 25,
-    "distinct_positions": 25,
+    "positions": 30,
+    "distinct_positions": 30,
     "first": {
-      "lat": -42.451,
-      "lon": 166.723,
-      "time": "6:23:53 pm PST"
+      "lat": -24.513,
+      "lon": 71.937,
+      "time": "2:15:23 am PST"
     },
     "last": {
-      "lat": -41.593,
-      "lon": 168.359,
-      "time": "6:24:17 pm PST"
+      "lat": -23.144,
+      "lon": 73.19,
+      "time": "2:15:52 am PST"
     },
-    "ground_km": 165.4,
-    "ground_km_per_s": 6.93,
-    "dom_events": 13,
-    "dom_text_sample": "Time 6:24:04 pm PST Altitude 267.61 miles Velocity 17,121.66 mph Latitude -42.060081861191 Longitude 167.48044385043 The ISS is in daylight",
+    "ground_km": 198.5,
+    "ground_km_per_s": 6.92,
+    "dom_events": 30,
+    "dom_text_sample": "Time 2:15:23 am PST Altitude 262.23 miles Velocity 17,135.44 mph Latitude -24.513271274056 Longitude 71.937013051503 The ISS is in daylight",
     "dom_html_bytes": 1038
   },
   "webhook": {
-    "deliveries": 13,
+    "deliveries": 17,
     "inbox_full": false,
     "by_event": {
-      "job.event": 12,
+      "job.event": 16,
       "job.done": 1
     },
-    "signatures_valid": 13,
+    "signatures_valid": 17,
     "tampered_body_rejected": true,
     "delivery_ids_unique_uuids": true,
     "job_id_matches": true,
-    "events": 33,
+    "events": 60,
     "events_by_type": {
-      "xhr": 22,
-      "dom": 11
+      "xhr": 30,
+      "dom": 30
     },
     "events_all_stored": true,
-    "stored_not_in_webhooks": 5,
+    "stored_not_in_webhooks": 0,
     "not_sent_are_the_last": true,
     "signed_after_newest_event_seconds": {
-      "min": -0.8,
-      "max": 1.1
+      "min": -0.6,
+      "max": 0.4
     },
-    "min_gap_seconds": 2,
-    "max_events_per_batch": 5,
+    "min_gap_seconds": 0.4,
+    "min_gap_before_stop_seconds": 2,
+    "max_events_per_batch": 6,
     "done": {
-      "status": "interrupted",
+      "status": "stopped",
       "progress": {
-        "events": 38
+        "events": 60
       },
       "error": null
     }
+  },
+  "ws": {
+    "page": "https://mempool.space/",
+    "filter": {
+      "url": [
+        "*/api/v1/ws*"
+      ],
+      "types": [
+        "ws"
+      ]
+    },
+    "start_status": 202,
+    "status": "stopped",
+    "session_engine": "chrome",
+    "events": 35,
+    "in": 31,
+    "out": 4,
+    "urls": [
+      "wss://mempool.space/api/v1/ws"
+    ],
+    "first_in_seconds": 18.1,
+    "sent": [
+      "{\"action\":\"init\"}",
+      "{\"action\":\"want\",\"data\":[\"blocks\",\"stats\",\"mempool-blocks\",\"live-2h-chart\"]}",
+      "{\"track-rbf-summary\":true}",
+      "{\"track-mempool-block\":0}"
+    ],
+    "received": {
+      "mempoolInfo": 27,
+      "blocks": 1,
+      "rbfLatestSummary": 1,
+      "(cut at 64 KB)": 1,
+      "live-2h-chart": 1
+    },
+    "mempool_txs": {
+      "first": 75815,
+      "last": 75936,
+      "updates": 28
+    },
+    "billed_seconds": 45
   },
   "measured_at": "2026-11-10"
 }

@@ -12,6 +12,10 @@ const string Api = "https://cdpfleet.com";
 // (XHR to /w/ajax/realtime) and rewrites a small table with it.
 const string Page = "https://wheretheiss.at/";
 const int StopAfterS = 40; // DELETE the job this long after starting it
+// A second, short watch for WebSocket messages: mempool.space pushes Bitcoin mempool stats to its page over one.
+// No browser given: watch defaults to Chrome (WebSocket capture needs a Chromium-based browser).
+var wsWatch = new JsonObject { ["url"] = "https://mempool.space/", ["duration"] = 120, ["filter"] = new JsonObject { ["url"] = new JsonArray("*/api/v1/ws*"), ["types"] = new JsonArray("ws") } };
+const int WsStopAfterS = 45;
 string[] ended = ["done", "failed", "stopped", "interrupted"];
 string[] types = ["xhr", "fetch", "ws", "dom"];
 var uuidRe = new Regex("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$");
@@ -72,7 +76,6 @@ var watch = new JsonObject
 {
     ["url"] = Page, ["browser"] = "chrome",
     ["duration"] = 300, // a safety net: the program stops the job itself
-    ["reload_every"] = 15,
     ["filter"] = new JsonObject { ["url"] = new JsonArray("*/w/ajax/realtime*"), ["selector"] = ".span3 table.table-striped", ["types"] = new JsonArray("xhr", "fetch", "dom") },
 };
 var body = watch.DeepClone().AsObject();
@@ -170,11 +173,44 @@ var lags = live.Select(x => (x.Received - Ms(x.Ev["at"])) / 1000).OrderBy(x => x
 var dom = stored.Where(e => Str(e["type"]) == "dom").ToList();
 JsonNode? FirstOf(string t) => live.Where(x => Str(x.Ev["type"]) == t).Select(x => (JsonNode?)Secs(x.Received - t0)).FirstOrDefault();
 
-// 6. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
+// 6. WebSocket messages: start the second watch, stop it after WsStopAfterS, read what it stored.
+var tWs = NowMs();
+var wsStart = await CallApi(HttpMethod.Post, "/v1/functions/watch", wsWatch);
+if (wsStart.Status != 202) throw new Exception($"ws watch {wsStart.Status} {wsStart.Text}");
+var wsId = Str(wsStart.Json["job_id"])!;
+await Task.Delay(TimeSpan.FromMilliseconds(Math.Max(0, WsStopAfterS * 1000 - (NowMs() - tWs))));
+await CallApi(HttpMethod.Delete, $"/v1/jobs/{wsId}");
+var wsJob = (await CallApi(HttpMethod.Get, $"/v1/jobs/{wsId}")).Json;
+for (var i = 0; i < 20 && !ended.Contains(Str(wsJob["status"])); i++) { await Task.Delay(2000); wsJob = (await CallApi(HttpMethod.Get, $"/v1/jobs/{wsId}")).Json; }
+var wsEvents = new List<JsonNode>();
+for (long cursor = 0; ;)
+{
+    var r = (await CallApi(HttpMethod.Get, $"/v1/jobs/{wsId}/results?cursor={cursor}")).Json;
+    wsEvents.AddRange(r["results"]!.AsArray().Select(x => x!.DeepClone()));
+    if (r["next_cursor"] is null || (long)Num(r["next_cursor"]) == cursor) break;
+    cursor = (long)Num(r["next_cursor"]);
+}
+// Each message is the frame's text: here JSON, cut at 64 KB (a cut one no longer parses).
+JsonObject? ParseMsg(string? text) { try { return JsonNode.Parse(text ?? "") as JsonObject; } catch (JsonException) { return null; } }
+var wsIn = wsEvents.Where(e => Str(e["type"]) == "ws" && Str(e["direction"]) == "in").ToList();
+var wsOut = wsEvents.Where(e => Str(e["type"]) == "ws" && Str(e["direction"]) == "out").ToList();
+var inKeys = new Dictionary<string, int>();
+var mempool = new List<JsonNode?>(); // mempoolInfo.size of each update
+foreach (var e in wsIn)
+{
+    var msg = ParseMsg(Str(e["data"]));
+    var k = msg != null && msg.Count > 0 ? msg.First().Key : "(cut at 64 KB)";
+    inKeys[k] = inKeys.GetValueOrDefault(k) + 1;
+    if (msg?["mempoolInfo"] is JsonObject info) mempool.Add(info["size"]?.DeepClone());
+}
+
+// 7. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
 var since = Uri.EscapeDataString(DateTimeOffset.FromUnixTimeMilliseconds((long)t0 - 60000).UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
 var sessions = (await CallApi(HttpMethod.Get, $"/v1/me/sessions?from={since}&limit=200")).Json["sessions"]?.AsArray() ?? new JsonArray();
 var sessionId = Str(job["session_id"]);
 var session = sessions.FirstOrDefault(s => sessionId != null && (Str(s!["session_id"]) == sessionId || Str(s!["id"]) == sessionId));
+var wsSessionId = Str(wsJob["session_id"]);
+var wsSession = sessions.FirstOrDefault(s => wsSessionId != null && (Str(s!["session_id"]) == wsSessionId || Str(s!["id"]) == wsSessionId));
 
 var watchOut = watch.DeepClone().AsObject();
 watchOut["stop_after_s"] = StopAfterS;
@@ -241,11 +277,23 @@ var output = new JsonObject
         ["not_sent_are_the_last"] = stored.Where(e => !hookKeys.Contains(Key(e))).All(e => hookEvents.All(h => Ms(h["at"]) <= Ms(e["at"]))),
         ["signed_after_newest_event_seconds"] = delays.Count > 0 ? new JsonObject { ["min"] = Round(delays[0], 1), ["max"] = Round(delays[^1], 1) } : null,
         ["min_gap_seconds"] = gaps.Count > 0 ? Secs(gaps.Min()) : null,
+        ["min_gap_before_stop_seconds"] = gaps.Count > 1 ? Secs(gaps.SkipLast(1).Min()) : null,
         ["max_events_per_batch"] = batches.Select(h => h.Json["data"]!["events"]!.AsArray().Count).DefaultIfEmpty(0).Max(),
         ["done"] = doneHook.Json is JsonNode dj ? new JsonObject
         {
             ["status"] = dj["data"]?["status"]?.DeepClone(), ["progress"] = dj["data"]?["progress"]?.DeepClone(), ["error"] = dj["data"]?["error"]?.DeepClone(),
         } : null,
+    },
+    ["ws"] = new JsonObject
+    {
+        ["page"] = wsWatch["url"]!.DeepClone(), ["filter"] = wsWatch["filter"]!.DeepClone(), ["start_status"] = wsStart.Status,
+        ["status"] = Str(wsJob["status"]), ["session_engine"] = Str(wsSession?["engine"]),
+        ["events"] = wsEvents.Count, ["in"] = wsIn.Count, ["out"] = wsOut.Count,
+        ["urls"] = new JsonArray(wsEvents.Select(e => Str(e["url"])).Distinct().Select(u => (JsonNode?)u).ToArray()),
+        ["first_in_seconds"] = wsIn.Count > 0 ? Secs(Ms(wsIn[0]["at"]) - tWs) : null,
+        ["sent"] = new JsonArray(wsOut.Select(e => (JsonNode?)Str(e["data"])).ToArray()), ["received"] = new JsonObject(inKeys.Select(kv => KeyValuePair.Create(kv.Key, (JsonNode?)kv.Value))),
+        ["mempool_txs"] = mempool.Count > 0 ? new JsonObject { ["first"] = mempool[0]?.DeepClone(), ["last"] = mempool[^1]?.DeepClone(), ["updates"] = mempool.Count } : null,
+        ["billed_seconds"] = wsJob["billed_seconds"]?.DeepClone(),
     },
     ["measured_at"] = DateTime.UtcNow.ToString("yyyy-MM-dd"),
 };

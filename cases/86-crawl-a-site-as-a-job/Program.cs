@@ -69,14 +69,14 @@ var mapOut = new JsonObject
     ["categories"] = mapUrls.Count(u => u.Contains("/catalogue/category/")),
 };
 
-// 2. Start the crawl as a job: a webhook when it's done, and a zip archive at the end.
+// 2. Start the crawl as a job: a zip archive at the end, and webhooks when it's done and when the zip is ready.
 // The receiver here is cdpfleet.com's own test inbox (keeps deliveries an hour, read back with GET);
 // use your own public https endpoint.
 var hook = $"{Api}/e2e/hook/{Convert.ToBase64String(RandomNumberGenerator.GetBytes(18)).Replace('+', '-').Replace('/', '_').TrimEnd('=')}";
 var body = crawl.DeepClone().AsObject();
 body["url"] = Site;
 body["extract"] = new JsonObject { ["title"] = "h1", ["price"] = ".product_main .price_color" };
-body["deliver"] = new JsonObject { ["webhook"] = new JsonObject { ["url"] = hook, ["events"] = new JsonArray("done") }, ["format"] = "archive" };
+body["deliver"] = new JsonObject { ["webhook"] = new JsonObject { ["url"] = hook, ["events"] = new JsonArray("done", "archive") }, ["format"] = "archive" };
 var tStart = DateTime.UtcNow;
 var startRes = await Send(HttpMethod.Post, $"{Api}/v1/functions/crawl", body);
 if ((int)startRes.StatusCode != 202) throw new Exception($"crawl {(int)startRes.StatusCode} {await startRes.Content.ReadAsStringAsync()}");
@@ -129,11 +129,13 @@ using (var zip = new ZipArchive(new MemoryStream(zipBytes), ZipArchiveMode.Read)
 // 7. The webhooks: every delivery is signed with the account's secret, as HMAC-SHA256(secret, "<t>.<raw body>").
 var secret = Str((await CallApi(HttpMethod.Get, "/v1/me/webhook-secret"))["secret"])!;
 var deliveries = new JsonArray();
-JsonNode? finalData = null;
-long finalSignedAt = 0;
-for (var end = DateTime.UtcNow.AddSeconds(90); DateTime.UtcNow < end && finalData == null;)
+JsonNode? finalData = null, archiveData = null;
+long finalSignedAt = 0, archiveSignedAt = 0;
+for (var end = DateTime.UtcNow.AddSeconds(90); DateTime.UtcNow < end && (finalData == null || archiveData == null);)
 {
     deliveries = new JsonArray();
+    finalData = null;
+    archiveData = null;
     foreach (var d in await HookItems(hook))
     {
         var parts = (Str(d!["signature"]) ?? "").Split(',').Select(kv => kv.Split('=', 2)).Where(a => a.Length == 2).ToDictionary(a => a[0], a => a[1]);
@@ -151,9 +153,17 @@ for (var end = DateTime.UtcNow.AddSeconds(90); DateTime.UtcNow < end && finalDat
             finalData = Copy(b["data"]);
             finalSignedAt = long.Parse(parts["t"]);
         }
+        if (archiveData == null && Str(d["event"]) == "job.archive")
+        {
+            archiveData = Copy(b["data"]);
+            archiveSignedAt = long.Parse(parts["t"]);
+        }
     }
-    if (finalData == null) await Task.Delay(3000);
+    if (finalData == null || archiveData == null) await Task.Delay(3000);
 }
+// job.archive carries the zip's size and a download link, like GET /v1/jobs/{id}/archive.
+var hookZipUrl = Str(archiveData?["url"]);
+int? hookZipBytes = hookZipUrl == null ? null : (await (await Send(HttpMethod.Get, hookZipUrl, withKey: false)).Content.ReadAsByteArrayAsync()).Length;
 
 // 8. What it cost: a run holds `concurrency` threads, billed_seconds is the total in thread-seconds.
 var billed = Num(done["billed_seconds"]);
@@ -185,6 +195,7 @@ Console.WriteLine(new JsonObject
     {
         ["lines"] = rows.Count, ["distinct_urls"] = urls.Count, ["bytes"] = jsonl.Length,
         ["status_200"] = rows.Count(r => Num(r["status"]) == 200),
+        ["statuses"] = new JsonObject(rows.GroupBy(r => r["status"]?.ToJsonString() ?? "null").OrderBy(g => g.Key, StringComparer.Ordinal).Select(g => KeyValuePair.Create(g.Key, (JsonNode?)g.Count()))),
         ["errors"] = new JsonArray(rows.Where(r => r["error"] != null).Select(r =>
         {
             var msg = r["error"] is JsonValue ev && ev.TryGetValue<string>(out var es) ? es : r["error"]!.ToJsonString();
@@ -211,6 +222,12 @@ Console.WriteLine(new JsonObject
         ["final_done"] = finalData == null ? null : new JsonObject
         {
             ["data"] = finalData, ["signed_seconds_after_end"] = finalSignedAt - DateTimeOffset.Parse(Str(done["ended_at"])!).ToUnixTimeSeconds(),
+        },
+        ["archive"] = archiveData == null ? null : new JsonObject
+        {
+            ["status"] = Str(archiveData["status"]), ["bytes"] = Copy(archiveData["bytes"]), ["has_url"] = hookZipUrl != null,
+            ["url_downloads_bytes"] = hookZipBytes,
+            ["signed_seconds_after_end"] = archiveSignedAt - DateTimeOffset.Parse(Str(done["ended_at"])!).ToUnixTimeSeconds(),
         },
     },
     ["cost"] = new JsonObject

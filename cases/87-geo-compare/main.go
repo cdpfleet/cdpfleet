@@ -33,14 +33,12 @@ var (
 	price = regexp.MustCompile(`R\$[ \x{00a0}]?[0-9][0-9.,]*|US\$[ \x{00a0}]?[0-9][0-9.,]*|£[ \x{00a0}]?[0-9][0-9.,]*|€[ \x{00a0}]?[0-9][0-9.,]*` +
 		`|[0-9][0-9.,]*[ \x{00a0}]?€|[¥￥][ \x{00a0}]?[0-9][0-9,]*|[0-9][0-9,]*[ \x{00a0}]?円|\$[ \x{00a0}]?[0-9][0-9.,]*`)
 	// The "accept all" button of a cookie banner, in the five countries' languages.
-	consent   = regexp.MustCompile(`(?i)Accept all|Alle akzeptieren|Aceitar todos|Aceitar tudo|すべて同意|すべて受け入れる|すべて許可`)
-	trailing  = regexp.MustCompile(`[.,]$`)
-	langRe    = regexp.MustCompile(`(?i)<html[^>]*\slang="([^"]+)"`)
-	canonRe1  = regexp.MustCompile(`(?i)<link[^>]*rel="canonical"[^>]*href="([^"]+)"`)
-	canonRe2  = regexp.MustCompile(`(?i)<link[^>]*href="([^"]+)"[^>]*rel="canonical"`)
-	titleRe   = regexp.MustCompile(`(?i)<title[^>]*>([^<]*)<`)
-	since     = time.Now().UTC().Add(-60 * time.Second).Format(time.RFC3339)
-	client    = &http.Client{Timeout: (maxWait + 30) * time.Second}
+	consent  = regexp.MustCompile(`(?i)Accept all|Alle akzeptieren|Aceitar todos|Aceitar tudo|すべて同意|すべて受け入れる|すべて許可`)
+	trailing = regexp.MustCompile(`[.,]$`)
+	langRe   = regexp.MustCompile(`(?i)<html[^>]*\slang="([^"]+)"`)
+	titleRe  = regexp.MustCompile(`(?i)<title[^>]*>([^<]*)<`)
+	since    = time.Now().UTC().Add(-60 * time.Second).Format(time.RFC3339)
+	client   = &http.Client{Timeout: (maxWait + 30) * time.Second}
 )
 
 type M = map[string]any
@@ -95,8 +93,16 @@ func str(m M, k string) any {
 	return nil
 }
 func text(m M, k string) string { s, _ := m[k].(string); return s }
-func sub(m M, k string) M     { s, _ := m[k].(M); return s }
-func nbytes(v any) int        { s, _ := v.(string); return len(s) }
+func sub(m M, k string) M       { s, _ := m[k].(M); return s }
+func nbytes(v any) int          { s, _ := v.(string); return len(s) }
+
+// A diff's size, or nil when the diff is null (this country or the baseline failed).
+func diffBytes(v any) any {
+	if v == nil {
+		return nil
+	}
+	return nbytes(v)
+}
 func attr(re *regexp.Regexp, html string) any {
 	if m := re.FindStringSubmatch(html); m != nil {
 		return m[1]
@@ -197,8 +203,8 @@ type call struct {
 	ms     int64
 }
 
-func geo(u string) call {
-	payload, _ := json.Marshal(M{"url": u, "countries": countries, "formats": formats, "max_wait": maxWait})
+func geo(u string, cs []string, wait int, fs []string) call {
+	payload, _ := json.Marshal(M{"url": u, "countries": cs, "formats": fs, "max_wait": wait})
 	t := time.Now()
 	req, _ := http.NewRequest("POST", api+"/v1/functions/geo", bytes.NewReader(payload))
 	req.Header.Set("x-api-key", key)
@@ -230,12 +236,12 @@ func main() {
 	type ids struct{ call, first string }
 	lookups := []ids{}
 	for _, p := range pagesList { // one call per page, one after another
-		first := geo(p[1])
+		first := geo(p[1], countries, maxWait, formats)
 		c := first
 		// Every diff is against the first country: if that one failed, the call is retried once.
 		retried := false
 		if c.status == 200 && !loaded(sub(sub(c.body, "results"), countries[0])) {
-			c = geo(p[1])
+			c = geo(p[1], countries, maxWait, formats)
 			retried = true
 		}
 		results, diff := sub(c.body, "results"), sub(c.body, "diff")
@@ -260,10 +266,6 @@ func main() {
 			if t := attr(titleRe, html); t != nil {
 				title = strings.TrimSpace(t.(string))
 			}
-			canonical := attr(canonRe1, html)
-			if canonical == nil {
-				canonical = attr(canonRe2, html)
-			}
 			var consentBanner, same, d any
 			if html != "" {
 				consentBanner = consent.MatchString(html)
@@ -271,8 +273,9 @@ func main() {
 			if cc != countries[0] && md != "" && baseMd != "" {
 				same = md == baseMd
 			}
+			// A diff is a string ("" = identical), or null when this country or the baseline failed.
 			if cc != countries[0] {
-				d = newObj().set("markdown", readDiff(sub(diff, "markdown")[cc])).set("html_bytes", nbytes(sub(diff, "html")[cc]))
+				d = newObj().set("markdown", readDiff(sub(diff, "markdown")[cc])).set("html_bytes", diffBytes(sub(diff, "html")[cc]))
 			}
 			partial, _ := r["partial"].(bool)
 			var status any
@@ -280,7 +283,7 @@ func main() {
 				status = int(s)
 			}
 			perCountry.set(cc, newObj().set("status", status).set("error", str(r, "error")).set("partial", partial).
-				set("lang", attr(langRe, html)).set("canonical", canonical).set("title", title).
+				set("lang", attr(langRe, html)).set("url", str(r, "url")).set("title", title).
 				set("currencies", curr).set("prices", found[:min(4, len(found))]).set("consent_banner", consentBanner).
 				set("markdown_bytes", len(md)).set("html_bytes", len(html)).set("same_markdown_as_baseline", same).set("diff", d))
 		}
@@ -295,7 +298,7 @@ func main() {
 			}
 			for _, cc := range countries[1:] {
 				if v, ok := sub(sub(first.body, "diff"), "markdown")[cc]; ok {
-					diffs.set(cc, nbytes(v))
+					diffs.set(cc, diffBytes(v))
 				}
 			}
 			firstAttempt = newObj().set("call_id", header(first.header, "x-call-id")).set("errors", errors).set("diffs", diffs)
@@ -328,6 +331,24 @@ func main() {
 		}
 		lookups = append(lookups, l)
 	}
+	// What a failure looks like: the same Steam page with max_wait 1, so no country can load it in time.
+	failed := geo("https://store.steampowered.com/app/620/Portal_2/", []string{"us", "de"}, 1, []string{"markdown"})
+	failedResults := newObj()
+	for _, cc := range []string{"us", "de"} {
+		if r, ok := sub(failed.body, "results")[cc].(M); ok {
+			var status any
+			if s, ok := r["status"].(float64); ok {
+				status = int(s)
+			}
+			failedResults.set(cc, newObj().set("status", status).set("error", str(r, "error")))
+		}
+	}
+	var failedDiff any
+	if v, ok := sub(sub(failed.body, "diff"), "markdown")["de"]; ok {
+		failedDiff = newObj().set("de", v)
+	}
+	failure := newObj().set("status", failed.status).set("max_wait", 1).set("results", failedResults).set("diff", failedDiff)
+
 	for i, p := range pages {
 		p.set("billed", billed(lookups[i].call))
 		if lookups[i].first != "" {
@@ -335,7 +356,7 @@ func main() {
 		}
 	}
 	out, err := marshal(newObj().set("language", "go").set("countries", countries).set("formats", formats).set("max_wait", maxWait).
-		set("pages", pages).set("measured_at", time.Now().UTC().Format("2006-01-02")))
+		set("pages", pages).set("failure", failure).set("measured_at", time.Now().UTC().Format("2006-01-02")))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

@@ -84,7 +84,7 @@ public class Main {
     mapOut.addProperty("partial", mapRes.headers().firstValue("x-cdpfleet-partial").orElse(null));
     mapOut.addProperty("categories", categories);
 
-    // 2. Start the crawl as a job: a webhook when it's done, and a zip archive at the end.
+    // 2. Start the crawl as a job: a zip archive at the end, and webhooks when it's done and when the zip is ready.
     // The receiver here is cdpfleet.com's own test inbox (keeps deliveries an hour, read back with GET);
     // use your own public https endpoint.
     byte[] token = new byte[18];
@@ -99,7 +99,7 @@ public class Main {
     JsonObject body = crawl.deepCopy();
     body.addProperty("url", SITE);
     body.add("extract", GSON.toJsonTree(Map.of("title", "h1", "price", ".product_main .price_color")));
-    body.add("deliver", JsonParser.parseString("{\"webhook\":{\"url\":\"" + hook + "\",\"events\":[\"done\"]},\"format\":\"archive\"}"));
+    body.add("deliver", JsonParser.parseString("{\"webhook\":{\"url\":\"" + hook + "\",\"events\":[\"done\",\"archive\"]},\"format\":\"archive\"}"));
     long tStart = System.currentTimeMillis();
     HttpResponse<byte[]> startRes = send("POST", API + "/v1/functions/crawl", body, true);
     if (startRes.statusCode() != 202) throw new RuntimeException("crawl " + startRes.statusCode() + " " + new String(startRes.body()));
@@ -135,9 +135,10 @@ public class Main {
     for (JsonObject r : atStop) firstRun.add(str(r, "url"));
     int status200 = 0, withMarkdown = 0, booksWithPrice = 0, categoryPages = 0;
     JsonArray errors = new JsonArray(), sample = new JsonArray();
-    TreeMap<String, Integer> depthCount = new TreeMap<>();
+    TreeMap<String, Integer> depthCount = new TreeMap<>(), statuses = new TreeMap<>();
     for (JsonObject r : rows) {
       if (num(r, "status") == 200) status200++;
+      statuses.merge(r.has("status") && !r.get("status").isJsonNull() ? String.valueOf(r.get("status").getAsInt()) : "null", 1, Integer::sum);
       if (r.has("error") && !r.get("error").isJsonNull()) {
         JsonObject e = new JsonObject();
         e.addProperty("url", str(r, "url"));
@@ -185,10 +186,12 @@ public class Main {
     // 7. The webhooks: every delivery is signed with the account's secret, as HMAC-SHA256(secret, "<t>.<raw body>").
     String secret = str(api("GET", "/v1/me/webhook-secret", null), "secret");
     JsonArray deliveries = new JsonArray();
-    JsonObject finalData = null;
-    long finalSignedAt = 0;
-    for (long end = System.currentTimeMillis() + 90000; System.currentTimeMillis() < end && finalData == null;) {
+    JsonObject finalData = null, archiveData = null;
+    long finalSignedAt = 0, archiveSignedAt = 0;
+    for (long end = System.currentTimeMillis() + 90000; System.currentTimeMillis() < end && (finalData == null || archiveData == null);) {
       deliveries = new JsonArray();
+      finalData = null;
+      archiveData = null;
       for (JsonElement el : hookItems(hook)) {
         JsonObject d = el.getAsJsonObject();
         Map<String, String> parts = new HashMap<>();
@@ -207,8 +210,12 @@ public class Main {
           finalData = obj(b, "data");
           finalSignedAt = Long.parseLong(parts.get("t"));
         }
+        if (archiveData == null && "job.archive".equals(str(d, "event"))) {
+          archiveData = obj(b, "data");
+          archiveSignedAt = Long.parseLong(parts.get("t"));
+        }
       }
-      if (finalData == null) Thread.sleep(3000);
+      if (finalData == null || archiveData == null) Thread.sleep(3000);
     }
     JsonElement finalOut = JsonNull.INSTANCE;
     if (finalData != null) {
@@ -216,6 +223,18 @@ public class Main {
       f.add("data", finalData);
       f.addProperty("signed_seconds_after_end", finalSignedAt - Instant.parse(str(done, "ended_at")).getEpochSecond());
       finalOut = f;
+    }
+    // job.archive carries the zip's size and a download link, like GET /v1/jobs/{id}/archive.
+    JsonElement archiveHookOut = JsonNull.INSTANCE;
+    if (archiveData != null) {
+      JsonObject a = new JsonObject();
+      String hookZipUrl = str(archiveData, "url");
+      a.addProperty("status", str(archiveData, "status"));
+      a.add("bytes", archiveData.has("bytes") ? archiveData.get("bytes") : JsonNull.INSTANCE);
+      a.addProperty("has_url", hookZipUrl != null);
+      a.addProperty("url_downloads_bytes", hookZipUrl != null ? send("GET", hookZipUrl, null, false).body().length : null);
+      a.addProperty("signed_seconds_after_end", archiveSignedAt - Instant.parse(str(done, "ended_at")).getEpochSecond());
+      archiveHookOut = a;
     }
 
     // 8. What it cost: a run holds `concurrency` threads, billed_seconds is the total in thread-seconds.
@@ -257,6 +276,7 @@ public class Main {
     rj.addProperty("distinct_urls", urls.size());
     rj.addProperty("bytes", jsonl.length);
     rj.addProperty("status_200", status200);
+    rj.add("statuses", GSON.toJsonTree(statuses));
     rj.add("errors", errors);
     rj.addProperty("with_markdown", withMarkdown);
     rj.addProperty("books_with_price", booksWithPrice);
@@ -279,6 +299,7 @@ public class Main {
     JsonObject wh = new JsonObject();
     wh.add("deliveries", deliveries);
     wh.add("final_done", finalOut);
+    wh.add("archive", archiveHookOut);
     out.add("webhook", wh);
     JsonObject cost = new JsonObject();
     cost.addProperty("billed_thread_seconds", billed);

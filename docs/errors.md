@@ -56,3 +56,7 @@ Limits a running session can hit, and what your client sees (Playwright 1.60, me
 | A 51st open page on Chrome, Edge, Brave, Opera, Yandex or Chromium | `newPage()` fails with `page_limit: this session already has 50 pages open (plan limit), so the new page was closed; the session continues` | Goes on; close pages you're done with |
 | A 51st open page on Firefox, Camoufox or WebKit | The session is closed; its record's end reason is `page_limit` (case 80's heavy page ran out of memory before 50 tabs on these, so the client's exact message isn't measured) | Ends with `page_limit` |
 | More memory than the plan gives one session | `Session closed: session_memory_limit (browser ran out of memory: plan limit N MB)` (playwright-go reports only `Connection closed`; read the reason from the session's record) | Ends with `session_memory_limit`; other sessions are unaffected. Launch with `"memory": 2`–`4` for more ([sessions-and-limits.md](sessions-and-limits.md)) |
+
+## Known issues
+
+- **`net::ERR_NETWORK_CHANGED` on Chromium-based browsers** (since 2026-11): a page load in Chrome, Chromium, Edge, Brave, Opera, Yandex, Whale, Patchright or Rebrowser can be aborted with this error when a VPN or `vpn_tunnel` session starts or ends on the same server — Chromium cancels in-flight navigations whenever the server's network interfaces change. It is rare and short: retry the navigation (`page.goto` again) and it loads.

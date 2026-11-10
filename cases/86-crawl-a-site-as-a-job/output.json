@@ -3,7 +3,7 @@
   "site": "https://books.toscrape.com/",
   "map": {
     "status": 200,
-    "seconds": 5.8,
+    "seconds": 6.4,
     "urls": 73,
     "sources": {
       "sitemap": 0,
@@ -27,19 +27,19 @@
     "start_status": 202
   },
   "stop": {
-    "requested_at_done": 37,
+    "requested_at_done": 30,
     "reply": "stopping",
-    "seconds_to_stopped": 6.1,
+    "seconds_to_stopped": 3.1,
     "status": "stopped",
     "progress": {
-      "done": 41,
-      "total": 1821,
+      "done": 33,
+      "total": 100,
       "failed": 0,
-      "queued": 1780
+      "queued": 67
     },
-    "stored_results": 41,
+    "stored_results": 33,
     "webhooks_by_then": [
-      "job.done interrupted"
+      "job.done stopped"
     ],
     "archive": "none"
   },
@@ -52,25 +52,29 @@
     "runs": 2,
     "progress": {
       "done": 100,
-      "total": 1680,
+      "total": 100,
       "failed": 0,
-      "queued": 1580
+      "queued": 0
     },
     "concurrency": 4,
-    "billed_seconds": 868,
+    "billed_seconds": 984,
     "results": {
       "parts": 2,
       "bytes": 830120
     },
-    "started_at": "2026-11-07T02:21:14.160Z",
-    "ended_at": "2026-11-07T02:24:52.636Z",
-    "expires_at": "2026-11-21T02:24:52.636Z"
+    "started_at": "2026-11-10T10:17:45.403Z",
+    "ended_at": "2026-11-10T10:21:53.632Z",
+    "expires_at": "2026-11-24T10:21:53.632Z"
   },
   "results_jsonl": {
     "lines": 100,
     "distinct_urls": 100,
     "bytes": 830120,
-    "status_200": 100,
+    "status_200": 96,
+    "statuses": {
+      "200": 96,
+      "407": 4
+    },
     "errors": [],
     "with_markdown": 100,
     "books_with_price": 44,
@@ -80,13 +84,13 @@
       "1": 73,
       "2": 26
     },
-    "first_run": 41,
-    "second_run_new": 59,
+    "first_run": 33,
+    "second_run_new": 67,
     "sample": [
       {
-        "url": "https://books.toscrape.com/catalogue/sharp-objects_997/index.html",
-        "title": "Sharp Objects",
-        "price": "£47.82"
+        "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+        "title": "A Light in the Attic",
+        "price": "£51.77"
       },
       {
         "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
@@ -97,8 +101,8 @@
   },
   "archive": {
     "status": "ready",
-    "bytes": 257657,
-    "downloaded_bytes": 257657,
+    "bytes": 257662,
+    "downloaded_bytes": 257662,
     "files": 203,
     "markdown_files": 100,
     "extract_files": 100,
@@ -113,7 +117,7 @@
     "deliveries": [
       {
         "event": "job.done",
-        "status": "interrupted",
+        "status": "stopped",
         "job_id_matches": true,
         "delivery_id_is_uuid": true,
         "signature_valid": true
@@ -139,20 +143,27 @@
         "progress": {
           "done": 100,
           "failed": 0,
-          "queued": 1580,
-          "total": 1680
+          "queued": 0,
+          "total": 100
         }
       },
+      "signed_seconds_after_end": 0
+    },
+    "archive": {
+      "status": "ready",
+      "bytes": 257662,
+      "has_url": true,
+      "url_downloads_bytes": 257662,
       "signed_seconds_after_end": 0
     }
   },
   "cost": {
-    "billed_thread_seconds": 868,
+    "billed_thread_seconds": 984,
     "pages": 100,
-    "run_seconds": 217,
-    "pages_per_minute": 27.6,
-    "thread_seconds_per_page": 8.7,
-    "client_running_seconds": 219
+    "run_seconds": 246,
+    "pages_per_minute": 24.4,
+    "thread_seconds_per_page": 9.8,
+    "client_running_seconds": 249.8
   },
-  "measured_at": "2026-11-07"
+  "measured_at": "2026-11-10"
 }

@@ -31,6 +31,12 @@ const api = "https://cdpfleet.com"
 const page = "https://wheretheiss.at/"
 const stopAfterS = 40 // DELETE the job this long after starting it
 
+// A second, short watch for WebSocket messages: mempool.space pushes Bitcoin mempool stats to its page over one.
+// No browser given: watch defaults to Chrome (WebSocket capture needs a Chromium-based browser).
+var wsWatch = M{"url": "https://mempool.space/", "duration": 120, "filter": M{"url": []string{"*/api/v1/ws*"}, "types": []string{"ws"}}}
+
+const wsStopAfterS = 45
+
 var key = os.Getenv("CDPFLEET_API_KEY")
 var ended = map[string]bool{"done": true, "failed": true, "stopped": true, "interrupted": true}
 var types = []string{"xhr", "fetch", "ws", "dom"}
@@ -119,6 +125,15 @@ func verify(secret, header, rawBody string) bool {
 	return hmac.Equal(mac.Sum(nil), given)
 }
 
+func contains(list []string, s string) bool {
+	for _, x := range list {
+		if x == s {
+			return true
+		}
+	}
+	return false
+}
+
 // Great-circle distance in km.
 func km(lat1, lon1, lat2, lon2 float64) float64 {
 	r := func(d float64) float64 { return d * math.Pi / 180 }
@@ -143,9 +158,8 @@ func main() {
 	// 1. Start the watch: XHR/fetch calls matching the glob, and changes under the selector, with a webhook.
 	watch := M{
 		"url": page, "browser": "chrome",
-		"duration":     300, // a safety net: the program stops the job itself
-		"reload_every": 15,
-		"filter":       M{"url": []string{"*/w/ajax/realtime*"}, "selector": ".span3 table.table-striped", "types": []string{"xhr", "fetch", "dom"}},
+		"duration": 300, // a safety net: the program stops the job itself
+		"filter":   M{"url": []string{"*/w/ajax/realtime*"}, "selector": ".span3 table.table-striped", "types": []string{"xhr", "fetch", "dom"}},
 	}
 	body := M{"deliver": M{"webhook": M{"url": hook, "events": []string{"event", "done"}}}}
 	for k, v := range watch {
@@ -289,10 +303,14 @@ func main() {
 	}
 	sort.Float64s(sent)
 	sort.Float64s(delays)
-	var minGap any
+	var minGap, minGapBeforeStop any
 	for i := 1; i < len(sent); i++ {
-		if g := secs(sent[i] - sent[i-1]); minGap == nil || g < minGap.(float64) {
+		g := secs(sent[i] - sent[i-1])
+		if minGap == nil || g < minGap.(float64) {
 			minGap = g
+		}
+		if i < len(sent)-1 && (minGapBeforeStop == nil || g < minGapBeforeStop.(float64)) {
+			minGapBeforeStop = g
 		}
 	}
 	storedKeys, hookKeys := map[string]bool{}, map[string]bool{}
@@ -345,14 +363,87 @@ func main() {
 		return nil
 	}
 
-	// 6. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
+	// 6. WebSocket messages: start the second watch, stop it after wsStopAfterS, read what it stored.
+	tWs := nowMs()
+	wsStartStatus, wsStart := call("POST", "/v1/functions/watch", wsWatch)
+	if wsStartStatus != 202 {
+		panic(fmt.Sprintf("ws watch %d %v", wsStartStatus, wsStart))
+	}
+	wsID := str(wsStart["job_id"])
+	time.Sleep(time.Duration(wsStopAfterS*1000-(nowMs()-tWs)) * time.Millisecond)
+	call("DELETE", "/v1/jobs/"+wsID, nil)
+	_, wsJob := call("GET", "/v1/jobs/"+wsID, nil)
+	for i := 0; i < 20 && !ended[str(wsJob["status"])]; i++ {
+		time.Sleep(2 * time.Second)
+		_, wsJob = call("GET", "/v1/jobs/"+wsID, nil)
+	}
+	var wsEvents []M
+	for cursor := 0.0; ; {
+		_, r := call("GET", fmt.Sprintf("/v1/jobs/%s/results?cursor=%d", wsID, int64(cursor)), nil)
+		for _, x := range arr(r["results"]) {
+			wsEvents = append(wsEvents, obj(x))
+		}
+		if r["next_cursor"] == nil || num(r["next_cursor"]) == cursor {
+			break
+		}
+		cursor = num(r["next_cursor"])
+	}
+	// Each message is the frame's text: here JSON, cut at 64 KB (a cut one no longer parses).
+	inKeys := M{}
+	sentMsgs, wsURLs := []string{}, []string{}
+	wsIn, wsOut := 0, 0
+	var firstIn, mempoolFirst, mempoolLast any
+	mempoolUpdates := 0
+	for _, e := range wsEvents {
+		if !contains(wsURLs, str(e["url"])) {
+			wsURLs = append(wsURLs, str(e["url"]))
+		}
+		if str(e["direction"]) == "out" {
+			wsOut++
+			sentMsgs = append(sentMsgs, str(e["data"]))
+			continue
+		}
+		wsIn++
+		if firstIn == nil {
+			firstIn = secs(ms(e["at"]) - tWs)
+		}
+		k := "(cut at 64 KB)"
+		if data := str(e["data"]); json.Valid([]byte(data)) {
+			dec := json.NewDecoder(strings.NewReader(data))
+			if t, _ := dec.Token(); t == json.Delim('{') {
+				if t, _ := dec.Token(); t != nil {
+					k = str(t)
+				}
+			}
+			var msg M
+			json.Unmarshal([]byte(data), &msg)
+			if info := obj(msg["mempoolInfo"]); info != nil {
+				if mempoolFirst == nil {
+					mempoolFirst = info["size"]
+				}
+				mempoolLast = info["size"]
+				mempoolUpdates++
+			}
+		}
+		n, _ := inKeys[k].(int)
+		inKeys[k] = n + 1
+	}
+	var mempoolOut any
+	if mempoolUpdates > 0 {
+		mempoolOut = M{"first": mempoolFirst, "last": mempoolLast, "updates": mempoolUpdates}
+	}
+
+	// 7. The bill: a watch runs in your own browser session, one thread for a headless Chrome.
 	since := time.UnixMilli(int64(t0) - 60000).UTC().Format("2006-01-02T15:04:05.000Z")
 	_, ss := call("GET", "/v1/me/sessions?from="+url.QueryEscape(since)+"&limit=200", nil)
-	var session any
+	var session, wsSessionEngine any
 	for _, s := range arr(ss["sessions"]) {
 		so := obj(s)
 		if sid := str(job["session_id"]); sid != "" && (str(so["session_id"]) == sid || str(so["id"]) == sid) {
 			session = M{"engine": so["engine"], "weight": so["weight"], "seconds": secs(ms(so["ended_at"]) - ms(so["started_at"]))}
+		}
+		if sid := str(wsJob["session_id"]); sid != "" && (str(so["session_id"]) == sid || str(so["id"]) == sid) {
+			wsSessionEngine = so["engine"]
 		}
 	}
 
@@ -446,7 +537,13 @@ func main() {
 			"delivery_ids_unique_uuids": len(ids) == len(items) && allUUID, "job_id_matches": jobMatches,
 			"events": len(hookEvents), "events_by_type": byType(hookEvents), "events_all_stored": allStored,
 			"stored_not_in_webhooks": notInHooks, "not_sent_are_the_last": notSentLast, "signed_after_newest_event_seconds": delayOut,
-			"min_gap_seconds": minGap, "max_events_per_batch": maxPerBatch, "done": doneOut,
+			"min_gap_seconds": minGap, "min_gap_before_stop_seconds": minGapBeforeStop, "max_events_per_batch": maxPerBatch, "done": doneOut,
+		},
+		"ws": M{
+			"page": wsWatch["url"], "filter": wsWatch["filter"], "start_status": wsStartStatus, "status": wsJob["status"],
+			"session_engine": wsSessionEngine, "events": len(wsEvents), "in": wsIn, "out": wsOut, "urls": wsURLs,
+			"first_in_seconds": firstIn, "sent": sentMsgs, "received": inKeys, "mempool_txs": mempoolOut,
+			"billed_seconds": wsJob["billed_seconds"],
 		},
 		"measured_at": time.Now().UTC().Format("2006-01-02"),
 	}
