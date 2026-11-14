@@ -4,6 +4,7 @@ Hard, real browser-automation problems solved end to end — what we tried, whic
 
 | # | Case | Difficulty | Browsers |
 |---|---|---|---|
+| #90 | [What a warmup job leaves behind: the cookies, storage and visit history in the profile it warmed](90-what-a-warmup-leaves-behind) | Medium | Camoufox |
 | #89 | [Watch a page live: its XHR calls, DOM changes and WebSocket messages over SSE and a signed webhook](89-watch-a-page-live) | Medium | Google Chrome |
 | #88 | [A monitor end to end: create it, trigger a change, verify the signed webhook, read the diff and history](88-monitor-end-to-end) | Medium | Camoufox |
 | #87 | [Geo compare: the same pages from five countries in one call, and reading the diff](87-geo-compare) | Easy | Camoufox |
