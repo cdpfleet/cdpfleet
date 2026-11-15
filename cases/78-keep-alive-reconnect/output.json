@@ -8,11 +8,11 @@
   },
   "detached": {
     "listed": true,
-    "running_seconds": 13,
+    "running_seconds": 17,
     "seconds": 15.1
   },
   "reconnect": {
-    "ms": 22,
+    "ms": 164,
     "contexts": 2,
     "pages": 3,
     "urls": [
@@ -25,19 +25,19 @@
     "continued": "/catalogue/page-3.html"
   },
   "end": {
-    "gone_after_s": 61.1,
+    "gone_after_s": 36.6,
     "late_reconnect": {
       "connected": false,
-      "error": "browserType.connect: WebSocket error: wss://router01.cdpfleet.com/session/a17fefc7-b8e3-4565-9958-6da37e567d03 404 Not Found"
+      "error": "browserType.connect: WebSocket error: wss://router01.cdpfleet.com/session/0929ce2d-c380-4f5e-92a5-d575f8c5434b 404 Not Found"
     },
     "end_reason": "inactivity_timeout",
-    "duration_seconds": 30,
+    "duration_seconds": 65,
     "weight": 1,
-    "client_seconds": 29
+    "client_seconds": 32.2
   },
   "usage": {
-    "live_while_waiting": 49,
-    "billed": 30
+    "live_while_waiting": 52,
+    "billed": 65
   },
-  "measured_at": "2026-10-30"
+  "measured_at": "2026-11-15"
 }
