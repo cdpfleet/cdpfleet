@@ -23,4 +23,10 @@ Tools: `launch_browser`, `navigate`, `snapshot`, `click`, `type`, `press`, `wait
 `screenshot`, `evaluate`, `live_view`, `close_browser`, `downloads`, `list_browsers`, `account`.
 Launch with `downloads: true` (paid plans) and `downloads` lists the files the session downloaded, with private links, after `close_browser`.
 
+Every browser tool takes an optional `browser_name` (default `default`), so several agents can each drive their own
+browser on one key (up to 5; each counts against your plan's threads).
+
+No browser to drive (Functions): `scrape` (a page as Markdown, text, links or HTML, optionally from a country),
+`screenshot_url`, `map_site` (a site's URLs), and on paid plans `start_job` (batch or crawl) and `job_status`.
+
 Docs: https://cdpfleet.com/docs/mcp

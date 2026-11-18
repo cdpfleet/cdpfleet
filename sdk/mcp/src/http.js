@@ -99,7 +99,7 @@ async function closeBrowser(keyHash, why) {
   const b = browsers.get(keyHash);
   if (!b) return;
   browsers.delete(keyHash);
-  const had = Boolean(b.state.current);
+  const had = b.state.browsers.size > 0;
   await b.state.close().catch(() => {});
   if (had) log('mcp browser closed', { key: keyHash.slice(0, 12), why });
 }
@@ -109,7 +109,7 @@ const server = http.createServer(async (req, res) => {
   try {
     if (path === '/mcp/healthz') {
       res.writeHead(200, { 'content-type': 'application/json' });
-      return res.end(JSON.stringify({ ok: true, sessions: sessions.size, browsers: [...browsers.values()].filter((b) => b.state.current).length }));
+      return res.end(JSON.stringify({ ok: true, sessions: sessions.size, browsers: [...browsers.values()].reduce((n, b) => n + b.state.browsers.size, 0) }));
     }
     const m = PATH.exec(path);
     if (!m) return rpcError(res, 404, 'not found');
