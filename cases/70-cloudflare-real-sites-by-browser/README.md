@@ -2,7 +2,7 @@
 
 **Medium** · 2026-10-26 · Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox · [read it on cdpfleet.com](https://cdpfleet.com/docs/cases/cloudflare-real-sites-by-browser)
 
-> Three real sites behind Cloudflare, chosen from our sweep as easy, medium and hard, loaded once by each of twelve browsers and by a returning Camoufox profile, all through one sticky residential exit per site. The outcome per cell, dated 2026-10-26.
+> Three real sites behind Cloudflare, chosen from our sweep as easy, medium and hard, loaded once by each of twelve browsers and by a returning Camoufox profile, all through one sticky residential exit per site. Measured on 2026-10-26 and again on 2026-11-20, same sites and setup; both dated results are below.
 
 ## The problem
 
@@ -27,7 +27,7 @@ Cloudflare's own test pages ([case 64](https://cdpfleet.com/docs/cases/cloudflar
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-26):
+The same program in five languages, each verified on the production fleet (last run 2026-11-20):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -41,27 +41,29 @@ Environment: `CDPFLEET_API_KEY` (see [cases/README.md](../README.md#environment)
 
 | Setup | Site A, a fashion retailer | Site B, a design-software site | Site C, a shipping company | Measured |
 |---|---|---|---|---|
-| Chrome, headful | content (200) | content (200) | content (200) | 2026-10-26 |
-| Chrome, headless | content (200) | challenge (403) | challenge (403) | 2026-10-26 |
-| Edge, headful | content (200) | content (200) | content (200) | 2026-10-26 |
-| Brave, headful | content (200) | content (200) | content (200) | 2026-10-26 |
-| Opera, headful | content (200) | content (200) | content (200) | 2026-10-26 |
-| Yandex, headful | content (200) | content (200) | content (200) | 2026-10-26 |
-| Whale, headful | content (200) | content (200) | content (200) | 2026-10-26 |
-| Chromium, headless | content (200) | challenge (403) | challenge (403) | 2026-10-26 |
-| Patchright, headful | content (200) | content (200) | challenge (403) | 2026-10-26 |
-| Firefox, headful | content (200) | content (200) | challenge (403) | 2026-10-26 |
-| WebKit, headful | content (200) | challenge (403) | challenge (403) | 2026-10-26 |
-| Camoufox, headful | content (200) | content (200) | content (200) | 2026-10-26 |
-| Camoufox, returning profile (2nd visit) | content (200) | content (200) | content (200) | 2026-10-26 |
+| Chrome, headful | content (200) | content (200) | content (200) | 2026-11-20 |
+| Chrome, headless | content (200) | challenge (403) | challenge (403) | 2026-11-20 |
+| Edge, headful | content (200) | content (200) | content (200) | 2026-11-20 |
+| Brave, headful | content (200) | content (200) | challenge (403) | 2026-11-20 |
+| Opera, headful | content (200) | content (200) | content (200) | 2026-11-20 |
+| Yandex, headful | content (200) | content (200) | content (200) | 2026-11-20 |
+| Whale, headful | content (200) | content (200) | content (200) | 2026-11-20 |
+| Chromium, headless | content (200) | challenge (403) | challenge (403) | 2026-11-20 |
+| Patchright, headful | content (200) | content (200) | content (200) | 2026-11-20 |
+| Firefox, headful | content (200) | challenge (403) | challenge (403) | 2026-11-20 |
+| WebKit, headful | content (200) | challenge (403) | challenge (403) | 2026-11-20 |
+| Camoufox, headful | content (200) | content (200) | challenge (403) | 2026-11-20 |
+| Camoufox, returning profile (2nd visit) | content (200) | content (200) | content (200) | 2026-11-20 |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **Headless was the tell, not the engine.** On 2026-10-26 headless Chrome and headless Chromium met Cloudflare's challenge (`403`) on sites B and C in all five runs, while headful Chrome, Edge, Brave, Opera, Yandex and Whale, the same Chromium underneath, got the real page on all three sites in every run (one network error aside).
-- **Camoufox got all three sites, every time, fresh or returning.** Camoufox headful loaded A, B and C as `content` in all five runs, and so did the returning visit with a saved profile. Site C had stopped Camoufox in our sweep the day before: a real site's verdict moves from day to day, which is why these are dated snapshots.
-- **Stealth patches didn't settle it.** Patchright, headful, got site B in 3 of 5 runs and site C in 2 of 5; the plain branded browsers above did better on these sites.
-- **WebKit was challenged on B and C, Firefox on C.** Both got site A; WebKit met the challenge on B and C in every run, and stock Firefox on C (it got B). Camoufox, built from Firefox source, got all three.
-- **Site A let everyone in.** Every setup, headless ones included, got its page in every run: many sites run Cloudflare without challenging anyone by default.
-- **What to try first on a Cloudflare site:** a headful branded browser or Camoufox. For the vendor's own test pages see [case 64](https://cdpfleet.com/docs/cases/cloudflare-what-gets-through), for which vendor a site uses [case 62](https://cdpfleet.com/docs/cases/which-bot-protection-is-this), and for the other vendors cases [65](https://cdpfleet.com/docs/cases/datadome-what-gets-through) and [67](https://cdpfleet.com/docs/cases/akamai-and-human-what-gets-through); the overview is [/bot-protection](https://cdpfleet.com/bot-protection).
+- **Re-measured on 2026-11-20 (five runs, one per language), same three sites and setup as 2026-10-26.** The table shows the new run; the 2026-10-26 table is kept below it.
+- **Headless was still the tell.** Headless Chrome and headless Chromium met Cloudflare's challenge (`403`) on sites B and C in all five runs, exactly as four weeks earlier, while headful Chrome, Opera and Whale, the same Chromium underneath, got the real page on all three sites every time.
+- **Site C got stricter for some browsers.** Brave, which got site C in all five runs on 2026-10-26, met the challenge there in 4 of 5 on 2026-11-20; Edge in 1 of 5; a fresh Camoufox in 2 of 5 (it had got C every time). A real site's verdict moves from week to week, which is why these are dated snapshots.
+- **A returning profile helped on site C.** Camoufox with a saved profile got all three sites in all five runs, while the fresh Camoufox was challenged on C in 2 of 5: a visitor the site has seen before met fewer checks.
+- **Patchright did better this time.** Headful Patchright got sites B and C in all five runs (3 of 5 and 2 of 5 on 2026-10-26).
+- **Firefox now met the challenge on site B too.** Stock Firefox was challenged on B in 4 of 5 runs (it got B every time four weeks earlier) and on C in all five, as before; WebKit was challenged on B and C in every run, as before.
+- **Site A still let everyone in.** Every setup, headless ones included, got its page in every run on both dates: many sites run Cloudflare without challenging anyone by default.
+- **What to try first on a Cloudflare site:** a headful branded browser (Chrome, Opera and Whale held on every site on both dates) or Camoufox with a returning profile, and re-check before relying on it. For the vendor's own test pages see [case 64](https://cdpfleet.com/docs/cases/cloudflare-what-gets-through), for which vendor a site uses [case 62](https://cdpfleet.com/docs/cases/which-bot-protection-is-this), and for the other vendors cases [65](https://cdpfleet.com/docs/cases/datadome-what-gets-through) and [67](https://cdpfleet.com/docs/cases/akamai-and-human-what-gets-through); the overview is [/bot-protection](https://cdpfleet.com/bot-protection).

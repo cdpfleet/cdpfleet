@@ -1,5 +1,5 @@
 {
-  "measured_at": "2026-10-28",
+  "measured_at": "2026-11-20",
   "setups": {
     "chrome_headful": "Chrome, headful",
     "chrome_headless": "Chrome, headless",
@@ -20,80 +20,80 @@
       "site": "A",
       "results": {
         "chrome_headful": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "error",
+          "status": 0,
           "abck_before": null,
           "abck_after": null
         },
         "chrome_headless": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "edge": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "brave": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "opera": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "yandex": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "whale": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "chromium_headless": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "patchright": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "firefox": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "webkit": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "camoufox": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         },
         "camoufox_returning": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 503,
           "abck_before": null,
           "abck_after": null
         }
@@ -103,10 +103,10 @@
       "site": "B",
       "results": {
         "chrome_headful": {
-          "outcome": "error",
-          "status": 0,
-          "abck_before": null,
-          "abck_after": null
+          "outcome": "content",
+          "status": 200,
+          "abck_before": "-1",
+          "abck_after": "-1"
         },
         "chrome_headless": {
           "outcome": "blocked",
@@ -187,7 +187,7 @@
       "results": {
         "chrome_headful": {
           "outcome": "blocked",
-          "status": 403,
+          "status": 200,
           "abck_before": "-1",
           "abck_after": "-1"
         },
@@ -204,7 +204,7 @@
           "abck_after": "-1"
         },
         "brave": {
-          "outcome": "content",
+          "outcome": "blocked",
           "status": 200,
           "abck_before": "-1",
           "abck_after": "-1"
@@ -252,8 +252,8 @@
           "abck_after": "-1"
         },
         "camoufox": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "blocked",
+          "status": 403,
           "abck_before": "-1",
           "abck_after": "-1"
         },

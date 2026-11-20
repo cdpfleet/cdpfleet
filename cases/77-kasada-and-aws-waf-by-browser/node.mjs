@@ -22,8 +22,8 @@ const SETUPS = [
   ['camoufox', 'Camoufox, headful', 'camoufox', firefox, false],
 ];
 
-// What the page shows after it loaded and had 8 s to run its checks, in the lab's words. AWS WAF's
-// CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 8 s later
+// What the page shows after it loaded and had 12 s to run its checks, in the lab's words. AWS WAF's
+// CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 12 s later
 // (Kasada's 429 answer is a blank page with a script) or an "access denied" page is blocked.
 const STATE = `(() => {
   const text = document.body ? document.body.innerText : '';
@@ -53,7 +53,7 @@ async function launch(engine, headless, proxy, profile) {
 const failed = () => ({ outcome: 'error', status: 0, final_status: 0, kasada: false, aws_waf: false, cookies: [] });
 
 // One session, one load. Records the status of the page's first response and of the last main-frame
-// document 8 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
+// document 12 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
 // headers or cookies showed up (cookie and header NAMES only; values are never read), and the state.
 async function visit(setup, url, proxy, profile) {
   const [, , engine, type, headless] = setup;
@@ -80,12 +80,12 @@ async function visit(setup, url, proxy, profile) {
       // A reset HTTP/2 connection is a refusal, not a network failure.
       return { ...failed(), outcome: /ERR_HTTP2_PROTOCOL_ERROR/.test(err.message) ? 'blocked' : 'error' };
     }
-    await tab.waitForTimeout(8000);
+    await tab.waitForTimeout(12000);
     let outcome = await tab.evaluate(STATE).catch(() => 'error');
     const [finalStatus, finalAt] = seen.docs.at(-1) || [status, 0];
     let clearedS = null;
     // A 202/429 check that passed by itself reloads the page with a success status: cleared, even if
-    // the new page hasn't rendered yet at the 8 s mark. Without that reload it never cleared.
+    // the new page hasn't rendered yet at the 12 s mark. Without that reload it never cleared.
     if (outcome === 'content' || outcome === 'blank') {
       if (finalStatus >= 400) outcome = 'blocked';
       else if (status >= 400 || status === 202) {

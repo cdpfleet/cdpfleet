@@ -39,20 +39,20 @@ Environment: `CDPFLEET_API_KEY` (see [cases/README.md](../README.md#environment)
 
 ## What we got
 
-| Setup (JA4 group) | browser.version() today | JA4 today (peetprint · HTTP/2) | Cloudflare, got in (2026-10-26) | DataDome, got in (2026-10-27) | Akamai, got in (2026-10-28) | HUMAN, got in (2026-10-29) | Kasada, got in (2026-10-30) | AWS WAF, got in (2026-10-30) |
+| Setup (JA4 group) | browser.version() today | JA4 today (peetprint · HTTP/2) | Cloudflare, got in (2026-11-20) | DataDome, got in (2026-11-20) | Akamai, got in (2026-11-20) | HUMAN, got in (2026-11-20) | Kasada, got in (2026-11-20) | AWS WAF, got in (2026-11-20) |
 |---|---|---|---|---|---|---|---|---|
-| J1 · Chrome, headful | 157.0.8103.38 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 14/14 | 15/15 | 9/14 | 9/14 | 1/10 | 9/9 |
-| J1 · Chrome, headless | 157.0.8103.38 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 5/15 | 4/14 | 5/15 | 5/15 | 0/10 | 5/10 |
-| J1 · Opera, headful | 155.0.8059.85 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 15/15 | 11/15 | 15/15 | 8/15 | 0/10 | 10/10 |
-| J1 · Yandex, headful | 26.10.0.0 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 15/15 (as J2 that week) | 6/15 (as J2 that week) | 5/15 (as J2 that week) | 13/15 (as J2 that week) | 0/10 (build changed that day) | 10/10 (build changed that day) |
-| J2 · Edge, headful | 156.0.4314.58 | t13d1516h2_8daaf6152771_806a8c22fdea (8f568b2a · 52d84b11) | 15/15 | 11/15 | 10/15 | 7/14 | 0/10 | 10/10 |
-| J2 · Brave, headful | 156.0.8078.80 | t13d1516h2_8daaf6152771_806a8c22fdea (8f568b2a · 52d84b11) | 15/15 | 10/15 | 15/15 | 6/15 | 1/10 | 10/10 |
-| J2 · Whale, headful | 150.0.7871.252 | t13d1516h2_8daaf6152771_806a8c22fdea (67c3e911 · 52d84b11) | 15/15 | 11/15 | 10/15 | 14/15 | 0/10 | 10/10 |
-| J3 · Chromium, headless | 148.0.7778.96 | t13d1516h2_8daaf6152771_d8a2da3f94cd (1d4ffe9b · 52d84b11) | 5/15 | 5/15 | 5/15 | 5/15 | 0/10 | 5/10 |
-| J3 · Patchright, headful | 148.0.7778.96 | t13d1516h2_8daaf6152771_d8a2da3f94cd (1d4ffe9b · 52d84b11) | 10/15 | 10/15 | 10/15 | 6/15 | 0/10 | 10/10 |
-| J4 · Firefox, headful | 150.0.2 | t13d1617h2_86a278354501_3cbfd9057e0d (fd4547ee · 6ea73faa) | 10/15 | 11/15 | 10/15 | 5/15 | 0/10 | 9/10 |
-| J5 · Camoufox, headful | 156.0.1-beta.34 | t13d1517h2_8daaf6152771_3cbfd9057e0d (a4bbbc7e · 6ea73faa) | 15/15 | 7/15 | 12/15 | 13/15 | 6/10 | 10/10 |
-| J6 · WebKit, headful | 26.4 | t13d2913h1_723694b0fccc_5671b5df5029 (e2a4f6ec · HTTP/1.1, no HTTP/2) | 5/15 | 8/15 | 10/15 | 12/15 | 0/10 | 8/10 |
+| J1 · Chrome, headful | 157.0.8103.38 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 15/15 | 13/15 | 9/14 | 9/14 | 5/10 | 10/10 |
+| J1 · Chrome, headless | 157.0.8103.38 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 5/15 | 5/15 | 4/15 | 5/15 | 5/10 | 5/10 |
+| J1 · Opera, headful | 155.0.8059.85 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 15/15 | 5/15 | 14/15 | 8/15 | 5/10 | 10/10 |
+| J1 · Yandex, headful | 26.10.0.0 | t13d1517h2_8daaf6152771_cb7bf5808d99 (fc97c1cd · 52d84b11) | 14/14 (as J2 that week) | 9/15 (as J2 that week) | 4/15 (as J2 that week) | 12/15 (as J2 that week) | 5/10 (build changed that day) | 10/10 (build changed that day) |
+| J2 · Edge, headful | 156.0.4314.58 | t13d1516h2_8daaf6152771_806a8c22fdea (8f568b2a · 52d84b11) | 14/15 | 9/15 | 9/15 | 5/15 | 5/10 | 10/10 |
+| J2 · Brave, headful | 156.0.8078.80 | t13d1516h2_8daaf6152771_806a8c22fdea (8f568b2a · 52d84b11) | 11/15 | 9/15 | 9/15 | 3/15 | 5/10 | 10/10 |
+| J2 · Whale, headful | 150.0.7871.252 | t13d1516h2_8daaf6152771_806a8c22fdea (67c3e911 · 52d84b11) | 15/15 | 9/15 | 9/15 | 13/15 | 5/10 | 10/10 |
+| J3 · Chromium, headless | 148.0.7778.96 | t13d1516h2_8daaf6152771_d8a2da3f94cd (1d4ffe9b · 52d84b11) | 5/15 | 5/15 | 4/15 | 5/15 | 5/10 | 5/10 |
+| J3 · Patchright, headful | 148.0.7778.96 | t13d1516h2_8daaf6152771_d8a2da3f94cd (1d4ffe9b · 52d84b11) | 15/15 | 9/15 | 9/15 | 5/15 | 5/10 | 10/10 |
+| J4 · Firefox, headful | 150.0.2 | t13d1617h2_86a278354501_3cbfd9057e0d (fd4547ee · 6ea73faa) | 6/15 | 9/15 | 9/15 | 5/15 | 5/10 | 10/10 |
+| J5 · Camoufox, headful | 156.0.1-beta.34 | t13d1517h2_8daaf6152771_3cbfd9057e0d (a4bbbc7e · 6ea73faa) | 13/15 | 8/15 | 9/15 | 8/15 | 10/10 | 10/10 |
+| J6 · WebKit, headful | 26.4 | t13d2913h1_723694b0fccc_5671b5df5029 (e2a4f6ec · HTTP/1.1, no HTTP/2) | 5/15 | 7/14 | 10/15 | 11/15 | 5/10 | 10/10 |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 

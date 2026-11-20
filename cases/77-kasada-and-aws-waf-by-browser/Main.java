@@ -35,8 +35,8 @@ public class Main {
       new Setup("webkit", "WebKit, headful", "webkit", "webkit", false),
       new Setup("camoufox", "Camoufox, headful", "camoufox", "firefox", false));
 
-  // What the page shows after it loaded and had 8 s to run its checks, in the lab's words. AWS WAF's
-  // CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 8 s later
+  // What the page shows after it loaded and had 12 s to run its checks, in the lab's words. AWS WAF's
+  // CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 12 s later
   // (Kasada's 429 answer is a blank page with a script) or an "access denied" page is blocked.
   static final String STATE = """
       (() => {
@@ -93,7 +93,7 @@ public class Main {
   }
 
   // One session, one load. Records the status of the page's first response and of the last main-frame
-  // document 8 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
+  // document 12 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
   // headers or cookies showed up (cookie and header NAMES only; values are never read), and the state.
   static Map<String, Object> visit(Playwright pw, Setup s, String url, String proxy, String profile) {
     try {
@@ -130,14 +130,14 @@ public class Main {
           // A reset HTTP/2 connection is a refusal, not a network failure.
           return failed(String.valueOf(e.getMessage()).contains("ERR_HTTP2_PROTOCOL_ERROR") ? "blocked" : "error");
         }
-        tab.waitForTimeout(8000);
+        tab.waitForTimeout(12000);
         String outcome;
         try { outcome = (String) tab.evaluate(STATE); } catch (PlaywrightException e) { outcome = "error"; }
         int finalStatus = docs.isEmpty() ? status : (int) docs.get(docs.size() - 1)[0];
         double finalAt = docs.isEmpty() ? 0 : docs.get(docs.size() - 1)[1];
         Double clearedS = null;
         // A 202/429 check that passed by itself reloads the page with a success status: cleared, even if
-        // the new page hasn't rendered yet at the 8 s mark. Without that reload it never cleared.
+        // the new page hasn't rendered yet at the 12 s mark. Without that reload it never cleared.
         if ("content".equals(outcome) || "blank".equals(outcome)) {
           if (finalStatus >= 400) outcome = "blocked";
           else if (status >= 400 || status == 202) {

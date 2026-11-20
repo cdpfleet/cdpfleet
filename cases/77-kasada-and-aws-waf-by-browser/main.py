@@ -30,8 +30,8 @@ SETUPS = [
     ("camoufox", "Camoufox, headful", "camoufox", "firefox", False),
 ]
 
-# What the page shows after it loaded and had 8 s to run its checks, in the lab's words. AWS WAF's
-# CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 8 s later
+# What the page shows after it loaded and had 12 s to run its checks, in the lab's words. AWS WAF's
+# CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 12 s later
 # (Kasada's 429 answer is a blank page with a script) or an "access denied" page is blocked.
 STATE = r"""(() => {
   const text = document.body ? document.body.innerText : '';
@@ -67,7 +67,7 @@ async def launch(engine, headless, proxy, profile=None):
 
 
 # One session, one load. Records the status of the page's first response and of the last main-frame
-# document 8 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
+# document 12 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
 # headers or cookies showed up (cookie and header NAMES only; values are never read), and the state.
 async def visit(pw, setup, url, proxy, profile=None):
     _, _, engine, kind, headless = setup
@@ -104,7 +104,7 @@ async def visit(pw, setup, url, proxy, profile=None):
         except Exception as err:
             # A reset HTTP/2 connection is a refusal, not a network failure.
             return {**NONE, "outcome": "blocked" if "ERR_HTTP2_PROTOCOL_ERROR" in str(err) else "error"}
-        await tab.wait_for_timeout(8000)
+        await tab.wait_for_timeout(12000)
         try:
             outcome = await tab.evaluate(STATE)
         except Exception:
@@ -112,7 +112,7 @@ async def visit(pw, setup, url, proxy, profile=None):
         final_status, final_at = seen["docs"][-1] if seen["docs"] else (status, 0)
         cleared_s = None
         # A 202/429 check that passed by itself reloads the page with a success status: cleared, even if
-        # the new page hasn't rendered yet at the 8 s mark. Without that reload it never cleared.
+        # the new page hasn't rendered yet at the 12 s mark. Without that reload it never cleared.
         if outcome in ("content", "blank"):
             if final_status >= 400:
                 outcome = "blocked"

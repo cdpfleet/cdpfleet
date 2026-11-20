@@ -1,5 +1,5 @@
 {
-  "measured_at": "2026-10-29",
+  "measured_at": "2026-11-20",
   "setups": {
     "chrome_headful": "Chrome, headful",
     "chrome_headless": "Chrome, headless",
@@ -23,7 +23,11 @@
           "outcome": "content",
           "status": 200,
           "px_cookies": [
-            "_pxhd"
+            "_px3",
+            "_pxde",
+            "_pxhd",
+            "_pxvid",
+            "pxcts"
           ]
         },
         "chrome_headless": {
@@ -32,6 +36,7 @@
           "px_cookies": [
             "_px3",
             "_pxde",
+            "_pxhd",
             "_pxvid",
             "pxcts"
           ]
@@ -48,7 +53,7 @@
           ]
         },
         "brave": {
-          "outcome": "content",
+          "outcome": "challenge",
           "status": 200,
           "px_cookies": [
             "_px3",
@@ -59,7 +64,7 @@
           ]
         },
         "opera": {
-          "outcome": "content",
+          "outcome": "challenge",
           "status": 200,
           "px_cookies": [
             "_px3",
@@ -113,7 +118,7 @@
           ]
         },
         "firefox": {
-          "outcome": "challenge",
+          "outcome": "content",
           "status": 200,
           "px_cookies": [
             "_px3",
@@ -127,7 +132,6 @@
           "outcome": "content",
           "status": 200,
           "px_cookies": [
-            "_px3",
             "_pxde",
             "_pxhd",
             "_pxvid",
@@ -162,28 +166,44 @@
       "site": "B",
       "results": {
         "chrome_headful": {
-          "outcome": "error",
-          "status": 0,
-          "px_cookies": []
+          "outcome": "content",
+          "status": 200,
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "chrome_headless": {
           "outcome": "challenge",
           "status": 403,
-          "px_cookies": []
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "edge": {
-          "outcome": "error",
-          "status": 0,
-          "px_cookies": []
+          "outcome": "challenge",
+          "status": 403,
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "brave": {
-          "outcome": "content",
-          "status": 200,
-          "px_cookies": []
+          "outcome": "challenge",
+          "status": 403,
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "opera": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "challenge",
+          "status": 403,
           "px_cookies": [
             "_px3",
             "_pxvid",
@@ -193,7 +213,11 @@
         "yandex": {
           "outcome": "content",
           "status": 200,
-          "px_cookies": []
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "whale": {
           "outcome": "content",
@@ -207,11 +231,15 @@
         "chromium_headless": {
           "outcome": "challenge",
           "status": 403,
-          "px_cookies": []
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "patchright": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "challenge",
+          "status": 403,
           "px_cookies": [
             "_px3",
             "_pxvid",
@@ -219,14 +247,22 @@
           ]
         },
         "firefox": {
-          "outcome": "content",
-          "status": 200,
-          "px_cookies": []
+          "outcome": "challenge",
+          "status": 403,
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "webkit": {
           "outcome": "content",
           "status": 200,
-          "px_cookies": []
+          "px_cookies": [
+            "_px3",
+            "_pxvid",
+            "pxcts"
+          ]
         },
         "camoufox": {
           "outcome": "content",
@@ -238,8 +274,8 @@
           ]
         },
         "camoufox_returning": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "challenge",
+          "status": 403,
           "px_cookies": [
             "_px3",
             "_pxvid",
@@ -296,6 +332,17 @@
           ]
         },
         "opera": {
+          "outcome": "content",
+          "status": 200,
+          "px_cookies": [
+            "_px3",
+            "_pxde",
+            "_pxhd",
+            "_pxvid",
+            "pxcts"
+          ]
+        },
+        "yandex": {
           "outcome": "challenge",
           "status": 403,
           "px_cookies": [
@@ -306,20 +353,9 @@
             "pxcts"
           ]
         },
-        "yandex": {
-          "outcome": "content",
-          "status": 200,
-          "px_cookies": [
-            "_px3",
-            "_pxde",
-            "_pxhd",
-            "_pxvid",
-            "pxcts"
-          ]
-        },
         "whale": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "challenge",
+          "status": 403,
           "px_cookies": [
             "_px3",
             "_pxde",
@@ -373,8 +409,8 @@
           ]
         },
         "camoufox": {
-          "outcome": "content",
-          "status": 200,
+          "outcome": "challenge",
+          "status": 403,
           "px_cookies": [
             "_px3",
             "_pxde",

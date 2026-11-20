@@ -1,5 +1,5 @@
 {
-  "measured_at": "2026-10-27",
+  "measured_at": "2026-11-20",
   "setups": {
     "chrome_headful": "Chrome, headful",
     "chrome_headless": "Chrome, headless",
@@ -85,36 +85,36 @@
           "status": 403
         },
         "edge": {
-          "outcome": "content",
-          "status": 200
+          "outcome": "challenge",
+          "status": 403
         },
         "brave": {
-          "outcome": "content",
-          "status": 200
+          "outcome": "challenge",
+          "status": 403
         },
         "opera": {
-          "outcome": "content",
-          "status": 200
+          "outcome": "challenge",
+          "status": 403
         },
         "yandex": {
           "outcome": "challenge",
           "status": 403
         },
         "whale": {
-          "outcome": "content",
-          "status": 200
+          "outcome": "challenge",
+          "status": 403
         },
         "chromium_headless": {
           "outcome": "challenge",
           "status": 403
         },
         "patchright": {
-          "outcome": "content",
-          "status": 200
+          "outcome": "challenge",
+          "status": 403
         },
         "firefox": {
-          "outcome": "content",
-          "status": 200
+          "outcome": "challenge",
+          "status": 403
         },
         "webkit": {
           "outcome": "challenge",

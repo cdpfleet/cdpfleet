@@ -2,7 +2,7 @@
 
 **Medium** · 2026-10-28 · Google Chrome, Microsoft Edge, Brave, Opera, Yandex Browser, Naver Whale, Chromium, Patchright, Firefox, WebKit, Camoufox · [read it on cdpfleet.com](https://cdpfleet.com/docs/cases/akamai-real-sites-by-browser)
 
-> Three real sites behind Akamai Bot Manager, chosen from our sweep as easy, medium and hard, loaded once by each of twelve browsers and by a returning Camoufox profile, through one sticky residential exit per site, with the state of Akamai's _abck cookie. Dated 2026-10-28.
+> Three real sites behind Akamai Bot Manager, chosen from our sweep as easy, medium and hard, loaded once by each of twelve browsers and by a returning Camoufox profile, through one sticky residential exit per site, with the state of Akamai's _abck cookie. Measured on 2026-10-28 and again on 2026-11-20, same sites and setup; both dated results are below.
 
 ## The problem
 
@@ -28,7 +28,7 @@ Akamai's own site ([case 67](https://cdpfleet.com/docs/cases/akamai-and-human-wh
 
 ## The code
 
-The same program in five languages, each verified on the production fleet (last run 2026-10-28):
+The same program in five languages, each verified on the production fleet (last run 2026-11-20):
 
 - [Node.js](node.mjs) — npm install playwright@1.60.0 && node node.mjs
 - [Python](main.py) — pip install playwright==1.60.0 requests aiohttp && python main.py
@@ -42,27 +42,28 @@ Environment: `CDPFLEET_API_KEY` (see [cases/README.md](../README.md#environment)
 
 | Setup | Site A, a bank | Site B, a home-improvement retailer | Site C, a game-key marketplace | Measured |
 |---|---|---|---|---|
-| Chrome, headful | content (200) | error | blocked (403) · _abck -1 | 2026-10-28 |
-| Chrome, headless | content (200) | blocked (200) | blocked | 2026-10-28 |
-| Edge, headful | content (200) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-10-28 |
-| Brave, headful | content (200) | content (200) · _abck -1 | content (200) · _abck -1 | 2026-10-28 |
-| Opera, headful | content (200) | content (200) · _abck -1 | content (200) · _abck -1 | 2026-10-28 |
-| Yandex, headful | content (200) | blocked (200) | blocked (200) · _abck -1 | 2026-10-28 |
-| Whale, headful | content (200) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-10-28 |
-| Chromium, headless | content (200) | blocked (200) | blocked | 2026-10-28 |
-| Patchright, headful | content (200) | content (200) · _abck -1 | blocked (403) · _abck -1 | 2026-10-28 |
-| Firefox, headful | content (200) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-10-28 |
-| WebKit, headful | content (200) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-10-28 |
-| Camoufox, headful | content (200) | content (200) · _abck -1 | content (200) · _abck -1 | 2026-10-28 |
-| Camoufox, returning profile (2nd visit) | content (200) | content (200) · _abck -1 | content (200) · _abck -1 | 2026-10-28 |
+| Chrome, headful | error | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-11-20 |
+| Chrome, headless | blocked (503) | blocked (200) | blocked | 2026-11-20 |
+| Edge, headful | blocked (503) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-11-20 |
+| Brave, headful | blocked (503) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-11-20 |
+| Opera, headful | blocked (503) | content (200) · _abck -1 | content (200) · _abck -1 | 2026-11-20 |
+| Yandex, headful | blocked (503) | blocked (200) | blocked (200) · _abck -1 | 2026-11-20 |
+| Whale, headful | blocked (503) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-11-20 |
+| Chromium, headless | blocked (503) | blocked (200) | blocked | 2026-11-20 |
+| Patchright, headful | blocked (503) | content (200) · _abck -1 | blocked (403) · _abck -1 | 2026-11-20 |
+| Firefox, headful | blocked (503) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-11-20 |
+| WebKit, headful | blocked (503) | content (200) · _abck -1 | blocked (200) · _abck -1 | 2026-11-20 |
+| Camoufox, headful | blocked (503) | content (200) · _abck -1 | blocked (403) · _abck -1 | 2026-11-20 |
+| Camoufox, returning profile (2nd visit) | blocked (503) | content (200) · _abck -1 | content (200) · _abck -1 | 2026-11-20 |
 
 IP addresses are replaced with placeholders (203.0.113.x); equal addresses stay equal. Full output: [output.json](output.json).
 
 ## Takeaways
 
-- **Headless was refused on both protected sites, before Akamai even set its cookie.** On 2026-10-28 headless Chrome and headless Chromium got Akamai's block page on site B in all five runs, with no `_abck` cookie at all, and on site C Akamai reset the connection (`ERR_HTTP2_PROTOCOL_ERROR`) every time. Yandex, though headful, was blocked on site B the same way in every run.
-- **On the hardest site the winners were Brave and Opera, not Chrome.** Site C let Brave and Opera in on all five runs and blocked headful Chrome, Edge, Whale, Yandex and Patchright in every run, the reverse of DataDome's sites, where headful Chrome was the one setup let in everywhere ([case 71](https://cdpfleet.com/docs/cases/datadome-real-sites-by-browser)). Firefox and WebKit were blocked on site C too.
-- **A returning Camoufox profile helped on Akamai.** On site C a fresh Camoufox got the page in two of five runs; the second visit with a saved profile got it in all five. On DataDome's sites a returning profile changed nothing; on Cloudflare's it helped, as here.
-- **`_abck` never validated, and it didn't decide the page.** Wherever Akamai set `_abck`, its status read `-1` right after the page loaded and still `-1` 8 s later, in every cell of every run: on site B the page was served with it unvalidated, on site C most setups were blocked with the same `-1`. Akamai's own site behaved the same way ([case 67](https://cdpfleet.com/docs/cases/akamai-and-human-what-gets-through)).
-- **Site B let every other headful browser in.** Headful Chrome, Edge, Brave, Opera, Whale, Patchright, Firefox, WebKit and Camoufox (fresh and returning) got site B in every run (one network error aside).
-- **Site A let everyone in** and set no `_abck` cookie on its home page: a site can use Akamai for some pages or actions without checking its front door. The overview across vendors is [/bot-protection](https://cdpfleet.com/bot-protection); Cloudflare's and DataDome's real sites are [case 70](https://cdpfleet.com/docs/cases/cloudflare-real-sites-by-browser) and [case 71](https://cdpfleet.com/docs/cases/datadome-real-sites-by-browser).
+- **Re-measured on 2026-11-20 (five runs, one per language), same three sites and setup as 2026-10-28.** The table shows the new run; the 2026-10-28 table is kept below it.
+- **Headless was still refused on both protected sites.** Headless Chrome and headless Chromium got Akamai's block page on site B and were refused on site C in all five runs, as four weeks earlier; Yandex, though headful, was again blocked on site B in every run.
+- **On the hardest site only Opera got in every time.** Site C let Opera in on all five runs on both dates. Brave, the other winner on 2026-10-28, was blocked there in all five runs this time, and WebKit got through once. Headful Chrome, Edge, Whale, Yandex, Patchright and Firefox were blocked in every run on both dates.
+- **A returning Camoufox profile still did better than a fresh one, but less well.** On site C the fresh Camoufox was blocked in all five runs (it got in twice on 2026-10-28), and the second visit with a saved profile got the page in two of five (all five four weeks earlier).
+- **`_abck` still never validated.** Wherever Akamai set `_abck`, its status read `-1` right after the page loaded and 8 s later, in every cell of every run, on both dates: the cookie's state didn't decide the page.
+- **Site B was unchanged:** every other headful browser got it in every run (headful Chrome now in all five).
+- **Site A had one bad run.** It let every setup in on four of five runs and set no `_abck` on its home page; in the fifth (the Node.js one) every setup got HTTP 503 with no Akamai cookie, the same answer whatever the browser. That reads as the site refusing that residential exit at that minute, not as a verdict on the browsers. The overview across vendors is [/bot-protection](https://cdpfleet.com/bot-protection); Cloudflare's and DataDome's real sites are [case 70](https://cdpfleet.com/docs/cases/cloudflare-real-sites-by-browser) and [case 71](https://cdpfleet.com/docs/cases/datadome-real-sites-by-browser).

@@ -48,8 +48,8 @@ var setups = []setup{
 	{"camoufox", "Camoufox, headful", "camoufox", "firefox", false},
 }
 
-// What the page shows after it loaded and had 8 s to run its checks, in the lab's words. AWS WAF's
-// CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 8 s later
+// What the page shows after it loaded and had 12 s to run its checks, in the lab's words. AWS WAF's
+// CAPTCHA ("Let's confirm you are human") is interactive: a challenge. A near-empty page 12 s later
 // (Kasada's 429 answer is a blank page with a script) or an "access denied" page is blocked.
 const state = `(() => {
   const text = document.body ? document.body.innerText : '';
@@ -132,7 +132,7 @@ func launch(engine string, headless any, proxy, profile string) (string, error) 
 }
 
 // One session, one load. Records the status of the page's first response and of the last main-frame
-// document 8 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
+// document 12 s later (an interstitial that clears itself reloads the page), which vendor's scripts,
 // headers or cookies showed up (cookie and header NAMES only; values are never read), and the state.
 func visit(pw *playwright.Playwright, s setup, url, proxy, profile string) cell {
 	ws, err := launch(s.Engine, s.Headless, proxy, profile)
@@ -203,7 +203,7 @@ func visit(pw *playwright.Playwright, s setup, url, proxy, profile string) cell 
 	if res != nil {
 		status = res.Status()
 	}
-	tab.WaitForTimeout(8000)
+	tab.WaitForTimeout(12000)
 	v, err := tab.Evaluate(state)
 	outcome, _ := v.(string)
 	if err != nil || outcome == "" {
@@ -219,7 +219,7 @@ func visit(pw *playwright.Playwright, s setup, url, proxy, profile string) cell 
 		final, finalAt = docs[len(docs)-1].status, docs[len(docs)-1].at
 	}
 	// A 202/429 check that passed by itself reloads the page with a success status: cleared, even if
-	// the new page hasn't rendered yet at the 8 s mark. Without that reload it never cleared.
+	// the new page hasn't rendered yet at the 12 s mark. Without that reload it never cleared.
 	if outcome == "content" || outcome == "blank" {
 		if final >= 400 {
 			outcome = "blocked"
